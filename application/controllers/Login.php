@@ -16,7 +16,7 @@ class Login extends CI_Controller
         $data['title'] = 'Login | ePMC';
         $this->load->view('include-website/head', $data);
         $this->load->view('include-website/navbar');
-        $this->load->view('website/login-view');
+        $this->load->view('website-views/login-view');
         $this->load->view('include-website/scripts');
         
     }
