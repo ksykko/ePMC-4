@@ -8,9 +8,9 @@ $('.logo').on('click', function(e) {
     }, 750, 'easeInOutQuad')
 });
 // LINKS TO ANCHORS
-$('a[href^="#"]').on('click', function(event) {
+$('a[id^="#"]').on('click', function(event) {
 
-    var $target = $(this.getAttribute('href'));
+    var $target = $(this.getAttribute('id'));
 
     if ($target.length) {
         event.preventDefault();
