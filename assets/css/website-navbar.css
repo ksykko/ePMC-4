@@ -222,7 +222,7 @@ header nav ul li a {
 }
 
 .hide-nav {
-    transform: translateY(-120% !important);
+    transform: translateY(-120%)!important;
     -webkit-transform: translateY(-120%) !important;
 }
 
