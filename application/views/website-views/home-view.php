@@ -34,7 +34,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatardoc.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Dr. Luis Pagtakhan<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Dr. Luis Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Owner / Family Medicine</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -53,7 +53,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarcashier.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Emelie Pagtakhan<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Emelie Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Owner / General Manager</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -74,7 +74,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarfemaledoc.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Dr. Jaymie Pagtakhan<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Dr. Jaymie Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Obstetrics and Gynecology<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -93,7 +93,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatardoc2.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Dr. Jass Hussein<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Dr. Jass Hussein<br /></h5>
                         <p class="text-muted card-text mb-2">Orthopedics<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -112,7 +112,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('assets/img/avatars/avatardoc3.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Dr. Miguel Pagtakhan<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Dr. Miguel Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Family Medicine</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -133,7 +133,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarsecretary.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Genalyn Tupan<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Genalyn Tupan<br /></h5>
                         <p class="text-muted card-text mb-2">Secretary<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -152,7 +152,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarmanager.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Karen Tumayo<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Karen Tumayo<br /></h5>
                         <p class="text-muted card-text mb-2">Secretary<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -171,7 +171,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Marissa Samaniego<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Marissa Samaniego<br /></h5>
                         <p class="text-muted card-text mb-2">Nurse</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -192,7 +192,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarpharmacyassistant.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Carina Tumimbang<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Carina Tumimbang<br /></h5>
                         <p class="text-muted card-text mb-2">Pharmacy Assistant<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -211,7 +211,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarmanager.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Ms. Melody Gayondato<br /></h5>
+                        <h5 class="fw-bold card-title mb-0">Ms. Melody Gayondato<br /></h5>
                         <p class="text-muted card-text mb-2">Cashier<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -238,7 +238,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/PJ.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Manuel, Paul Jeremy C.</h5>
+                        <h5 class="fw-bold card-title mb-0">Manuel, Paul Jeremy C.</h5>
                         <p class="text-muted card-text mb-2">Project Manager</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -257,7 +257,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Venge.png') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Angot, Vengeline B.</h5>
+                        <h5 class="fw-bold card-title mb-0">Angot, Vengeline B.</h5>
                         <p class="text-muted card-text mb-2">Creative Director</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -276,7 +276,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Ken.jpg') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Sagala, Kendrick Andre A,</h5>
+                        <h5 class="fw-bold card-title mb-0">Sagala, Kendrick Andre A,</h5>
                         <p class="text-muted card-text mb-2">Technical Lead</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
@@ -295,7 +295,7 @@
             <div class="col">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Rian.jpg') ?>" />
-                        <h5 class="fw-bold text-primary card-title mb-0">Sandoval, Mary Angel R.</h5>
+                        <h5 class="fw-bold card-title mb-0">Sandoval, Mary Angel R.</h5>
                         <p class="text-muted card-text mb-2">QA Specialist</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
                             <li class="list-inline-item text-center">
