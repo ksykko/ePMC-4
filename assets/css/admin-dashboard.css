@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+html {
+	min-height: 100vh !important;
+}
 
 body{
 	font-family: 'Roboto', sans-serif;
-	height: 100%;
+	min-height: 100vh;
 	background-color: #f0f0f0 !important;
 	
 }
@@ -11,6 +14,7 @@ body{
 	padding: 0;
 	
 }
+
 i {
 	margin-right: 10px;
 
@@ -122,13 +126,13 @@ i {
 
 .profile-sidebar {
 	display: flex;
+	flex: 1;
 	flex-direction: column;
-	width: 350px;
-	height: 100ex;
+	min-width: 375px;
+	min-height: 100%;
 	background-color: #284A94;
 	border-radius: 30px !important;
 	justify-content: flex-start;
-	position: absolute;
 	margin: 20px;
 }
 
@@ -144,7 +148,6 @@ i {
 	color: white;
 	font-weight: 700;
 	width: 75%;
-	height: 50px;
 	align-self: center;
 	text-align: center;
 	flex-grow: 1;
@@ -154,9 +157,17 @@ i {
 	font-weight: 400;
 }
 
+/* Container Fluid */
+.container-fluid {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	position: relative;
+}
+
 /* Main Wrapper */
 .main-wrapper {
-	margin-left: 375px;
+	height: 100%;
 }
 
 .main-content {
@@ -170,15 +181,14 @@ i {
 
 .main-content .box-wrapper:last-child {
 	flex-basis: 100%;
-	height: 35ex;
+	height: 100%;
 	font-size: 30px;
 	font-weight: 700;
-	
 }
 
 .main-content .box-wrapper .inner-content{
 	border-radius: 40px;
-	height: 200px;
+	height: 300px;
 	margin: 15px;
 	text-align: center;
 	display: flex;
@@ -270,4 +280,26 @@ i {
 
 .main-content .box-wrapper:last-child .inner-content td:last-child{
 	text-align: left;
+}
+
+@media (max-width: 1000px) {
+	body {
+		display: flex;
+		flex-direction: column;
+		justify-content:center;
+		align-items: center;
+	}
+
+	.main-content .box-wrapper .inner-content {
+		flex-wrap: nowrap;
+		min-width: 100px;
+	}
+
+	.main-content .box-wrapper {
+		flex-direction: row;
+	}
+
+	.profile-sidebar {
+		position: relative;
+	}
 }
