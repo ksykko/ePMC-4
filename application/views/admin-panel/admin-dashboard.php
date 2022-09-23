@@ -41,7 +41,6 @@
             </footer>
         </div> 
     
-
         <div class="main-wrapper">
             <main class="main-content">
                 <div class="box-wrapper">
@@ -77,6 +76,7 @@
                 </div>
             
                 <div class="box-wrapper">
+                    
                     <label for="" style="margin-left: 20px;">Recent Activity</label>
                     <div class="inner-content">
                         <?php 
@@ -104,6 +104,4 @@
             </main>
         </div>
     </div>
-    
-
 </body>
