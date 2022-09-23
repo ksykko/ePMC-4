@@ -26,8 +26,14 @@ i {
     float: right;
     overflow: hidden;
     position: relative;
-    padding: 10px 20px;
+    padding: 10px;
     width: 100%;
+}
+
+#navbar-animmenu ul {
+    padding: 0px;
+    margin: 0px;
+    float: right;
 }
 
 #navbar-animmenu ul {
@@ -144,12 +150,13 @@ i {
     border-radius: 30px !important;
     justify-content: flex-start;
     margin: 20px;
+    padding: 5%;
 }
 
 .profile-sidebar .sidebar-footer {
     height: 30px;
+    margin-bottom: 10px;
     text-align: center;
-    margin-bottom: 20px;
     color: white;
 }
 
@@ -170,9 +177,10 @@ i {
 
 /* Container Fluid */
 
-.container-fluid-profile {
+.container-fluid {
     display: flex;
     flex-direction: row;
+    width: max-content;
     height: 100%;
     position: relative;
 }
@@ -182,6 +190,7 @@ i {
 
 .main-wrapper {
     height: 100%;
+    width: 100%;
 }
 
 .main-content {
@@ -202,7 +211,7 @@ i {
 
 .main-content .box-wrapper .inner-content {
     border-radius: 40px;
-    height: 300px;
+    height: 250px;
     margin: 15px;
     text-align: center;
     display: flex;
@@ -274,7 +283,7 @@ i {
 
 .main-content .box-wrapper:last-child .inner-content table {
     table-layout: fixed;
-    width: 100%;
+    min-width: 95%;
 }
 
 .tr-table {
@@ -292,24 +301,42 @@ i {
 }
 
 .main-content .box-wrapper:last-child .inner-content td:last-child {
-    text-align: left;
+    text-align: right;
 }
 
 @media (max-width: 1000px) {
-    body {
-        display: flex;
+    .container-fluid {
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .main-content .box-wrapper .inner-content {
-        flex-wrap: nowrap;
-        min-width: 100px;
-    }
-    .main-content .box-wrapper {
-        flex-direction: row;
     }
     .profile-sidebar {
-        position: relative;
+        max-width: auto;
     }
+}
+
+@media (max-width: 1600px) {
+    .main-content .box-wrapper:not(:nth-child(5)) {
+        flex-direction: row;
+        flex-basis: 50%;
+    }
+}
+
+@media (max-width: 300px) {
+    .main-content .box-wrapper:not(:nth-child(5)) {
+        flex-direction: row;
+        flex-basis: 100%;
+    }
+}
+
+
+/* Inventory Page CSS */
+
+.main-wrapper2 {
+    margin: auto;
+    padding: 5%;
+    width: 100%;
+    height: 100vh;
+}
+
+.inventory-table {
+    width: 100%;
 }
