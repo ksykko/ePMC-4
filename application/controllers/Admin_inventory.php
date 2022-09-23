@@ -9,9 +9,10 @@ class Admin_inventory extends CI_Controller {
 
     public function index() {
         
-        $data['title'] = 'Dashboard';
-        $this->load->view('include-website/dashboard-header', $data);
-        $this->load->view('admin-panel/inventory-view');
+        $data['title'] = 'Inventory';
+        $this->load->view('include-admin/dashboard-header', $data);
+        $this->load->view('include-admin/dashboard-navbar');
+        $this->load->view('admin-views/inventory-view');
         $this->load->view('include-website/scripts');
 
     }

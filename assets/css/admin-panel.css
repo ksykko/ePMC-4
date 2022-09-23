@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 html {
-    min-height: 100vh !important;
+    min-height: 100vh;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    min-height: 100vh;
+    font-family: 'Roboto', sans-serif !important;
+    height: 100vh;
+    display: flex;
     background-color: #f0f0f0 !important;
+    flex-direction: column;
 }
 
 * {
@@ -17,11 +19,9 @@ body {
 i {
     margin-right: 10px;
 }
-
-
 /* ---------horizontal-navbar-menu-----------*/
 
-#navbar-animmenu {
+.dashboard-navbar {
     background: #356EC3;
     float: right;
     overflow: hidden;
@@ -30,28 +30,28 @@ i {
     width: 100%;
 }
 
-#navbar-animmenu ul {
+.dashboard-navbar ul {
     padding: 0px;
     margin: 0px;
     float: right;
 }
 
-#navbar-animmenu ul {
+.dashboard-navbar ul {
     padding: 0px;
     margin: 0px;
     float: right;
 }
 
-#navbar-animmenu ul li a i {
+.dashboard-navbar ul li a i {
     margin-right: 10px;
 }
 
-#navbar-animmenu li {
+.dashboard-navbar li {
     list-style-type: none;
     float: left;
 }
 
-#navbar-animmenu ul li a {
+.dashboard-navbar ul li a {
     color: rgba(255, 255, 255, 0.819);
     text-decoration: none;
     font-size: 15px;
@@ -63,13 +63,13 @@ i {
     position: relative;
 }
 
-#navbar-animmenu>ul>li.active>a {
+.dashboard-navbar>ul>li.active>a {
     color: #356EC3;
     background-color: transparent;
     transition: all 0.7s;
 }
 
-#navbar-animmenu a:not(:only-child):after {
+.dashboard-navbar a:not(:only-child):after {
     content: "\f105";
     position: absolute;
     right: 20px;
@@ -83,11 +83,11 @@ i {
     transition: 0.5s;
 }
 
-#navbar-animmenu .active>a:not(:only-child):after {
+.dashboard-navbar .active>a:not(:only-child):after {
     transform: rotate(90deg);
 }
 
-.hori-selector {
+.dashboard-hori-selector {
     display: inline-block;
     position: absolute;
     height: 100%;
@@ -100,8 +100,8 @@ i {
     border-top-right-radius: 15px;
 }
 
-.hori-selector .right,
-.hori-selector .left {
+.dashboard-hori-selector .right,
+.dashboard-hori-selector .left {
     position: absolute;
     width: 25px;
     height: 25px;
@@ -109,16 +109,16 @@ i {
     bottom: 10px;
 }
 
-.hori-selector .right {
+.dashboard-hori-selector .right {
     right: -25px;
 }
 
-.hori-selector .left {
+.dashboard-hori-selector .left {
     left: -25px;
 }
 
-.hori-selector .right:before,
-.hori-selector .left:before {
+.dashboard-hori-selector .right:before,
+.dashboard-hori-selector .left:before {
     content: '';
     position: absolute;
     width: 50px;
@@ -127,12 +127,12 @@ i {
     background-color: #356EC3;
 }
 
-.hori-selector .right:before {
+.dashboard-hori-selector .right:before {
     bottom: 0;
     right: -25px;
 }
 
-.hori-selector .left:before {
+.dashboard-hori-selector .left:before {
     bottom: 0;
     left: -25px;
 }
@@ -144,26 +144,25 @@ i {
     display: flex;
     flex: 1;
     flex-direction: column;
-    min-width: 375px;
-    min-height: 100%;
+    min-width: 450px;
+    height: 100%;
     background-color: #284A94;
     border-radius: 30px !important;
     justify-content: flex-start;
-    margin: 20px;
-    padding: 5%;
+    padding: 2%;
+    margin: 10px;
 }
 
 .profile-sidebar .sidebar-footer {
-    height: 30px;
     margin-bottom: 10px;
     text-align: center;
     color: white;
 }
 
 .profile-sidebar .profile-box {
-    padding-top: 30%;
     color: white;
     font-weight: 700;
+    font-size: 20px;
     width: 75%;
     align-self: center;
     text-align: center;
@@ -177,39 +176,37 @@ i {
 
 /* Container Fluid */
 
-.container-fluid {
+.container-fluid.dashboard-container {
     display: flex;
     flex-direction: row;
-    width: max-content;
+    width: 100%;
     height: 100%;
-    position: relative;
+    padding: 30px;
 }
 
-
 /* Main Wrapper */
-
-.main-wrapper {
+.main-wrapper.dashboard-main-wrapper {
     height: 100%;
     width: 100%;
 }
 
-.main-content {
+.main-content.dash-main-content {
     display: flex;
     flex-wrap: wrap;
 }
 
-.main-content .box-wrapper {
+.main-content.dash-main-content  .bw-dashboard {
     flex-basis: 25%;
 }
 
-.main-content .box-wrapper:last-child {
+.main-content.dash-main-content  .bw-dashboard:last-child {
     flex-basis: 100%;
-    height: 100%;
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 35px;
+    font-weight: 900;
+    height: max-content;
 }
 
-.main-content .box-wrapper .inner-content {
+.main-content.dash-main-content  .bw-dashboard .dash-inner-content {
     border-radius: 40px;
     height: 250px;
     margin: 15px;
@@ -221,29 +218,35 @@ i {
     background-color: rgb(255, 255, 255);
 }
 
-.main-content .box-wrapper .inner-content .number-label {
+.main-content.dash-main-content  .bw-dashboard .dash-inner-content .number-label {
     font-size: 30px;
-    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700 !important;
     color: rgb(150, 37, 37);
 }
 
-.main-content .box-wrapper:nth-child(2) .inner-content .number-label {
+.main-content.dash-main-content  .bw-dashboard:nth-child(2) .dash-inner-content .number-label {
     color: rgb(211, 171, 39);
 }
 
-.main-content .box-wrapper:nth-child(3) .inner-content .number-label {
+.main-content.dash-main-content  .bw-dashboard:nth-child(3) .dash-inner-content .number-label {
     color: rgb(39, 99, 211);
 }
 
-.main-content .box-wrapper:nth-child(4) .inner-content .number-label {
+.main-content.dash-main-content  .bw-dashboard:nth-child(4) .dash-inner-content .number-label {
     color: rgb(13, 95, 17);
 }
 
 .description-label {
     font-weight: 500;
+    
 }
 
-.main-content .box-wrapper:not(:nth-child(5)) .inner-content i.fas {
+.recent-act-label {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-content.dash-main-content  .bw-dashboard:not(:nth-child(5)) .dash-inner-content i.fas {
     display: inline-block;
     border-radius: 60px;
     font-size: 25px;
@@ -251,37 +254,36 @@ i {
     padding: 0.5em 0.6em;
 }
 
-.main-content .box-wrapper:nth-child(1) .inner-content i.fas {
+.main-content.dash-main-content  .bw-dashboard:nth-child(1) .dash-inner-content i.fas {
     color: rgb(150, 37, 37);
     background-color: rgb(250, 166, 166);
 }
 
-.main-content .box-wrapper:nth-child(2) .inner-content i.fas {
+.main-content.dash-main-content  .bw-dashboard:nth-child(2) .dash-inner-content i.fas {
     color: rgb(211, 171, 39);
     background-color: rgb(250, 249, 166);
 }
 
-.main-content .box-wrapper:nth-child(3) .inner-content i.fas {
+.main-content.dash-main-content  .bw-dashboard:nth-child(3) .dash-inner-content i.fas {
     color: rgb(39, 99, 211);
     background-color: rgb(166, 200, 250);
 }
 
-.main-content .box-wrapper:nth-child(4) .inner-content i.fas {
+.main-content.dash-main-content  .bw-dashboard:nth-child(4) .dash-inner-content i.fas {
     color: rgb(13, 95, 17);
     background-color: rgb(176, 250, 166);
 }
 
-.main-content .box-wrapper:last-child .inner-content {
-    font-size: 15px;
+.main-content.dash-main-content  .bw-dashboard:last-child .dash-inner-content {
+    font-size: 18px;
     font-weight: 400;
     border-radius: 40px;
-    display: block;
     height: 100%;
     margin: 15px;
     background-color: transparent;
 }
 
-.main-content .box-wrapper:last-child .inner-content table {
+.main-content.dash-main-content  .bw-dashboard:last-child .dash-inner-content table {
     table-layout: fixed;
     min-width: 95%;
 }
@@ -290,22 +292,24 @@ i {
     background-color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 30px !important;
+    height: 100% ;
+    width: 100%;
 }
 
-.main-content .box-wrapper:last-child .inner-content td:first-child {
+.main-content.dash-main-content  .bw-dashboard:last-child .dash-inner-content td:first-child {
     text-align: center;
 }
 
-.main-content .box-wrapper:last-child .inner-content td:nth-child(2) {
+.main-content.dash-main-content  .bw-dashboard:last-child .dash-inner-content td:nth-child(2) {
     text-align: left;
 }
 
-.main-content .box-wrapper:last-child .inner-content td:last-child {
+.main-content.dash-main-content  .bw-dashboard:last-child .dash-inner-content td:last-child {
     text-align: right;
 }
 
 @media (max-width: 1000px) {
-    .container-fluid {
+    .container-fluid.dashboard-container {
         flex-direction: column;
     }
     .profile-sidebar {
@@ -314,14 +318,14 @@ i {
 }
 
 @media (max-width: 1600px) {
-    .main-content .box-wrapper:not(:nth-child(5)) {
+    .main-content.dash-main-content  .bw-dashboard:not(:nth-child(5)) {
         flex-direction: row;
         flex-basis: 50%;
     }
 }
 
 @media (max-width: 300px) {
-    .main-content .box-wrapper:not(:nth-child(5)) {
+    .main-content.dash-main-content  .bw-dashboard:not(:nth-child(5)) {
         flex-direction: row;
         flex-basis: 100%;
     }

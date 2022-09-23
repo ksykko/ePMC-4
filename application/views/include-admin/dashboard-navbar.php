@@ -1,8 +1,8 @@
 <body>
     <header>
-        <div id="navbar-animmenu">
+        <div id="navbar-animmenu" class="dashboard-navbar">
             <ul class="show-dropdown main-navbar">
-                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <div class="hori-selector dashboard-hori-selector"><div class="left"></div><div class="right"></div></div>
                 <li class="active">
                     <a href="<?= site_url('Admin/index'); ?>"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
@@ -16,7 +16,7 @@
                     <a href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Schedule</a>
                 </li>
                 <li>
-                    <a href="javascript:void(0);"><i class="fas fa-archive"></i>Inventory</a>
+                    <a href="<?= site_url('Admin_inventory/index'); ?>"><i class="fas fa-archive"></i>Inventory</a>
                 </li>
                 <li>
                     <a href="javascript:void(0);"><i class="far fa-chart-bar"></i>Reports</a>
