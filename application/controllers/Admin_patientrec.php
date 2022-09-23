@@ -47,16 +47,16 @@ class Admin_patientrec extends CI_Controller
             $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $this->pagination->initialize($page_config);
     
-            $id = $this->session->userdata('patient_id');
+            $id = $this->session->userdata('admin_id');
     
             $data['title'] = 'Admin - Patient Records | ePMC';
             $data['patient'] = $this->Admin_model->get_patient_row($id);
             $data['patients'] = $this->Admin_model->get_patient_table($page_config['per_page'], $page);
            
-            $this->load->view('include-website/head', $data);
+            $this->load->view('include-admin/dashboard-header', $data);
+            $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-patientrec-view', $data);
-            //$this->load->view('include-website/navbar'); // admin dashboard not yet done
-            $this->load->view('include-admin/scripts');
+            $this->load->view('include-admin/dashboard-scripts');
         } else {
             redirect('Login/signin');
         }
@@ -71,8 +71,10 @@ class Admin_patientrec extends CI_Controller
     {
     }
 
-    public function delete_patient()
+    public function delete_patient($id)
     {
+        $this->Admin_model->delete_patient($id);
+        redirect('Admin_patientrec/index');
     }
 
     public function view_patient()
@@ -130,5 +132,12 @@ class Admin_patientrec extends CI_Controller
     {
         $this->session->sess_destroy();
         redirect('Login/signin');
+    }
+
+    private function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
     }
 }

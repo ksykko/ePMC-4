@@ -1,4 +1,4 @@
-    <div class="container-fluid">
+    <div class="container-fluid-profile">
         <div class="profile-sidebar">
             <div class="profile-box">
                 <img style="width: 150px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
