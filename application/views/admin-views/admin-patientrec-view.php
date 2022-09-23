@@ -1,5 +1,3 @@
-this is admin patient rec
-<a href="<?= site_url('Login/logout'); ?>">Logout</a>
 <div class="container-fluid">
     <div class="d-flex mb-3">
         <div>
@@ -145,17 +143,21 @@ this is admin patient rec
                         </thead>
                         <tbody>
                             <?php foreach ($patients as $patient) : ?>
-                            <tr>
-                                <td><?= $patient->patient_id ?></td>
-                                <td><?= $patient->full_name ?></td>
-                                <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center"><button class="btn btn-light mx-2" type="button">View</button><button class="btn btn-light mx-2" type="button">Edit</button><a class="btn btn-link btn-sm btn-delete" role="button"><i class="far fa-trash-alt"></i></a></td>
-                            </tr>
-                            
+                                <tr>
+                                    <td><?= $patient->patient_id ?></td>
+                                    <td><?= $patient->full_name ?></td>
+                                    <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center">
+                                        <button class="btn btn-light mx-2" type="button">View</button>
+                                        <button class="btn btn-light mx-2" type="button">Edit</button>
+                                        <a class="btn btn-link btn-sm btn-delete" href="<?= base_url('Admin_patientrec/delete_patient/') . $patient->patient_id ?>"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+
                             <?php endforeach; ?>
                         </tbody>
                     </table>
 
-                    <?= $this->pagination->create_links() ?>    
+                    <?= $this->pagination->create_links() ?>
                 </div>
             </div>
         </div>

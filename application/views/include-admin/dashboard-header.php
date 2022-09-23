@@ -13,5 +13,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&amp;display=swap">
     
+    <link rel="stylesheet" href="<?= base_url('/assets/fonts/fontawesome-all.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/css/home-page.css') ?>">
     <link rel="shortcut icon" href="<?= base_url('/assets/img/others/Logo.ico') ?>">
+    
 </head>

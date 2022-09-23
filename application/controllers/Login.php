@@ -41,15 +41,13 @@ class Login extends CI_Controller
                 //     redirect('Login/signin');
                 // }
 
-                if ($result->role == 'admin') {
+                if ($result->role != 'user') {
                     $sess_data = array(
                         'id' => $result->admin_id,
-                        'username' => $result->username,  
-                        'first_name' => $result->first_name,
-                        'middle_name' => $result->middle_name,
-                        'last_name' => $result->last_name,
+                        'full_name' => $result->full_name, 
                         'email' => $result->email,
                         'contact_no' => $result->contact_no,
+                        'password' => $result->password,
                         'role' => $result->role,
                         'avatar' => $result->avatar,
                         'logged_in' => TRUE
@@ -59,14 +57,23 @@ class Login extends CI_Controller
                     redirect('Admin'); // Edit this to test Admin_patientrec
                 }
 
-                if ($result->role == 'user') {
+                if ($result->role == 'patient') {
                     $sess_data = array(
-                        'id' => $result->id,
-                        'username' => $result->username,
-                        'first_name' => $result->first_name,
-                        'last_name' => $result->last_name,
+                        'id' => $result->patient_id,
+                        'full_name' => $result->full_name,
+                        'age' => $result->age,
+                        'birth_date' => $result->birth_date,
+                        'sex' => $result->sex,
+                        'occupation' => $result->occupation,
+                        'address' => $result->address,
+                        'cell_no' => $result->cell_no,
+                        'tel_no' => $result->tel_no,
+                        'email' => $result->email,
+                        'ec_name' => $result->ec_name,
+                        'relationship' => $result->relationship,
+                        'ec_contact_no' => $result->ec_contact_no,
+                        'password' => $result->password,
                         'role' => $result->role,
-                        'avatar' => $result->avatar,
                         'logged_in' => TRUE
                     );
 
