@@ -56,7 +56,7 @@ class Login extends CI_Controller
                     );
 
                     $this->session->set_userdata($sess_data);
-                    redirect('Admin_patientrec');
+                    redirect('Admin'); // Edit this to test Admin_patientrec
                 }
 
                 if ($result->role == 'user') {

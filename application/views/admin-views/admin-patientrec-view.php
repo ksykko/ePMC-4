@@ -144,18 +144,18 @@ this is admin patient rec
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($patients as $patient) : ?>
                             <tr>
-                                <td>Cell 1</td>
-                                <td>Sagala, Kendrick Andre A,</td>
+                                <td><?= $patient->patient_id ?></td>
+                                <td><?= $patient->full_name ?></td>
                                 <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center"><button class="btn btn-light mx-2" type="button">View</button><button class="btn btn-light mx-2" type="button">Edit</button><a class="btn btn-link btn-sm btn-delete" role="button"><i class="far fa-trash-alt"></i></a></td>
                             </tr>
-                            <tr>
-                                <td>Cell 3</td>
-                                <td>Cell 4</td>
-                                <td class="text-end">Text</td>
-                            </tr>
+                            
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <?= $this->pagination->create_links() ?>    
                 </div>
             </div>
         </div>
