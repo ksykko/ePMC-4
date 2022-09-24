@@ -411,7 +411,9 @@ a.btn-login {
 
 /* START OF Admin-patient-rec-view.php CSS */
 
-.search-input {
+/* NILIPAT KO SA ADMIN-PANEL.CSS  */
+
+/* .search-input {
     width: 300px;
 }
 
@@ -460,7 +462,7 @@ hr {
     background-color: #3269bf;
     border: 0 none;
     opacity: 1;
-}
+} */
 
 
 /* END OF Admin-patient-rec-view.php CSS */
