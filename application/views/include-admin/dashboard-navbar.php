@@ -1,4 +1,4 @@
-<body>
+<body id="page-top">
     <header>
         <div id="navbar-animmenu">
             <ul class="show-dropdown main-navbar">
