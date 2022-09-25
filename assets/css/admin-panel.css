@@ -422,3 +422,66 @@ hr {
 
 
 /* END OF Admin-patient-rec-view.php CSS */
+
+/* admin-patientrec-view-2 CSS */
+
+.input-personal-info {
+    text-align: right;
+}
+
+#btn-save-patient {
+    background-color: #0abd8f;
+    font-size: 12px;
+    border: 0px;
+}
+
+.btn-back {
+    background-color: #3269bf;
+    font-size: 12px;
+    border: 0px;
+    color: #ffffff;
+    width: 75px;
+}
+
+.btn-back:hover {
+    color: #ffffff;
+    background-color: #538ae0;
+}
+
+.text-area {
+    height: 388px;
+}
+
+.btn-save-patient {
+    background-color: #0abd8f;
+    font-size: 12px;
+    border: 0px;
+    color: white;
+}
+
+.btn-default {
+    font-size: 12px;
+    border: 0px;
+}
+
+.btn-save-patient:hover {
+    color: #ffffff;
+    background-color: #098f6d;
+}
+
+.typcn.typcn-warning {
+    font-size: 20px;
+    color: var(--bs-warning);
+}
+
+.btn-default-blue {
+    background-color: #3269bf;
+}
+
+#card-prescription {
+    height: 494px;
+}
+
+#card-next-consultation {
+    height: 229px;
+}

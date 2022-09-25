@@ -1,3 +1,4 @@
+<<<<<<< HEAD
     <style>
         body {
             font-family: 'Roboto', sans-serif !important;
@@ -18,6 +19,9 @@
     </style>
 
     <div class="container-fluid dashboard-container">
+=======
+    <div class="container-fluid-dashboard">
+>>>>>>> 5e3cae0145c4d922ce680948ba513fab30fc24b3
         <div class="profile-sidebar">
             <div class="profile-box">
                 <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
