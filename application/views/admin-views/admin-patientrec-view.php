@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid patientrec-container">
     <div class="d-flex mb-3">
         <div>
-            <h3 class="d-none d-sm-block">Patient Record</h3>
+            <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p"><button id="btn-add-patient" class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#modal-1" type="button"><i class="fas fa-plus-circle" style="font-size: 12px;"></i>   Add Patient Record</button>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p"><button id="btn-add-patient" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-1" type="button"><i class="icon ion-android-add-circle ms-1"></i><span class="d-none d-md-inline-block">Add Patient Record</span></button>
             <?= form_open_multipart('Admin_patientrec/add_patient_validation'); ?>
             <div id="modal-1" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg" role="document">
