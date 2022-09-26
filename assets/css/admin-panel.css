@@ -367,10 +367,21 @@ i {
     font-weight: 600;
 }
 
+.critical-level {
+    color: rgb(180, 6, 6) !important;
+} 
+
+#critical-desc {
+    color: rgb(180, 6, 6) !important;
+}
+
+/* END of inventory-view.php CSS */
+
 /* START OF Admin-patient-rec-view.php CSS */
 
 .search-input {
     width: 300px;
+    height: 40px !important;
 }
 
 #patient-table {
@@ -403,10 +414,6 @@ i {
 
 #input-search {
     font-size: 15px;
-}
-
-.search-input {
-    height: 30px;
 }
 
 .btn-search {
@@ -485,3 +492,5 @@ hr {
 #card-next-consultation {
     height: 229px;
 }
+
+

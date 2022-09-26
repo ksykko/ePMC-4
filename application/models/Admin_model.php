@@ -36,6 +36,35 @@ class Admin_model extends CI_Model {
     public function add_patient($info) { // add patient record
         $this->db->insert('patient_record', $info);
     }
+
+    // for inventory pagination
+    public function get_inventory_table($limit, $start) {
+        $this->db->limit($limit, $start);
+        $this->db->order_by('item_id');
+        return $this->db->get('inventory')->result();
+    }
+
+    // get total number items in the inventory
+    public function get_inventory_count() { 
+        return $this->db->count_all('inventory');
+    }
+
+    // get patient row based on patient_id ($id = primary key)
+    public function get_inventory_row($id) { 
+        return $this->db->get_where('inventory', ['item_id' => $id])->row();
+    }
+
+    public function update_product($id, $info) { // update patient info based on patient_id ($id = primary key)
+        $this->db->update('inventory', $info, ['item_id' => $id]);
+    }
+
+    public function delete_product($id) { // delete patient based on patient_id ($id = primary key)
+        $this->db->delete('inventory', ['item_id' => $id]);
+    }
+
+    public function add_product($info) { // add patient record
+        $this->db->insert('inventory', $info);
+    }
 }
 
 

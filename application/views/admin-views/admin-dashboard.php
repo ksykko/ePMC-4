@@ -17,6 +17,7 @@
         }
     </style>
 
+    
     <div class="container-fluid dashboard-container">
         <div class="profile-sidebar">
             <div class="profile-box">
