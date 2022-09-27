@@ -18,7 +18,7 @@ class Admin_patientrec extends CI_Controller
                 'base_url' => site_url('Admin_patientrec/index'),
                 'total_rows' => $this->Admin_model->get_patient_count(), // get total number of patients 
                 'num_links' => 3,
-                'per_page' => 5,
+                'per_page' => 10,
     
                 'full_tag_open' => '<div class="d-flex justify-content-center"><ul class="pagination">',
                 'full_tag_close' => '</ul></div>',
@@ -89,61 +89,68 @@ class Admin_patientrec extends CI_Controller
     public function add_patient_validation()
     {
         $this->form_validation->set_rules('full_name', 'Full name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter your %s.'
+            'required' => 'Please enter patient\'s %s.'
         ));
 
-        $this->form_validation->set_rules(array('age', 'Age', 'required|numeric|min_length[2]', array(
-            'required' => 'Please enter your %s.',
+        $this->form_validation->set_rules(array('age', 'Age', 'required|numeric|is_natural_no_zero', array(
+            'required' => 'Please enter patient\'s %s.',
             'numeric' => 'Please enter a valid %s.'
         )));
 
         $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
-            'required' => 'Please enter your %s.'
+            'required' => 'Please enter patient\'s %s.'
         ));
 
         $this->form_validation->set_rules('sex', 'Sex', 'required', array(
-            'required' => 'Please enter your %s.'
+            'required' => 'Please enter patient\'s %s.'
         ));
 
         $this->form_validation->set_rules('occupation', 'Occupation', 'required', array(
-            'required' => 'Please enter your %s.'
+            'required' => 'Please enter patient\'s %s.'
         ));
 
         $this->form_validation->set_rules('address', 'Address', 'required', array(
-            'required' => 'Please enter your %s.'
+            'required' => 'Please enter an %s.'
         ));
 
-        $this->form_validation->set_rules('cell_no', 'Cellphone No.', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter your %s.',
+        $this->form_validation->set_rules('cell_no', 'Cellphone #', 'required|numeric|min_length[11]', array(
+            'required' => 'Please enter patient\'s %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('tel_no', 'Telephone No.', 'required|numeric|min_length[7]', array(
-            'required' => 'Please enter your %s.',
+        $this->form_validation->set_rules('tel_no', 'Telephone #', 'required|numeric|min_length[7]', array(
+            'required' => 'Please enter patient\'s %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
 
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
-            'required' => 'Please enter your %s.',
+            'required' => 'Please enter patient\'s %s.',
             'valid_email' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('ec_name', 'Emergency Contact Name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter your %s.'
+        $this->form_validation->set_rules('ec_name', 'Emergency contact name', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter an %s.'
         ));
 
-        $this->form_validation->set_rules('relationship', 'Emergency Contact Relationship', 'required', array(
-            'required' => 'Please enter your %s.'
+        $this->form_validation->set_rules('relationship', 'Emergency contact relationship', 'required', array(
+            'required' => 'Please enter patient\'s %s.'
         ));
 
-        $this->form_validation->set_rules('ec_contact_no', 'Emergency Contact No.', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter your %s.',
+        $this->form_validation->set_rules('ec_contact_no', 'Emergency contact #', 'required|numeric|min_length[11]', array(
+            'required' => 'Please enter an %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
 
        
         if ($this->form_validation->run() == FALSE)
         {
+            // echo '
+            // <script type="text/javascript"> 
+            //     $(document).ready(function(){
+            //     $("#modal-1").modal("show");
+            //     });
+            // </script>
+            // ';
             $this->index();
         }
         else
