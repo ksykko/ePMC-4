@@ -1,7 +1,7 @@
 <div class="container-fluid patientrec-container">
     <div class="d-flex mb-3">
         <div>
-            <h3 class="d-none d-sm-block">Patient Record</h3>
+            <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p"><button class="btn px-3 btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#prompt-modal" style="margin-right: 0px;"><i class="fas fa-save"></i><strong>&nbsp; Save</strong></button>
             <div class="modal fade" role="dialog" tabindex="-1" id="prompt-modal">
@@ -16,13 +16,18 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-left: 0px;"><a href="<?= base_url('Admin_patientrec/index') ?>" class="btn btn-back" type="button">Back</a></div>
+        <div class="d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
+            <a class="btn btn-back" type="button">Back</a>
+        </div>
+        <!-- <div class="d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-left: 0px;">
+            <a href="<?= base_url('Admin_patientrec/index') ?>" class="btn btn-back" type="button">Back</a>
+        </div> -->
     </div>
     <div class="row mb-3">
         <div class="col-lg-4">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <p class="text-primary m-0 fw-bold fs-5 ch-heading">Personal Information</p>
+                    <p class="m-0 fw-bold fs-5 ch-heading">Personal Information</p>
                 </div>
                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
                     <div class="mb-3"><button class="btn btn-primary btn-sm btn-default-blue" type="button">Change Photo</button></div>
@@ -66,7 +71,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <h6 class="text-primary fw-bold m-0 fs-5 ch-heading">Contact Information</h6>
+                    <h6 class="fw-bold m-0 fs-5 ch-heading">Contact Information</h6>
                 </div>
                 <div class="card-body">
                     <div class="row mb-2">
@@ -91,7 +96,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <h6 class="text-primary fw-bold m-0 fs-5 ch-heading">Emergency Contact</h6>
+                    <h6 class="fw-bold m-0 fs-5 ch-heading">Emergency Contact</h6>
                 </div>
                 <div class="card-body">
                     <div class="row mb-2">
@@ -117,35 +122,36 @@
         </div>
         <div class="col-lg-8">
             <div class="row">
+                <!-- TODO: -->
                 <div class="col-xxl-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 ch-patientrec">
-                            <p class="text-primary m-0 fw-bold fs-5 ch-heading">User Settings</p>
+                            <p class="m-0 fw-bold fs-5 ch-heading">User Settings</p>
                         </div>
                         <div class="card-body">
                             <form>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="username"><strong>Blood Type:</strong></label><input class="form-control" type="text" id="blood" name="blood"></div>
+                                        <div class="mb-3"><label class="form-label" for=""><strong>Blood Type:</strong></label><input class="form-control" type="text" id="blood_type" name="blood_type" value="<?= $patient->blood_type ?>"></div>
                                     </div>
                                     <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="email"><strong>Pulse Rate:</strong></label><input class="form-control" type="email" id="pulse_rate" name="pulse_rate"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Systolic:</strong></label><input class="form-control" type="text" id="systolic" name="systolic"></div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Height:</strong></label><input class="form-control" type="text" id="height" name="height"></div>
+                                        <div class="mb-3"><label class="form-label" for="email"><strong>Pulse Rate:</strong></label><input class="form-control" type="email" id="pulse_rate" name="pulse_rate" value="<?= $patient->pulse_rate ?>"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Diastolic:</strong></label><input class="form-control" type="text" id="diastolic" name="diastolic"></div>
+                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Systolic:</strong></label><input class="form-control" type="text" id="bp_systolic" name="bp_systolic" value="<?= $patient->bp_systolic ?>"></div>
                                     </div>
                                     <div class="col">
-                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Weight:</strong></label><input class="form-control" type="text" id="weight" name="weight"></div>
+                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Height:</strong></label><input class="form-control" type="text" id="height" name="height" value="<?= $patient->height ?>"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Diastolic:</strong></label><input class="form-control" type="text" id="bp_diastolic" name="bp_diastolic" value="<?= $patient->bp_diastolic ?>"></div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3"><label class="form-label" for="last_name"><strong>Weight:</strong></label><input class="form-control" type="text" id="weight" name="weight" value="<?= $patient->weight ?>"></div>
                                     </div>
                                 </div>
                             </form>
@@ -153,23 +159,23 @@
                     </div>
                     <div class="card shadow mb-4" id="card-prescription">
                         <div class="card-header y-3 ch-patientrec">
-                            <p class="text-primary m-0 fw-bold fs-5 ch-heading">Prescription</p>
+                            <p class="m-0 fw-bold fs-5 ch-heading">Prescription</p>
                         </div>
                         <div class="card-body">
                             <form>
-                                <div class="mb-3"><textarea class="form-control text-area"></textarea></div>
+                                <div class="mb-3"><textarea class="form-control text-area" id="prescription" name="prescription" value="<?= $patient->prescription ?>"></textarea></div>
                             </form>
                         </div>
                     </div>
                     <div class="card shadow mb-4" id="card-next-consultation">
                         <div class="card-header py-3 ch-patientrec">
-                            <p class="text-primary m-0 fw-bold fs-5 ch-heading">Next Consultation</p>
+                            <p class="m-0 fw-bold fs-5 ch-heading">Next Consultation</p>
                         </div>
                         <div class="card-body">
                             <form>
                                 <div class="row">
                                     <div class="col-xxl-12">
-                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Date</strong></label><input class="form-control" type="text" id="diastolic-1" name="diastolic"></div>
+                                        <div class="mb-3"><label class="form-label" for="date"><strong>Date</strong></label><input class="form-control" type="text" id="diastolic-1" name="diastolic"></div>
                                     </div>
                                 </div>
                             </form>
@@ -181,7 +187,7 @@
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 ch-patientrec">
-            <p class="text-primary m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
+            <p class="m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
         </div>
         <div class="card-body">
             <div class="row">
@@ -201,7 +207,7 @@
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <h6 class="text-primary fw-bold m-0 fs-5 ch-heading">Objectives</h6>
+                    <h6 class="fw-bold m-0 fs-5 ch-heading">Objectives</h6>
                 </div>
                 <div class="card-body">
                     <div class="row mb-2">
@@ -228,7 +234,7 @@
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <h6 class="text-primary fw-bold m-0 fs-5 ch-heading">Symptoms</h6>
+                    <h6 class="fw-bold m-0 fs-5 ch-heading">Symptoms</h6>
                 </div>
                 <div class="card-body">
                     <div class="row mb-2">
@@ -257,7 +263,7 @@
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <p class="text-primary m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
+                    <p class="m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -279,7 +285,7 @@
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <p class="text-primary m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
+                    <p class="m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -301,7 +307,7 @@
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
-                    <p class="text-primary m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
+                    <p class="m-0 fw-bold fs-5 ch-heading">Lab Reports</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -320,9 +326,9 @@
         </div>
     </div>
 </div>
-<footer class="bg-white sticky-footer">
+<!-- <footer class="bg-white sticky-footer">
     <div class="container my-auto">
         <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
     </div>
 </footer>
-</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a> -->

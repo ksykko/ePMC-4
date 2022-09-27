@@ -25,13 +25,16 @@
     
     <!-- ICONS -->
     <link rel="stylesheet" href="<?= base_url('/assets/fonts/fontawesome-all.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/fonts/font-awesome.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/fonts/ionicons.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/fonts/typicons.min.css') ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <!-- TAB ICON -->
+    <link rel="shortcut icon" href="<?= base_url('/assets/img/others/Logo.ico') ?>">
+
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('/assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/admin-panel.css') ?>">
-    <link rel="shortcut icon" href="<?= base_url('/assets/img/others/Logo.ico') ?>">
     
 </head>
