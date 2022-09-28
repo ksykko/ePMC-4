@@ -9,10 +9,12 @@ class Admin extends CI_Controller {
         $this->load->model('Admin_model');
     }
 
-    public function index() {
+    public function index() 
+    {
         if ($this->session->userdata('logged_in')) { //if logged in
             $data['title'] = 'Admin | ePMC';
             $this->load->view('include-admin/dashboard-header', $data);
+            //$this->load->view('admin-views/ehpaanokung');
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');

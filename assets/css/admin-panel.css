@@ -1,0 +1,551 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html {
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+    height: 100vh;
+    display: flex;
+    background-color: #f0f0f0 !important;
+    flex-direction: column;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+i {
+    margin-right: 10px;
+}
+
+
+/* ---------horizontal-navbar-menu-----------*/
+
+.dashboard-navbar {
+    background: #356EC3;
+    float: right;
+    overflow: hidden;
+    position: relative;
+    padding: 10px;
+    width: 100%;
+}
+
+.dashboard-navbar ul {
+    padding: 0px;
+    margin: 0px;
+    float: right;
+}
+
+.dashboard-navbar ul {
+    padding: 0px;
+    margin: 0px;
+    float: right;
+}
+
+.dashboard-navbar ul li a i {
+    margin-right: 10px;
+}
+
+.dashboard-navbar li {
+    list-style-type: none;
+    float: left;
+}
+
+.dashboard-navbar ul li a {
+    color: rgba(255, 255, 255, 0.819);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 45px;
+    display: block;
+    padding: 0px 20px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+
+.dashboard-navbar>ul>li.active>a {
+    color: #356EC3;
+    background-color: transparent;
+    transition: all 0.7s;
+}
+
+.dashboard-navbar a:not(:only-child):after {
+    content: "\f105";
+    position: absolute;
+    right: 20px;
+    top: 10%;
+    font-size: 16px;
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+    transition: 0.5s;
+}
+
+.dashboard-navbar .active>a:not(:only-child):after {
+    transform: rotate(90deg);
+}
+
+.dashboard-hori-selector {
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    top: 10px;
+    left: 0px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-color: #f0f0f0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.dashboard-hori-selector .right,
+.dashboard-hori-selector .left {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: #f0f0f0;
+    bottom: 10px;
+}
+
+.dashboard-hori-selector .right {
+    right: -25px;
+}
+
+.dashboard-hori-selector .left {
+    left: -25px;
+}
+
+.dashboard-hori-selector .right:before,
+.dashboard-hori-selector .left:before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #356EC3;
+}
+
+.dashboard-hori-selector .right:before {
+    bottom: 0;
+    right: -25px;
+}
+
+.dashboard-hori-selector .left:before {
+    bottom: 0;
+    left: -25px;
+}
+
+
+/* Dashboard */
+
+.profile-sidebar {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 450px;
+    height: 100%;
+    background-color: #284A94;
+    border-radius: 30px !important;
+    justify-content: flex-start;
+    padding: 2%;
+    margin: 10px;
+}
+
+.profile-sidebar .sidebar-footer {
+    margin-bottom: 10px;
+    text-align: center;
+    color: white;
+}
+
+.profile-sidebar .profile-box {
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    width: 75%;
+    align-self: center;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.role {
+    font-weight: 400;
+}
+
+
+/* Container Fluid */
+
+.container-fluid.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+
+
+/* Main Wrapper */
+
+.main-wrapper.dashboard-main-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.main-content.dash-main-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-content.dash-main-content .bw-dashboard {
+    flex-basis: 25%;
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child {
+    flex-basis: 100%;
+    font-size: 35px;
+    font-weight: 900;
+    height: max-content;
+}
+
+.main-content.dash-main-content .bw-dashboard .dash-inner-content {
+    border-radius: 40px;
+    height: 250px;
+    margin: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+}
+
+.main-content.dash-main-content .bw-dashboard .dash-inner-content .number-label {
+    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700 !important;
+    color: rgb(150, 37, 37);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(2) .dash-inner-content .number-label {
+    color: rgb(211, 171, 39);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(3) .dash-inner-content .number-label {
+    color: rgb(39, 99, 211);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(4) .dash-inner-content .number-label {
+    color: rgb(13, 95, 17);
+}
+
+.description-label {
+    font-weight: 500;
+}
+
+.recent-act-label {
+    font-family: 'Poppins', sans-serif;
+}
+
+.main-content.dash-main-content .bw-dashboard:not(:nth-child(5)) .dash-inner-content i.fas {
+    display: inline-block;
+    border-radius: 60px;
+    font-size: 25px;
+    margin: 0;
+    padding: 0.5em 0.6em;
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(1) .dash-inner-content i.fas {
+    color: rgb(150, 37, 37);
+    background-color: rgb(250, 166, 166);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(2) .dash-inner-content i.fas {
+    color: rgb(211, 171, 39);
+    background-color: rgb(250, 249, 166);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(3) .dash-inner-content i.fas {
+    color: rgb(39, 99, 211);
+    background-color: rgb(166, 200, 250);
+}
+
+.main-content.dash-main-content .bw-dashboard:nth-child(4) .dash-inner-content i.fas {
+    color: rgb(13, 95, 17);
+    background-color: rgb(176, 250, 166);
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child .dash-inner-content {
+    font-size: 18px;
+    font-weight: 400;
+    border-radius: 40px;
+    height: 100%;
+    margin: 15px;
+    background-color: transparent;
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child .dash-inner-content table {
+    table-layout: fixed;
+    min-width: 95%;
+}
+
+.tr-table {
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 30px !important;
+    height: 100%;
+    width: 100%;
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child .dash-inner-content td:first-child {
+    text-align: center;
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child .dash-inner-content td:nth-child(2) {
+    text-align: left;
+}
+
+.main-content.dash-main-content .bw-dashboard:last-child .dash-inner-content td:last-child {
+    text-align: right;
+}
+
+@media (max-width: 1000px) {
+    .container-fluid.dashboard-container {
+        flex-direction: column;
+    }
+    .profile-sidebar {
+        max-width: auto;
+    }
+}
+
+@media (max-width: 1600px) {
+    .main-content.dash-main-content .bw-dashboard:not(:nth-child(5)) {
+        flex-direction: row;
+        flex-basis: 50%;
+    }
+}
+
+@media (max-width: 300px) {
+    .main-content.dash-main-content .bw-dashboard:not(:nth-child(5)) {
+        flex-direction: row;
+        flex-basis: 100%;
+    }
+}
+
+
+/* Inventory Page CSS */
+
+.inventory-container {
+    width: 100%;
+    height: 100vh;
+    padding: 70px !important;
+}
+
+.inventory-table {
+    width: 100%;
+}
+
+.inv-td {
+    padding: 10px !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+}
+
+#inventory-table {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.inv-td-desc {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.inventory-label {
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.critical-level {
+    color: rgb(180, 6, 6) !important;
+}
+
+#critical-desc {
+    color: rgb(180, 6, 6) !important;
+}
+
+
+/* END of inventory-view.php CSS */
+
+
+/* START OF Admin-patient-rec-view.php CSS */
+
+.patientrec-container {
+    width: 100%;
+    height: 100vh;
+    padding: 70px !important;
+}
+
+.patientrec-label {
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.search-input {
+    width: 300px;
+    height: 40px !important;
+}
+
+#patient-table {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.btn-action {
+    width: 80px;
+}
+
+.btn-delete:hover {
+    color: red;
+}
+
+.far.fa-trash-alt {
+    color: #595959;
+}
+
+.far.fa-trash-alt:hover {
+    color: #ff0000;
+}
+
+#btn-add-patient {
+    background-color: #0abd8f;
+    font-size: 15px;
+    border: 0px;
+}
+
+#input-search {
+    font-size: 15px;
+}
+
+.btn-search {
+    height: 30px;
+    background-color: #256cc1;
+}
+
+hr {
+    background-color: #3269bf;
+    border: 0 none;
+    opacity: 1;
+}
+
+.input-error {
+    height: 62px;
+}
+
+#btn-add-import {
+    background-color: var(--bs-yellow);
+    font-size: 15px;
+    border: 0px;
+    height: 43.16px;
+    color: #ffffff;
+}
+
+
+/* END OF Admin-patient-rec-view.php CSS */
+
+
+/* admin-patientrec-view-2 CSS */
+
+.input-personal-info {
+    text-align: right;
+}
+
+#btn-save-patient {
+    background-color: #0abd8f;
+    font-size: 15px;
+    border: 0px;
+    height: 43.16px;
+}
+
+.btn-back {
+    background-color: #3269bf;
+    font-size: 15px;
+    border: 0px;
+    height: 43.16px;
+    color: #ffffff;
+    width: 75px;
+}
+
+.btn-back:hover {
+    color: #ffffff;
+    background-color: #538ae0;
+}
+
+.text-area {
+    height: 388px;
+}
+
+.btn-save-patient {
+    background-color: #0abd8f;
+    font-size: 12px;
+    border: 0px;
+    color: white;
+}
+
+.btn-default {
+    font-size: 12px;
+    border: 0px;
+}
+
+.btn-save-patient:hover {
+    color: #ffffff;
+    background-color: #098f6d;
+}
+
+.typcn.typcn-warning {
+    font-size: 20px;
+    color: var(--bs-warning);
+}
+
+.btn-default-blue {
+    background-color: #3269bf;
+}
+
+#card-prescription {
+    height: 494px;
+}
+
+#card-next-consultation {
+    height: 229px;
+}
+
+.btn-search {
+    height: 43.19px;
+    background-color: #256cc1;
+}
+
+.search-input {
+    height: 43.19px;
+}
+
+.label-button {
+    font-size: 12px;
+}
+
+.icon.ion-android-add-circle.icon-add {
+    font-size: 11.5px;
+}
+
+.ch-patientrec {
+    background-color: var(--bs-border-color);
+}
+
+.ch-heading {
+    color: #000000;
+}
