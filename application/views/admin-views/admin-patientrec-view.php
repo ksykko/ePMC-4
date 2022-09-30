@@ -221,7 +221,7 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4">
                 <div id="patient-table" class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
