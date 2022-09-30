@@ -1,29 +1,30 @@
 <body id="page-top">
-    <header>
-        <div id="navbar-animmenu" class="dashboard-navbar">
-            <ul class="show-dropdown main-navbar">
-                <div class="hori-selector dashboard-hori-selector"><div class="left"></div><div class="right"></div></div>
-                <li class="active">
-                    <a href="<?= site_url('Admin/index'); ?>"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+    <nav class="navbar navbar-expand-custom navbar-mainbg">
+        <a class="navbar-brand navbar-logo" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);"><i class="fas fa-users"></i>User Accounts</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-address-book"></i>User Accounts</a>
                 </li>
-                <li>
-                    <a href="<?= site_url('Admin_patientrec/index'); ?>"><i class="fas fa-id-badge"></i>Patient Records</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-clone"></i>Patient Records</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Schedule</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Schedule</a>
                 </li>
-                <li>
-                    <a href="<?= site_url('Admin_inventory/index'); ?>"><i class="fas fa-archive"></i>Inventory</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php site_url('Admin_inventory/index') ?>"><i class="far fa-chart-bar"></i>Inventory</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);"><i class="far fa-chart-bar"></i>Reports</a>
-                </li>
-                <li>
-                    <a href="<?= site_url('Login/logout'); ?>"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);"><i class="far fa-copy"></i>Reports</a>
                 </li>
             </ul>
         </div>
-    </header>
+    </nav>
