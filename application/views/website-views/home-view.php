@@ -311,53 +311,58 @@
         </div>
         <p class="signature ">Copyright © ePMC 2022</p>
 </section>
- 
+
 
 <section id="contact" class="position-relative py-4 py-xl-5 mb-5">
-<div class="container position-relative">
-    <div class="row">
-        <div class="col-md-6 col-xl-4">
-            <div class="mt-4 ms-4">
-                <h2 class="contact-label fw-bold">Address</h2>
-                <p class="text-muted"><em>45 Gen. Evangelista Street, Bacoor, Cavite</em></p>
-            </div>
-            <div class="mt-4 ms-4">
-                <h2 class="contact-label fw-bold">Call Us</h2>
-                <p class="text-muted"><em>(046) 417 1877</em></p>
-            </div>
-            <div class="mt-5 ms-4">
-                <h2 class="contact-label fw-bold">Opening Hours</h2>
-                <div class="row">
-                    <div class="col">
-                        <p><em>Mon - Fri</em></p>
-                    </div>
-                    <div class="col">
-                        <p>8AM - 12 PM</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        <p>2:30 PM - 6 PM</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><em>Sat, Sun</em></p>
-                    </div>
-                    <div class="col">
-                        <p>8 AM - 12 PM</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        <p>2:30 PM - 4:30 PM</p>
-                    </div>
-                </div>
+    <div class="container position-relative">
+        <div class="row d-lg-flex justify-content-lg-center align-items-lg-center mb-4 mb-lg-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 class="fw-bold">Contact Us</h2>
             </div>
         </div>
-        <div class="col"><iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyByj_EzB3LfRXf_ledKDYFFXCPia_q0BSo&amp;q=Pagtakhan+Medical+Clinic&amp;zoom=20" loading="lazy" width="100%" height="100%"></iframe></div>
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="mt-4 ms-4">
+                    <h2 class="contact-label fw-bold">Address</h2>
+                    <p class="text-muted"><em>45 Gen. Evangelista Street, Bacoor, Cavite</em></p>
+                </div>
+                <div class="mt-4 ms-4">
+                    <h2 class="contact-label fw-bold">Call Us</h2>
+                    <p class="text-muted"><em>(046) 417 1877</em></p>
+                </div>
+                <div class="mt-5 ms-4">
+                    <h2 class="contact-label fw-bold">Opening Hours</h2>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text-muted"><em>Mon - Fri</em></p>
+                        </div>
+                        <div class="col">
+                            <p class="text-muted">8AM - 12 PM</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <p class="text-muted">2:30 PM - 6 PM</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text-muted"><em>Sat, Sun</em></p>
+                        </div>
+                        <div class="col">
+                            <p class="text-muted">8 AM - 12 PM</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <p class="text-muted">2:30 PM - 4:30 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col"><iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyByj_EzB3LfRXf_ledKDYFFXCPia_q0BSo&amp;q=Pagtakhan+Medical+Clinic&amp;zoom=20" loading="lazy" width="100%" height="100%"></iframe></div>
+        </div>
     </div>
-</div>
 </section>
