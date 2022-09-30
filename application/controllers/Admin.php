@@ -19,6 +19,7 @@ class Admin extends CI_Controller {
             // $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
 
             $this->load->view('include-admin/dashboard-header', $data);
+            //$this->load->view('admin-views/ehpaanokung');
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');
