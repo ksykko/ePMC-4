@@ -49,16 +49,16 @@ class Admin_model extends CI_Model {
         return $this->db->count_all('inventory');
     }
 
-    // get patient row based on patient_id ($id = primary key)
+    // get product row based on item id ($id = primary key)
     public function get_inventory_row($id) { 
         return $this->db->get_where('inventory', ['item_id' => $id])->row();
     }
 
-    public function update_product($id, $info) { // update patient info based on patient_id ($id = primary key)
+    public function update_product($id, $info) { // update product info based on item_id ($id = primary key)
         $this->db->update('inventory', $info, ['item_id' => $id]);
     }
 
-    public function delete_product($id) { // delete patient based on patient_id ($id = primary key)
+    public function delete_product($id) { // delete product based on patient_id ($id = primary key)
         $this->db->delete('inventory', ['item_id' => $id]);
     }
 

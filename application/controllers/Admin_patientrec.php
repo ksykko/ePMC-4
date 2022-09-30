@@ -54,7 +54,6 @@ class Admin_patientrec extends CI_Controller
             $data['patients'] = $this->Admin_model->get_patient_table($page_config['per_page'], $page);
             
 
-
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-patientrec-view', $data);
