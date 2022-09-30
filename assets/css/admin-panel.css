@@ -577,7 +577,7 @@ i {
     color: #ff0000;
 }
 
-#btn-add-patient {
+#btn-add-patient, #btn-add-product{
     background-color: #0abd8f;
     font-size: 15px;
     border: 0px;
