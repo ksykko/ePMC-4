@@ -13,6 +13,11 @@ class Admin extends CI_Controller {
     {
         if ($this->session->userdata('logged_in')) { //if logged in
             $data['title'] = 'Admin | ePMC';
+            $data['product_count'] = $this->Admin_model->get_inventory_count();
+            // $data['users_count'] = $this->Admin_model->get_user_count();
+            // $data['patient_count'] = $this->Admin_model->get_patient_count();
+            // $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
+
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('admin-views/admin-dashboard', $data);

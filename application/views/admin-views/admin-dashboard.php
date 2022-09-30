@@ -44,7 +44,7 @@
                 <div class="box-wrapper bw-dashboard">
                     <div class="dash-inner-content">
                         <i class="fas fa-archive"></i>
-                        <label for="" class="number-label">43</label>
+                        <label for="" class="number-label"><?= $product_count ?></label>
                         <label for="" class="description-label">Total no. of Inventory Items</label>
                     </div>    
                 </div>
