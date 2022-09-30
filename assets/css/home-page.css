@@ -25,8 +25,8 @@ body {
 }
 
 section#contact {
-    margin-top: 1000px;
-    min-height: 100vh;
+    margin-top: 900px;
+    /* min-height: 200vh; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -260,6 +260,7 @@ header nav ul li a {
     transform: translateY(-120%) !important;
 }
 
+
 /* .hide-nav {
     transform: translateY(-120% !important);
     -webkit-transform: translateY(-120%) !important;
@@ -411,129 +412,3 @@ a.btn-login {
 
 
 /* END OF login-view.php CSS */
-
-
-/* START OF Admin-patient-rec-view.php CSS */
-
-/* NILIPAT KO SA ADMIN-PANEL.CSS  */
-
-/* .search-input {
-    width: 300px;
-}
-
-#patient-table {
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-.btn-action {
-    width: 80px;
-}
-
-.btn-delete:hover {
-    color: red;
-}
-
-.far.fa-trash-alt {
-    color: #595959;
-}
-
-.far.fa-trash-alt:hover {
-    color: #ff0000;
-}
-
-#btn-add-patient {
-    background-color: #0abd8f;
-    font-size: 12px;
-    border: 0px;
-}
-
-#input-search {
-    font-size: 12px;
-}
-
-.search-input {
-    height: 30px;
-}
-
-.btn-search {
-    height: 30px;
-    background-color: #256cc1;
-}
-
-hr {
-    background-color: #3269bf;
-    border: 0 none;
-    opacity: 1;
-} */
-
-
-/* END OF Admin-patient-rec-view.php CSS */
-
-
-/* START OF admin-patientrec-view-2 CSS */
-
-.input-personal-info {
-    text-align: right;
-}
-
-#btn-save-patient {
-    background-color: #0abd8f;
-    font-size: 12px;
-    border: 0px;
-}
-
-.btn-back {
-    background-color: #3269bf;
-    font-size: 12px;
-    border: 0px;
-    color: #ffffff;
-    width: 75px;
-}
-
-.btn-back:hover {
-    color: #ffffff;
-    background-color: #538ae0;
-}
-
-.text-area {
-    height: 388px;
-}
-
-.btn-save-patient {
-    background-color: #0abd8f;
-    font-size: 12px;
-    border: 0px;
-    color: white;
-}
-
-.btn-default {
-    font-size: 12px;
-    border: 0px;
-}
-
-.btn-save-patient:hover {
-    color: #ffffff;
-    background-color: #098f6d;
-}
-
-.typcn.typcn-warning {
-    font-size: 20px;
-    color: var(--bs-warning);
-}
-
-.btn-default-blue {
-    background-color: #3269bf;
-}
-
-#card-prescription {
-    height: 494px;
-}
-
-#card-next-consultation {
-    height: 229px;
-}
-
-
-/* END OF admin-patientrec-view-2 CSS */

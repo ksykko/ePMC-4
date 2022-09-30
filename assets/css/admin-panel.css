@@ -527,13 +527,15 @@ i {
 
 .critical-level {
     color: rgb(180, 6, 6) !important;
-} 
+}
 
 #critical-desc {
     color: rgb(180, 6, 6) !important;
 }
 
+
 /* END of inventory-view.php CSS */
+
 
 /* START OF Admin-patient-rec-view.php CSS */
 
@@ -597,6 +599,18 @@ hr {
     opacity: 1;
 }
 
+.input-error {
+    height: 62px;
+}
+
+#btn-add-import {
+    background-color: var(--bs-yellow);
+    font-size: 15px;
+    border: 0px;
+    height: 43.16px;
+    color: #ffffff;
+}
+
 
 /* END OF Admin-patient-rec-view.php CSS */
 
@@ -609,14 +623,16 @@ hr {
 
 #btn-save-patient {
     background-color: #0abd8f;
-    font-size: 12px;
+    font-size: 15px;
     border: 0px;
+    height: 43.16px;
 }
 
 .btn-back {
     background-color: #3269bf;
-    font-size: 12px;
+    font-size: 15px;
     border: 0px;
+    height: 43.16px;
     color: #ffffff;
     width: 75px;
 }
@@ -664,7 +680,6 @@ hr {
     height: 229px;
 }
 
-
 .btn-search {
     height: 43.19px;
     background-color: #256cc1;
@@ -683,9 +698,9 @@ hr {
 }
 
 .ch-patientrec {
-    background-color: #3269bf;
+    background-color: var(--bs-border-color);
 }
 
 .ch-heading {
-    color: #ffffff;
+    color: #000000;
 }
