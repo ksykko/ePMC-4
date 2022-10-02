@@ -102,6 +102,7 @@
                                 <th class="inv-td">ID</th>
                                 <th class="inv-td">Product Name</th>
                                 <th class="inv-td">Description</th>
+                                <th class="inv-td" style='text-align: center;'>Quantity</th>
                                 <th class="inv-td" style="text-align: center";>Stock In</th>
                                 <th class="inv-td" style="text-align: center";>Stock Out</th>
                                 <th class="inv-td text-center">Action</th>
@@ -114,8 +115,9 @@
                                             <td class='inv-td-desc'><?= $product->item_id ?></td>
                                             <td class='inv-td-desc'><strong><?= $product->prod_name ?></strong><br><?= $product->prod_dosage ?></td>
                                             <td class='inv-td-desc w-50'><?= $product->prod_desc ?></td>
+                                            <td class='inv-td-desc' style='text-align: center;'><?= ($product->stock_in)+($product->stock_out) ?></td>
                                             <td class='inv-td-desc' style='text-align: center;'> <?= $product->stock_in ?> <br>
-                                                <?php if ($product->stock_in <= 15) {
+                                                <?php if ($product->stock_in <= 10) {
                                                     echo "<i class='fas fa-exclamation-triangle critical-level'></i><strong id='critical-desc'>Low on Stocks</strong>";
                                                 } 
                                                 ?>    
