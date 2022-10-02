@@ -49,6 +49,14 @@ class Admin_model extends CI_Model {
         return $this->db->count_all('inventory');
     }
 
+    // get stock in and stock out
+    public function get_inventory_table_contents(){
+        $this->db->select("stock_in, stock_out");
+        $this->db->from('inventory');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // get product row based on item id ($id = primary key)
     public function get_inventory_row($id) { 
         return $this->db->get_where('inventory', ['item_id' => $id])->row();

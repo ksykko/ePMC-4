@@ -44,7 +44,17 @@
                 <div class="box-wrapper bw-dashboard">
                     <div class="dash-inner-content">
                         <i class="fas fa-archive"></i>
-                        <label for="" class="number-label"><?= $product_count ?></label>
+                        <label for="" class="number-label">
+                            <?php  
+                                $sum_stockin = 0;
+                                $sum_stockout = 0;
+                                foreach ($inventory_stocks as $product) {
+                                    $sum_stockin += $product->stock_in;
+                                    $sum_stockout += $product->stock_out;
+                                }
+                                echo $sum_stockin + $sum_stockout;
+                            ?>
+                        </label>
                         <label for="" class="description-label">Total no. of Inventory Items</label>
                     </div>    
                 </div>
