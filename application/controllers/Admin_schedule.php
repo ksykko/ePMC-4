@@ -13,11 +13,15 @@ class Admin_schedule extends CI_Controller {
 	}
 
 	public function schedule() {
-		// $data['title'] = 'Schedule';
+		//Display list of Doctors
+		$query = $this->db->get("schedule"); 
+        $data['doctors'] = $query->result();
+
+		$data['title'] = 'Schedule';
 		$this->load->view('include-website/head');
         // $this->load->view('include-website/navbar');
-		$this->load->view('schedule/schedule-header');
-		$this->load->view('schedule/schedule-view');
+		$this->load->view('schedule/schedule-header', $data);
+		$this->load->view('schedule/schedule-view', $data);
 		// $this->load->view('schedule/schedule-footer');
         $this->load->view('include-website/scripts');
 		// $this->load->view('include/footer');

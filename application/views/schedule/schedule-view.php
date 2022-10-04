@@ -50,7 +50,13 @@
 			<div class="row">
 				<div class="label-doctors"><h3>Doctors</h3></div>
 				<div class="col-lg-3 list-doctors">
-					<h6>Dr. Luis Miguel Pagtakhan</h6>
+					<!-- <h6>Dr. Luis Miguel Pagtakhan</h6> -->
+					<?php
+						foreach($doctors as $doctor) {
+							echo "<h6>".$doctor->doctor_name."</h6>";
+							
+						}
+					?>
 				</div>
 				<div class="col-lg-9">
 					<div id="calendar"></div>
