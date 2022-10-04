@@ -43,6 +43,7 @@
             },
             selectable:true,
             selectHelper:true,
+            event: "<?= base_url('Admin_schedule/fetchSched'); ?>"
 		});
 	});
     </script>
