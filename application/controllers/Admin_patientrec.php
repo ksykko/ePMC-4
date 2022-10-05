@@ -89,14 +89,22 @@ class Admin_patientrec extends CI_Controller
 
     public function add_patient_validation()
     {
-        $this->form_validation->set_rules('full_name', 'Full name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter patient\'s %s.'
         ));
 
-        $this->form_validation->set_rules(array('age', 'Age', 'required|numeric|is_natural_no_zero', array(
+        $this->form_validation->set_rules('middle_name', 'Middle name', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter patient\'s %s.'
+        ));
+
+        $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter patient\'s %s.'
+        ));
+
+        $this->form_validation->set_rules('age', 'Age', 'required|numeric|is_natural_no_zero', array(
             'required' => 'Please enter patient\'s %s.',
             'numeric' => 'Please enter a valid %s.'
-        )));
+        ));
 
         $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
             'required' => 'Please enter patient\'s %s.'
@@ -145,14 +153,15 @@ class Admin_patientrec extends CI_Controller
        
         if ($this->form_validation->run() == FALSE)
         {
-            // echo '
-            // <script type="text/javascript"> 
-            //     $(document).ready(function(){
-            //     $("#modal-1").modal("show");
+
+            $this->index();
+            // echo "
+            // <script>
+            //     $(window).load(function(){
+            //         $('#modal-1').modal('show');
             //     });
             // </script>
-            // ';
-            $this->index();
+            // ";
         }
         else
         {
@@ -161,7 +170,9 @@ class Admin_patientrec extends CI_Controller
             if (isset($addPatient))
             {
                 $info = array(
-                    'full_name' => $this->input->post('full_name'),
+                    'first_name' => $this->input->post('first_name'),
+                    'middle_name' => $this->input->post('middle_name'),
+                    'last_name' => $this->input->post('last_name'),
                     'age' => $this->input->post('age'),
                     'birth_date' => $this->input->post('birth_date'),
                     'sex' => $this->input->post('sex'),
