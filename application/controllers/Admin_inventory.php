@@ -118,6 +118,16 @@ class Admin_inventory extends CI_Controller {
 
     }
 
+    public function edit_product($id)
+    {
+        $data['products'] = $this->Admin_model->get_inventory_row($id);
+    }
+
+    public function view_product($id)
+    {
+        $data['products'] = $this->Admin_model->get_inventory_row($id);
+    }
+
     public function delete_product($id)
     {
         $this->Admin_model->delete_product($id);
