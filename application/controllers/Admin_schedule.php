@@ -20,7 +20,7 @@ class Admin_schedule extends CI_Controller {
 
 		$data['title'] = 'Schedule';
 		$this->load->view('include-website/head');
-        // $this->load->view('include-website/navbar');
+        // $this->load->view('include-admin/dashboard-navbar', $data);
 		$this->load->view('schedule/schedule-header', $data);
 		$this->load->view('schedule/schedule-view', $data);
 		// $this->load->view('schedule/schedule-footer');
