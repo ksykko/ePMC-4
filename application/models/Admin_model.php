@@ -73,6 +73,30 @@ class Admin_model extends CI_Model {
     public function add_product($info) { // add patient record
         $this->db->insert('inventory', $info);
     }
+
+    // for user accounts pagination
+    public function get_useracc_table($limit, $start) {
+        $this->db->limit($limit, $start);
+        $this->db->order_by('user_id', 'DESC');
+        return $this->db->get('user_accounts')->result();
+    }
+
+    public function get_useracc_count() { 
+        return $this->db->count_all('user_accounts');
+    }
+
+    // get patient row based on patient_id ($id = primary key)
+    public function get_useracc_row($id) { 
+        return $this->db->get_where('user_accounts', ['user_id' => $id])->row();
+    }
+
+    public function add_useracc($info) { // add patient record
+        $this->db->insert('user_accounts', $info);
+    }
+
+    public function delete_useracc($id) { // delete useracc based on user_id ($id = primary key)
+        $this->db->delete('user_accounts', ['user_id' => $id]);
+    }
 }
 
 
