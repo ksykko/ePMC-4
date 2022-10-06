@@ -26,6 +26,9 @@
                 <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
                     <a class="nav-link" href="<?= site_url('Admin_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('Login/logout') ?>"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
