@@ -10,7 +10,7 @@
             </button>
             <?= form_open_multipart('Admin_inventory/add_product_validation'); ?>
             <div id="product-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-dialog-centered"  role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title ms-3 fw-bolder">Add a Product</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -238,7 +238,7 @@
                     <?= form_close(); ?>
 
                     <!-- Edit product modal -->
-                    <?= form_open_multipart('Admin_inventory/edit_product'); ?>
+                    <?= form_open_multipart('Admin_inventory/update_product'); ?>
                         <div id="product-edit-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -269,6 +269,7 @@
                                                         <!-- full_name -->
                                                         <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" />
                                                     </div>
+                                                    <small class="text-danger"><?= form_error('prod_name') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,6 +281,7 @@
                                                         <!-- TODO: -->
                                                         <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" />
                                                     </div>
+                                                    <small class="text-danger"><?= form_error('prod_dosage') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -300,8 +302,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control stock_in" type="text" id="stock_in" name="stock_in"  />
+                                                        <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" />
                                                     </div>
+                                                    <small class="text-danger"><?= form_error('stock_in') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -313,6 +316,7 @@
                                                         <!-- TODO: -->
                                                         <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" />
                                                     </div>
+                                                    <small class="text-danger"><?= form_error('stock_out') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -324,11 +328,13 @@
                                                         <!-- TODO: -->
                                                         <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc" ></textarea>
                                                     </div>
+                                                    <small class="text-danger"><?= form_error('prod_desc') ?></small>
                                                 </div>
                                             </div>
                                         </div>
                                         <br><br><br>
-                                        <div class="modal-footer"></div>
+                                        <input type="hidden" name="item_id" class="item_id">
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
                                 </div>
                             </div>
