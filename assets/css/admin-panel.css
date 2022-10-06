@@ -662,7 +662,6 @@ i {
 
 .btn-save-patient {
     background-color: #0abd8f;
-    font-size: 12px;
     border: 0px;
     color: white;
 }
@@ -687,7 +686,7 @@ i {
 }
 
 #card-prescription {
-    height: 494px;
+    height: 500px;
 }
 
 #card-next-consultation {
@@ -711,12 +710,13 @@ i {
     font-size: 11.5px;
 }
 
-.ch-patientrec {
-    background-color: var(--bs-border-color);
+.ch-heading {
+    color: #3269bf;
 }
 
-.ch-heading {
-    color: #000000;
+.dbl-btn {
+    width: 100px;
+    height: 44.79px;
 }
 
 
@@ -803,4 +803,17 @@ hr {
     background-color: #3269bf;
     border: 0 none;
     opacity: 1;
+}
+
+.alert-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1055;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0
 }
