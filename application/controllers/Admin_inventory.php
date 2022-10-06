@@ -70,9 +70,9 @@ class Admin_inventory extends CI_Controller {
             'required' => 'Please enter your %s.'
         ));
 
-        $this->form_validation->set_rules(array('prod_desc', 'Product Description', 'required', array(
+        $this->form_validation->set_rules('prod_desc', 'Product Description', 'required', array(
             'required' => 'Please enter your %s.'
-        )));
+        ));
 
         $this->form_validation->set_rules('stock_in', 'Stock In', 'required|numeric', array(
             'required' => 'Please enter your %s.',
@@ -112,10 +112,82 @@ class Admin_inventory extends CI_Controller {
             //     <strong>Holy guacamole!</strong> You should check in on some of those fields below.
             //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             // </div>
-
-            
         }
+    }
 
+    public function update_product()
+    {   
+        $this->form_validation->set_rules('item_id', 'Item id');
+
+        $this->form_validation->set_rules('prod_name', 'Product name', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter your %s.'
+        ));
+
+        $this->form_validation->set_rules('prod_dosage', 'Product Dosage', 'required', array(
+            'required' => 'Please enter your %s.'
+        ));
+
+        $this->form_validation->set_rules('prod_desc', 'Product Description', 'required', array(
+            'required' => 'Please enter your %s.'
+        ));
+
+        $this->form_validation->set_rules('quantity', 'Quantity');
+
+        $this->form_validation->set_rules('stock_in', 'Stock In', 'required|numeric', array(
+            'required' => 'Please enter your %s.',
+            'numeric' => 'Please enter a valid %s.'
+        ));
+
+        $this->form_validation->set_rules('stock_out', 'Stock Out', 'required|numeric', array(
+            'required' => 'Please enter your %s.',
+            'numeric' => 'Please enter a valid %s.'
+        ));
+       
+        if ($this->form_validation->run() == TRUE)
+        {
+            $this->index();
+        }
+        else
+        {   
+            echo "SUCCESS";
+            $id = $this->input->post('item_id');
+            $updateProduct = $this->input->post('updateProduct');
+            if (isset($updateProduct))
+            {
+                $info = array(
+                    'prod_name' => $this->input->post('prod_name'),
+                    'prod_dosage' => $this->input->post('prod_dosage'),
+                    'prod_desc' => $this->input->post('prod_desc'),
+                    'stock_in' => $this->input->post('stock_in'),
+                    'stock_out' => $this->input->post('stock_out')
+                );
+            }
+
+            $this->session->set_flashdata('success', 'Product successfully updated.');
+            $this->Admin_model->update_product($id, $info);
+            redirect('Admin_inventory/index');  
+
+        }
+        // $data['products'] = $this->Admin_model->get_inventory_row($id);
+        // $updateProduct = $this->input->post('updateProduct');
+        // if (isset($updateProduct)) {
+        //     $id = $this->input->post('item_id');
+        //     $info = array(
+        //         'prod_name' => $this->input->post('prod_name'),
+        //         'prod_dosage' => $this->input->post('prod_dosage'),
+        //         'prod_desc' => $this->input->post('prod_desc'),
+        //         'stock_in' => $this->input->post('stock_in'),
+        //         'stock_out' => $this->input->post('stock_out')
+        //     );
+        //     $this->session->set_flashdata('success', 'Product successfully updated.');
+        //     $this->Admin_model->update_product($id, $info);
+        //     redirect('Admin_inventory');        
+        // }
+    }
+
+    public function view_product($id)
+    {
+        $data['products'] = $this->Admin_model->get_inventory_row($id);
     }
 
     public function delete_product($id)
