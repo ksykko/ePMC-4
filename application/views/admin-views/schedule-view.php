@@ -53,7 +53,7 @@
 			
 		</div>
 	
-		<div class="container-fluid sched-body">
+		<div class="container-fluid card shadow mb-4 sched-body">
 			<div class="row">
 				<div class="label-doctors"><h3>Doctors</h3></div>
 				<div class="col-lg-3 list-doctors">

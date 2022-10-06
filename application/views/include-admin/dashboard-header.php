@@ -36,5 +36,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="<?= base_url('/assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/admin-panel.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/css/schedule_style.css') ?>">
     
 </head>
