@@ -98,7 +98,13 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- role -->
-                                            <input class="form-control" type="text" id="role" name="role" value="<?= set_value('role'); ?>" />
+                                            <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
+                                                <option value="select" selected>select...</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Doctor">Doctor</option>
+                                                <option value="Pharmacist">Pharmacy Assistant</option>
+                                                <option value="Patient">Patient</option>
+                                            </select>
                                         </div>
                                         <small class="text-danger"><?= form_error('role') ?></small>
                                     </div>
@@ -125,18 +131,6 @@
                                             <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
                                         </div>
                                         <small class="text-danger"><?= form_error('birth_date') ?></small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col"><label class="col-form-label">Address:</label></div>
-                                <div class="col">
-                                    <div class="input-error">
-                                        <div class="input-group">
-                                            <!-- TODO: -->
-                                            <input class="form-control" type="text" id="address" name="address" value="<?= set_value('address'); ?>" />
-                                        </div>
-                                        <small class="text-danger"><?= form_error('address') ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +213,6 @@
                                 <th>Role</th>
                                 <th>Specialization</th>
                                 <th>Birthdate</th>
-                                <th>Address</th>
                                 <th>Contact #</th>
                                 <th>Email</th>
                                 <th class="text-center col-md-3">Action</th>
@@ -235,7 +228,6 @@
                                         <td><?= $user->role ?></td>
                                         <td><?= $user->specialization ?></td>
                                         <td><?= $user->birth_date ?></td>
-                                        <td><?= $user->address ?></td>
                                         <td><?= $user->contact_no ?></td>
                                         <td><?= $user->email ?></td>
                                         <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center">

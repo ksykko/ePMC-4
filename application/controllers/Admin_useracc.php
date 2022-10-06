@@ -97,10 +97,6 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('address', 'Address', 'required', array(
-            'required' => 'Please enter an %s.'
-        ));
-
         $this->form_validation->set_rules('gender', 'Gender', 'required', array(
             'required' => 'Please enter user\'s %s.'
         ));
@@ -141,7 +137,6 @@ class Admin_useracc extends CI_Controller {
                     'role' => $this->input->post('role'),
                     'specialization' => $this->input->post('specialization'),
                     'birth_date' => $this->input->post('birth_date'),
-                    'address' => $this->input->post('address'),
                     'gender' => $this->input->post('gender'),
                     'contact_no' => $this->input->post('contact_no'),
                     'email' => $this->input->post('email'),
