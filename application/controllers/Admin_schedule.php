@@ -18,13 +18,17 @@ class Admin_schedule extends CI_Controller {
         $data['doctors'] = $query->result();
 
 		$data['title'] = 'Schedule';
+<<<<<<< HEAD
 		// $this->load->view('include-website/head');
         // $this->load->view('include-website/navbar');
 		// $this->load->view('schedule/schedule-header', $data);
 		// $this->load->view('schedule/schedule-view', $data);
-		// $this->load->view('schedule/schedule-footer');
-        // $this->load->view('include-website/scripts');
-		// $this->load->view('include/footer');
+=======
+		$this->load->view('include-website/head');
+        // $this->load->view('include-admin/dashboard-navbar', $data);
+		$this->load->view('schedule/schedule-header', $data);
+		$this->load->view('schedule/schedule-view', $data);
+>>>>>>> 9e51ecf43d0a2b8078428c38dbd3d6a69c965738
 
 		$this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);

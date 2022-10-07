@@ -36,7 +36,7 @@
                 <div class="box-wrapper bw-dashboard">
                     <div class="dash-inner-content">
                         <i class="fas fa-notes-medical"></i>
-                        <label for="" class="number-label">3,248</label>
+                        <label for="" class="number-label"><?= $patient_count ?></label>
                         <label for="" class="description-label">Total no. of Patient Records</label>
                     </div>    
                 </div>
@@ -62,7 +62,7 @@
                 <div class="box-wrapper bw-dashboard">
                     <div class="dash-inner-content">
                         <i class="fas fa-user-alt"></i>
-                        <label for="" class="number-label">97</label>
+                        <label for="" class="number-label"><?= $users_count ?></label>
                         <label for="" class="description-label">Total no. of User Accounts</label>
                     </div>    
                 </div>
