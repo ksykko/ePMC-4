@@ -80,6 +80,7 @@
                                             <option value="Others">Others</option>
                                         </select><small class="text-danger"><?= form_error('relationship') ?></small></div>
                                 </div>
+                                
                                 <div class="row mb-2">
                                     <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
                                         <input class="form-control form-control-sm" type="tel" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>

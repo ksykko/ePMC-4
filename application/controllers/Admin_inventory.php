@@ -149,7 +149,6 @@ class Admin_inventory extends CI_Controller {
         }
         else
         {   
-            echo "SUCCESS";
             $id = $this->input->post('item_id');
             $updateProduct = $this->input->post('updateProduct');
             if (isset($updateProduct))
