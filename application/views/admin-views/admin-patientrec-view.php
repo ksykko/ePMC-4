@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" name="sex">
-                                            <option value="select" selected>select ...</option>
+                                            <option value="select" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
