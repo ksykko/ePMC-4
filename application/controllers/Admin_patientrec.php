@@ -100,7 +100,6 @@ class Admin_patientrec extends CI_Controller
                 </td>
             ';
             $data[] = $row;
-
         }
 
 
@@ -261,35 +260,34 @@ class Admin_patientrec extends CI_Controller
             // </script>
             // ";
         } else {
-            $addPatient = $this->input->post('addPatient');
-            
+            //$addPatient = $this->input->post('addPatient');
 
-            if (isset($addPatient)) {
-                $info = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'middle_name' => $this->input->post('middle_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'age' => $this->input->post('age'),
-                    'birth_date' => $this->input->post('birth_date'),
-                    'sex' => $this->input->post('sex'),
-                    'occupation' => $this->input->post('occupation'),
-                    'address' => $this->input->post('address'),
-                    'cell_no' => $this->input->post('cell_no'),
-                    'tel_no' => $this->input->post('tel_no'),
-                    'email' => $this->input->post('email'),
-                    'ec_name' => $this->input->post('ec_name'),
-                    'relationship' => $this->input->post('relationship'),
-                    'ec_contact_no' => $this->input->post('ec_contact_no'),
-                    'password' => $this->input->post('birth_date'),
-                    'role' => 'patient',
-                    'avatar' => 'default-avatar.png',
-                    'activation_code' => random_string('alnum', 16),
-                    'status' => '0',
-                    'date_created' => date('Y-m-d H:i:s')
-                );
-            }
 
-            $this->session->set_flashdata('success', 'Patient successfully added.');
+
+            $info = array(
+                'first_name' => $this->input->post('first_name'),
+                'middle_name' => $this->input->post('middle_name'),
+                'last_name' => $this->input->post('last_name'),
+                'age' => $this->input->post('age'),
+                'birth_date' => $this->input->post('birth_date'),
+                'sex' => $this->input->post('sex'),
+                'occupation' => $this->input->post('occupation'),
+                'address' => $this->input->post('address'),
+                'cell_no' => $this->input->post('cell_no'),
+                'tel_no' => $this->input->post('tel_no'),
+                'email' => $this->input->post('email'),
+                'ec_name' => $this->input->post('ec_name'),
+                'relationship' => $this->input->post('relationship'),
+                'ec_contact_no' => $this->input->post('ec_contact_no'),
+                'password' => $this->input->post('birth_date'),
+                'role' => 'patient',
+                'avatar' => 'default-avatar.png',
+                'activation_code' => random_string('alnum', 16),
+                'status' => '0',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_patient($info);
             redirect('Admin_patientrec');
 
@@ -305,8 +303,9 @@ class Admin_patientrec extends CI_Controller
 
     // PATIENT RECORD VIEW INDIVIDUAL
 
-    public function update_avatar(){
-        
+    public function update_avatar()
+    {
+
         $img_config = array(
             'upload_path' => './assets/img/profile-avatars/',
             'allowed_types' => 'jpg|jpeg|png',
@@ -332,7 +331,6 @@ class Admin_patientrec extends CI_Controller
             $this->session->set_flashdata('success', 'Avatar successfully updated.');
             redirect('Admin_patientrec');
         }
-
     }
 
 

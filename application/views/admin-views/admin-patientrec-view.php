@@ -10,7 +10,7 @@
                         <div class="modal-header">
                             <h4 class="modal-title ms-3">Add a Patient Record</h4><button class="btn-close me-1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <?= form_open('Admin_patientrec/add_patient_validation', array('id' => 'regForm', 'method' => 'post')); ?>
+                        <?= form_open('Admin_patientrec/add_patient_validation', array('id' => 'regForm')); ?>
                         <div class="modal-body mx-5">
 
                             <!-- One "tab" for each step in the form: -->
@@ -92,7 +92,7 @@
                         <div class="modal-footer" style="overflow:auto;">
                             <div style="float:right;">
                                 <button class="btn btn-light" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                <button class="btn btn-primary" type="submit" name="addPatient" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                <button class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                             </div>
                         </div>
 
@@ -129,14 +129,17 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-3 pt-4 pb-5">
                 <div id="patient-table" class="table-responsive">
-                    <div class="row">
-                        <div class="col d-flex justify-content-center">
-                            <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
-                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                    <strong>Success!</strong> You successfully added a new patient.</span>
+                    
+                    <?php if ($this->session->flashdata('message') == 'success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully added a new patient.</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
 
                     <table id="example" class="table table-hover">
                         <thead>
@@ -209,6 +212,7 @@
         if (currentTab >= x.length) {
             // ... the form gets submitted:
             document.getElementById("regForm").submit();
+
             return false;
         }
         // Otherwise, display the correct tab:
