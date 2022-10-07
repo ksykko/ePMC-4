@@ -50,17 +50,6 @@ class Admin_model extends CI_Model
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     // for pagination
     public function get_patient_table($limit, $start)
     {
@@ -158,6 +147,14 @@ class Admin_model extends CI_Model
         $this->db->order_by('user_id', 'DESC');
         return $this->db->get('user_accounts')->result();
     }
+
+    public function get_nUser_count()
+    {   
+        $currentDate = "'".date('Y-m-d')."'";
+        $sql = "SELECT * FROM `patient_record` WHERE DATE(date_created) = $currentDate;";
+        return $this->db->query($sql)->num_rows();
+    }
+
 
     public function get_useracc_count()
     {

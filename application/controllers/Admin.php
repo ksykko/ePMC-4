@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
             $data['inventory_stocks'] = $this->Admin_model->get_inventory_table_contents();
             $data['users_count'] = $this->Admin_model->get_useracc_count();
             $data['patient_count'] = $this->Admin_model->get_patient_count();
-            // $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
+            $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
