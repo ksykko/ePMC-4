@@ -513,7 +513,8 @@ i {
 .inventory-container {
     width: 100%;
     height: 100vh;
-    padding: 70px !important;
+    padding: 50px 50px 0px 50px !important;
+    /* padding: 70px !important; */
 }
 
 .inventory-table {
@@ -611,6 +612,7 @@ i {
 .btn-search {
     height: 30px;
     background-color: #256cc1;
+    --bs-btn-padding-y: 0.8rem;
 }
 
 .input-error {
