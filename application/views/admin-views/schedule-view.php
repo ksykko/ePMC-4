@@ -33,7 +33,7 @@
 						<input type="time" name="start_time" id="start_time" placeholder="Start Time">
 						<input type="time" name="end_time" id="end_time" placeholder="End Time">
 					</div>
-					<div class="form-element">
+					<!-- <div class="form-element">
 							<input type="button" value="Sun">
 							<input type="button" value="Mon">
 							<input type="button" value="Tue">
@@ -41,7 +41,7 @@
 							<input type="button" value="Thurs">
 							<input type="button" value="Fri">
 							<input type="button" value="Sat">
-					</div>
+					</div> -->
 					<div class="form-element">
 						<button type="submit" name="save">Save</button>
 					</div>
