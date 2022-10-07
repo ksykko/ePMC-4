@@ -51,10 +51,8 @@ class Admin_model extends CI_Model
 
 
     // for pagination
-    public function get_patient_table($limit, $start)
+    public function get_patient_table()
     {
-        $this->db->limit($limit, $start);
-        $this->db->order_by('patient_id', 'DESC');
         return $this->db->get('patient_record')->result();
     }
 

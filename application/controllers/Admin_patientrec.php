@@ -14,44 +14,12 @@ class Admin_patientrec extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('logged_in')) { //if logged in
-            $page_config = array(
-                'base_url' => site_url('Admin_patientrec/index'),
-                'total_rows' => $this->Admin_model->get_patient_count(), // get total number of patients 
-                'num_links' => 3,
-                'per_page' => 10,
-
-                'full_tag_open' => '<div class="d-flex justify-content-center"><ul class="pagination">',
-                'full_tag_close' => '</ul></div>',
-
-                'first_link' => FALSE,
-                'last_link' => FALSE,
-
-                'next_link' => '&raquo;',
-                'next_tag_open' => '<li class="page-item">',
-                'next_tag_close' => '</li>',
-
-                'prev_link' => '&laquo;',
-                'prev_tag_open' => '<li class="page-item">',
-                'prev_tag_close' => '</li>',
-
-                'cur_tag_open' => '<li class="page-item active"><span class="page-link">',
-                'cur_tag_close' => '</span></li>',
-
-                'num_tag_open' => '<li class="page-item">',
-                'num_tag_close' => '</li>',
-
-                'attributes' => ['class' => 'page-link']
-
-            );
-
-            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-            $this->pagination->initialize($page_config);
-
+            
             $id = $this->session->userdata('admin_id');
 
             $data['title'] = 'Admin - Patient Records | ePMC';
             $data['patient'] = $this->Admin_model->get_patient_row($id);
-            $data['patients'] = $this->Admin_model->get_patient_table($page_config['per_page'], $page);
+            $data['patients'] = $this->Admin_model->get_patient_table();
 
 
             $this->load->view('include-admin/dashboard-header', $data);
@@ -70,23 +38,12 @@ class Admin_patientrec extends CI_Controller
         $start = intval($this->input->get("start"));
         $length = intval($this->input->get("length"));
 
-
         $patients = $this->Admin_model->get_patient_tbl();
-
 
         $data = array();
         $no = 0;
         foreach ($patients->result() as $patient) {
 
-
-
-            // $data[] = array(
-            //     $r->patient_id,
-            //     $r->first_name . ' ' . $r->middle_name . ' ' . $r->last_name,
-            //     $r->last_checkup,
-            //     $r
-
-            // );
             $no++;
             $row = array();
             $row[] = $no;
@@ -96,13 +53,12 @@ class Admin_patientrec extends CI_Controller
                 <td class="text-center" colspan="1"> 
                     <a class="btn btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
                     <button class="btn btn-light mx-2" type="button">Edit</button>
-                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt">'. $patient->patient_id. '</i></button> 
+                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
             $data[] = $row;
+
         }
-
-
 
         $output = array(
             "draw" => $draw,
@@ -113,54 +69,6 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
         exit();
     }
-
-    // public function datatable()
-    // {
-    //     $list = $this->Admin_model->get_patient_tbl();
-    //     $draw = intval($this->input->get("draw"));
-    //     $start = intval($this->input->get("start"));
-    //     $data = array();
-    //     $no = 0;
-    //     foreach ($list as $patient) {
-    //         $no++;
-    //         $row = array();
-    //         $row[] = $no;
-    //         $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
-    //         $row[] = $patient->last_checkup;
-    //         $data[] = $row;
-    //     }
-
-    //     $output = array(
-    //         "draw" => $_POST['draw'],
-    //         "recordsTotal" => $list->num_rows(),
-    //         "recordsFiltered" => $list->num_rows(),
-    //         "data" => $data,
-    //     );
-    //     //output to json format
-    //     echo json_encode($output);
-    // }
-
-    // public function datatable()
-    // {
-    //     $fetch_data = $this->Admin_model->make_datatables();
-    //     $data = array();
-    //     foreach ($fetch_data as $row) {
-    //         $sub_array = array();
-    //         $sub_array[] = $row->patient_id;
-    //         $sub_array[] = $row->first_name . ' ' . $row->middle_name . ' ' . $row->last_name;
-    //         $sub_array[] = $row->last_checkup;
-    //         $data[] = $sub_array;
-    //     }
-
-    //     $output = array(
-    //         "draw" => intval($_POST["draw"]),
-    //         "recordsTotal" => $this->Admin_model->get_all_data(),
-    //         "recordsFiltered" => $this->Admin_model->get_filtered_data(),
-    //         "data" => $data
-    //     );
-    //     echo json_encode($output);
-    // }
-
 
     public function edit_patient()
     {
@@ -310,8 +218,8 @@ class Admin_patientrec extends CI_Controller
             'upload_path' => './assets/img/profile-avatars/',
             'allowed_types' => 'jpg|jpeg|png',
             'max_size' => 2048,
-            'max_width' => 1024,
-            'max_height' => 768,
+            'max_width' => 2048,
+            'max_height' => 2048,
             'file_name' => 'patient-avatar-' . $id,
             'overwrite' => TRUE
         );
@@ -321,7 +229,7 @@ class Admin_patientrec extends CI_Controller
 
         if (!$this->upload->do_upload('avatar')) {
             $this->session->set_flashdata('error', $this->upload->display_errors());
-            redirect('Admin_patientrec');
+            redirect('Admin_patientrec/view_patient/' . $id);
         } else {
             $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
             $avatar = array(
