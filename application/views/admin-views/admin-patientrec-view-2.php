@@ -64,6 +64,11 @@
                             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                             <p><strong>Success!</strong> Patient's profile picture has been updated.</p>
                         </div>
+                    <?php elseif($this->session->flashdata('error')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <p><strong>Error!</strong> <?= $this->session->flashdata('error') ?></p>
+                        </div>
                     <?php endif; ?>
                     <div class="mx-3">
                         <div class="row mb-2">
