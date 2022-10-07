@@ -159,31 +159,31 @@
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="email"><strong>Pulse Rate:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="pulse_rate" /><span class="input-group-text">bpm</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="pulse_rate" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="first_name"><strong>Systolic:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="bp_systolic" /><span class="input-group-text">mmHg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="bp_systolic" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="last_name"><strong>Height:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" /><span class="input-group-text">ft / in</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" /><span class="input-group-text d-none d-md-inline-block">ft / in</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="first_name"><strong>Diastolic:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" /><span class="input-group-text">mmHg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="last_name"><strong>Weight:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="weight" /><span class="input-group-text">kg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="weight" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
                                         </div>
                                     </div>
                                 </div>
