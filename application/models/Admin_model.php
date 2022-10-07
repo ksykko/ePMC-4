@@ -92,6 +92,11 @@ class Admin_model extends CI_Model
         $this->db->update('patient_record', $info, ['patient_id' => $id]);
     }
 
+    public function update_avatar($id, $avatar)
+    { // update patient avatar based on patient_id ($id = primary key)
+        $this->db->update('patient_record', $avatar, ['patient_id' => $id]);
+    }
+
     public function delete_patient($id)
     { // delete patient based on patient_id ($id = primary key)
         $this->db->delete('patient_record', ['patient_id' => $id]);

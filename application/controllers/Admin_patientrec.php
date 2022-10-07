@@ -96,7 +96,7 @@ class Admin_patientrec extends CI_Controller
                 <td class="text-center" colspan="1"> 
                     <a class="btn btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
                     <button class="btn btn-light mx-2" type="button">Edit</button>
-                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt"></i></button> 
+                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt">'. $patient->patient_id. '</i></button> 
                 </td>
             ';
             $data[] = $row;
@@ -282,6 +282,7 @@ class Admin_patientrec extends CI_Controller
                 'password' => $this->input->post('birth_date'),
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
+                'last_checkup' => date('Y-m-d H:i:s'),
                 'activation_code' => random_string('alnum', 16),
                 'status' => '0',
                 'date_created' => date('Y-m-d H:i:s')
@@ -303,16 +304,15 @@ class Admin_patientrec extends CI_Controller
 
     // PATIENT RECORD VIEW INDIVIDUAL
 
-    public function update_avatar()
+    public function update_avatar($id)
     {
-
         $img_config = array(
             'upload_path' => './assets/img/profile-avatars/',
             'allowed_types' => 'jpg|jpeg|png',
             'max_size' => 2048,
             'max_width' => 1024,
             'max_height' => 768,
-            'file_name' => $this->input->post('patient_id'),
+            'file_name' => 'patient-avatar-' . $id,
             'overwrite' => TRUE
         );
 
@@ -323,13 +323,16 @@ class Admin_patientrec extends CI_Controller
             $this->session->set_flashdata('error', $this->upload->display_errors());
             redirect('Admin_patientrec');
         } else {
-            $data = array('upload_data' => $this->upload->data());
-            $avatar = $data['upload_data']['file_name'];
-            $patient_id = $this->input->post('patient_id');
+            $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
+            $avatar = array(
+                'avatar' => $img_name
+            );
+            $this->Admin_model->update_avatar($id, $avatar);
+            $this->session->set_flashdata('message', 'success');
 
-            $this->Admin_model->update_avatar($avatar, $patient_id);
-            $this->session->set_flashdata('success', 'Avatar successfully updated.');
-            redirect('Admin_patientrec');
+            // $this->Admin_model->update_patient($patient_id, $avatar);
+            // $this->session->set_flashdata('success', 'Avatar successfully updated.');
+            redirect('Admin_patientrec/view_patient/' . $id);
         }
     }
 
