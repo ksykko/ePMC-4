@@ -39,6 +39,61 @@ $(".navbar-toggler").click(function(){
 	setTimeout(function(){ test(); });
 });
 
+// ---------Inventory Product View-----------
+$(document).ready(function(){
+	// get View Product
+	$('.product-view-modal-btn').on('click',function(){
+		// get data from button edit
+		const id = $(this).data('id');
+		const prod_name = $(this).data('prod_name');
+		const prod_dosage = $(this).data('prod_dosage');
+		const quantity = $(this).data('quantity');
+		const stock_in = $(this).data('stock_in');
+		const stock_out = $(this).data('stock_out');
+		const prod_desc = $(this).data('prod_desc');
+
+		// Set data to Form Edit
+		$('.item_id').val(id);
+		$('.prod_name').val(prod_name);
+		$('.prod_dosage').val(prod_dosage);
+		$('.quantity').val(quantity);
+		$('.stock_in').val(stock_in);
+		$('.stock_out').val(stock_out);
+		$('.prod_desc').val(prod_desc);
+
+		// Call Modal Edit
+		$('#product-view-modal').modal('show');
+		var name = $(this).data('prod_name');
+		$("#title-prod-name").html(name);
+	});
+
+	// get Edit Product
+	$('.product-edit-modal-btn').on('click',function(){
+		// get data from button edit
+		const id = $(this).data('id');
+		const prod_name = $(this).data('prod_name');
+		const prod_dosage = $(this).data('prod_dosage');
+		const quantity = $(this).data('quantity');
+		const stock_in = $(this).data('stock_in');
+		const stock_out = $(this).data('stock_out');
+		const prod_desc = $(this).data('prod_desc');
+
+		// Set data to Form Edit
+		$('.item_id').val(id);
+		$('.prod_name').val(prod_name);
+		$('.prod_dosage').val(prod_dosage);
+		$('.quantity').val(quantity);
+		$('.stock_in').val(stock_in);
+		$('.stock_out').val(stock_out);
+		$('.prod_desc').val(prod_desc);
+
+		// Call Modal Edit
+		$('#product-edit-modal').modal('show');
+		var name = $(this).data('prod_name');
+		$("#title-prod-name-edit").html(name);
+	});
+});
+
 // --------------add active class-on another-page move----------
 // jQuery(document).ready(function($){
 // 	// Get current path and find target link
