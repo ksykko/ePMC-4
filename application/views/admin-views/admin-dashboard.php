@@ -70,7 +70,7 @@
                 <div class="box-wrapper bw-dashboard">
                     <div class="dash-inner-content">
                         <i class="fas fa-address-book"></i>
-                        <label for="" class="number-label">5</label>
+                        <label for="" class="number-label"><?= $new_patient_count ?></label>
                         <label for="" class="description-label">Total no. of New Patients today</label>
                     </div>    
                 </div>
