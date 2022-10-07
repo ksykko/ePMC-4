@@ -46,7 +46,7 @@
                                         <h4 class="modal-title">Upload Patient&#39;s Profile Picture</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body"><input type="file" /></div>
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue" type="button">Save</button></div>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <div class="col-5 col-sm-2 col-lg-5 col-xl-4 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Telephone #</label></div>
+                        <div class="col-5 col-sm-2 col-lg-5 col-xl-4 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Telephone #:</label></div>
                         <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
                             <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->tel_no ?>" readonly /></div>
                         </div>
@@ -190,7 +190,7 @@
                             </form>
                         </div>
                     </div>
-                    <div id="card-prescription" class="card shadow mb-4">
+                    <div id="card-prescription" class="card shadow mb-4" style="height: 574px;">
                         <div class="card-header py-3 ch-patientrec">
                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                         </div>
@@ -200,7 +200,7 @@
                             </form>
                         </div>
                     </div>
-                    <div id="card-next-consultation" class="card shadow mb-4">
+                    <div id="card-next-consultation" class="card shadow mb-4" style="height: 251px">
                         <div class="card-header py-3 ch-patientrec">
                             <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
                         </div>
