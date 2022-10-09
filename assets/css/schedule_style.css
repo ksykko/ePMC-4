@@ -162,3 +162,47 @@
     padding: 0 20px 0 15px;
     width: inherit;
 }
+
+.calendar {
+    text-align: center;
+}
+
+.calTable {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.calTable th {
+    border: 1px solid #ccc;
+    border-left: none;
+    border-right: none;
+    font-size: 30px;
+}
+
+.calTable .trWeek {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.calTable .trDayrow {
+    border: 1px solid #ccc;
+}
+
+.calTable .tdDaycell,
+.calTable .tdToday,
+.calTable .otherDays {
+    border: 1px solid #ccc;
+    text-align: right;
+    /* padding-top: 10px;
+    padding-bottom: 50px; */
+    padding: 5px 12px 100px 10px;
+    
+}
+
+.calTable .tdToday {
+    font-weight: bold;
+}
+
+.calTable .otherDays {
+    color: #ccc;
+}

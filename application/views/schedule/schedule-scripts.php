@@ -32,7 +32,7 @@
             },
             selectable:true,
             selectHelper:true,
-            event: "<?= base_url('Admin_schedule/fetchSched'); ?>"
+            events: "<?= base_url('Admin_schedule/fetchSched'); ?>"
 		});
 	});
     </script>

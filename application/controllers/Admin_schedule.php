@@ -7,24 +7,111 @@ class Admin_schedule extends CI_Controller {
 		
 		$this->load->helper('url', 'form');
 		$this->load->library(['form_validation', 'session', 'pagination']);
-		$this->load->model('Admin_schedule_model');
+		$this->load->model('Admin_schedule_model', 'schedModel');
 		$this->load->database();
 		
 	}
 
-	public function schedule() {
+	public function schedule($year=FALSE, $month=FALSE) {
 		//Display list of Doctors
 		$query = $this->db->get("schedule"); 
         $data['doctors'] = $query->result();
+		
 
+		//Display Calendar
+		if ($this->uri->segment(3) == FALSE) {
+            $year = date('Y');
+        } else {
+            $year = $this->uri->segment(3);
+        }
+
+		$data['year'] = $year; //current year
+
+        if ($this->uri->segment(4) == FALSE) {
+            $month = date('m');
+        } else {
+            $month = $this->uri->segment(4);
+        }
+
+        $data['month'] = $month; //current month
+
+		$prefs = array(
+			'start_day' => 'sunday',
+			'month_type' => 'long',
+			'day_type' => 'short',
+			'show_other_days' => TRUE,
+			'show_next_prev'=>TRUE,
+			'next_prev_url'=>base_url().'Admin_schedule/schedule'
+		);
+
+		$prefs['template'] = '
+
+        {table_open}<table class="calTable" border="0" cellpadding="0" cellspacing="0" >{/table_open}
+
+        {heading_row_start}<tr>{/heading_row_start}
+
+        {heading_previous_cell}<th><a href="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
+        {heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
+        {heading_next_cell}<th><a href="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
+
+        {heading_row_end}</tr>{/heading_row_end}
+
+        {week_row_start}<tr class="trWeek">{/week_row_start}
+        {week_day_cell}<td>{week_day}</td>{/week_day_cell}
+        {week_row_end}</tr>{/week_row_end}
+
+        {cal_row_start}<tr class="trDayrow">{/cal_row_start}
+        {cal_cell_start}<td class="tdDaycell" >{/cal_cell_start}
+        {cal_cell_start_today}<td class="tdToday">{/cal_cell_start_today}
+        {cal_cell_start_other}<td class="other-month otherDays">{/cal_cell_start_other}
+
+        {cal_cell_content}<a href="{content}">{day}</a>{/cal_cell_content}
+        {cal_cell_content_today}<div class="highlight"><a href="{content}">{day}</a></div>{/cal_cell_content_today}
+
+        {cal_cell_no_content}{day}{/cal_cell_no_content}
+        {cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
+
+        {cal_cell_blank}&nbsp;{/cal_cell_blank}
+
+        {cal_cell_other}{day}{/cal_cel_other}
+
+        {cal_cell_end}</td>{/cal_cell_end}
+        {cal_cell_end_today}</td>{/cal_cell_end_today}
+        {cal_cell_end_other}</td>{/cal_cell_end_other}
+        {cal_row_end}</tr>{/cal_row_end}
+
+        {table_close}</table>{/table_close}
+		';
+		
+		
+
+		$this->load->library('calendar', $prefs);
+		// $data = $this->get_calendar_data($year, $month);
+		$data['calendar'] = $this->calendar->generate($year, $month, $data);
+
+		// $date = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 3, date('Y')));
+		
+		
+		// Display views
 		$data['title'] = 'Schedule';
 		$this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);
-		// $this->load->view('schedule/schedule-header', $data);
 		$this->load->view('admin-views/schedule-view', $data);
 		$this->load->view('include-admin/dashboard-scripts');
 		$this->load->view('schedule/schedule-scripts');
 	}
+
+	// public function get_calendar_data($year, $month) {
+
+    //     $query = $this->db->select('date, doctor_name')->from('schedule')->like('date', "$year-$month", 'after')->get();
+	// 	$cal_data = array();
+	// 	foreach ($query->result() as $row) {
+    //         $calendar_date = date("Y-m-j", strtotime($row->date)); // to remove leading zero from day format
+	// 		$cal_data[substr($calendar_date, 8,2)] = $row->doctor_name;
+	// 	}
+		
+	// 	return $cal_data;
+    // }
 
 	public function addSchedule() {
 		$data = array( 
@@ -35,41 +122,12 @@ class Admin_schedule extends CI_Controller {
 			'end_time' => $this->input->post('end_time')
         );
 
-		// var_dump($data);
 		$this->load->model('Admin_schedule_model', 'schedModel');
 		$this->schedModel->insertSchedule($data);
 		echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule/schedule') </script>";
-		// redirect(base_url('schedule'));
-
-
-		// if($this->input->post('save')) {
-		//     $data['doctor_name']=$this->input->post('doctor_name');
-		// 	$data['specialization']=$this->input->post('specialization');
-		// 	$data['date']=$this->input->post('date');
-		// 	$data['start_time']=$this->input->post('start_time');
-		// 	$data['end_time']=$this->input->post('end_time');
-		// 	$response=$this->schedModel->insertSchedule($data);
-		// 	if($response==true){
-		// 	        echo "Shedule Saved Successfully";
-		// 	}
-		// 	else{
-		// 			echo "Insert error !";
-		// 	}
-		// }
 	}
 
-	public function fetchSchedule() {
-		$sched_data = $this->schedModel->fetchSchedule();
-		foreach($sched_data->result_array() as $row) {
-			$data[] = array(
-				'id' => $row['schedule_id'],
-				'doctor_name' => $row['doctor_name'],
-				'specialization' => $row['specialization'],
-				'date' => $row->date,
-				'start_time' => $row['start_time'],
-				'end_time' => $row['end_time']
-			);
-		}
-		echo json_encode($data);
-	}
+	
+
+
 }
