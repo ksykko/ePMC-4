@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" name="sex">
-                                            <option value="select" selected>select ...</option>
+                                            <option value="select" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
@@ -160,7 +160,7 @@
                                                 <h4 class="modal-title">Delete a Patient</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this patient? <?= $patient->patient_id ?></p>
+                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this patient?</p>
                                             </div>
                                             <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger" href="<?= base_url('Admin_patientrec/delete_patient/') . $patient->patient_id ?>" type="button">Confirm</a></div>
                                         </div>

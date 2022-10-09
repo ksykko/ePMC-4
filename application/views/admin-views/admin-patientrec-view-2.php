@@ -38,6 +38,11 @@
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Personal Information</h6>
                 </div>
                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="<?= base_url('/assets/img/profile-avatars/') . $patient->avatar ?>" width="160" height="160" />
+                    <?php
+                    $path = 'Admin_patientrec/update_avatar/' . $patient->patient_id;
+
+                    ?>
+                    <?= form_open_multipart($path); ?>
                     <div class="mb-3"><button class="btn btn-primary btn-sm btn-default-blue" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button>
                         <div id="mdl-uploadpic" class="modal fade" role="dialog" tabindex="-1">
                             <div class="modal-dialog" role="document">
@@ -45,12 +50,26 @@
                                     <div class="modal-header">
                                         <h4 class="modal-title">Upload Patient&#39;s Profile Picture</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body"><input type="file" /></div>
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue" type="button">Save</button></div>
+                                    <div class="modal-body">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="file" name="avatar" /></div>
+                                    </div>
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue" type="submit">Save</button></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?= form_close(); ?>
+                    <?php if ($this->session->flashdata('message') == 'success' ) : ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <p><strong>Success!</strong> Patient's profile picture has been updated.</p>
+                        </div>
+                    <?php elseif($this->session->flashdata('error')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <p><strong>Error!</strong> <?= $this->session->flashdata('error') ?></p>
+                        </div>
+                    <?php endif; ?>
                     <div class="mx-3">
                         <div class="row mb-2">
                             <div class="col-4 col-md-2 col-lg-3 col-xl-3 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Name:</label></div>
@@ -159,38 +178,38 @@
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="email"><strong>Pulse Rate:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="pulse_rate" /><span class="input-group-text">bpm</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="pulse_rate" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="first_name"><strong>Systolic:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="bp_systolic" /><span class="input-group-text">mmHg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="bp_systolic" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="last_name"><strong>Height:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" /><span class="input-group-text">ft / in</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" /><span class="input-group-text d-none d-md-inline-block">ft / in</span></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="first_name"><strong>Diastolic:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" /><span class="input-group-text">mmHg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="last_name"><strong>Weight:</strong></label>
-                                            <div class="input-group"><input class="form-control" type="text" name="weight" /><span class="input-group-text">kg</span></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="weight" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div id="card-prescription" class="card shadow mb-4" style="height: 574px;">
+                    <div id="card-prescription" class="card shadow mb-4" style="height: 548px;">
                         <div class="card-header py-3 ch-patientrec">
                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                         </div>
