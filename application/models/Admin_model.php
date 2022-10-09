@@ -52,14 +52,29 @@ class Admin_model extends CI_Model
     public function add_patient($info)
     { // add patient record
         $this->db->insert('patient_record', $info);
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
     }
 
+
+
+
+
+
+
+
+
+
+
     // for inventory pagination
-    public function get_inventory_table($limit, $start)
+    public function get_inventory_table()
     {
-        $this->db->limit($limit, $start);
-        $this->db->order_by('item_id');
         return $this->db->get('inventory')->result();
+    }
+
+    public function get_inventory_tbl()
+    {
+        return $this->db->get('inventory');
     }
 
     // get total number items in the inventory
@@ -134,4 +149,49 @@ class Admin_model extends CI_Model
     { // delete useracc based on user_id ($id = primary key)
         $this->db->delete('user_accounts', ['user_id' => $id]);
     }
+
+
+
+
+
+
+
+
+
+
+
+    // START OF patient_details table
+    public function add_patient_details($info)
+    {
+        $this->db->insert('patient_details', $info);
+    }
+
+    public function update_patient_details($id, $info)
+    {
+        $this->db->update('patient_details', $info, ['patient_id' => $id]);
+    }
+
+    // END OF patient_details table
+
+    // START OF patient_diagnosis table
+
+    public function add_patient_diagnosis($info)
+    {
+        $this->db->insert('patient_diagnosis', $info);
+    }
+
+    // END OF patient_diagnosis table
+
+
+    // START OF patient_lab_reports table
+
+    public function add_patient_lab_reports($info)
+    {
+        $this->db->insert('patient_lab_reports', $info);
+    }
+    
+    // END OF patient_lab_reports table
+
+
+
 }
