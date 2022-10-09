@@ -59,13 +59,15 @@
 				<div class="col-lg-3 list-doctors">
 					<!-- <h6>Dr. Luis Miguel Pagtakhan</h6> -->
 					<?php
-						foreach($doctors as $doctor) {
-							echo "<h6>".$doctor->doctor_name."</h6>";
-						}
+						// foreach($doctors as $doctor) {
+						// 	echo "<h6>".$doctor->doctor_name."</h6>";
+						// }
+						
 					?>
 				</div>
-				<div class="col-lg-9">
-					<div id="calendar"></div>
+				<div class="col-lg-9 calendar">
+					<!-- <div id="calendar"></div> -->
+					<?= $calendar; ?>
 				</div>
 			</div>
 		</div>

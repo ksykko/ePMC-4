@@ -10,7 +10,7 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function() {
 		var calendar = $('#calendar').fullCalendar({
 			editable:true,
@@ -31,11 +31,10 @@
                 }
             },
             selectable:true,
-            selectHelper:true,
-            event: "<?= base_url('Admin_schedule/fetchSched'); ?>"
+            selectHelper:true
 		});
 	});
-    </script>
+</script> -->
 <!-- POPUP ADD SCHED -->
 <script>
     document.getElementById("btn-addSched").addEventListener("click", function() {
