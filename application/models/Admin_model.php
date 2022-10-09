@@ -10,62 +10,9 @@ class Admin_model extends CI_Model
         $this->load->database();
     }
 
-    var $table = "patient_record";
-    var $select_column = array("patient_id", "first_name", "middle_name", "last_name", "last_checkup");
-    var $order_column = array("patient_id", "first_name", "middle_name", "last_name", "last_checkup", null);
-    function make_query()
-    {
-        $this->db->select($this->select_column);
-        $this->db->from($this->table);
-        if (isset($_POST["search"]["value"])) {
-            $this->db->like("first_name", $_POST["search"]["value"]);
-            $this->db->or_like("last_name", $_POST["search"]["value"]);
-        }
-        if (isset($_POST["order"])) {
-            $this->db->order_by($this->order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-        } else {
-            $this->db->order_by('id', 'DESC');
-        }
-    }
-    function make_datatables()
-    {
-        $this->make_query();
-        if ($_POST["length"] != -1) {
-            $this->db->limit($_POST['length'], $_POST['start']);
-        }
-        $query = $this->db->get();
-        return $query->result();
-    }
-    function get_filtered_data()
-    {
-        $this->make_query();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-    function get_all_data()
-    {
-        $this->db->select("*");
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
     // for pagination
-    public function get_patient_table($limit, $start)
+    public function get_patient_table()
     {
-        $this->db->limit($limit, $start);
-        $this->db->order_by('patient_id', 'DESC');
         return $this->db->get('patient_record')->result();
     }
 
@@ -90,6 +37,11 @@ class Admin_model extends CI_Model
     public function update_patient($id, $info)
     { // update patient info based on patient_id ($id = primary key)
         $this->db->update('patient_record', $info, ['patient_id' => $id]);
+    }
+
+    public function update_avatar($id, $avatar)
+    { // update patient avatar based on patient_id ($id = primary key)
+        $this->db->update('patient_record', $avatar, ['patient_id' => $id]);
     }
 
     public function delete_patient($id)
@@ -153,6 +105,14 @@ class Admin_model extends CI_Model
         $this->db->order_by('user_id', 'DESC');
         return $this->db->get('user_accounts')->result();
     }
+
+    public function get_nUser_count()
+    {   
+        $currentDate = "'".date('Y-m-d')."'";
+        $sql = "SELECT * FROM `patient_record` WHERE DATE(date_created) = $currentDate;";
+        return $this->db->query($sql)->num_rows();
+    }
+
 
     public function get_useracc_count()
     {
