@@ -46,7 +46,7 @@ class Admin_inventory extends CI_Controller {
             $row[] = '<strong>' . $product->prod_name . '</strong><br>' . $product->prod_dosage .'';
             $row[] = $product->prod_desc;
             $row[] = ($product->stock_in)+($product->stock_out);
-            $row[] = 'ggg';
+            $row[] = $product->stock_in;
             $row[] = $product->stock_out;
             $row[] = 
             '
