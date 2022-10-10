@@ -25,7 +25,7 @@
                 { "targets": [4], 
                     render :function(data,type,row){
                         if (data <= 10) {
-                            return '<span class="badge bg-danger">'+data+'</span>';
+                            return '<span class="badge bg-danger">'+data+'</span><br><strong style="color: #dc3545;">Low on Stocks</strong>';
                         } else if (data <= 20) {
                             return '<span class="badge bg-warning">'+data+'</span>';
                         } else {
@@ -44,5 +44,4 @@
 
 
 </body>
-
 </html>
