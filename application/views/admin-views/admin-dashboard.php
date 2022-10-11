@@ -22,12 +22,12 @@
         <div class="profile-sidebar">
             <div class="profile-box">
                 <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
-                <label for="avatar">Hello, <br> Vengeline B. Angot</label><br>
-                <label for="avatar" class="role">ADMIN</label><br>
+                <label for="avatar">Hello, <br> <?= $user_name ?></label><br>
+                <label for="avatar" class="role"><?= $user_role ?></label><br>
             </div>
 
             <footer class="sidebar-footer">
-                Terms of Use | Privacy Policy
+                <!-- Terms of Use | Privacy Policy -->
             </footer>
         </div> 
     
