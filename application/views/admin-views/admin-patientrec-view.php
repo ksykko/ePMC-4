@@ -187,7 +187,7 @@
                                         <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= $patient->ec_name ?>" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
                                         <div class="col form-group px-1"><label class="form-label">Relationship</label>
                                             <select class="form-select form-select-sm" id="relationship" name="relationship">
-                                            <!-- TODO: fix if condition -->
+                                                <!-- TODO: fix if condition -->
                                                 <?php if ($patient->relationship == 'Father') : ?>
                                                     <option value="select" disabled>select ...</option>
                                                     <option value="Father" selected>Father</option>
@@ -266,7 +266,7 @@
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-sm-inline-block ms-1">Add Patient Record</span></button></div>
+        <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" onclick="formValidation()" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-sm-inline-block ms-1">Add Patient Record</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-import" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-3"><i class="fa fa-picture-o"></i><span class="d-none d-sm-inline-block ms-1">Add via Import</span></button></div>
         <div id="modal-3" class="modal fade" role="dialog" tabindex="-1">
             <div class="modal-dialog" role="document">

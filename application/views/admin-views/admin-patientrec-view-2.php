@@ -38,7 +38,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Success!</strong> Patient's profile picture has been updated.</p>
                 </div>
-            <?php elseif ($this->session->flashdata('message') == 'success-healthinfo'): ?>
+            <?php elseif ($this->session->flashdata('message') == 'success-healthinfo') : ?>
                 <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Success!</strong> Patient's health information has been updated.</p>
@@ -46,27 +46,28 @@
             <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
                 <div class="alert alert-danger alert-dismissible fade show w-25" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Error!</strong> Patient's profile picture has not been updated. <?= $this->session->flashdata('error-profilepic') ?></p>
+                    <p><strong>Error!</strong> Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></p>
                 </div>
             <?php elseif ($this->session->flashdata('error')) : ?>
                 <div class="alert alert-danger alert-dismissible fade show w-25" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Error!</strong> Invalid input/s.</p>
+                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error-profilepic') ?></p>
+                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error') ?></p>
                 </div>
             <?php endif; ?>
         </div>
     </div>
+    <?php $updatePatientPath = 'Admin_patientrec/update_health_info/' . $patient->patient_id; ?>
+    <?= form_open_multipart($updatePatientPath, array('id' => 'healthForm')); ?>
     <div class="row mb-3">
         <div class="col-lg-4">
             <div class="card mb-4">
                 <div class="card-header py-3 ch-patientrec" style>
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Personal Information</h6>
                 </div>
+
                 <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="<?= base_url('/assets/img/profile-avatars/') . $patient->avatar ?>" width="160" height="160" />
-                    <?php
-                    $path = 'Admin_patientrec/update_avatar/' . $patient->patient_id;
-                    ?>
-                    <?= form_open_multipart($path); ?>
                     <div class="mb-3"><button class="btn btn-primary btn-sm btn-default-blue" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button>
                         <div id="mdl-uploadpic" class="modal fade" role="dialog" tabindex="-1">
                             <div class="modal-dialog" role="document">
@@ -77,12 +78,11 @@
                                     <div class="modal-body">
                                         <div class="input-group"><input class="form-control form-control-sm" type="file" name="avatar" /></div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue" type="submit">Save</button></div>
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue">Save</button></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?= form_close(); ?>
                     <div class="mx-3">
                         <div class="row mb-2">
                             <div class="col-4 col-md-2 col-lg-3 col-xl-3 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Name:</label></div>
@@ -177,10 +177,6 @@
         <div class="col-lg-8">
             <div class="row">
                 <div class="col-xxl-12 h-">
-                    <?php
-                    $updatePatientPath = 'Admin_patientrec/update_health_info/' . $patient->patient_id;
-                    ?>
-                    <?= form_open_multipart($updatePatientPath, array('id' => 'healthForm')); ?>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 ch-patientrec">
                             <h6 class="m-0 fw-bold fs-5 ch-heading">Vital Signs</h6>
@@ -240,7 +236,7 @@
                                                     <option value="AB-">AB-</option>
                                                     <option value="O+">O+</option>
                                                     <option value="O-">O-</option>
-                                                <?php elseif ($healthinfo->blood_type == 'AB-') : ?>\
+                                                    <?php elseif ($healthinfo->blood_type == 'AB-') : ?>\
                                                     <option disabled>select ...</option>
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
@@ -270,7 +266,7 @@
                                                     <option value="AB-">AB-</option>
                                                     <option value="O+">O+</option>
                                                     <option value="O-" selected>O-</option>
-                                                <?php else: ?>
+                                                <?php else : ?>
                                                     <option disabled selected>select ...</option>
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
@@ -287,6 +283,7 @@
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="pulse_rate"><strong>Pulse Rate:</strong></label>
                                             <div class="input-group"><input class="form-control" type="text" name="pulse_rate" value="<?= $healthinfo->pulse_rate ?>" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
+                                            <small class="text-danger"><?= form_error('pulse_rate') ?></small>
                                         </div>
                                     </div>
                                 </div>
@@ -295,6 +292,7 @@
                                         <div class="mb-3"><label class="form-label" for="bp_systolic"><strong>Systolic:</strong></label>
                                             <div class="input-group"><input class="form-control" type="text" name="bp_systolic" value="<?= $healthinfo->bp_systolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                         </div>
+                                        <small class="text-danger"><?= form_error('bp_systolic') ?></small>
                                     </div>
                                     <div class="col">
                                         <div class="mb-3"><label class="form-label" for="height"><strong>Height:</strong></label>
@@ -322,7 +320,7 @@
                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                         </div>
                         <div class="card-body mx-3">
-                            <div class="mb-3"><textarea class="form-control text-area" name="prescription"><?= $healthinfo->prescription ?></textarea></div>
+                            <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription"><?= $healthinfo->prescription ?></textarea></div>
                         </div>
                     </div>
                     <div id="card-next-consultation" class="card shadow mb-4" style="height: 251px">
@@ -333,17 +331,18 @@
                             <form>
                                 <div class="row">
                                     <div class="col-xxl-12">
-                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="diastolic-1" class="form-control" value="<?= $healthinfo->consul_next ?>" name="consul_next" type="datetime-local" /></div>
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" value="" name="consul_next" type="datetime-local" /></div>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="card shadow mb-4">
+    <!-- <div class="card shadow mb-4">
         <div class="card-header py-3 ch-patientrec">
             <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
         </div>
@@ -369,7 +368,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row row-cols-1">
         <div class="col">
             <div class="card shadow mb-4">
@@ -392,8 +391,8 @@
             </div>
         </div>
     </div>
-    <?= form_close(); ?>
-    <div class="row">
+    <?= form_close() ?>
+    <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec ch-patientdiag">
@@ -608,69 +607,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
-<!-- <script>
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var y, i, j, k, input_valid = true,
-            select_valid = true,
-            textarea_valid = true;
-
-        y = document.getElementsByTagName("input");
-        z = document.getElementsByTagName("select");
-        x = document.getElementsByTagName("textarea");
-
-
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                input_valid = false;
-            } else
-                y[i].className = "form-control form-control valid";
-        }
-
-        // A loop that checks every select field in the current tab:
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " invalid";
-                // and set the current valid status to false
-                select_valid = false;
-            } else
-                z[j].className = "form-select valid";
-        }
-
-        for (k = 0; k < x.length; k++) {
-            // If a select field is empty...
-            if (x[j].value == "select") {
-                // add an "invalid" class to the field:
-                x[j].className += " invalid";
-                // and set the current valid status to false
-                textarea_valid = false;
-            } else
-                x[j].className = "form-control text-area valid";
-        }
-
-
-
-
-        $(document).ready(function() {
-            $("#saveHealthBtn").click(function() {
-                $("#healthForm").submit();
-            });
-        });
-
-
-        console.log(select_valid);
-        // return the valid status
-
-        return input_valid && select_valid;
-
-    }
-</script> -->
