@@ -16,6 +16,8 @@ class Admin extends CI_Controller {
             $data['title'] = 'Admin | ePMC';
             $id = $this->session->userdata('admin_id');
 
+            $data['user_name'] = $this->session->userdata('full_name');
+            $data['user_role'] = $this->session->userdata('role');
             $data['product'] = $this->Admin_model->get_inventory_row($id);
             $data['inventory_stocks'] = $this->Admin_model->get_inventory_table_contents();
             $data['users_count'] = $this->Admin_model->get_useracc_count();
