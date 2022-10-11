@@ -21,7 +21,7 @@ class Users extends CI_Controller {
        $id  = $this->session->userdata('id');
        $data['title'] = 'User';
        $data['active'] = 'profile';
-       $data['user'] = $this->Users_model->get_user_row($id);
+       $data['user'] = $this->User_model->get_user_row($id);
        $this->load->view('include/header', $data);
        $this->load->view('users_view', $data);
        $this->load->view('include/footer');

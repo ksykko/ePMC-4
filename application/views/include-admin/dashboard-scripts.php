@@ -20,9 +20,8 @@
             { 
                 "targets": [ 3 ], //first column / numbering column
                 "orderable": false, //set not orderable
-                "className": "text-center", "targets": [3]
-            }
-            ]
+            },
+            ],
         });
         
     });

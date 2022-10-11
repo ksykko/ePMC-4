@@ -25,7 +25,7 @@ class Admin_patientrec extends CI_Controller
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-patientrec-view', $data); //recent sample
-            $this->load->view('include-admin/patientrec-scripts');
+            $this->load->view('include-admin/dashboard-scripts');
         } else {
             redirect('Login/signin');
         }
@@ -52,7 +52,7 @@ class Admin_patientrec extends CI_Controller
             $row[] = '
                 <td class="text-center" colspan="1"> 
                     <a class="btn btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
-                    <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
+                    <button class="btn btn-light mx-2" type="button">Edit</button>
                     <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
@@ -67,116 +67,16 @@ class Admin_patientrec extends CI_Controller
             "data" => $data
         );
         echo json_encode($output);
+        exit();
     }
 
-    public function edit_patient($id)
+    public function edit_patient()
     {
-        $data['patient'] = $this->Admin_model->get_patient_row($id);
-
-        $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('middle_name', 'Middle name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('age', 'Age', 'required|numeric|is_natural_no_zero', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('sex', 'Sex', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('occupation', 'Occupation', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('address', 'Address', 'required', array(
-            'required' => 'Please enter an %s.'
-        ));
-
-        $this->form_validation->set_rules('cell_no', 'Cellphone #', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('tel_no', 'Telephone #', 'required|numeric|min_length[7]', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
-            'required' => 'Please enter patient\'s %s.',
-            'valid_email' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('ec_name', 'Emergency contact name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter an %s.'
-        ));
-
-        $this->form_validation->set_rules('relationship', 'Emergency contact relationship', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('ec_contact_no', 'Emergency contact #', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter an %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-
-        if ($this->form_validation->run() == FALSE) {
-
-            $this->index();
-            // echo "
-            // <script>
-            //     $(window).load(function(){
-            //         $('#modal-1').modal('show');
-            //     });
-            // </script>
-            // ";
-        } else {
-            //$addPatient = $this->input->post('addPatient');
-
-            $info = array(
-                'first_name' => $this->input->post('first_name'),
-                'middle_name' => $this->input->post('middle_name'),
-                'last_name' => $this->input->post('last_name'),
-                'age' => $this->input->post('age'),
-                'birth_date' => $this->input->post('birth_date'),
-                'sex' => $this->input->post('sex'),
-                'occupation' => $this->input->post('occupation'),
-                'address' => $this->input->post('address'),
-                'cell_no' => $this->input->post('cell_no'),
-                'tel_no' => $this->input->post('tel_no'),
-                'email' => $this->input->post('email'),
-                'ec_name' => $this->input->post('ec_name'),
-                'relationship' => $this->input->post('relationship'),
-                'ec_contact_no' => $this->input->post('ec_contact_no'),
-                'last_accessed' => date('Y-m-d H:i:s')
-            );
-
-            $this->session->set_flashdata('message', 'success');
-            $this->Admin_model->add_patient($info);
-            redirect('Admin_patientrec');
-        }
-
     }
 
     public function delete_patient($id)
     {
         $this->Admin_model->delete_patient($id);
-        $this->session->set_flashdata('message', 'dlt_success');
         redirect('Admin_patientrec/index');
     }
 
@@ -184,7 +84,6 @@ class Admin_patientrec extends CI_Controller
     {
         $data['title'] = 'Admin - Patient Records | ePMC';
         $data['patient'] = $this->Admin_model->get_patient_row($id);
-        $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
         // $data['patients'] = $this->Admin_model->get_patient_table();
         $data['patient_id'] = $id;
 
@@ -271,6 +170,8 @@ class Admin_patientrec extends CI_Controller
         } else {
             //$addPatient = $this->input->post('addPatient');
 
+
+
             $info = array(
                 'first_name' => $this->input->post('first_name'),
                 'middle_name' => $this->input->post('middle_name'),
@@ -294,18 +195,9 @@ class Admin_patientrec extends CI_Controller
                 'status' => '0',
                 'date_created' => date('Y-m-d H:i:s')
             );
- 
-            $insert_id = $this->Admin_model->add_patient($info);
-
-            $patientDetails = array(
-                'patient_id' => $insert_id,
-            );
 
             $this->session->set_flashdata('message', 'success');
-            $this->Admin_model->add_patient_details($patientDetails);
-            $this->Admin_model->add_patient_diagnosis($patientDetails);
-            $this->Admin_model->add_patient_lab_reports($patientDetails);
-            $this->Admin_model->add_patient_treatment_plan($patientDetails);
+            $this->Admin_model->add_patient($info);
             redirect('Admin_patientrec');
 
             // <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -336,7 +228,7 @@ class Admin_patientrec extends CI_Controller
         $this->upload->initialize($img_config);
 
         if (!$this->upload->do_upload('avatar')) {
-            $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
+            $this->session->set_flashdata('error', $this->upload->display_errors());
             redirect('Admin_patientrec/view_patient/' . $id);
         } else {
             $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
@@ -344,60 +236,10 @@ class Admin_patientrec extends CI_Controller
                 'avatar' => $img_name
             );
             $this->Admin_model->update_avatar($id, $avatar);
-            $this->session->set_flashdata('message', 'success-profilepic');
+            $this->session->set_flashdata('message', 'success');
+
             // $this->Admin_model->update_patient($patient_id, $avatar);
             // $this->session->set_flashdata('success', 'Avatar successfully updated.');
-            redirect('Admin_patientrec/view_patient/' . $id);
-        }
-    }
-
-    public function update_health_info($id)
-    {
-
-        
-
-        $this->form_validation->set_rules('bp_systolic', 'Systolic', 'required|numeric', array(
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('bp_diastolic', 'Diastolic', 'required|numeric', array(
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('pulse_rate', 'Pulse rate', 'required|numeric', array(
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('height', 'Height', 'required|numeric', array(
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('weight', 'Weight', 'required|numeric', array(
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        if ($this->form_validation->run() == FALSE) 
-        {
-            $this->session->set_flashdata('error', validation_errors());
-            redirect('Admin_patientrec/view_patient/' . $id);
-
-        } else {
-
-            $health_info = array(
-                'blood_type' => $this->input->post('blood_type'),
-                'bp_systolic' => $this->input->post('bp_systolic'),
-                'bp_diastolic' => $this->input->post('bp_diastolic'),
-                'pulse_rate' => $this->input->post('pulse_rate'),
-                'height' => $this->input->post('height'),
-                'weight' => $this->input->post('weight'),
-                'prescription' => $this->input->post('prescription'),
-                'consul_next' => $this->input->post('consul_next'),
-                'objectives' => $this->input->post('objectives'),
-                'symptoms' => $this->input->post('symptoms'),
-            );
-
-            $this->Admin_model->update_patient_details($id, $health_info);
-            $this->session->set_flashdata('message', 'success-healthinfo');
             redirect('Admin_patientrec/view_patient/' . $id);
         }
     }
