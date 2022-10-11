@@ -1,7 +1,12 @@
+<style>
+    body {
+        overflow-y: scroll;
+    }
+</style>
 <div class="container-fluid inventory-container">
-    <div class="d-flex">
-        <div><br>
-            <h1 class="d-none d-sm-block inventory-label">Inventory</h3>
+    <div class="d-flex mb-3">
+        <div>
+            <h1 class="d-none d-sm-inline-block patientrec-label">Inventory</h3>
         </div>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
             <button id="btn-add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#product-modal" type="button">
@@ -91,8 +96,27 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4 p-3 pt-4 pb-5">
+            <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div class="table-responsive">
+                    <?php if ($this->session->flashdata('message') == 'success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully added a new product.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully deleted a product.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <table id="inventory-table" class="table table-hover">
                         <thead>
                             <tr>
@@ -106,6 +130,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($products as $product) : ?>
+                                <div id="delete-dialog-<?= $product->item_id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete a Product</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this product?</p>
+                                            </div>
+                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger" href="<?= base_url('Admin_inventory/delete_product/') . $product->item_id ?>" type="button">Confirm</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                     <!-- View product modal -->
