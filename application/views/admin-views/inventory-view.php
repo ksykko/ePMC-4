@@ -110,206 +110,206 @@
                     </table>
                     <!-- View product modal -->
                     <?php foreach ($products as $product) : ?>
-                    <?= form_open_multipart('Admin_inventory/view_product'); ?>
-                    <div id="product-view-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                        <?= form_open_multipart('Admin_inventory/view_product'); ?>
+                        <div id="product-view-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
 
-                                <div class="modal-body mx-5">
-                                    <h5 class="heading-modal fw-semibold">Product Information</h5>
-                                    <hr size="5" />
-                                    <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product ID:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
+                                    <div class="modal-body mx-5">
+                                        <h5 class="heading-modal fw-semibold">Product Information</h5>
+                                        <hr size="5" />
+                                        <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product ID:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- full_name -->
+                                                        <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-4 mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Name:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" disabled />
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Name:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- full_name -->
+                                                        <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Dosage:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" disabled />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Dosage:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Quantity:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Quantity:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Stock in:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" disabled />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Stock in:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Stock out:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" disabled />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Stock out:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Description:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc" disabled><?= $product->prod_desc ?></textarea>
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Description:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc" disabled><?= $product->prod_desc ?></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <br><br><br>
+                                        <div class="modal-footer"></div>
                                     </div>
-                                    <br><br><br>
-                                    <div class="modal-footer"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?= form_close(); ?>
+                        <?= form_close(); ?>
 
-                    <!-- Edit product modal -->
-                    <?= form_open_multipart('Admin_inventory/update_product'); ?>
-                    <div id="product-edit-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                        <!-- Edit product modal -->
+                        <?= form_open_multipart('Admin_inventory/update_product'); ?>
+                        <div id="product-edit-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
 
-                                <div class="modal-body mx-5">
-                                    <h5 class="heading-modal fw-semibold">Product Information</h5>
-                                    <hr size="5" />
-                                    <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product ID: <?= $product->item_id ?></label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
+                                    <div class="modal-body mx-5">
+                                        <h5 class="heading-modal fw-semibold">Product Information</h5>
+                                        <hr size="5" />
+                                        <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product ID: <?= $product->item_id ?></label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- full_name -->
+                                                        <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-4 mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Name:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" />
-                                                </div>
-                                                <small class="text-danger"><?= form_error('prod_name') ?></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Dosage:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" />
-                                                </div>
-                                                <small class="text-danger"><?= form_error('prod_dosage') ?></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Quantity:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Name:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- full_name -->
+                                                        <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('prod_name') ?></small>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Stock in:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Dosage:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('prod_dosage') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('stock_in') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Stock out:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Quantity:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                                    </div>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('stock_out') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product Description:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"><?= $product->prod_desc ?></textarea>
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Stock in:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('stock_in') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('prod_desc') ?></small>
                                             </div>
                                         </div>
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Stock out:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('stock_out') ?></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Product Description:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"><?= $product->prod_desc ?></textarea>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('prod_desc') ?></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br><br><br>
+                                        <input type="hidden" name="item_id" class="item_id">
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
-                                    <br><br><br>
-                                    <input type="hidden" name="item_id" class="item_id">
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?= form_close(); ?>
+                        <?= form_close(); ?>
                     <?php endforeach; ?>
                 </div>
             </div>
