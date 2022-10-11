@@ -320,7 +320,7 @@ class Admin_patientrec extends CI_Controller
 
     // PATIENT RECORD VIEW INDIVIDUAL
 
-    public function update_avatar($id)
+    public function update_health_info($id)
     {
         $img_config = array(
             'upload_path' => './assets/img/profile-avatars/',
@@ -334,27 +334,6 @@ class Admin_patientrec extends CI_Controller
 
         $this->load->library('upload', $img_config);
         $this->upload->initialize($img_config);
-
-        if (!$this->upload->do_upload('avatar')) {
-            $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
-            redirect('Admin_patientrec/view_patient/' . $id);
-        } else {
-            $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
-            $avatar = array(
-                'avatar' => $img_name
-            );
-            $this->Admin_model->update_avatar($id, $avatar);
-            $this->session->set_flashdata('message', 'success-profilepic');
-            // $this->Admin_model->update_patient($patient_id, $avatar);
-            // $this->session->set_flashdata('success', 'Avatar successfully updated.');
-            redirect('Admin_patientrec/view_patient/' . $id);
-        }
-    }
-
-    public function update_health_info($id)
-    {
-
-        
 
         $this->form_validation->set_rules('bp_systolic', 'Systolic', 'required|numeric', array(
             'numeric' => 'Please enter a valid %s.'
@@ -376,13 +355,31 @@ class Admin_patientrec extends CI_Controller
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        if ($this->form_validation->run() == FALSE) 
+        // $this->form_validation->set_rules('prescription', 'Prescription', 'required', array(
+        //     'required' => 'Please enter a %s.'
+        // ));
+
+        // $this->form_validation->set_rules('consul_next', 'Next consultation', 'required', array(
+        //     'required' => 'Please enter a %s date.'
+        // ));
+
+        if ($this->form_validation->run() == FALSE)
         {
+            // $error = array(
+            //     'error' => $this->upload->display_errors(),
+            // );
+            $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
             $this->session->set_flashdata('error', validation_errors());
             redirect('Admin_patientrec/view_patient/' . $id);
+        }
+        else {
+            $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
+            $avatar = array(
+                'avatar' => $img_name
+            );
+            $this->Admin_model->update_avatar($id, $avatar);
 
-        } else {
-
+            date("Y-m-d H:i:s", strtotime($_POST["datentime"]));
             $health_info = array(
                 'blood_type' => $this->input->post('blood_type'),
                 'bp_systolic' => $this->input->post('bp_systolic'),
@@ -391,16 +388,75 @@ class Admin_patientrec extends CI_Controller
                 'height' => $this->input->post('height'),
                 'weight' => $this->input->post('weight'),
                 'prescription' => $this->input->post('prescription'),
-                'consul_next' => $this->input->post('consul_next'),
+                'consul_next' => date("Y-m-d H:i:s", strtotime($this->input->post('consul_next'))),
                 'objectives' => $this->input->post('objectives'),
-                'symptoms' => $this->input->post('symptoms'),
+                'symptoms' => $this->input->post('symptoms')
             );
 
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
             redirect('Admin_patientrec/view_patient/' . $id);
+
         }
+
     }
+
+    // public function update_health_info($id)
+    // {
+    //     $this->form_validation->set_rules('bp_systolic', 'Systolic', 'required|numeric', array(
+    //         'numeric' => 'Please enter a valid %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('bp_diastolic', 'Diastolic', 'required|numeric', array(
+    //         'numeric' => 'Please enter a valid %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('pulse_rate', 'Pulse rate', 'required|numeric', array(
+    //         'numeric' => 'Please enter a valid %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('height', 'Height', 'required|numeric', array(
+    //         'numeric' => 'Please enter a valid %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('weight', 'Weight', 'required|numeric', array(
+    //         'numeric' => 'Please enter a valid %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('prescription', 'Prescription', 'required', array(
+    //         'required' => 'Please enter a %s.'
+    //     ));
+
+    //     $this->form_validation->set_rules('consul_next', 'Next consultation', 'required', array(
+    //         'required' => 'Please enter a %s date.'
+    //     ));
+
+    //     //  
+    //     if ($this->form_validation->run() == FALSE) 
+    //     {
+    //         $this->session->set_flashdata('error', validation_errors());
+    //         redirect('Admin_patientrec/view_patient/' . $id);
+
+    //     } else {
+
+    //         $health_info = array(
+    //             'blood_type' => $this->input->post('blood_type'),
+    //             'bp_systolic' => $this->input->post('bp_systolic'),
+    //             'bp_diastolic' => $this->input->post('bp_diastolic'),
+    //             'pulse_rate' => $this->input->post('pulse_rate'),
+    //             'height' => $this->input->post('height'),
+    //             'weight' => $this->input->post('weight'),
+    //             'prescription' => $this->input->post('prescription'),
+    //             'consul_next' => $this->input->post('consul_next')
+    //             // 'objectives' => $this->input->post('objectives'),
+    //             // 'symptoms' => $this->input->post('symptoms'),
+    //         );
+
+    //         $this->Admin_model->update_patient_details($id, $health_info);
+    //         $this->session->set_flashdata('message', 'success-healthinfo');
+    //         redirect('Admin_patientrec/view_patient/' . $id);
+    //     }
+    //}
 
 
 
