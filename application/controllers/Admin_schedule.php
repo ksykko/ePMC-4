@@ -12,12 +12,11 @@ class Admin_schedule extends CI_Controller {
 		
 	}
 
-	public function schedule($year=FALSE, $month=FALSE) {
+	public function index($year=FALSE, $month=FALSE) { //index
 		//Display list of Doctors
 		$query = $this->db->get("schedule"); 
         $data['doctors'] = $query->result();
 		
-
 		//Display Calendar
 		if ($this->uri->segment(3) == FALSE) {
             $year = date('Y');
@@ -43,7 +42,7 @@ class Admin_schedule extends CI_Controller {
 			'show_next_prev'=>TRUE,
 			'next_prev_url'=>base_url().'Admin_schedule/schedule'
 		);
-
+		//template for calendar
 		$prefs['template'] = '
 
         {table_open}<table class="calTable" border="0" cellpadding="0" cellspacing="0" >{/table_open}
@@ -83,13 +82,9 @@ class Admin_schedule extends CI_Controller {
         {table_close}</table>{/table_close}
 		';
 		
-		
-
 		$this->load->library('calendar', $prefs);
 		// $data = $this->get_calendar_data($year, $month);
 		$data['calendar'] = $this->calendar->generate($year, $month, $data);
-
-		// $date = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 3, date('Y')));
 		
 		
 		// Display views
@@ -100,6 +95,7 @@ class Admin_schedule extends CI_Controller {
 		$this->load->view('include-admin/dashboard-scripts');
 		$this->load->view('schedule/schedule-scripts');
 	}
+
 
 	// public function get_calendar_data($year, $month) {
 
@@ -114,20 +110,44 @@ class Admin_schedule extends CI_Controller {
     // }
 
 	public function addSchedule() {
-		$data = array( 
+		//Form Validation
+		$this->form_validation->set_rules('doctor_name', 'Doctor Name', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter your %s.'
+        ));
+		$this->form_validation->set_rules('specialization', 'Specialization', 'required|regex_match[/^([a-z ])+$/i]', array(
+            'required' => 'Please enter your %s.'
+        ));
+		$this->form_validation->set_rules('date', 'Date', 'required', array(
+            'required' => 'Please enter your %s.'
+        ));
+		$this->form_validation->set_rules('start_time', 'Time', 'required', array(
+            'required' => 'Please enter your %s.'
+        ));
+		$this->form_validation->set_rules('end_time', 'Time', 'required', array(
+            'required' => 'Please enter your %s.'
+        ));
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->index();
+		}
+		else {
+			$schedData = array( 
             'doctor_name' => $this->input->post('doctor_name'), 
             'specialization' => $this->input->post('specialization'),
 			'date' => $this->input->post('date'),
 			'start_time' => $this->input->post('start_time'),
 			'end_time' => $this->input->post('end_time')
-        );
+        	);
+			$this->schedModel->insertSchedule($schedData);
+			redirect('Admin_schedule');
+			// echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule') </script>";
+		}
 
-		$this->load->model('Admin_schedule_model', 'schedModel');
-		$this->schedModel->insertSchedule($data);
-		echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule/schedule') </script>";
+		
+
+		// $this->load->model('Admin_schedule_model', 'schedModel');
+		// $this->schedModel->insertSchedule($data);
+		// echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule/schedule') </script>";
 	}
-
-	
-
 
 }
