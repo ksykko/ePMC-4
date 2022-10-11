@@ -114,6 +114,11 @@ class Admin_model extends CI_Model
         return $this->db->get('user_accounts')->result();
     }
 
+    public function get_useracc_tbl()
+    {
+        return $this->db->get('user_accounts');
+    }
+
     public function get_nUser_count()
     {   
         $currentDate = "'".date('Y-m-d')."'";

@@ -54,11 +54,55 @@ class Admin_useracc extends CI_Controller {
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/useraccounts-view', $data);
-            $this->load->view('include-admin/dashboard-scripts');
+            $this->load->view('include-admin/useracc-scripts');
         } else {
             redirect('Login/signin');
         }
     }
+
+    public function datatable()
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $users = $this->Admin_model->get_useracc_tbl();
+
+        $data = array();
+        $no = 0;
+        foreach ($users->result() as $user) {
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $user->first_name;
+            $row[] = $user->last_name;
+            $row[] = $user->username;
+            $row[] = $user->role;
+            $row[] = $user->specialization;
+            $row[] = $user->birth_date;
+            $row[] = $user->contact_no;
+            $row[] = $user->email;
+            $row[] = '
+                <button class="btn btn-light mx-2" type="button">Edit</button>
+                <a class="btn btn-link btn-sm btn-delete" href="' . base_url('Admin_useracc/delete_useracc/') . $user->user_id .'"><i class="far fa-trash-alt"></i></a>
+            ';
+            
+            $data[] = $row;
+
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $users->num_rows(),
+            "recordsFiltered" => $users->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
+
 
     public function add_useracc_validation() {
         $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
