@@ -136,6 +136,11 @@ class Admin_model extends CI_Model
         return $this->db->get_where('user_accounts', ['user_id' => $id])->row();
     }
 
+    public function get_admin_row($id)
+    {
+        return $this->db->get_where('tbl_admin', ['admin_id' => $id])->row();
+    }
+
     public function add_useracc($info)
     { // add user account record
         $this->db->insert('user_accounts', $info);
@@ -169,6 +174,11 @@ class Admin_model extends CI_Model
         $this->db->insert('patient_details', $info);
     }
 
+    public function get_patient_details_row($id)
+    {
+        return $this->db->get_where('patient_details', ['patient_id' => $id])->row();
+    }
+
     public function update_patient_details($id, $info)
     {
         $this->db->update('patient_details', $info, ['patient_id' => $id]);
@@ -194,6 +204,14 @@ class Admin_model extends CI_Model
     }
     
     // END OF patient_lab_reports table
+
+
+    // START OF patient_treatment_plan table
+
+    public function add_patient_treatment_plan($info)
+    {
+        $this->db->insert('patient_treatment_plan', $info);
+    }
 
 
 
