@@ -59,13 +59,6 @@ class Admin_model extends CI_Model
 
 
 
-
-
-
-
-
-
-
     // for inventory pagination
     public function get_inventory_table()
     {
