@@ -1,54 +1,53 @@
 <div class="container-fluid patientrec-container">
     <div class="d-flex mb-3">
         <div>
-            <h3 class="d-none d-sm-inline-block">Patient Record</h3>
+            <h1 class="d-none d-sm-inline-block patientrec-label">Patient Record</h1>
         </div>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4">
             <div id="modal-1" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title ms-3">Add a Patient Record</h4><button class="btn-close me-1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title ms-3">Add a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <?= form_open('Admin_patientrec/add_patient_validation', array('id' => 'regForm')); ?>
                         <div class="modal-body mx-5">
 
                             <!-- One "tab" for each step in the form: -->
-
-
                             <div class="tab">
                                 <h5 class="heading-modal fw-semibold">Personal Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                     <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
-                                        <input class="form-control form-control-sm" type="text" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
                                     </div>
                                     <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
-                                        <input class="form-control form-control-sm" type="text" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
                                     </div>
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
-                                        <input class="form-control form-control-sm" type="text" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Age</label>
-                                        <input class="form-control form-control-sm" type="text" name="age" /><small class="text-danger"><?= form_error('age') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="age" name="age" /><small class="text-danger"><?= form_error('age') ?></small>
+                                        <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
                                     </div>
                                     <div class="col form-group px-1"><label class="form-label">Birth date</label>
-                                        <input class="form-control form-control-sm" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" name="sex">
+                                    <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
                                             <option value="select" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Address</label>
-                                        <input class="form-control form-control-sm" type="text" name="address" /><small class="text-danger"><?= form_error('address') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="address" name="address" /><small class="text-danger"><?= form_error('address') ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -57,11 +56,11 @@
                                 <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
+                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +69,8 @@
                                 <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" name="ec_name" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" name="relationship">
+                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" id="relationship" name="relationship">
                                             <option value="select" selected>select ...</option>
                                             <option value="Father">Father</option>
                                             <option value="Mother">Mother</option>
@@ -80,10 +79,9 @@
                                             <option value="Others">Others</option>
                                         </select><small class="text-danger"><?= form_error('relationship') ?></small></div>
                                 </div>
-                                
                                 <div class="row mb-2">
                                     <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
-                                        <input class="form-control form-control-sm" type="tel" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +107,165 @@
                 </div>
             </div>
         </div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4">
+            <?php foreach ($patients as $patient) : ?>
+                <div id="edit-patient-<?= $patient->patient_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title ms-3">Edit a Patient</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <?= form_open('Admin_patientrec/add_patient_validation', array('id' => 'regForm')); ?>
+                            <div class="modal-body mx-5">
+
+                                <!-- One "tab" for each step in the form: -->
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Personal Information</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $patient->middle_name ?>" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
+                                            <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $patient->last_name ?>" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Age</label>
+                                            <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= $patient->age ?>" /><small class="text-danger"><?= form_error('age') ?></small>
+                                            <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                        </div>
+                                        <div class="col form-group px-1"><label class="form-label">Birth date</label>
+                                            <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                                <?php if ($patient->sex == 'Male') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male" selected>Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php elseif ($this->sex == 'Female') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female" selected>Female</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php endif; ?>
+                                            </select><small class="text-danger"><?= form_error('sex') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Address</label>
+                                            <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" /><small class="text-danger"><?= form_error('address') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Contact Information</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" value="<?= $patient->cell_no ?>" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" value="<?= $patient->tel_no ?>" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" value="<?= $patient->email ?>" /><small class="text-danger"><?= form_error('email') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= $patient->ec_name ?>" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Relationship</label>
+                                            <select class="form-select form-select-sm" id="relationship" name="relationship">
+                                            <!-- TODO: fix if condition -->
+                                                <?php if ($patient->relationship == 'Father') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father" selected>Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Brother">Brother</option>
+                                                    <option value="Sister">Sister</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Friend">Friend</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Mother') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother" selected>Mother</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Others">Others</option>
+                                                <?php elseif ($patient->relationship == 'Grandparent') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Grandparent" selected>Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Others">Others</option>
+                                                <?php elseif ($patient->relationship == 'Guardian') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian" selected>Guardian</option>
+                                                    <option value="Others">Others</option>
+                                                <?php elseif ($patient->relationship == 'Others') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Others" selected>Others</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Others">Others</option>
+                                                <?php endif; ?>
+                                            </select><small class="text-danger"><?= form_error('relationship') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
+                                            <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= $patient->ec_contact_no ?>" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" style="background: #3269bf;">Next</button></div> -->
+                            <div class="modal-footer" style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button class="btn btn-light" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button class="btn btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                </div>
+                            </div>
+
+
+                            <?= form_close(); ?>
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div class="mb-4" style="text-align:center;">
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-sm-inline-block ms-1">Add Patient Record</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-import" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-3"><i class="fa fa-picture-o"></i><span class="d-none d-sm-inline-block ms-1">Add via Import</span></button></div>
         <div id="modal-3" class="modal fade" role="dialog" tabindex="-1">
@@ -128,15 +285,23 @@
 
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4 p-3 pt-4 pb-5">
-                <div id="patient-table" class="table-responsive">
-                    
+            <div class="card shadow mb-4 p-5 pt-4 pb-5">
+                <div class="table-responsive">
                     <?php if ($this->session->flashdata('message') == 'success') : ?>
                         <div class="row">
                             <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully added a new patient.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully deleted a patient.</span>
                                 </div>
                             </div>
                         </div>
@@ -222,27 +387,46 @@
 
     function validateForm() {
         // This function deals with validation of the form fields
-        var x, y, i, valid = true;
+        var x, y, i, j, input_valid = true,
+            select_valid = true;
+
         x = document.getElementsByClassName("tab");
         y = x[currentTab].getElementsByTagName("input");
+        z = x[currentTab].getElementsByTagName("select");
+
         // A loop that checks every input field in the current tab:
         for (i = 0; i < y.length; i++) {
-            // If a field is empty...
+            // If an input field is empty...
             if (y[i].value == "") {
                 // add an "invalid" class to the field:
                 y[i].className += " invalid";
                 // and set the current valid status to false
-                valid = false;
-            }
-        }
-        // If the valid status is true, mark the step as finished and valid:
-        if (valid) {
-            for (i = 0; i < y.length; i++) {
+                input_valid = false;
+            } else
                 y[i].className = "form-control form-control-sm valid";
-            }
+        }
+
+        // A loop that checks every select field in the current tab:
+        for (j = 0; j < z.length; j++) {
+            // If a select field is empty...
+            if (z[j].value == "select") {
+                // add an "invalid" class to the field:
+                z[j].className += " invalid";
+                // and set the current valid status to false
+                select_valid = false;
+            } else
+                z[j].className = "form-select form-select-sm valid";
+        }
+
+
+        // If all the fields are valid, return true. Otherwise, return false:
+        if (input_valid && select_valid) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
-        return valid; // return the valid status
+
+        console.log(select_valid);
+        // return the valid status
+        return input_valid && select_valid;
     }
 
     function fixStepIndicator(n) {
@@ -256,16 +440,104 @@
     }
 </script>
 <script>
-    var forms = document.querySelectorAll('.needs-validation');
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
 
-    Array.prototype.slice.call(forms).forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation();
+            const first_name = document.getElementById('first_name')
+            const middle_name = document.getElementById('middle_name')
+            const last_name = document.getElementById('last_name')
+            const age = document.getElementById('age')
+            const birthdate = document.getElementById('birth_date')
+            const sex = document.getElementById('sex')
+            const occupation = document.getElementById('occupation')
+            const address = document.getElementById('address')
+            const cell_no = document.getElementById('cell_no')
+            const tel_no = document.getElementById('tel_no')
+            const email = document.getElementById('email')
+            const ec_name = document.getElementById('ec_name')
+            const relationship = document.getElementById('relationship')
+            const ec_contact_no = document.getElementById('ec_contact_no')
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const setError = (element, message) => {
+                const inputControl = element.parentElement;
+                const errorDisplay = inputControl.querySelector('.error');
+
+                errorDisplay.innerText = message;
+                inputControl.classList.add('invalid');
+                inputControl.classList.remove('success')
             }
 
-            form.classList.add('was-validated');
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to 
+            const setSuccess = element => {
+                const inputControl = element.parentElement;
+                const errorDisplay = inputControl.querySelector('.error');
+
+                errorDisplay.innerText = '';
+                inputControl.classList.add('success');
+                inputControl.classList.remove('error');
+            };
+
+            const isValidEmail = email => {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            }
+
+
+            // fetch all the forms we want to apply custom style
+            var inputs = document.getElementsByClassName('form-control')
+
+            // loop over each input and watch blur event
+            var validation = Array.prototype.filter.call(inputs, function(input) {
+
+                input.addEventListener('blur', function(event) {
+                    // reset
+                    input.classList.remove('is-invalid')
+                    input.classList.remove('is-valid')
+
+                    // if (input.checkValidity() === false) {
+                    //     input.classList.add('is-invalid')
+                    // } else {
+                    //     input.classList.add('is-valid')
+                    // }
+
+                    // const first_nameValue = first_name.value.trim();
+                    // const middle_nameValue = middle_name.value.trim();
+                    // const last_nameValue = last_name.value.trim();
+                    // const ageValue = age.value.trim();
+                    // const birthdateValue = birthdate.value.trim();
+                    // const sexValue = sex.value.trim();
+                    // const occupationValue = occupation.value.trim();
+                    // const addressValue = address.value.trim();
+                    // const cell_noValue = cell_no.value.trim();
+                    // const tel_noValue = tel_no.value.trim();
+                    // const emailValue = email.value.trim();
+                    // const ec_nameValue = ec_name.value.trim();
+                    // const relationshipValue = relationship.value.trim();
+                    // const ec_contact_noValue = ec_contact_no.value.trim();
+
+                    if (first_name.value === '') {
+                        setError(first_name, 'First name cannot be blank');
+                    } else {
+                        setSuccess(first_name);
+                    }
+
+
+
+
+
+
+                }, false);
+            });
         }, false);
+    })()
+</script>
+<script>
+    $(document).ready(function() {
+        $('#closeFormModal').on('click', function() {
+            $('#regForm').trigger("reset");
+            console.log($('#regForm'));
+        })
     });
 </script>
