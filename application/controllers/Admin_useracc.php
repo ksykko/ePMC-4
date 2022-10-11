@@ -61,6 +61,15 @@ class Admin_useracc extends CI_Controller {
             $data[] = $row;
 
         }
+        
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $users->num_rows(),
+            "recordsFiltered" => $users->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+        exit();
     }
 
     public function add_useracc_validation() {
