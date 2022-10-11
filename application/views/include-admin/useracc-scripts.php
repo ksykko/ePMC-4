@@ -6,23 +6,21 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable({
+        $('#useracc-table').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
             "ajax": {
-                url: "<?php echo site_url("Admin_patientrec/datatable") ?>",
+                url: "<?php echo site_url("Admin_useracc/datatable") ?>",
                 type: 'POST'
             },
 
             //Set column definition initialisation properties.
             "columnDefs": [
-            { 
-                "targets": [ 3 ], //first column / numbering column
-                "orderable": false, //set not orderable
-                "className": "text-center", "targets": [3]
-            }
+                { "targets": [ 9 ], "orderable": false}, //set not orderable
+                { "className": "text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center", targets: [9] }
             ]
+        
         });
         
     });
@@ -33,5 +31,4 @@
 
 
 </body>
-
 </html>
