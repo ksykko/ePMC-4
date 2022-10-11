@@ -221,7 +221,7 @@
                                     <hr size="5" />
                                     <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
                                     <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product ID:</label></div>
+                                        <div class="col-3"><label class="col-form-label">Product ID: <?= $product->item_id ?></label></div>
                                         <div class="col-9">
                                             <div class="input-error">
                                                 <div class="input-group">
@@ -310,7 +310,6 @@
                         </div>
                     </div>
                     <?= form_close(); ?>
-
                     <?php endforeach; ?>
                 </div>
             </div>
