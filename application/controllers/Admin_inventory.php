@@ -12,52 +12,63 @@ class Admin_inventory extends CI_Controller {
 
     public function index() {
         if ($this->session->userdata('logged_in')) { //if logged in
-            $page_config = array(
-                'base_url' => site_url('Admin_inventory/index'),
-                'total_rows' => $this->Admin_model->get_inventory_count(), // get total number of patients 
-                'num_links' => 3,
-                'per_page' => 10,
-
-                'full_tag_open' => '<div class="d-flex justify-content-center"><ul class="pagination">',
-                'full_tag_close' => '</ul></div>',
-
-                'first_link' => FALSE,
-                'last_link' => FALSE,
-
-                'next_link' => '&raquo;',
-                'next_tag_open' => '<li class="page-item">',
-                'next_tag_close' => '</li>',
-
-                'prev_link' => '&laquo;',
-                'prev_tag_open' => '<li class="page-item">',
-                'prev_tag_close' => '</li>',
-
-                'cur_tag_open' => '<li class="page-item active"><span class="page-link">',
-                'cur_tag_close' => '</span></li>',
-
-                'num_tag_open' => '<li class="page-item">',
-                'num_tag_close' => '</li>',
-
-                'attributes' => ['class' => 'page-link']
-
-            );
-
-            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-            $this->pagination->initialize($page_config);
 
             $id = $this->session->userdata('admin_id');
 
-            $data['product'] = $this->Admin_model->get_inventory_row($id);
-            $data['products'] = $this->Admin_model->get_inventory_table($page_config['per_page'], $page);
-            
             $data['title'] = 'Inventory';
+            $data['product'] = $this->Admin_model->get_inventory_row($id);
+            $data['products'] = $this->Admin_model->get_inventory_table();
+            
+            
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/inventory-view', $data);
-            $this->load->view('include-admin/dashboard-scripts');
+            $this->load->view('include-admin/inventory-scripts');
         } else {
             redirect('Login/signin');
         }
+    }
+
+    public function datatable()
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+
+        $products = $this->Admin_model->get_inventory_tbl();
+
+        $data = array();
+        $no = 0;
+        foreach ($products->result() as $product) {
+
+            $no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = '<strong>' . $product->prod_name . '</strong><br>' . $product->prod_dosage .'';
+            $row[] = $product->prod_desc;
+            $row[] = ($product->stock_in)+($product->stock_out);
+            $row[] = $product->stock_in;
+            $row[] = $product->stock_out;
+            $row[] = 
+            '
+            <button class="btn btn-light mx-2 product-view-modal-btn" data-bs-toggle="modal" data-bs-target="#product-view-modal-'.$product->item_id.'" type="button" data-id=" '. $product->item_id .'" data-prod_name=" ' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">View</button>
+
+            <!-- Edit btn change all from view modal btn -->
+            <button class="btn btn-light mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#product-edit-modal-'.$product->item_id.'" type="button" data-id="' . $product->item_id . '" data-prod_name="' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">Edit</button>
+
+            <a class="btn btn-link btn-sm btn-delete" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $product->item_id . ' "><i class="far fa-trash-alt"></i></a>
+            ';
+            
+            $data[] = $row;
+
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $products->num_rows(),
+            "recordsFiltered" => $products->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
     }
 
     public function add_product_validation()

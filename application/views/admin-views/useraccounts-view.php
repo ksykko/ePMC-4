@@ -1,3 +1,8 @@
+<style>
+    body {
+        overflow-y: scroll;
+    }
+</style>
 <div class="container-fluid patientrec-container">
     <div class="d-flex mb-3">
         <div>
@@ -196,19 +201,27 @@
             <?= form_close(); ?>
         </div>
         <div class="d-flex d-sm-flex d-md-flex d-xl-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center">
-            <div id="input-search" class="input-group"><input class="form-control search-input" type="search" /><button class="btn btn-primary d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center btn-search" type="button"><i class="fas fa-search" style="font-size: 12px;"></i></button></div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4">
+            <div class="card shadow mb-4 p-3 pt-4 pb-5">
                 <div id="patient-table" class="table-responsive">
-                    <table class="table">
+                    <?php if ($this->session->flashdata('message') == 'success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully added a new user.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <table id="useracc-table" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Name</th>
                                 <th>Username</th>
                                 <th>Role</th>
                                 <th>Specialization</th>
@@ -219,30 +232,253 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($users as $user) : ?>
-                                    <tr>
-                                        <td><?= $user->user_id ?></td>
-                                        <td><?= $user->first_name ?></td>
-                                        <td><?= $user->last_name ?></td>
-                                        <td><?= $user->username ?></td>
-                                        <td><?= $user->role ?></td>
-                                        <td><?= $user->specialization ?></td>
-                                        <td><?= $user->birth_date ?></td>
-                                        <td><?= $user->contact_no ?></td>
-                                        <td><?= $user->email ?></td>
-                                        <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center">
-                                            <button class="btn btn-light mx-2" type="button">Edit</button>
-                                            <a class="btn btn-link btn-sm btn-delete" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>"><i class="far fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-
-                                <?php endforeach; ?>
+                            <?php foreach ($users as $user) : ?>
+                                <div id="delete-dialog-<?= $user->user_id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this user?</p>
+                                            </div>
+                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>" type="button">Confirm</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?= form_open_multipart('Admin_useracc/edit_useracc'); ?>
+                    <div id="product-edit-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
 
-                    <?= $this->pagination->create_links() ?>
+                                <div class="modal-body mx-5">
+                                    <h5 class="heading-modal fw-semibold">Edit User</h5>
+                                    <hr size="5" />
+                                    <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">User ID:</label></div>
+                                        <div class="col-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- full_name -->
+                                                    <input class="form-control item_id" type="text" id="user_id" name="user_id" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 mb-2">
+                                        <div class="col-3"><label class="col-form-label">First name:</label></div>
+                                        <div class="col-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- full_name -->
+                                                    <input class="form-control first_name" type="text" id="first_name" name="first_name" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('first_name') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Last name:</label></div>
+                                        <div class="col-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control prod_dosage" type="text" id="last_name" name="last_name" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('last_name') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Username:</label></div>
+                                        <div class="col-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control prod_dosage" type="text" id="username" name="username" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('username') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Role:</label></div>
+                                        <div class="col-9 col-sm-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- role -->
+                                                    <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
+                                                        <option value="select" selected>select...</option>
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Doctor">Doctor</option>
+                                                        <option value="Pharmacist">Pharmacy Assistant</option>
+                                                        <option value="Patient">Patient</option>
+                                                    </select>
+                                                </div>
+                                                <small class="text-danger"><?= form_error('role') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Specialization:</label></div>
+                                        <div class="col-9 col-sm-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control quantity" type="text" id="specialization" name="specialization" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('specialization') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Birthdate:</label></div>
+                                        <div class="col-9 col-sm-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('birth_date') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Contact #:</label></div>
+                                        <div class="col-9 col-sm-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control stock_out" type="text" id="contact_no" name="contact_no" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('contact_no') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-3"><label class="col-form-label">Email address:</label></div>
+                                        <div class="col-9 col-sm-9">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- TODO: -->
+                                                    <input class="form-control" type="email" id="email" name="email" value="<?= set_value('email'); ?>" />
+                                                </div>
+                                                <small class="text-danger"><?= form_error('email') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br><br>
+                                    <input type="hidden" name="item_id" class="item_id">
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+    function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
+        }
+        if (n == (x.length - 1)) {
+
+            document.getElementById("nextBtn").innerHTML = "Submit";
+
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
+    }
+
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
+            // ... the form gets submitted:
+            document.getElementById("regForm").submit();
+
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
+    }
+
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByTagName("input");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false
+                valid = false;
+            }
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            for (i = 0; i < y.length; i++) {
+                y[i].className = "form-control form-control-sm valid";
+            }
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+    }
+</script>
+<script>
+    var forms = document.querySelectorAll('.needs-validation');
+
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        }, false);
+    });
+</script>
