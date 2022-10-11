@@ -109,8 +109,9 @@
                         </tbody>
                     </table>
                     <!-- View product modal -->
+                    <?php foreach ($products as $product) : ?>
                     <?= form_open_multipart('Admin_inventory/view_product'); ?>
-                    <div id="product-view-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                    <div id="product-view-modal-<?= $product->item_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -127,7 +128,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- full_name -->
-                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" disabled />
+                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -138,7 +139,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- full_name -->
-                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" disabled />
+                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +150,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" disabled />
+                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>"  disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -160,7 +161,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" disabled />
+                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>"  disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -171,7 +172,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" disabled />
+                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>"  disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +183,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" disabled />
+                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>"  disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +194,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc" disabled></textarea>
+                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"  disabled><?= $product->prod_desc ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,7 +209,7 @@
 
                     <!-- Edit product modal -->
                     <?= form_open_multipart('Admin_inventory/update_product'); ?>
-                    <div id="product-edit-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                    <div id="product-edit-modal-<?= $product->item_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -220,12 +221,12 @@
                                     <hr size="5" />
                                     <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
                                     <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Product ID:</label></div>
+                                        <div class="col-3"><label class="col-form-label">Product ID: <?= $product->item_id ?></label></div>
                                         <div class="col-9">
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- full_name -->
-                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" disabled />
+                                                    <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -236,7 +237,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- full_name -->
-                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" />
+                                                    <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" />
                                                 </div>
                                                 <small class="text-danger"><?= form_error('prod_name') ?></small>
                                             </div>
@@ -248,7 +249,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" />
+                                                    <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" />
                                                 </div>
                                                 <small class="text-danger"><?= form_error('prod_dosage') ?></small>
                                             </div>
@@ -260,7 +261,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" disabled />
+                                                    <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>"  disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -271,7 +272,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" />
+                                                    <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" />
                                                 </div>
                                                 <small class="text-danger"><?= form_error('stock_in') ?></small>
                                             </div>
@@ -283,7 +284,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" />
+                                                    <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" />
                                                 </div>
                                                 <small class="text-danger"><?= form_error('stock_out') ?></small>
                                             </div>
@@ -295,7 +296,7 @@
                                             <div class="input-error">
                                                 <div class="input-group">
                                                     <!-- TODO: -->
-                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"></textarea>
+                                                    <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"><?= $product->prod_desc ?></textarea>
                                                 </div>
                                                 <small class="text-danger"><?= form_error('prod_desc') ?></small>
                                             </div>
@@ -309,8 +310,7 @@
                         </div>
                     </div>
                     <?= form_close(); ?>
-
-                    <?= $this->pagination->create_links() ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
