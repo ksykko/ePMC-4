@@ -133,6 +133,11 @@ class Admin_model extends CI_Model
         return $this->db->get_where('user_accounts', ['user_id' => $id])->row();
     }
 
+    public function get_admin_row($id)
+    {
+        return $this->db->get_where('tbl_admin', ['admin_id' => $id])->row();
+    }
+
     public function add_useracc($info)
     { // add patient record
         $this->db->insert('user_accounts', $info);
