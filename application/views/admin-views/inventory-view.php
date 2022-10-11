@@ -1,4 +1,8 @@
-
+<style>
+    body {
+        overflow-y: scroll;
+    }
+</style>
 <div class="container-fluid inventory-container">
     <div class="d-flex mb-3">
         <div>
