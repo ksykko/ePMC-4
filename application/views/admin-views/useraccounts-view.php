@@ -202,8 +202,8 @@
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4">
-                <div id="patient-table" class="table-responsive">
-                    <table class="table">
+                <div class="table-responsive">
+                    <table id="useracc-table" class="table table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -220,27 +220,11 @@
                         </thead>
                         <tbody>
                         <?php foreach ($users as $user) : ?>
-                                    <tr>
-                                        <td><?= $user->user_id ?></td>
-                                        <td><?= $user->first_name ?></td>
-                                        <td><?= $user->last_name ?></td>
-                                        <td><?= $user->username ?></td>
-                                        <td><?= $user->role ?></td>
-                                        <td><?= $user->specialization ?></td>
-                                        <td><?= $user->birth_date ?></td>
-                                        <td><?= $user->contact_no ?></td>
-                                        <td><?= $user->email ?></td>
-                                        <td class="text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center">
-                                            <button class="btn btn-light mx-2" type="button">Edit</button>
-                                            <a class="btn btn-link btn-sm btn-delete" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>"><i class="far fa-trash-alt"></i></a>
-                                        </td>
-                                    </tr>
-
-                                <?php endforeach; ?>
+                                    
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
 
-                    <?= $this->pagination->create_links() ?>
                 </div>
             </div>
         </div>
