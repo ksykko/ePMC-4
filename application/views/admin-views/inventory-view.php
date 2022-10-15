@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" name="addProduct" style="background: #3269bf;">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal" >Close</button><button class="btn btn-primary btn-modal"  type="submit" name="addProduct" style="background: #3269bf;">Save</button></div>
                     </div>
                 </div>
             </div>

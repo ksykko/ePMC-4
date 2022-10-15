@@ -76,9 +76,9 @@
                                         <h4 class="modal-title">Upload Patient&#39;s Profile Picture</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="input-group"><input class="form-control form-control-sm" type="file" name="avatar" /></div>
+                                        <div class="input-group"><input class="form-control form-control-sm" type="file" src="<?= base_url('/assets/img/profile-avatars/') . $patient->avatar ?>" value="<?= base_url('/assets/img/profile-avatars/') . $patient->avatar ?>" name="avatar" /></div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue">Save</button></div>
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-default-blue" data-bs-dismiss="modal">Save</button></div>
                                 </div>
                             </div>
                         </div>
@@ -369,14 +369,14 @@
             </div>
         </div>
     </div> -->
-    <div class="row row-cols-1">
+    <!-- <div class="row row-cols-1">
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Objectives</h6>
                 </div>
                 <div class="card-body mx-3">
-                    <div class="mb-3"><textarea class="form-control text-area" name="objectives"></textarea><?= $healthinfo->objectives ?></div>
+                    <div class="mb-3"><textarea class="form-control text-area" name="objectives"></textarea>?= $healthinfo->objectives ?></div>
                 </div>
             </div>
         </div>
@@ -386,11 +386,11 @@
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Symptoms</h6>
                 </div>
                 <div class="card-body mx-3">
-                    <div class="mb-3"><textarea class="form-control text-area" name="symptoms"><?= $healthinfo->symptoms ?></textarea></div>
+                    <div class="mb-3"><textarea class="form-control text-area" name="symptoms">?= $healthinfo->symptoms ?></textarea></div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <?= form_close() ?>
     <!-- <div class="row">
         <div class="col">

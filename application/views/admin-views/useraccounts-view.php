@@ -318,8 +318,7 @@
                                                         <option value="select" selected>select...</option>
                                                         <option value="Admin">Admin</option>
                                                         <option value="Doctor">Doctor</option>
-                                                        <option value="Pharmacist">Pharmacy Assistant</option>
-                                                        <option value="Patient">Patient</option>
+                                                        <option value="User">User</option>
                                                     </select>
                                                 </div>
                                                 <small class="text-danger"><?= form_error('role') ?></small>
