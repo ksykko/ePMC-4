@@ -16,6 +16,10 @@ class Admin_schedule extends CI_Controller {
 		//Display list of Doctors
 		$query = $this->db->get("schedule"); 
         $data['doctors'] = $query->result();
+
+		//Get Year in DB
+		$get_year_db = "SELECT * FROM schedule WHERE year(date)";
+		$data['yeardb'] = $this->db->query($get_year_db);
 		
 		//Display Calendar
 		if ($this->uri->segment(3) == FALSE) {
@@ -40,7 +44,7 @@ class Admin_schedule extends CI_Controller {
 			'day_type' => 'short',
 			'show_other_days' => TRUE,
 			'show_next_prev'=>TRUE,
-			'next_prev_url'=>base_url().'Admin_schedule/schedule'
+			'next_prev_url'=>base_url().'Admin_schedule/index'
 		);
 		//template for calendar
 		$prefs['template'] = '
@@ -85,6 +89,9 @@ class Admin_schedule extends CI_Controller {
 		$this->load->library('calendar', $prefs);
 		// $data = $this->get_calendar_data($year, $month);
 		$data['calendar'] = $this->calendar->generate($year, $month, $data);
+
+		
+		
 		
 		
 		// Display views
@@ -111,7 +118,7 @@ class Admin_schedule extends CI_Controller {
 
 	public function addSchedule() {
 		//Form Validation
-		$this->form_validation->set_rules('doctor_name', 'Doctor Name', 'required|regex_match[/^([a-z ])+$/i]', array(
+		$this->form_validation->set_rules('doctor_name', 'Doctor Name', 'required', array(
             'required' => 'Please enter your %s.'
         ));
 		$this->form_validation->set_rules('specialization', 'Specialization', 'required|regex_match[/^([a-z ])+$/i]', array(
