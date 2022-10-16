@@ -107,6 +107,123 @@
                 </div>
             </div>
         </div>
+        <?php foreach ($patients as $patient) : ?>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4">
+                <div id="edit-patient-<?= $patient->patient_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title ms-3">Edit a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <?= form_open('Admin_patientrec/edit_patient_validation', array('id' => 'editPatient')); ?>
+                            <div class="modal-body mx-5">
+
+                                <!-- One "tab" for each editStep in the form: -->
+                                <div class="editTab">
+                                    <h5 class="heading-modal fw-semibold">Personal Information <?php echo $patient->patient_id; ?></h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $patient->middle_name ?>" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
+                                            <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $patient->last_name ?>" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Age</label>
+                                            <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= $patient->age ?>" /><small class="text-danger"><?= form_error('age') ?></small>
+                                            <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                        </div>
+                                        <div class="col form-group px-1"><label class="form-label">Birth date</label>
+                                            <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Sex</label>
+                                            <select class="form-select form-select-sm" id="sex" name="sex">
+                                                <?php if ($patient->sex == 'Male') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male" selected>Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php elseif ($patient->sex == 'Female') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female" selected>Female</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php endif; ?>
+                                            </select><small class="text-danger"><?= form_error('sex') ?></small>
+                                        </div>
+                                        <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Address</label>
+                                            <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" /><small class="text-danger"><?= form_error('address') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="editTab">
+                                    <h5 class="heading-modal fw-semibold">Contact Information</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="editTab">
+                                    <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" id="relationship" name="relationship">
+                                                <option value="select" selected>select ...</option>
+                                                <option value="Father">Father</option>
+                                                <option value="Mother">Mother</option>
+                                                <option value="Grandparent">Grandparent</option>
+                                                <option value="Guardian">Guardian</option>
+                                                <option value="Others">Others</option>
+                                            </select><small class="text-danger"><?= form_error('relationship') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
+                                            <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" style="background: #3269bf;">Next</button></div> -->
+                            <div class="modal-footer" style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button class="btn btn-light" type="button" id="prevEditBtn" onclick="nextEditPrev(-1)">Previous</button>
+                                    <button class="btn btn-primary" type="button" id="nextEditBtn" onclick="nextEditPrev(1)">Next</button>
+                                </div>
+                            </div>
+
+                            <?= form_close(); ?>
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div class="mb-4" style="text-align:center;">
+                                <span class="editStep"></span>
+                                <span class="editStep"></span>
+                                <span class="editStep"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" onclick="formValidation()" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-sm-inline-block ms-1">Add Patient Record</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-import" class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modal-3"><i class="fa fa-picture-o"></i><span class="d-none d-sm-inline-block ms-1">Add via Import</span></button></div>
         <div id="modal-3" class="modal fade" role="dialog" tabindex="-1">
@@ -280,6 +397,112 @@
         x[n].className += " active";
     }
 </script>
+<?php foreach ($patients as $patient) : ?>
+    <script>
+        var editpatientId = 'edit-patient-<?= $patient->patient_id ?>';
+        console.log(editpatientId);
+        
+            var patientID = <?=$patient->patient_id?>;
+            //console.log(patientID);
+            var currentEditTab = 0; // Current editTab is set to be the first editTab (0)
+            editShowTab(currentEditTab); // Display the current editTab
+
+            function editShowTab(n) {
+                // This function will display the specified editTab of the form...
+                var x = document.getElementsByClassName("editTab");
+                x[n].style.display = "block";
+                //... and fix the Previous/Next buttons:
+                if (n == 0) {
+                    document.getElementById("prevEditBtn").style.display = "none";
+                } else {
+                    document.getElementById("prevEditBtn").style.display = "inline";
+                }
+                if (n == (x.length - 1)) {
+
+                    document.getElementById("nextEditBtn").innerHTML = "Submit";
+
+                } else {
+                    document.getElementById("nextEditBtn").innerHTML = "Next";
+                }
+                //... and run a function that will display the correct editStep indicator:
+                fixEditStepIndicator(n)
+            }
+
+            function nextEditPrev(n) {
+                // This function will figure out which editTab to display
+                var x = document.getElementsByClassName("editTab");
+                // Exit the function if any field in the current editTab is invalid:
+                if (n == 1 && !validateEditForm()) return false;
+                // Hide the current editTab:
+                x[currentEditTab].style.display = "none";
+                // Increase or decrease the current editTab by 1:
+                currentEditTab = currentEditTab + n;
+                // if you have reached the end of the form...
+                if (currentEditTab >= x.length) {
+                    // ... the form gets submitted:
+                    document.getElementById("editPatient").submit();
+
+                    return false;
+                }
+                // Otherwise, display the correct editTab:
+                editShowTab(currentEditTab);
+            }
+
+            function validateEditForm() {
+                // This function deals with validation of the form fields
+                var x, y, i, j, input_valid = true,
+                    select_valid = true;
+
+                x = document.getElementsByClassName("editTab");
+                y = x[currentEditTab].getElementsByTagName("input");
+                z = x[currentEditTab].getElementsByTagName("select");
+
+                // A loop that checks every input field in the current editTab:
+                for (i = 0; i < y.length; i++) {
+                    // If an input field is empty...
+                    if (y[i].value == "") {
+                        // add an "invalid" class to the field:
+                        y[i].className += " invalid";
+                        // and set the current valid status to false
+                        input_valid = false;
+                    } else
+                        y[i].className = "form-control form-control-sm valid";
+                }
+
+                // A loop that checks every select field in the current editTab:
+                for (j = 0; j < z.length; j++) {
+                    // If a select field is empty...
+                    if (z[j].value == "select") {
+                        // add an "invalid" class to the field:
+                        z[j].className += " invalid";
+                        // and set the current valid status to false
+                        select_valid = false;
+                    } else
+                        z[j].className = "form-select form-select-sm valid";
+                }
+
+
+                // If all the fields are valid, return true. Otherwise, return false:
+                if (input_valid && select_valid) {
+                    document.getElementsByClassName("editStep")[currentEditTab].className += " finish";
+                }
+
+                console.log(select_valid);
+                // return the valid status
+                return input_valid && select_valid;
+            }
+
+            function fixEditStepIndicator(n) {
+                // This function removes the "active" class of all steps...
+                var i, x = document.getElementsByClassName("editStep");
+                for (i = 0; i < x.length; i++) {
+                    x[i].className = x[i].className.replace(" active", "");
+                }
+                //... and adds the "active" class on the current editStep:
+                x[n].className += " active";
+            }
+    </script>
+<?php endforeach; ?>
 <script>
     (function() {
         'use strict';
@@ -374,11 +597,11 @@
         }, false);
     })()
 </script>
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#closeFormModal').on('click', function() {
             $('#regForm').trigger("reset");
             console.log($('#regForm'));
         })
     });
-</script>
+</script> -->
