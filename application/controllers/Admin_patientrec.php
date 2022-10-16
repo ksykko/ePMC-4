@@ -14,7 +14,7 @@ class Admin_patientrec extends CI_Controller
     public function index()
     {
         if ($this->session->userdata('logged_in')) { //if logged in
-            
+
             $id = $this->session->userdata('admin_id');
 
             $data['title'] = 'Admin - Patient Records | ePMC';
@@ -45,6 +45,7 @@ class Admin_patientrec extends CI_Controller
         foreach ($patients->result() as $patient) {
 
             $no++;
+            // $editId = 'edit-patient-' . $patient->patient_id;
             $row = array();
             $row[] = $no;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
@@ -57,7 +58,6 @@ class Admin_patientrec extends CI_Controller
                 </td>
             ';
             $data[] = $row;
-
         }
 
         $output = array(
@@ -170,7 +170,6 @@ class Admin_patientrec extends CI_Controller
             $this->Admin_model->add_patient($info);
             redirect('Admin_patientrec');
         }
-
     }
 
     public function delete_patient($id)
@@ -294,7 +293,7 @@ class Admin_patientrec extends CI_Controller
                 'status' => '0',
                 'date_created' => date('Y-m-d H:i:s')
             );
- 
+
             $insert_id = $this->Admin_model->add_patient($info);
 
             $patientDetails = array(
@@ -322,6 +321,8 @@ class Admin_patientrec extends CI_Controller
 
     public function update_health_info($id)
     {
+        $patient = $this->Admin_model->get_patient_row($id);
+
         $img_config = array(
             'upload_path' => './assets/img/profile-avatars/',
             'allowed_types' => 'jpg|jpeg|png',
@@ -329,11 +330,13 @@ class Admin_patientrec extends CI_Controller
             'max_width' => 2048,
             'max_height' => 2048,
             'file_name' => 'patient-avatar-' . $id,
+            'file_ext_tolower' => TRUE,
             'overwrite' => TRUE
         );
 
         $this->load->library('upload', $img_config);
         $this->upload->initialize($img_config);
+        $fileExt = pathinfo($patient->avatar, PATHINFO_EXTENSION);
 
         $this->form_validation->set_rules('bp_systolic', 'Systolic', 'required|numeric', array(
             'numeric' => 'Please enter a valid %s.'
@@ -363,23 +366,21 @@ class Admin_patientrec extends CI_Controller
         //     'required' => 'Please enter a %s date.'
         // ));
 
-        if ($this->form_validation->run() == FALSE)
-        {
+        if ($this->form_validation->run() == FALSE) {
             // $error = array(
             //     'error' => $this->upload->display_errors(),
             // );
             $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
             $this->session->set_flashdata('error', validation_errors());
             redirect('Admin_patientrec/view_patient/' . $id);
-        }
-        else {
-            $img_name = (!$this->upload->do_upload('avatar')) ? null : $this->upload->data('file_name');
+        } else {
+            $img_name = (!$this->upload->do_upload('avatar')) ? 'patient-avatar-' . $id . '.' . $fileExt : $this->upload->data('file_name');
             $avatar = array(
                 'avatar' => $img_name
             );
             $this->Admin_model->update_avatar($id, $avatar);
 
-            date("Y-m-d H:i:s", strtotime($_POST["datentime"]));
+            $next_consul = $this->input->post('consul_next');
             $health_info = array(
                 'blood_type' => $this->input->post('blood_type'),
                 'bp_systolic' => $this->input->post('bp_systolic'),
@@ -388,7 +389,8 @@ class Admin_patientrec extends CI_Controller
                 'height' => $this->input->post('height'),
                 'weight' => $this->input->post('weight'),
                 'prescription' => $this->input->post('prescription'),
-                'consul_next' => date("Y-m-d H:i:s", strtotime($this->input->post('consul_next'))),
+                'consul_next' => date('Y-m-d\TH:i:s', strtotime($next_consul)),
+                //'consul_next' => $this->input->post('consul_next'),
                 'objectives' => $this->input->post('objectives'),
                 'symptoms' => $this->input->post('symptoms')
             );
@@ -396,9 +398,7 @@ class Admin_patientrec extends CI_Controller
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
             redirect('Admin_patientrec/view_patient/' . $id);
-
         }
-
     }
 
     // public function update_health_info($id)

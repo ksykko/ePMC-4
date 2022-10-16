@@ -9,7 +9,6 @@ body {
     display: flex;
     background-color: #f0f0f0 !important;
     flex-direction: column;
-
 }
 
 * {
@@ -752,6 +751,7 @@ input.invalid:focus {
 
 /* Hide all steps by default: */
 
+.editTab,
 .tab {
     display: none;
 }
@@ -760,6 +760,7 @@ button:hover {
     opacity: 0.8;
 }
 
+#prevEditBtn,
 #prevBtn {
     background-color: #bbbbbb;
 }
@@ -767,6 +768,7 @@ button:hover {
 
 /* Make circles that indicate the steps of the form: */
 
+.editStep,
 .step {
     height: 15px;
     width: 15px;
@@ -778,6 +780,7 @@ button:hover {
     opacity: 0.5;
 }
 
+.editStep.active,
 .step.active {
     opacity: 1;
 }
@@ -785,10 +788,12 @@ button:hover {
 
 /* Mark the steps that are finished and valid: */
 
+.editStep.finish,
 .step.finish {
     background-color: #356cbe;
 }
 
+#nextEditBtn,
 #nextBtn {
     background-color: #3269bf;
 }
