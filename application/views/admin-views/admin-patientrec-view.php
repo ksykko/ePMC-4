@@ -250,7 +250,7 @@
                         <div class="row">
                             <div class="col d-flex justify-content-center">
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully added a new patient.</span>
                                 </div>
                             </div>
@@ -259,7 +259,7 @@
                         <div class="row">
                             <div class="col d-flex justify-content-center">
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully deleted a patient.</span>
                                 </div>
                             </div>

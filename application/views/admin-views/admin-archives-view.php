@@ -3,28 +3,19 @@
         <div>
             <h1 class="d-none d-lg-inline-block patientrec-label">Archives</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4"><a href="<?= base_url('Admin_patientrec/index') ?>" class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button"><strong>Back</strong></a></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4"><a href="<?= base_url('Admin_patientrec/index') ?>" class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button"><i class="fas fa-arrow-left"></i><strong>Back</strong></a></div>
     </div>
 
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div class="table-responsive">
-                    <?php if ($this->session->flashdata('message') == 'success') : ?>
+                    <?php if ($this->session->flashdata('message') == 'rstr_success') : ?>
                         <div class="row">
                             <div class="col d-flex justify-content-center">
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully added a new patient.</span>
-                                </div>
-                            </div>
-                        </div>
-                    <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully deleted a patient.</span>
+                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully restore a patient record.</span>
                                 </div>
                             </div>
                         </div>

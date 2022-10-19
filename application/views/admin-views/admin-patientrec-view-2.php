@@ -29,7 +29,8 @@
                 </div>
             </div>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><strong>Back</strong></button></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default edt-btn" type="button"><i class="fas fa-edit"></i><strong>Edit</strong></button></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong>Back</strong></button></div>
     </div>
     <div class="row">
         <div class="col d-flex justify-content-center">
