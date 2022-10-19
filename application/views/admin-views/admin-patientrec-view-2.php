@@ -403,39 +403,43 @@
                         </div>
                         <div><button id="add-diagnosis" class="btn btn-success btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
                             <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body mx-5">
-                                            <div class="row mt-4 mb-2">
-                                                <div class="col col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                <div class="col">
-                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea></div>
-                                                </div>
+                                <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
+                                <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="row mt-4 mb-2">
-                                                <div class="col col-sm-4"><label class="col-form-label">Doctor:</label></div>
-                                                <div class="col">
-                                                    <div class="input-error">
-                                                        <div class="input-group">
-                                                            <!-- role -->
-                                                            <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
-                                                                <option value="select" disabled selected>select...</option>
-                                                                <?php foreach ($doctors as $doctor) : ?>
-                                                                    <option value="<?= $doctor->user_id ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
+
+                                            <div class="modal-body mx-5">
+                                                <div class="row mt-4 mb-2">
+                                                    <div class="col col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                    <div class="col">
+                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-4 mb-2">
+                                                    <div class="col col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                                    <div class="col">
+                                                        <div class="input-error">
+                                                            <div class="input-group">
+                                                                <!-- role -->
+                                                                <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
+                                                                    <option value="select" disabled selected>select...</option>
+                                                                    <?php foreach ($doctors as $doctor) : ?>
+                                                                        <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+                                                            <small class="text-danger"><?= form_error('role') ?></small>
                                                         </div>
-                                                        <small class="text-danger"><?= form_error('role') ?></small>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="submit">Save</button></div>
                                         </div>
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="button">Save</button></div>
                                     </div>
-                                </div>
+                                <?= form_close() ?>
                             </div>
                         </div>
                     </div>
