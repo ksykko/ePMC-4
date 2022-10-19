@@ -323,6 +323,7 @@
                             </div>
                             <div class="card-body mx-3">
                                 <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription"><?= $healthinfo->prescription ?></textarea></div>
+
                             </div>
                         </div>
                         <div id="card-next-consultation" class="card shadow mb-4" style="height: 251px">
@@ -330,16 +331,13 @@
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
                             </div>
                             <div class="card-body mx-3">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-xxl-12">
-                                            <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" value="<?= $healthinfo->consul_next ?>" name="consul_next" type="datetime-local" /></div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xxl-12">
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
