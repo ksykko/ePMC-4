@@ -343,7 +343,7 @@
                 </div>
             </div>
         </div>
-        <div class="card shadow mb-4">
+        <!-- <div class="card shadow mb-4">
             <div class="card-header py-3 ch-patientrec">
                 <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
             </div>
@@ -369,7 +369,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row row-cols-1">
             <div class="col">
                 <div class="card shadow mb-4">
@@ -394,7 +394,7 @@
         </div>
     </section>
     <?= form_close() ?>
-    <!-- <div class="row">
+    <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec ch-patientdiag">
@@ -402,17 +402,39 @@
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Patient Diagnosis</h6>
                         </div>
-                        <div><button id="add-diagnosis" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
+                        <div><button id="add-diagnosis" class="btn btn-success btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
                             <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <p>The content of your modal.</p>
+                                        <div class="modal-body mx-5">
+                                            <div class="row mt-4 mb-2">
+                                                <div class="col col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                <div class="col">
+                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea></div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4 mb-2">
+                                                <div class="col col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                                <div class="col">
+                                                    <div class="input-error">
+                                                        <div class="input-group">
+                                                            <!-- role -->
+                                                            <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
+                                                                <option value="select" disabled selected>select...</option>
+                                                                <?php foreach ($doctors as $doctor) : ?>
+                                                                    <option value="<?= $doctor->user_id ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                        <small class="text-danger"><?= form_error('role') ?></small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="button">Save</button></div>
                                     </div>
                                 </div>
                             </div>
@@ -429,55 +451,29 @@
                                             <th class="align-middle">Date</th>
                                             <th class="align-middle">Recent Diagnosis</th>
                                             <th class="align-middle">Doctor</th>
-                                            <th class="col-lg-1 col-md-1 align-middle">Action</th>
+                                            <th class="text-center col-md-3 align-middle">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Cell 1</td>
                                             <td>Cell 2</td>
-                                            <td class="col-lg-3">Dr. Pagtakhan</td>
-                                            <td>
-                                                <div class="d-flex justify-content-end">
-                                                    <div><button class="btn btn-light mx-2 btn-action" type="button" data-bs-toggle="modal" data-bs-target="#mdl-view-patientdiag">View</button>
-                                                        <div id="mdl-view-patientdiag" class="modal fade" role="dialog" tabindex="-1">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>The content of your modal.</p>
-                                                                    </div>
-                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div><button class="btn btn-light mx-2 btn-action" type="button" data-bs-toggle="modal" data-bs-target="#mdl-edit-patientdiag">Edit</button>
-                                                        <div id="mdl-edit-patientdiag" class="modal fade" role="dialog" tabindex="-1">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>The content of your modal.</p>
-                                                                    </div>
-                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center"><a class="btn btn-link btn-sm d-flex align-items-center btn-delete" role="button"><i class="far fa-trash-alt"></i></a></div>
-                                                </div>
+                                            <td>Dr. Pagtakhan</td>
+                                            <td class="text-center" colspan="1">
+                                                <a class="btn btn-light mx-2" type="button">View</a>
+                                                <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
+                                                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-"><i class="far fa-trash-alt"></i></button>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Cell 3</td>
                                             <td>Cell 4</td>
                                             <td>Cell 4</td>
-                                            <td></td>
+                                            <td class="text-center" colspan="1">
+                                                <a class="btn btn-light mx-2" type="button">View</a>
+                                                <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
+                                                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-"><i class="far fa-trash-alt"></i></button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -496,17 +492,17 @@
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Treatment Plan</h6>
                         </div>
-                        <div><button id="add-treatment-plan" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatmentplan"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
+                        <div><button id="add-treatment-plan" class="btn btn-success btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatmentplan"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
                             <div id="mdl-add-treatmentplan" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title">Add Treatment Plan</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <p>The content of your modal.</p>
                                         </div>
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="button">Save</button></div>
                                     </div>
                                 </div>
                             </div>
@@ -529,40 +525,10 @@
                                         <tr>
                                             <td>Cell 1</td>
                                             <td>Cell 2</td>
-                                            <td>
-                                                <div class="d-flex justify-content-end">
-                                                    <div><button class="btn btn-light mx-2 btn-action" type="button" data-bs-toggle="modal" data-bs-target="#mdl-view-treatmentplan">View</button>
-                                                        <div id="mdl-view-treatmentplan" class="modal fade" role="dialog" tabindex="-1">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>The content of your modal.</p>
-                                                                    </div>
-                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div><button class="btn btn-light mx-2 btn-action" type="button" data-bs-toggle="modal" data-bs-target="#mdl-edit-treatmentplan">Edit</button>
-                                                        <div id="mdl-edit-treatmentplan" class="modal fade" role="dialog" tabindex="-1">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p>The content of your modal.</p>
-                                                                    </div>
-                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center"><a class="btn btn-link btn-sm d-flex align-items-center btn-delete" role="button"><i class="far fa-trash-alt"></i></a></div>
-                                                </div>
+                                            <td class="text-center" colspan="1">
+                                                <a class="btn btn-light mx-2" type="button">View</a>
+                                                <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
+                                                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-"><i class="far fa-trash-alt"></i></button>
                                             </td>
                                         </tr>
                                         <tr>
@@ -609,5 +575,5 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 </div>

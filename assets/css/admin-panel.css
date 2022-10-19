@@ -593,6 +593,12 @@ i {
     border: 0px;
 }
 
+#btn-view-archives {
+    color: #ffffff;
+    font-size: 15px;
+    border: 0px;
+}
+
 #input-search {
     font-size: 15px;
 }
@@ -611,7 +617,6 @@ i {
     background-color: var(--bs-yellow);
     font-size: 15px;
     border: 0px;
-    height: 43.16px;
     color: #ffffff;
 }
 
