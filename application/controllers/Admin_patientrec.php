@@ -373,17 +373,9 @@ class Admin_patientrec extends CI_Controller
                 
             }
             
-            
+            // Convert ISO 8601 datetime-local input format to MySQL datetime format
             $consul_next = date('Y-m-d\TH:i:s', strtotime($this->input->post('consul_next')));
             $formatted_consul = date('Y-m-d H:i:s', strtotime($consul_next));
-            
-
-
-            // var_dump($this->input->post('consul_next'));
-            // var_dump($formatted_consul);
-            // die();
-            // Convert datetime-local format to MySQL datetime format
-
             
             $avatar = array(
                 'avatar' => $img_name
@@ -399,7 +391,6 @@ class Admin_patientrec extends CI_Controller
                 'weight' => $this->input->post('weight'),
                 'prescription' => $this->input->post('prescription'),
                 'consul_next' => $formatted_consul,
-                //'consul_next' => $this->input->post('consul_next'),
                 'objectives' => $this->input->post('objectives'),
                 'symptoms' => $this->input->post('symptoms')
             );
@@ -412,8 +403,10 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
-    public function add_diagnosis()
+    public function add_diagnosis($id)
     {
+        $patient = $this->Admin_model->get_patient_row($id);
+
         $this->form_validation->set_rules('p_recent_diagnosis', 'Diagnosis', 'required', array(
             'required' => '%s cannot be empty.'
         ));
@@ -426,23 +419,41 @@ class Admin_patientrec extends CI_Controller
         if ($this->form_validation->run() == FALSE) 
         {
             $this->session->set_flashdata('error', validation_errors());
-            redirect('Admin_patientrec/view_patient/' . $this->input->post('patient_id'));
+            redirect('Admin_patientrec/view_patient/' . $id);
         } else 
         {
             $diagnosis = array(
-                'patient_id' => $this->input->post('patient_id'),
+                'patient_id' => $id,
                 'p_recent_diagnosis' => $this->input->post('p_recent_diagnosis'),
-                'p_doctor' => $this->input->post('p_doctor'),
-                'date_created' => date('Y-m-d H:i:s')
+                'p_doctor' => $this->input->post('p_doctor')
+                //'date_created' => date('Y-m-d H:i:s')
             );
+
+            // $diagnosis = array(
+            //     'patient_id' => $id,
+            //     'p_recent_diagnosis' => $this->input->post('p_recent_diagnosis'),
+            //     'p_doctor' => $this->input->post('p_doctor')
+            //     //'date_created' => date('Y-m-d H:i:s')
+            // );
+
+            // if ($patient->patient_id && $patient->p_recent_diagnosis == NULL) 
+            // {
+            //     $this->Admin_model->update_patient_diagnosis($id, $diagnosis);
+            //     $this->session->set_flashdata('message', 'success-diagnosis');
+            //     redirect('Admin_patientrec/view_patient/' . $id);
+            // } else 
+            // {
+            //     $this->Admin_model->add_patient_diagnosis($diagnosis);
+            //     $this->session->set_flashdata('message', 'success-diagnosis');
+            //     redirect('Admin_patientrec/view_patient/' . $id);
+            // }
 
             $this->Admin_model->add_patient_diagnosis($diagnosis);
             $this->session->set_flashdata('message', 'success-diagnosis');
-            redirect('Admin_patientrec/view_patient/' . $this->input->post('patient_id'));
+            redirect('Admin_patientrec/view_patient/' . $id);
         }
 
     }
-
 
 
 

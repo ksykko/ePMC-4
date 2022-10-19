@@ -265,6 +265,11 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->row();
     }
 
+    public function update_patient_diagnosis($id, $info)
+    {
+        $this->db->update('patient_diagnosis', $info, ['patient_id' => $id]);
+    }
+
     // END OF patient_diagnosis table
 
 
