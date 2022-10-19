@@ -361,10 +361,19 @@ class Admin_patientrec extends CI_Controller
             redirect('Admin_patientrec/view_patient/' . $id);
         } else 
         {
-            if ($patient->avatar == 'default-avatar.png') {
-                $img_name = 'default-avatar.png';
+            if (!$this->upload->do_upload('avatar'))
+            {
+                if ($patient->avatar == 'default-avatar.png') {
+                    $img_name = 'default-avatar.png';
+                } else {
+                    $img_name = $this->upload->data('file_name') . '.' . $fileExt;
+                }
+            } else {
+                $img_name = $this->upload->data('file_name');
+                
             }
-            $img_name = (!$this->upload->do_upload('avatar')) ? 'patient-avatar-' . $id . '.' . $fileExt : $this->upload->data('file_name');
+
+            //$img_name = (!$this->upload->do_upload('avatar')) ? 'patient-avatar-' . $id . '.' . $fileExt : $this->upload->data('file_name');
             
 
             $avatar = array(

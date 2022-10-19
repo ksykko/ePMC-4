@@ -662,8 +662,15 @@ i {
 }
 
 .btn-default {
-    font-size: 12px;
+    font-size: 16px;
     border: 0px;
+    height: 43.16px;
+    color: #ffffff;
+    width: 75px;
+}
+
+.edt-btn {
+    width: 100px;
 }
 
 .btn-save-patient:hover {
@@ -710,7 +717,7 @@ i {
 }
 
 .dbl-btn {
-    width: 100px;
+    width: 110px;
     height: 44.79px;
 }
 

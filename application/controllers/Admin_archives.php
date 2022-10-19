@@ -1,14 +1,15 @@
-<?php 
+<?php
 
-class Admin_archives extends CI_Controller {
-    public function __construct(){
+class Admin_archives extends CI_Controller
+{
+    public function __construct()
+    {
         parent::__construct();
 
 
         $this->load->helper(['url', 'form', 'date', 'string']);
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
-        
     }
 
     public function index()
@@ -23,8 +24,8 @@ class Admin_archives extends CI_Controller {
 
 
             $this->load->view('include-admin/dashboard-header', $data);
-            $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
-            $this->load->view('admin-views/admin-archives-view', $data); //recent sample
+            $this->load->view('include-admin/dashboard-navbar', $data);
+            $this->load->view('admin-views/admin-archives-view', $data);
             $this->load->view('include-admin/archives-scripts');
         } else {
             redirect('Login/signin');
@@ -44,12 +45,15 @@ class Admin_archives extends CI_Controller {
         $no = 0;
         foreach ($patients->result() as $patient) {
 
+            $sql_last_accessed = mysql_to_unix($patient->last_accessed);
+            $last_accessed = unix_to_human($sql_last_accessed, FALSE);
+
             $no++;
             // $editId = 'edit-patient-' . $patient->patient_id;
             $row = array();
             $row[] = $no;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
-            $row[] = $patient->last_accessed;
+            $row[] = $last_accessed;
             $row[] = '
                 <td class="text-center" colspan="1"> 
                     <button class="btn btn-sm btn-info mx-2" type="button" data-bs-toggle="modal" data-bs-target="#restore-patient-' . $patient->patient_id . '"><i class="fas fa-undo-alt"></i>Restore</button>
@@ -69,24 +73,8 @@ class Admin_archives extends CI_Controller {
 
     public function restore_patient($id)
     {
-        $last_accessed = date('Y-m-d H:i:s');
-
-        $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
-        $this->db->insert('patient_record', $this->Admin_model->get_arc_patient_row($id));
-        $this->db->insert('patient_details', $this->Admin_model->get_arc_patient_details_row($id));
-        $this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
-        $this->db->insert('patient_lab_reports', $this->Admin_model->get_arc_patient_lab_reports_row($id));
-        $this->db->insert('patient_treatment_plan', $this->Admin_model->get_arc_patient_treatment_plan_row($id));
-
-        $this->db->delete('arc_patient_record', ['patient_id' => $id]);
-        $this->db->delete('arc_patient_details', ['patient_id' => $id]);
-        $this->db->delete('arc_patient_diagnosis', ['patient_id' => $id]);
-        $this->db->delete('arc_patient_lab_reports', ['patient_id' => $id]);
-        $this->db->delete('arc_patient_treatment_plan', ['patient_id' => $id]);
+        $this->Admin_model->restore_patient($id);
+        $this->session->set_flashdata('message', 'rstr_success');
         redirect('Admin_archives');
     }
 }
-
-
-
-?>

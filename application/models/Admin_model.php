@@ -48,7 +48,7 @@ class Admin_model extends CI_Model
     { // delete patient based on patient_id ($id = primary key)
         
         // insert patient record to archive table
-        $last_accessed = date('Y-m-d H:i:s');
+        $last_accessed = mdate('%Y-%m-%d %H:%i:%s', now());
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
         $this->db->insert('arc_patient_record', $this->get_patient_row($id));
         $this->db->insert('arc_patient_details', $this->get_patient_details_row($id));
@@ -68,6 +68,23 @@ class Admin_model extends CI_Model
         $this->db->delete('patient_lab_reports', ['patient_id' => $id]);
         $this->db->delete('patient_treatment_plan', ['patient_id' => $id]);
 
+    }
+
+    public function restore_patient($id)
+    {
+        $last_accessed = mdate('%Y-%m-%d %H:%i:%s', now());
+        $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
+        $this->db->insert('patient_record', $this->Admin_model->get_arc_patient_row($id));
+        $this->db->insert('patient_details', $this->Admin_model->get_arc_patient_details_row($id));
+        $this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
+        $this->db->insert('patient_lab_reports', $this->Admin_model->get_arc_patient_lab_reports_row($id));
+        $this->db->insert('patient_treatment_plan', $this->Admin_model->get_arc_patient_treatment_plan_row($id));
+
+        $this->db->delete('arc_patient_record', ['patient_id' => $id]);
+        $this->db->delete('arc_patient_details', ['patient_id' => $id]);
+        $this->db->delete('arc_patient_diagnosis', ['patient_id' => $id]);
+        $this->db->delete('arc_patient_lab_reports', ['patient_id' => $id]);
+        $this->db->delete('arc_patient_treatment_plan', ['patient_id' => $id]);
     }
 
     public function add_patient($info)
