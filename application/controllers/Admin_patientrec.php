@@ -372,16 +372,24 @@ class Admin_patientrec extends CI_Controller
                 $img_name = $this->upload->data('file_name');
                 
             }
-
-            //$img_name = (!$this->upload->do_upload('avatar')) ? 'patient-avatar-' . $id . '.' . $fileExt : $this->upload->data('file_name');
+            
+            
+            $consul_next = date('Y-m-d\TH:i:s', strtotime($this->input->post('consul_next')));
+            $formatted_consul = date('Y-m-d H:i:s', strtotime($consul_next));
             
 
+
+            // var_dump($this->input->post('consul_next'));
+            // var_dump($formatted_consul);
+            // die();
+            // Convert datetime-local format to MySQL datetime format
+
+            
             $avatar = array(
                 'avatar' => $img_name
             );
             $this->Admin_model->update_avatar($id, $avatar);
 
-            $next_consul = $this->input->post('consul_next');
             $health_info = array(
                 'blood_type' => $this->input->post('blood_type'),
                 'bp_systolic' => $this->input->post('bp_systolic'),
@@ -390,11 +398,13 @@ class Admin_patientrec extends CI_Controller
                 'height' => $this->input->post('height'),
                 'weight' => $this->input->post('weight'),
                 'prescription' => $this->input->post('prescription'),
-                'consul_next' => date('Y-m-d\TH:i:s', $next_consul),
+                'consul_next' => $formatted_consul,
                 //'consul_next' => $this->input->post('consul_next'),
                 'objectives' => $this->input->post('objectives'),
                 'symptoms' => $this->input->post('symptoms')
             );
+
+            
 
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
