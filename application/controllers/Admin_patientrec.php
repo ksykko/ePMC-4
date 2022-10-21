@@ -484,6 +484,11 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+    public function view_diagnosis($id)
+    {
+        
+    }
+
     public function edit_diagnosis($id) 
     {
     }
