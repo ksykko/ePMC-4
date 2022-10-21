@@ -8,7 +8,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title ms-3">Add a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title ms-3 fw-bolder">Add a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <?= form_open('Admin_patientrec/add_patient_validation', array('id' => 'regForm')); ?>
                         <div class="modal-body mx-5">
@@ -113,7 +113,7 @@
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title ms-3">Edit a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h4 class="modal-title ms-3 fw-bolder">Edit a Patient Record</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <?= form_open('Admin_patientrec/edit_patient_validation', array('id' => 'editPatient')); ?>
                             <div class="modal-body mx-5">
