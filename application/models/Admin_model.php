@@ -108,8 +108,6 @@ class Admin_model extends CI_Model
         return $insert_id;
     }
 
-
-
     // for inventory pagination
     public function get_inventory_table()
     {
@@ -181,6 +179,10 @@ class Admin_model extends CI_Model
         return $this->db->count_all('user_accounts');
     }
 
+
+
+
+    
     // get user row based on user_id ($id = primary key)
     public function get_useracc_row($id)
     {
@@ -191,6 +193,11 @@ class Admin_model extends CI_Model
     {
         return $this->db->get_where('tbl_admin', ['admin_id' => $id])->row();
     }
+
+
+
+
+
 
     public function add_useracc($info)
     { // add user account record
