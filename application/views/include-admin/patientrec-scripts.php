@@ -45,7 +45,30 @@
             { 
                 "targets": [ 3 ], //first column / numbering column
                 "orderable": false, //set not orderable
-                "className": "text-center", "targets": [3]
+                "className": "text-center", "targets": [3],
+            }
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#treatment_plan_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            responsive: true,
+            "ajax": {
+                url: "<?php echo site_url("Admin_patientrec/treatment_dt/") . $patient->patient_id  ?>",
+                type: 'POST'
+            },
+
+            //Set column definition initialisation properties.
+            "columnDefs": [
+            { 
+                "targets": [ 3 ], //first column / numbering column
+                "orderable": false, //set not orderable
+                "className": "text-center", "targets": [2],
             }
             ]
         });
