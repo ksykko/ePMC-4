@@ -3,7 +3,7 @@
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 btn-save-patient me-4 btn-success dbl-btn" type="button" data-bs-toggle="modal" data-bs-target="#prompt-modal"><i class="fas fa-save"></i><strong><span style="color: var(--bs-btn-hover-color);">Save</span></strong></button>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 btn-save-patient me-4 btn-success dbl-btn w-auto" type="button" data-bs-toggle="modal" data-bs-target="#prompt-modal"><i class="fas fa-save"></i><strong class="d-none d-lg-inline-block"><span style="color: var(--bs-btn-hover-color);">Save</span></strong></button>
             <div id="prompt-modal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -29,8 +29,8 @@
                 </div>
             </div>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default edt-btn" type="button"><i class="fas fa-edit"></i><strong>Edit</strong></button></div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong>Back</strong></button></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button"><i class="fas fa-edit"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
     </div>
     <div class="row">
         <div class="col d-flex justify-content-center">
@@ -43,6 +43,11 @@
                 <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Success!</strong> Patient's health information has been updated.</p>
+                </div>
+            <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
+                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
+                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <p><strong>Success!</strong> Patient's diagnosis has been added.</p>
                 </div>
             <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
                 <div class="alert alert-danger alert-dismissible fade show w-25" role="alert">
@@ -405,50 +410,50 @@
                             <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
                                 <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
                                 <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-
-                                            <div class="modal-body mx-5">
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-sm-4"><label class="col-form-label">Doctor:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-error">
-                                                            <div class="input-group">
-                                                                <!-- role -->
-                                                                <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
-                                                                    <option value="select" disabled selected>select...</option>
-                                                                    <?php foreach ($doctors as $doctor) : ?>
-                                                                        <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </div>
-                                                            <small class="text-danger"><?= form_error('role') ?></small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="submit">Save</button></div>
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
+
+                                        <div class="modal-body mx-5">
+                                            <div class="row mt-4 mb-2">
+                                                <div class="col col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                <div class="col">
+                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea></div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4 mb-2">
+                                                <div class="col col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                                <div class="col">
+                                                    <div class="input-error">
+                                                        <div class="input-group">
+                                                            <!-- role -->
+                                                            <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
+                                                                <option value="select" disabled selected>select...</option>
+                                                                <?php foreach ($doctors as $doctor) : ?>
+                                                                    <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                        <small class="text-danger"><?= form_error('role') ?></small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="submit">Save</button></div>
                                     </div>
+                                </div>
                                 <?= form_close() ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body mx-3">
+                <div class="card-body mx-3 pt-4 pb-5">
                     <div class="row">
                         <div class="col">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="diag_table" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th class="align-middle">Date</th>
@@ -458,26 +463,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Cell 1</td>
-                                            <td>Cell 2</td>
-                                            <td>Dr. Pagtakhan</td>
-                                            <td class="text-center" colspan="1">
-                                                <a class="btn btn-light mx-2" type="button">View</a>
-                                                <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
-                                                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-"><i class="far fa-trash-alt"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cell 3</td>
-                                            <td>Cell 4</td>
-                                            <td>Cell 4</td>
-                                            <td class="text-center" colspan="1">
-                                                <a class="btn btn-light mx-2" type="button">View</a>
-                                                <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-patient-' . $patient->patient_id . '">Edit</button>
-                                                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-"><i class="far fa-trash-alt"></i></button>
-                                            </td>
-                                        </tr>
+                                        <?php foreach ($diagnoses as $diagnosis) : ?>
+                                            <div id="delete-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Delete a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_diagnosis/') . $diagnosis->id ?>" type="button">Confirm</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
