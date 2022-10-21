@@ -14,6 +14,7 @@ class Admin_inventory extends CI_Controller {
         if ($this->session->userdata('logged_in')) { //if logged in
 
             $id = $this->session->userdata('admin_id');
+            $data['user_role'] = $this->session->userdata('role');
 
             $data['title'] = 'Inventory';
             $data['product'] = $this->Admin_model->get_inventory_row($id);
