@@ -21,6 +21,7 @@ class Admin_patientrec extends CI_Controller
             $data['title'] = 'Admin - Patient Records | ePMC';
             $data['patient'] = $this->Admin_model->get_patient_row($id);
             $data['patients'] = $this->Admin_model->get_patient_table();
+            $data['user_role'] = $this->session->userdata('role');
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
