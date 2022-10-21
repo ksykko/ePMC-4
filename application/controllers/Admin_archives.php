@@ -20,6 +20,7 @@ class Admin_archives extends CI_Controller
 
             $data['title'] = 'Admin - Archives | ePMC';
             $data['patient'] = $this->Admin_model->get_arc_patient_row($id);
+            $data['user_role'] = $this->session->userdata('role');
             $data['patients'] = $this->Admin_model->get_arc_patient_table();
 
 

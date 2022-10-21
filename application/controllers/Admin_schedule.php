@@ -16,6 +16,8 @@ class Admin_schedule extends CI_Controller {
 		//Display list of Doctors
 		$query = $this->db->get("schedule"); 
         $data['doctors'] = $query->result();
+		
+		$data['user_role'] = $this->session->userdata('role');
 
 		//Get Year in DB
 		$get_year_db = "SELECT * FROM schedule WHERE year(date)";
