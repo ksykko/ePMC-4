@@ -52,7 +52,14 @@ class Admin_model extends CI_Model
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
         $this->db->insert('arc_patient_record', $this->get_patient_row($id));
         $this->db->insert('arc_patient_details', $this->get_patient_details_row($id));
-        $this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
+
+        // insert all patient diagnosis rows to archive table with same patient_id
+        $diagnosis = $this->get_patient_diagnosis_result($id);
+        foreach ($diagnosis as $row) {
+            $this->db->insert('arc_patient_diagnosis', $row);
+        }
+
+        //$this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
         $this->db->insert('arc_patient_lab_reports', $this->get_patient_lab_reports_row($id));
         $this->db->insert('arc_patient_treatment_plan', $this->get_patient_treatment_plan_row($id));
         
@@ -76,7 +83,14 @@ class Admin_model extends CI_Model
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
         $this->db->insert('patient_record', $this->Admin_model->get_arc_patient_row($id));
         $this->db->insert('patient_details', $this->Admin_model->get_arc_patient_details_row($id));
-        $this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
+
+        // insert all patient diagnosis rows to archive table with same patient_id
+        $diagnosis = $this->get_arc_patient_diagnosis_result($id);
+        foreach ($diagnosis as $row) {
+            $this->db->insert('patient_diagnosis', $row);
+        }
+
+        //$this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
         $this->db->insert('patient_lab_reports', $this->Admin_model->get_arc_patient_lab_reports_row($id));
         $this->db->insert('patient_treatment_plan', $this->Admin_model->get_arc_patient_treatment_plan_row($id));
 
@@ -229,6 +243,14 @@ class Admin_model extends CI_Model
         return $this->db->get_where('arc_patient_diagnosis', ['patient_id' => $id])->row();
     }
 
+    public function get_arc_patient_diagnosis_result($id)
+    {
+        // return all rows with the same patient_id
+        return $this->db->get_where('arc_patient_diagnosis', ['patient_id' => $id])->result();
+
+        // return $this->db->get_where('arc_patient_diagnosis', ['patient_id' => $id])->row(); // must get all rows
+    }
+
     public function get_arc_patient_lab_reports_row($id)
     {
         return $this->db->get_where('arc_patient_lab_reports', ['patient_id' => $id])->row();
@@ -255,12 +277,22 @@ class Admin_model extends CI_Model
 
     public function update_patient_details($id, $info)
     {
-        $this->db->update('patient_details', $info, ['patient_id' => $id]);
+        $this->db->update('patient_details', $info, ['id' => $id]);
     }
 
     // END OF patient_details table
 
     // START OF patient_diagnosis table
+    public function get_diagnosis_table()
+    {
+        return $this->db->get('patient_diagnosis')->result();
+    }
+
+    public function get_diagnosis_tbl($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id]);
+        //return $this->db->get('patient_diagnosis');
+    }
 
     public function add_patient_diagnosis($info)
     {
@@ -272,11 +304,20 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->row();
     }
 
+    public function get_patient_diagnosis_result($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->result();
+    }
+
+    public function get_patient_diagnosis_resultArr($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->result_array();
+    }
+
     public function update_patient_diagnosis($id, $info)
     {
         $this->db->update('patient_diagnosis', $info, ['patient_id' => $id]);
     }
-
     // END OF patient_diagnosis table
 
 

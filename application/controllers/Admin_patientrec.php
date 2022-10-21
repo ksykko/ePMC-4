@@ -23,7 +23,6 @@ class Admin_patientrec extends CI_Controller
             $data['patients'] = $this->Admin_model->get_patient_table();
             $data['user_role'] = $this->session->userdata('role');
 
-
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-patientrec-view', $data); //recent sample
@@ -66,6 +65,47 @@ class Admin_patientrec extends CI_Controller
             "draw" => $draw,
             "recordsTotal" => $patients->num_rows(),
             "recordsFiltered" => $patients->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
+    public function diag_dt($id)
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        
+        $diagnoses = $this->Admin_model->get_diagnosis_tbl($id);
+
+        $data = array();
+
+        foreach ($diagnoses->result() as $diagnosis) {
+
+            
+            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+
+            $row = array();
+            $row[] = $diag_date;
+            $row[] = $diagnosis->p_recent_diagnosis;
+            $row[] = $diagnosis->p_doctor;
+            $row[] = '
+                <td class="text-center" colspan="1">
+                    <a class="btn btn-light mx-2" type="button">View</a>
+                    <button class="btn btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#edit-diagnosis-' . $diagnosis->id . '">Edit</button>
+                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-diagnosis-' . $diagnosis->id . '"><i class="far fa-trash-alt"></i></button>
+                </td>
+            ';
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $diagnoses->num_rows(),
+            "recordsFiltered" => $diagnoses->num_rows(),
             "data" => $data
         );
         echo json_encode($output);
@@ -187,6 +227,7 @@ class Admin_patientrec extends CI_Controller
         $data['title'] = 'Admin - Patient Records | ePMC';
         $data['patient'] = $this->Admin_model->get_patient_row($id);
         $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
+        $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
         // $data['patients'] = $this->Admin_model->get_patient_table();
         $data['patient_id'] = $id;
         $data['doctors'] = $this->Doctors_model->get_all_doctors();
@@ -194,7 +235,7 @@ class Admin_patientrec extends CI_Controller
         $this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);
         $this->load->view('admin-views/admin-patientrec-view-2', $data);
-        $this->load->view('include-admin/dashboard-scripts');
+        $this->load->view('include-admin/patientrec-scripts');
     }
 
     public function add_patient_validation()
@@ -355,15 +396,12 @@ class Admin_patientrec extends CI_Controller
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        if ($this->form_validation->run() == FALSE) 
-        {
+        if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
             $this->session->set_flashdata('error', validation_errors());
             redirect('Admin_patientrec/view_patient/' . $id);
-        } else 
-        {
-            if (!$this->upload->do_upload('avatar'))
-            {
+        } else {
+            if (!$this->upload->do_upload('avatar')) {
                 if ($patient->avatar == 'default-avatar.png') {
                     $img_name = 'default-avatar.png';
                 } else {
@@ -371,13 +409,12 @@ class Admin_patientrec extends CI_Controller
                 }
             } else {
                 $img_name = $this->upload->data('file_name');
-                
             }
-            
+
             // Convert ISO 8601 datetime-local input format to MySQL datetime format
             $consul_next = date('Y-m-d\TH:i:s', strtotime($this->input->post('consul_next')));
             $formatted_consul = date('Y-m-d H:i:s', strtotime($consul_next));
-            
+
             $avatar = array(
                 'avatar' => $img_name
             );
@@ -396,7 +433,7 @@ class Admin_patientrec extends CI_Controller
                 'symptoms' => $this->input->post('symptoms')
             );
 
-            
+
 
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
@@ -406,54 +443,62 @@ class Admin_patientrec extends CI_Controller
 
     public function add_diagnosis($id)
     {
-        $patient = $this->Admin_model->get_patient_row($id);
+        $patient = $this->Admin_model->get_patient_diagnosis_resultArr($id);
+        // var_dump($patient);
+        // die();
+
 
         $this->form_validation->set_rules('p_recent_diagnosis', 'Diagnosis', 'required', array(
             'required' => '%s cannot be empty.'
         ));
-        
+
         $this->form_validation->set_rules('p_doctor', 'Doctor', 'required', array(
             'required' => 'Please select a %s.'
         ));
 
-        
-        if ($this->form_validation->run() == FALSE) 
-        {
+
+        if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', validation_errors());
             redirect('Admin_patientrec/view_patient/' . $id);
-        } else 
-        {
+        } else {
+
+        
             $diagnosis = array(
                 'patient_id' => $id,
                 'p_recent_diagnosis' => $this->input->post('p_recent_diagnosis'),
-                'p_doctor' => $this->input->post('p_doctor')
-                //'date_created' => date('Y-m-d H:i:s')
+                'p_doctor' => $this->input->post('p_doctor'),
+                'p_diag_date' => date('Y-m-d H:i')
             );
 
-            // $diagnosis = array(
-            //     'patient_id' => $id,
-            //     'p_recent_diagnosis' => $this->input->post('p_recent_diagnosis'),
-            //     'p_doctor' => $this->input->post('p_doctor')
-            //     //'date_created' => date('Y-m-d H:i:s')
-            // );
 
-            // if ($patient->patient_id && $patient->p_recent_diagnosis == NULL) 
-            // {
-            //     $this->Admin_model->update_patient_diagnosis($id, $diagnosis);
-            //     $this->session->set_flashdata('message', 'success-diagnosis');
-            //     redirect('Admin_patientrec/view_patient/' . $id);
-            // } else 
-            // {
-            //     $this->Admin_model->add_patient_diagnosis($diagnosis);
-            //     $this->session->set_flashdata('message', 'success-diagnosis');
-            //     redirect('Admin_patientrec/view_patient/' . $id);
-            // }
-
-            $this->Admin_model->add_patient_diagnosis($diagnosis);
-            $this->session->set_flashdata('message', 'success-diagnosis');
-            redirect('Admin_patientrec/view_patient/' . $id);
+            foreach ($patient as $row) {
+                if ($row['p_recent_diagnosis'] == NULL && $row['p_doctor'] == NULL) {
+                    $this->Admin_model->update_patient_diagnosis($id, $diagnosis);
+                    $this->session->set_flashdata('message', 'success-diagnosis');
+                    redirect('Admin_patientrec/view_patient/' . $id);
+                } else {
+                    $this->Admin_model->add_patient_diagnosis($diagnosis);
+                    $this->session->set_flashdata('message', 'success-diagnosis');
+                    redirect('Admin_patientrec/view_patient/' . $id);
+                }
+            }
         }
+    }
 
+    public function view_diagnosis($id)
+    {
+        
+    }
+
+    public function edit_diagnosis($id) 
+    {
+    }
+
+    public function delete_diagnosis($id)
+    {
+        $this->Admin_model->delete_patient_diagnosis($id);
+        $this->session->set_flashdata('message', 'success-diagnosis');
+        redirect('Admin_patientrec/view_patient/' . $id);
     }
 
 
