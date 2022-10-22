@@ -52,9 +52,20 @@ class Admin_model extends CI_Model
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
         $this->db->insert('arc_patient_record', $this->get_patient_row($id));
         $this->db->insert('arc_patient_details', $this->get_patient_details_row($id));
-        $this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
+
+        // insert all patient diagnosis rows to archive table with same patient_id
+        $diagnosis = $this->get_patient_diagnosis_result($id);
+        foreach ($diagnosis as $row) {
+            $this->db->insert('arc_patient_diagnosis', $row);
+        }
+
+        //$this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
         $this->db->insert('arc_patient_lab_reports', $this->get_patient_lab_reports_row($id));
-        $this->db->insert('arc_patient_treatment_plan', $this->get_patient_treatment_plan_row($id));
+
+        $treatment = $this->get_patient_treatment_plan_result($id);
+        foreach ($treatment as $row) {
+            $this->db->insert('arc_patient_treatment_plan', $row);
+        }
         
         // delete patient's avatar
         // $avatar = $this->get_patient_row($id)->avatar;
@@ -76,9 +87,20 @@ class Admin_model extends CI_Model
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
         $this->db->insert('patient_record', $this->Admin_model->get_arc_patient_row($id));
         $this->db->insert('patient_details', $this->Admin_model->get_arc_patient_details_row($id));
-        $this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
+
+        // insert all patient diagnosis rows to archive table with same patient_id
+        $diagnosis = $this->get_arc_patient_diagnosis_result($id);
+        foreach ($diagnosis as $row) {
+            $this->db->insert('patient_diagnosis', $row);
+        }
+
+        //$this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
         $this->db->insert('patient_lab_reports', $this->Admin_model->get_arc_patient_lab_reports_row($id));
-        $this->db->insert('patient_treatment_plan', $this->Admin_model->get_arc_patient_treatment_plan_row($id));
+
+        $treatment = $this->get_arc_patient_treatment_plan_result($id);
+        foreach ($treatment as $row) {
+            $this->db->insert('patient_treatment_plan', $row);
+        }
 
         $this->db->delete('arc_patient_record', ['patient_id' => $id]);
         $this->db->delete('arc_patient_details', ['patient_id' => $id]);
@@ -94,7 +116,10 @@ class Admin_model extends CI_Model
         return $insert_id;
     }
 
-
+    public function edit_patient_PI($id, $info)
+    { // add patient personal info
+        $this->db->update('patient_record', $info, ['patient_id' => $id]);
+    }
 
     // for inventory pagination
     public function get_inventory_table()
@@ -167,6 +192,10 @@ class Admin_model extends CI_Model
         return $this->db->count_all('user_accounts');
     }
 
+
+
+
+    
     // get user row based on user_id ($id = primary key)
     public function get_useracc_row($id)
     {
@@ -177,6 +206,11 @@ class Admin_model extends CI_Model
     {
         return $this->db->get_where('tbl_admin', ['admin_id' => $id])->row();
     }
+
+
+
+
+
 
     public function add_useracc($info)
     { // add user account record
@@ -222,6 +256,12 @@ class Admin_model extends CI_Model
         return $this->db->get_where('arc_patient_diagnosis', ['patient_id' => $id])->row();
     }
 
+    public function get_arc_patient_diagnosis_result($id)
+    {
+        // return all rows with the same patient_id
+        return $this->db->get_where('arc_patient_diagnosis', ['patient_id' => $id])->result();
+    }
+
     public function get_arc_patient_lab_reports_row($id)
     {
         return $this->db->get_where('arc_patient_lab_reports', ['patient_id' => $id])->row();
@@ -230,6 +270,12 @@ class Admin_model extends CI_Model
     public function get_arc_patient_treatment_plan_row($id)
     {
         return $this->db->get_where('arc_patient_treatment_plan', ['patient_id' => $id])->row();
+    }
+
+    public function get_arc_patient_treatment_plan_result($id)
+    {
+        // return all rows with the same patient_id
+        return $this->db->get_where('arc_patient_treatment_plan', ['patient_id' => $id])->result();
     }
 
     // END OF ARCHIVES
@@ -254,6 +300,16 @@ class Admin_model extends CI_Model
     // END OF patient_details table
 
     // START OF patient_diagnosis table
+    public function get_diagnosis_table()
+    {
+        return $this->db->get('patient_diagnosis')->result();
+    }
+
+    public function get_diagnosis_tbl($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id]);
+        //return $this->db->get('patient_diagnosis');
+    }
 
     public function add_patient_diagnosis($info)
     {
@@ -265,12 +321,70 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->row();
     }
 
+    public function get_patient_diagnosis_result($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->result();
+    }
+
+    public function get_patient_diagnosis_resultArr($id)
+    {
+        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->result_array();
+    }
+
     public function update_patient_diagnosis($id, $info)
     {
         $this->db->update('patient_diagnosis', $info, ['patient_id' => $id]);
     }
 
+    public function delete_patient_diagnosis($id)
+    {
+        $this->db->delete('patient_diagnosis', ['id' => $id]);
+    }
     // END OF patient_diagnosis table
+
+
+    // START of patient_treatment_plan table
+    public function get_treatment_table()
+    {
+        return $this->db->get('patient_treatment_plan')->result();
+    }
+
+    public function get_treatment_tbl($id)
+    {
+        return $this->db->get_where('patient_treatment_plan', ['patient_id' => $id]);
+    }
+
+    public function add_patient_treatment_plan($info)
+    {
+        $this->db->insert('patient_treatment_plan', $info);
+    }
+
+    public function get_patient_treatment_plan_row($id)
+    {
+        return $this->db->get_where('patient_treatment_plan', ['patient_id' => $id])->row();
+    }
+
+    public function get_patient_treatment_plan_result($id)
+    {
+        return $this->db->get_where('patient_treatment_plan', ['patient_id' => $id])->result();
+    }
+
+    public function get_patient_treatment_resultArr($id)
+    {
+        return $this->db->get_where('patient_treatment_plan', ['patient_id' => $id])->result_array();
+    }
+
+    public function update_patient_treatment_plan($id, $info)
+    {
+        $this->db->update('patient_treatment_plan', $info, ['patient_id' => $id]);
+    }
+
+    public function delete_patient_treatment($id)
+    {
+        $this->db->delete('patient_treatment_plan', ['id' => $id]);
+    }
+    // END of patient_treatment_plan table
+
 
 
     // START OF patient_lab_reports table
@@ -288,19 +402,6 @@ class Admin_model extends CI_Model
     // END OF patient_lab_reports table
 
 
-    // START OF patient_treatment_plan table
-
-    public function add_patient_treatment_plan($info)
-    {
-        $this->db->insert('patient_treatment_plan', $info);
-    }
-
-    public function get_patient_treatment_plan_row($id)
-    {
-        return $this->db->get_where('patient_treatment_plan', ['patient_id' => $id])->row();
-    }
-
-    // END OF patient_treatment_plan table
 
 
 

@@ -18,6 +18,8 @@ class Admin_schedule extends CI_Controller {
 		//Get doctors list from schedule table
 		$query = $this->db->get("schedule"); 
         $data['doctors'] = $query->result();
+		
+		$data['user_role'] = $this->session->userdata('role');
 
 		//Get doctors list from user accounts
 		$data['doctorname'] = $this->Doctors_model->get_all_doctors();

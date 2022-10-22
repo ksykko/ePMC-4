@@ -97,7 +97,7 @@
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
-                <div class="table-responsive">
+                <div>
                     <?php if ($this->session->flashdata('message') == 'success') : ?>
                         <div class="row">
                             <div class="col d-flex justify-content-center">
@@ -123,9 +123,9 @@
                                 <th class="inv-td">ID</th>
                                 <th class="inv-td">Product Name</th>
                                 <th class="inv-td">Description</th>
-                                <th class="inv-td" style='text-align: center;'>Quantity</th>
-                                <th class="inv-td" style="text-align: center" ;>Stock In</th>
-                                <th class="inv-td" style="text-align: center" ;>Stock Out</th>
+                                <th class="inv-td" style="text-align: center;">Quantity</th>
+                                <th class="inv-td" style="text-align: center;">Stock In</th>
+                                <th class="inv-td" style="text-align: center;">Stock Out</th>
                                 <th class="inv-td text-center">Action</th>
                             </tr>
                         </thead>

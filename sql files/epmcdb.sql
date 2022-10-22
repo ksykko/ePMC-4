@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2022 at 06:51 PM
+-- Generation Time: Oct 21, 2022 at 05:27 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.17
 
@@ -41,15 +41,6 @@ CREATE TABLE `arc_patient_details` (
   `symptoms` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `arc_patient_details`
---
-
-INSERT INTO `arc_patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `bp_diastolic`, `pulse_rate`, `height`, `weight`, `prescription`, `consul_next`, `objectives`, `symptoms`) VALUES
-(2, 'B+', 40, 40, 40, '40', '40', 'pres2', '2022-10-18 19:23:44', 'obj2', 'symp2'),
-(3, 'A+', 50, 50, 50, '50', '50', 'pres3', '2022-10-18 19:05:11', 'obj3', 'symp3'),
-(4, 'A+', 60, 60, 60, '60', '60', 'pres1', '2022-10-18 19:26:02', 'obj1', 'symp1');
-
 -- --------------------------------------------------------
 
 --
@@ -57,20 +48,12 @@ INSERT INTO `arc_patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `b
 --
 
 CREATE TABLE `arc_patient_diagnosis` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `p_diag_date` date NOT NULL,
   `p_recent_diagnosis` varchar(1000) NOT NULL,
   `p_doctor` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `arc_patient_diagnosis`
---
-
-INSERT INTO `arc_patient_diagnosis` (`patient_id`, `p_diag_date`, `p_recent_diagnosis`, `p_doctor`) VALUES
-(2, '0000-00-00', '', ''),
-(3, '0000-00-00', '', ''),
-(4, '0000-00-00', '', '');
 
 -- --------------------------------------------------------
 
@@ -79,18 +62,10 @@ INSERT INTO `arc_patient_diagnosis` (`patient_id`, `p_diag_date`, `p_recent_diag
 --
 
 CREATE TABLE `arc_patient_lab_reports` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `p_lab_reports` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `arc_patient_lab_reports`
---
-
-INSERT INTO `arc_patient_lab_reports` (`patient_id`, `p_lab_reports`) VALUES
-(2, ''),
-(3, ''),
-(4, '');
 
 -- --------------------------------------------------------
 
@@ -124,14 +99,6 @@ CREATE TABLE `arc_patient_record` (
   `last_accessed` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `arc_patient_record`
---
-
-INSERT INTO `arc_patient_record` (`patient_id`, `first_name`, `middle_name`, `last_name`, `age`, `birth_date`, `sex`, `occupation`, `address`, `cell_no`, `tel_no`, `email`, `ec_name`, `relationship`, `ec_contact_no`, `password`, `role`, `avatar`, `activation_code`, `status`, `date_created`, `last_checkup`, `last_accessed`) VALUES
-(2, 'Jae Kristine', 'DV', 'Magaso', 21, '2000-11-27', 'Female', 'Diplomat', 'Mandaluyong, NCR', '+639772524193', '5555555', 'jaekristine.magaso.ab@ust.edu.ph', 'Butch Magaso', 'Father', '09175059036', '2000-11-27', 'patient', 'patient-avatar-2.png', 0, 0, '2022-10-18 17:04:14', '2022-10-18', '2022-10-19 21:47:48'),
-(4, 'Simon', 'Caruso', 'Ullado', 22, '2000-05-10', 'Male', 'Pilot', 'San Mateo, Rizal', '+639176810006', '4444444', 'simon_ullado@gmail.com', 'Fabian Ullado', 'Father', '09236437573', '2000-05-10', 'patient', 'patient-avatar-4.png', 0, 0, '2022-10-18 19:15:33', '2022-10-18', '2022-10-19 23:04:17');
-
 -- --------------------------------------------------------
 
 --
@@ -139,19 +106,11 @@ INSERT INTO `arc_patient_record` (`patient_id`, `first_name`, `middle_name`, `la
 --
 
 CREATE TABLE `arc_patient_treatment_plan` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `p_diagnosis` varchar(1000) NOT NULL,
   `p_treatment_plan` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `arc_patient_treatment_plan`
---
-
-INSERT INTO `arc_patient_treatment_plan` (`patient_id`, `p_diagnosis`, `p_treatment_plan`) VALUES
-(3, '', ''),
-(2, '', ''),
-(4, '', '');
 
 -- --------------------------------------------------------
 
@@ -212,8 +171,8 @@ CREATE TABLE `patient_details` (
 --
 
 INSERT INTO `patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `bp_diastolic`, `pulse_rate`, `height`, `weight`, `prescription`, `consul_next`, `objectives`, `symptoms`) VALUES
-(1, 'O+', 30, 30, 40, '30', '30', 'pres1', '2022-10-19 21:23:38', 'obj1', 'symp1'),
-(5, 'O-', 30, 30, 30, '30', '30', '', '2022-11-06 08:00:00', '', '');
+(1, 'A+', 2, 2, 2, '02', '02', 'pres1', '2022-10-22 13:00:00', 'obj1', 'symp1'),
+(2, 'A-', 1, 1, 1, '01', '01', 'pres2', '2022-10-23 08:00:00', 'obj2', 'symp2');
 
 -- --------------------------------------------------------
 
@@ -222,8 +181,9 @@ INSERT INTO `patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `bp_di
 --
 
 CREATE TABLE `patient_diagnosis` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  `p_diag_date` date NOT NULL,
+  `p_diag_date` datetime NOT NULL,
   `p_recent_diagnosis` varchar(1000) NOT NULL,
   `p_doctor` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -232,10 +192,14 @@ CREATE TABLE `patient_diagnosis` (
 -- Dumping data for table `patient_diagnosis`
 --
 
-INSERT INTO `patient_diagnosis` (`patient_id`, `p_diag_date`, `p_recent_diagnosis`, `p_doctor`) VALUES
-(1, '0000-00-00', '', ''),
-(5, '0000-00-00', 's1', 'Miguel Pagtakhan'),
-(5, '0000-00-00', 's2', 'Jass Hussein');
+INSERT INTO `patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recent_diagnosis`, `p_doctor`) VALUES
+(1, 1, '2022-10-21 00:00:00', 'This is patient-1\'s diagnosis 1', 'Jass Hussein'),
+(2, 2, '2022-10-21 00:00:00', 'This is patient-2\'s diagnosis 1', 'Jass Hussein'),
+(3, 1, '2022-10-21 00:00:00', 'This is patient-1\'s diagnosis 2', 'Miguel Pagtakhan'),
+(4, 2, '2022-10-21 00:00:00', 'This is patient-2\'s diagnosis 2', 'Miguel Pagtakhan'),
+(5, 1, '2022-10-21 00:00:00', 'This is patient-1\'s diagnosis 3', 'Jass Hussein'),
+(6, 1, '2022-10-21 00:00:00', 'This is patient-1\'s diagnosis 4	', 'Miguel Pagtakhan'),
+(7, 2, '2022-10-21 22:05:00', 'This is patient-2\'s diagnosis 3', 'Jass Hussein');
 
 -- --------------------------------------------------------
 
@@ -244,6 +208,7 @@ INSERT INTO `patient_diagnosis` (`patient_id`, `p_diag_date`, `p_recent_diagnosi
 --
 
 CREATE TABLE `patient_lab_reports` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `p_lab_reports` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -252,9 +217,9 @@ CREATE TABLE `patient_lab_reports` (
 -- Dumping data for table `patient_lab_reports`
 --
 
-INSERT INTO `patient_lab_reports` (`patient_id`, `p_lab_reports`) VALUES
-(1, ''),
-(5, '');
+INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`) VALUES
+(1, 1, ''),
+(2, 2, '');
 
 -- --------------------------------------------------------
 
@@ -293,8 +258,8 @@ CREATE TABLE `patient_record` (
 --
 
 INSERT INTO `patient_record` (`patient_id`, `first_name`, `middle_name`, `last_name`, `age`, `birth_date`, `sex`, `occupation`, `address`, `cell_no`, `tel_no`, `email`, `ec_name`, `relationship`, `ec_contact_no`, `password`, `role`, `avatar`, `activation_code`, `status`, `date_created`, `last_checkup`, `last_accessed`) VALUES
-(1, 'Kendrick Andre', 'Aquino', 'Sagala', 21, '1111-11-11', 'Male', 'Student', 'Manila, Philippines', '+639176810006', '5325162', 'sagala.krch@gmail.com', 'Luciel Sagala', 'Mother', '09175059036', '1111-11-11', 'patient', 'patient-avatar-1.jpg', 0, 0, '2022-10-18 16:59:29', '2022-10-18', '2022-10-19 00:00:00'),
-(5, 'Denise', 'Ann', 'Mascarenas', 21, '2000-02-14', 'Female', 'Doctor', 'Manila, Philippines', '+639772524193', '7777777', 'denise.mascarenas@gmail.com', 'Den', 'Others', '09263748245', '2000-02-14', 'patient', 'default-avatar.png', 0, 0, '2022-10-19 23:05:46', '2022-10-19', '0000-00-00 00:00:00');
+(1, 'Kendrick Andre', 'Aquino', 'Sagala', 22, '2000-11-06', 'Male', 'Programmer', 'Manila, Philippines', '+639176810006', '5325162', 'sagala.krch@gmail.com', 'Klarisse Sagala', 'Sibling', '09175059036', '2000-11-06', 'patient', 'patient-avatar-1.jpg', 0, 0, '2022-10-21 13:33:46', '2022-10-21', '2022-10-21 22:02:25'),
+(2, 'Denise', 'Ann', 'Mascarenas', 22, '2000-02-13', 'Female', 'Doctor', 'Laguna, Philippines', '+639772524193', '9999999', 'denise.mascarenas@gmail.com', 'Denise', 'Others', '09364734263', '2000-02-13', 'patient', 'patient-avatar-2.png', 0, 0, '2022-10-21 13:35:04', '2022-10-21', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -303,6 +268,7 @@ INSERT INTO `patient_record` (`patient_id`, `first_name`, `middle_name`, `last_n
 --
 
 CREATE TABLE `patient_treatment_plan` (
+  `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `p_diagnosis` varchar(1000) NOT NULL,
   `p_treatment_plan` varchar(1000) NOT NULL
@@ -312,9 +278,9 @@ CREATE TABLE `patient_treatment_plan` (
 -- Dumping data for table `patient_treatment_plan`
 --
 
-INSERT INTO `patient_treatment_plan` (`patient_id`, `p_diagnosis`, `p_treatment_plan`) VALUES
-(1, '', ''),
-(5, '', '');
+INSERT INTO `patient_treatment_plan` (`id`, `patient_id`, `p_diagnosis`, `p_treatment_plan`) VALUES
+(1, 1, '', ''),
+(2, 2, '', '');
 
 -- --------------------------------------------------------
 
@@ -397,25 +363,33 @@ INSERT INTO `user_accounts` (`user_id`, `first_name`, `middle_name`, `last_name`
 -- Indexes for table `arc_patient_details`
 --
 ALTER TABLE `arc_patient_details`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD KEY `patient_id` (`patient_id`);
 
 --
 -- Indexes for table `arc_patient_diagnosis`
 --
 ALTER TABLE `arc_patient_diagnosis`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_id` (`patient_id`);
 
 --
 -- Indexes for table `arc_patient_lab_reports`
 --
 ALTER TABLE `arc_patient_lab_reports`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_id` (`patient_id`);
 
 --
 -- Indexes for table `arc_patient_record`
 --
 ALTER TABLE `arc_patient_record`
   ADD PRIMARY KEY (`patient_id`) USING BTREE;
+
+--
+-- Indexes for table `arc_patient_treatment_plan`
+--
+ALTER TABLE `arc_patient_treatment_plan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `inventory`
@@ -427,19 +401,34 @@ ALTER TABLE `inventory`
 -- Indexes for table `patient_details`
 --
 ALTER TABLE `patient_details`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD PRIMARY KEY (`patient_id`) USING BTREE;
+
+--
+-- Indexes for table `patient_diagnosis`
+--
+ALTER TABLE `patient_diagnosis`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_diagnosis_ibfk_1` (`patient_id`);
 
 --
 -- Indexes for table `patient_lab_reports`
 --
 ALTER TABLE `patient_lab_reports`
-  ADD PRIMARY KEY (`patient_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_lab_reports_ibfk_1` (`patient_id`);
 
 --
 -- Indexes for table `patient_record`
 --
 ALTER TABLE `patient_record`
   ADD PRIMARY KEY (`patient_id`) USING BTREE;
+
+--
+-- Indexes for table `patient_treatment_plan`
+--
+ALTER TABLE `patient_treatment_plan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `patient_treatment_plan_ibfk_1` (`patient_id`);
 
 --
 -- Indexes for table `schedule`
@@ -464,10 +453,28 @@ ALTER TABLE `user_accounts`
 --
 
 --
+-- AUTO_INCREMENT for table `arc_patient_diagnosis`
+--
+ALTER TABLE `arc_patient_diagnosis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `arc_patient_lab_reports`
+--
+ALTER TABLE `arc_patient_lab_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `arc_patient_record`
 --
 ALTER TABLE `arc_patient_record`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `arc_patient_treatment_plan`
+--
+ALTER TABLE `arc_patient_treatment_plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -476,10 +483,28 @@ ALTER TABLE `inventory`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `patient_diagnosis`
+--
+ALTER TABLE `patient_diagnosis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `patient_lab_reports`
+--
+ALTER TABLE `patient_lab_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `patient_record`
 --
 ALTER TABLE `patient_record`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `patient_treatment_plan`
+--
+ALTER TABLE `patient_treatment_plan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -498,6 +523,52 @@ ALTER TABLE `tbl_admin`
 --
 ALTER TABLE `user_accounts`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `arc_patient_details`
+--
+ALTER TABLE `arc_patient_details`
+  ADD CONSTRAINT `arc_patient_details_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `arc_patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `arc_patient_diagnosis`
+--
+ALTER TABLE `arc_patient_diagnosis`
+  ADD CONSTRAINT `arc_patient_diagnosis_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `arc_patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `arc_patient_lab_reports`
+--
+ALTER TABLE `arc_patient_lab_reports`
+  ADD CONSTRAINT `arc_patient_lab_reports_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `arc_patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_details`
+--
+ALTER TABLE `patient_details`
+  ADD CONSTRAINT `patient_details_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_diagnosis`
+--
+ALTER TABLE `patient_diagnosis`
+  ADD CONSTRAINT `patient_diagnosis_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_lab_reports`
+--
+ALTER TABLE `patient_lab_reports`
+  ADD CONSTRAINT `patient_lab_reports_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `patient_treatment_plan`
+--
+ALTER TABLE `patient_treatment_plan`
+  ADD CONSTRAINT `patient_treatment_plan_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient_record` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
