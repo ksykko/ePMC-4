@@ -256,6 +256,11 @@
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Success!</strong> Patient's treatment plan has been added.</p>
                 </div>
+            <?php elseif ($this->session->flashdata('message') == 'success-edit-patient-PI') : ?>
+                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
+                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <p><strong>Success!</strong> Patient's personal information has been updated.</p>
+                </div>
             <?php elseif ($this->session->flashdata('message') == 'success-dlt-diagnosis') : ?>
                 <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -272,7 +277,7 @@
                     <p><strong>Error!</strong> Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></p>
                 </div>
             <?php elseif ($this->session->flashdata('error')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show w-25" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                     <p><strong>Error!</strong> Invalid input/s.</p>
                     <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error-profilepic') ?></p>
@@ -668,7 +673,7 @@
                 <div class="card-body mx-3 pt-4 pb-5">
                     <div class="row">
                         <div class="col">
-                            <div class="table-responsive">
+                            <div>
                                 <table id="diag_table" class="table table-hover">
                                     <thead>
                                         <tr>
@@ -780,7 +785,7 @@
                 <div class="card-body mx-3">
                     <div class="row">
                         <div class="col">
-                            <div class="table-responsive">
+                            <div>
                                 <table id="treatment_plan_table" class="table table-hover">
                                     <thead>
                                         <tr>
