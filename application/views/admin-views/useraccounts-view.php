@@ -105,10 +105,9 @@
                                             <!-- role -->
                                             <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
                                                 <option value="select" selected>select...</option>
-                                                <option value="Admin">Admin</option>
-                                                <option value="Doctor">Doctor</option>
-                                                <option value="Pharmacist">Pharmacy Assistant</option>
-                                                <option value="Patient">Patient</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="physician">Physician</option>
+                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
                                             </select>
                                         </div>
                                         <small class="text-danger"><?= form_error('role') ?></small>
@@ -316,9 +315,9 @@
                                                     <!-- role -->
                                                     <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
                                                         <option value="select" selected>select...</option>
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Doctor">Doctor</option>
-                                                        <option value="User">User</option>
+                                                        <option value="admin">Admin</option>
+                                                        <option value="physician">Physician</option>
+                                                        <option value="pharmacy assistant">Pharmacy Assistant</option>
                                                     </select>
                                                 </div>
                                                 <small class="text-danger"><?= form_error('role') ?></small>
