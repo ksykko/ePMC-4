@@ -294,7 +294,7 @@ class Admin_model extends CI_Model
 
     public function update_patient_details($id, $info)
     {
-        $this->db->update('patient_details', $info, ['id' => $id]);
+        $this->db->update('patient_details', $info, ['patient_id' => $id]);
     }
 
     // END OF patient_details table
