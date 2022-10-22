@@ -123,9 +123,9 @@
                                 <th class="inv-td">ID</th>
                                 <th class="inv-td">Product Name</th>
                                 <th class="inv-td">Description</th>
-                                <th class="inv-td" style='text-align: center;'>Quantity</th>
-                                <th class="inv-td" style="text-align: center" ;>Stock In</th>
-                                <th class="inv-td" style="text-align: center" ;>Stock Out</th>
+                                <th class="inv-td" style="text-align: center;">Quantity</th>
+                                <th class="inv-td" style="text-align: center;">Stock In</th>
+                                <th class="inv-td" style="text-align: center;">Stock Out</th>
                                 <th class="inv-td text-center">Action</th>
                             </tr>
                         </thead>
