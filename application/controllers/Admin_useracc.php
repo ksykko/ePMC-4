@@ -18,6 +18,7 @@ class Admin_useracc extends CI_Controller {
             $data['title'] = 'User Accounts';
             $data['user'] = $this->Admin_model->get_useracc_row($id);
             $data['users'] = $this->Admin_model->get_useracc_table();
+            $data['user_role'] = $this->session->userdata('role');
             
             
             $this->load->view('include-admin/dashboard-header', $data);

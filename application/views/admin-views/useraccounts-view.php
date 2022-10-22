@@ -105,10 +105,9 @@
                                             <!-- role -->
                                             <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
                                                 <option value="select" selected>select...</option>
-                                                <option value="Admin">Admin</option>
-                                                <option value="Doctor">Doctor</option>
-                                                <option value="Pharmacist">Pharmacy Assistant</option>
-                                                <option value="Patient">Patient</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="physician">Physician</option>
+                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
                                             </select>
                                         </div>
                                         <small class="text-danger"><?= form_error('role') ?></small>
@@ -206,7 +205,7 @@
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-3 pt-4 pb-5">
-                <div id="patient-table" class="table-responsive">
+                <div>
                     <?php if ($this->session->flashdata('message') == 'success') : ?>
                         <div class="row">
                             <div class="col d-flex justify-content-center">
@@ -228,7 +227,7 @@
                                 <th>Birthdate</th>
                                 <th>Contact #</th>
                                 <th>Email</th>
-                                <th class="text-center col-md-3">Action</th>
+                                <th class="text-center col-md-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -316,9 +315,9 @@
                                                     <!-- role -->
                                                     <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
                                                         <option value="select" selected>select...</option>
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Doctor">Doctor</option>
-                                                        <option value="User">User</option>
+                                                        <option value="admin">Admin</option>
+                                                        <option value="physician">Physician</option>
+                                                        <option value="pharmacy assistant">Pharmacy Assistant</option>
                                                     </select>
                                                 </div>
                                                 <small class="text-danger"><?= form_error('role') ?></small>
