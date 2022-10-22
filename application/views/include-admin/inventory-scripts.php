@@ -10,6 +10,7 @@
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
+            responsive: true,
             "ajax": {
                 url: "<?php echo site_url("Admin_inventory/datatable") ?>",
                 type: 'POST'

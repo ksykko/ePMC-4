@@ -9,6 +9,7 @@
         $('#example').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            responsive: true,
             "order": [], //Initial no order.
             "ajax": {
                 url: "<?php echo site_url("Admin_archives/datatable") ?>",
