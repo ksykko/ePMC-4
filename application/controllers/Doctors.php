@@ -29,7 +29,10 @@ class Doctors extends CI_Controller {
             $data['patient_count'] = $this->Admin_model->get_patient_count();
             $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
 
-            $data['chart_data'] = $this->ageRange_chart_js();
+            // Chart Data
+            $data['chart_data'] = $this->ageRange_chart_js(); // fetch age range data for chart
+            $data['bmi_data'] = $this->bmi_chart_js(); // fetch bmi data for chart
+            
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
@@ -108,5 +111,53 @@ class Doctors extends CI_Controller {
         }
 
         return $age_range['chart_data'] = json_encode($age_range);
+    }
+
+    public function bmi_chart_js() 
+    {
+        // fetch height and weight data from database
+        $query = $this->Admin_model->get_bmi_data();
+
+        // create array to store bmi data
+        $bmi_data = [
+            'underweight' => 0,
+            'normal' => 0,
+            'overweight' => 0,
+            'obese' => 0,
+        ];
+
+        // loop through the data and store in array
+        foreach ($query as $row) {
+
+            // convert height and weight datatype to float
+            $height = (float)$row->height;
+            $weight = (float)$row->weight;
+
+            // skips the patient if height or weight is 0
+            if ($height == 0 || $weight == 0) {
+                continue;
+            }
+            
+            // calculate bmi
+            $bmi = ($weight / $height / $height) * 10000;
+
+            // count the number of patients in each bmi category
+            if ($bmi < 18.5) {
+                $bmi_data['underweight'] = $bmi_data['underweight'] + 1;
+            }
+            if ($bmi >= 18.5 && $bmi <= 24.9) {
+                $bmi_data['normal'] = $bmi_data['normal'] + 1;
+            }
+            if ($bmi >= 25 && $bmi <= 29.9) {
+                $bmi_data['overweight'] = $bmi_data['overweight'] + 1;
+            }
+            if ($bmi >= 30) {
+                $bmi_data['obese'] = $bmi_data['obese'] + 1;
+            }
+        }
+
+        var_dump($bmi_data);
+        die();
+        return $bmi_data['chart_data'] = json_encode($bmi_data);
     }
 }
