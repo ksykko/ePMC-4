@@ -24,7 +24,7 @@
                         <div class="modal-body d-xxl-flex justify-content-xxl-center">
                             <p><i class="typcn typcn-warning me-2"></i>Any unsaved changes will not be saved.</p>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Cancel</button><a href="<?= site_url('Admin_patientrec/index') ?>" class="btn btn-sm btn-primary btn-default-blue" role="button">Confirm</a></div>
+                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Cancel</button><a href="<?= ($user_role == 'Doctor') ? site_url('Doctor_patientrec/index') : site_url('Admin_patientrec/index') ?>" class="btn btn-sm btn-primary btn-default-blue" role="button">Confirm</a></div>
                     </div>
                 </div>
             </div>
