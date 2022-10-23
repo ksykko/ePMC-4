@@ -46,7 +46,7 @@ class Admin_model extends CI_Model
 
     public function delete_patient($id)
     { // delete patient based on patient_id ($id = primary key)
-        
+
         // insert patient record to archive table
         $last_accessed = mdate('%Y-%m-%d %H:%i:%s', now());
         $this->db->update('arc_patient_record', ['last_accessed' => $last_accessed], ['patient_id' => $id]);
@@ -66,19 +66,18 @@ class Admin_model extends CI_Model
         foreach ($treatment as $row) {
             $this->db->insert('arc_patient_treatment_plan', $row);
         }
-        
+
         // delete patient's avatar
         // $avatar = $this->get_patient_row($id)->avatar;
         // if ($avatar != 'default.png') {
         //     unlink(FCPATH . 'assets/img/profile-avatars/' . $avatar);
         // }
-        
+
         $this->db->delete('patient_record', ['patient_id' => $id]);
         $this->db->delete('patient_details', ['patient_id' => $id]);
         $this->db->delete('patient_diagnosis', ['patient_id' => $id]);
         $this->db->delete('patient_lab_reports', ['patient_id' => $id]);
         $this->db->delete('patient_treatment_plan', ['patient_id' => $id]);
-
     }
 
     public function restore_patient($id)
@@ -180,8 +179,8 @@ class Admin_model extends CI_Model
     }
 
     public function get_nUser_count()
-    {   
-        $currentDate = "'".date('`Y-m`-d')."'";
+    {
+        $currentDate = "'" . date('`Y-m`-d') . "'";
         $sql = "SELECT * FROM `patient_record` WHERE DATE(date_created) = $currentDate;";
         return $this->db->query($sql)->num_rows();
     }
@@ -195,7 +194,7 @@ class Admin_model extends CI_Model
 
 
 
-    
+
     // get user row based on user_id ($id = primary key)
     public function get_useracc_row($id)
     {
@@ -388,7 +387,6 @@ class Admin_model extends CI_Model
 
 
     // START OF patient_lab_reports table
-
     public function add_patient_lab_reports($info)
     {
         $this->db->insert('patient_lab_reports', $info);
@@ -398,8 +396,21 @@ class Admin_model extends CI_Model
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->row();
     }
-    
     // END OF patient_lab_reports table
+
+
+    // START OF age range chart
+    public function get_age_range()
+    {
+        // get age from patient_record table
+        $this->db->select('age');
+        $this->db->from('patient_record');
+        $query = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+    // END OF age range chart
 
 
 
