@@ -153,6 +153,7 @@ class Admin_useracc extends CI_Controller {
                     'gender' => $this->input->post('gender'),
                     'contact_no' => $this->input->post('contact_no'),
                     'email' => $this->input->post('email'),
+                    'avatar' => 'default-avatar.png',
                     'date_created' => date('Y-m-d H:i:s')
                 );
             }

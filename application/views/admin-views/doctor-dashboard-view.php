@@ -22,12 +22,12 @@
         <div class="col-lg-3">
             <div class="card mb-4 profile-card h-100">
                 <div class="card-body text-center shadow profile-card">
-                    <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
+                    <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br>
                     <label for="avatar">Hello, <br>
-                        <?= $user_name ?>
+                        <?= 'Dr. ' . $full_name ?>
                     </label><br>
                     <label for="avatar" class="role">
-                        <?= $user_role ?>
+                        <?= $specialization ?>
                     </label><br>
                 </div>
             </div>
