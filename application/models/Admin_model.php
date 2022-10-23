@@ -180,9 +180,10 @@ class Admin_model extends CI_Model
 
     public function get_nUser_count()
     {
-        $currentDate = "'" . date('`Y-m`-d') . "'";
+        $currentDate = "'" . date('Y-m-d') . "'";
         $sql = "SELECT * FROM `patient_record` WHERE DATE(date_created) = $currentDate;";
         return $this->db->query($sql)->num_rows();
+        
     }
 
 
