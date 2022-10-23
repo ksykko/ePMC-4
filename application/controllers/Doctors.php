@@ -1,23 +1,28 @@
-<?php
-class Admin extends CI_Controller {
-    public function __construct() {
+<?php 
+
+class Doctors extends CI_Controller {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->helper(['url', 'form', 'html']);
         $this->load->library(['form_validation', 'session', 'pagination']);
+        $this->load->model('Doctors_model');
         $this->load->model('Admin_model');
-        $this->load->library("pagination");
+
     }
 
-    public function index() 
-    {   
+    public function index()
+    {
         if ($this->session->userdata('logged_in')) { //if logged in
 
-            $data['title'] = 'Admin | ePMC';
-            $id = $this->session->userdata('admin_id');
+            $data['title'] = 'Doctors Dashboard | ePMC';
+            $id = $this->session->userdata('id');
 
-            $data['user_name'] = $this->session->userdata('full_name');
+            $data['full_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
+            $data['avatar'] = $this->session->userdata('avatar');
+            $data['specialization'] = $this->session->userdata('specialization');
             $data['product'] = $this->Admin_model->get_inventory_row($id);
             $data['inventory_stocks'] = $this->Admin_model->get_inventory_table_contents();
             $data['users_count'] = $this->Admin_model->get_useracc_count();
@@ -28,7 +33,7 @@ class Admin extends CI_Controller {
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
-            $this->load->view('admin-views/admin-dashboard-reports-view', $data);
+            $this->load->view('admin-views/doctor-dashboard-view', $data);
             //$this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');
         }
@@ -105,6 +110,3 @@ class Admin extends CI_Controller {
         return $age_range['chart_data'] = json_encode($age_range);
     }
 }
-
-
-?>
