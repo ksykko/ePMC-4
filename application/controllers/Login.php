@@ -71,8 +71,8 @@ class Login extends CI_Controller
 
                 elseif ($result->role == 'Doctor') {
                     $sess_data = array(
-                        'id' => $result->doctor_id,
-                        'full_name' => $result->first_name . ' ' . $result->last_name,
+                        'id' => $result->user_id,
+                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
                         'email' => $result->email,
                         'contact_no' => $result->contact_no,
                         'role' => $result->role,

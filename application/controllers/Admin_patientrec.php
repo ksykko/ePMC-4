@@ -378,6 +378,8 @@ class Admin_patientrec extends CI_Controller
 
             $patientDetails = array(
                 'patient_id' => $insert_id,
+                'height' => '0',
+                'weight' => '0'
             );
 
             $this->session->set_flashdata('message', 'success');
@@ -385,7 +387,12 @@ class Admin_patientrec extends CI_Controller
             $this->Admin_model->add_patient_diagnosis($patientDetails);
             $this->Admin_model->add_patient_lab_reports($patientDetails);
             $this->Admin_model->add_patient_treatment_plan($patientDetails);
-            redirect('Admin_patientrec');
+
+            if ($this->session->userdata('role') == 'Admin') {
+                redirect('Admin_patientrec');
+            } else {
+                redirect('Doctor_patientrec');
+            }
         }
     }
 
