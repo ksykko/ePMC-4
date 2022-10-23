@@ -493,7 +493,7 @@ i {
 .profile-card {
     background: #284A94;
     border-radius: 2rem;
-    height: 700px;
+    height: 100%;
     color: #ffffff;
 }
 
@@ -520,19 +520,19 @@ i {
     color: rgb(150, 37, 37);
 }
 
-.dshb-main .bw-dashboard:nth-child(2) .dash-inner-content .number-label {
-    color: rgb(211, 171, 39);
+.dshb-main .col:nth-child(2) .card .bw-dashboard .dash-inner-content .number-label {
+    color: rgb(211, 171, 39) !important;
 }
 
-.dshb-main .bw-dashboard:nth-child(3) .dash-inner-content .number-label {
+.dshb-main .col:nth-child(3) .card .bw-dashboard .dash-inner-content .number-label {
     color: rgb(39, 99, 211);
 }
 
-.dshb-main .bw-dashboard:nth-child(4) .dash-inner-content .number-label {
+.dshb-main .col:nth-child(4) .card .bw-dashboard .dash-inner-content .number-label {
     color: rgb(13, 95, 17);
 }
 
-.dshb-main .bw-dashboard:not(:nth-child(5)) .dash-inner-content i.fas {
+.dshb-main .col:not(:nth-child(5)) .bw-dashboard .dash-inner-content i.fas {
     display: inline-block;
     border-radius: 60px;
     font-size: 25px;
@@ -540,34 +540,34 @@ i {
     padding: 0.5em 0.6em;
 }
 
-.dshb-main .bw-dashboard:nth-child(1) .dash-inner-content i.fas {
+.dshb-main .fa-notes-medical {
     color: rgb(150, 37, 37);
     background-color: rgb(250, 166, 166);
 }
 
-.dshb-main .bw-dashboard:nth-child(2) .dash-inner-content i.fas {
+.dshb-main .fa-archive {
     color: rgb(211, 171, 39);
     background-color: rgb(250, 249, 166);
 }
 
-.dshb-main .bw-dashboard:nth-child(3) .dash-inner-content i.fas {
+.dshb-main .fa-user-alt {
     color: rgb(39, 99, 211);
     background-color: rgb(166, 200, 250);
 }
 
-.dshb-main .bw-dashboard:nth-child(4) .dash-inner-content i.fas {
+.dshb-main .fa-address-book {
     color: rgb(13, 95, 17);
     background-color: rgb(176, 250, 166);
 }
 
-.dshb-main.bw-dashboard:last-child .dash-inner-content {
+/* .dshb-main.bw-dashboard:last-child .dash-inner-content {
     font-size: 18px;
     font-weight: 400;
     border-radius: 40px;
     height: 100%;
     margin: 15px;
     background-color: transparent;
-}
+} */
 
 
 /* NEW */
@@ -951,8 +951,9 @@ hr {
 }
 
 .avatar-box img {
-    max-height: 100%;
-    /* max-width: 100%; */
+    /* max-height: 100%; */
+    max-width: 100%;
+    border-radius: 50%;
 }
 
 
@@ -1003,6 +1004,10 @@ hr {
     font-family: 'Poppins', sans-serif !important;
     font-size: 30px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -1058,8 +1063,9 @@ hr {
         flex-basis: 100%;
     }
 
-    img {
+    .avatar-box img {
         max-width: none;
+        max-height: 100%;
     }
 
     .next-consultation {
