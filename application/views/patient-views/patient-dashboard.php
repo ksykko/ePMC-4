@@ -1,8 +1,8 @@
 <div class="container-fluid patient-dashboard">
     <div class="patient-container shadow">
         <div class="avatar-box">
-            <!-- <img src="<?php echo base_url('/assets/img/avatars/' . $this->session->userdata('avatar')); ?>" alt="avatar" class="avatar"> -->
-            <img src="<?php echo base_url('/assets/img/avatars/avatar1.png'); ?>" alt="avatar" class="avatar">
+            <img src="<?php echo base_url('/assets/img/profile-avatars/' . $this->session->userdata('avatar')); ?>" alt="avatar" class="avatar">
+            <!-- <img src="<?php echo base_url('/assets/img/profile-avatars/avatar1.png'); ?>" alt="avatar" class="avatar"> -->
         </div>
         <div class="personal-info">
             <div class="vline1"><?= $user_name ?><br><hr></div>
