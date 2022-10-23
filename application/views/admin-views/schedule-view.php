@@ -89,10 +89,10 @@
 							<!-- AVAILABILITY - DAYS OF THE WEEK -->
 							<div class="row mt-4 mb-2">
 								<div class="btn-group" data-toggle="buttons">
+									<!-- <label class="btn btn-secondary btn-days radius-left">
+										<input type="checkbox" class="hidden" name=" day1" id="day1" value="Sun" disabled> Sun
+									</label> -->
 									<label class="btn btn-secondary btn-days radius-left">
-										<input type="checkbox" class="hidden" name=" day1" id="day1" value="Sun"> Sun
-									</label>
-									<label class="btn btn-secondary btn-days">
 										<input type="checkbox" class="hidden" name="day2" value="Mon"> Mon
 									</label>
 									<label class="btn btn-secondary btn-days">
@@ -138,30 +138,6 @@
 									<input type="radio" class="btn-check" name="color" id="color7" value="color7" autocomplete="off">
 									<label class="btn btn-outline color7" for="color7"> </label>
 								</div>
-								<!-- <div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-secondary btn-color color1 radius-left ">
-										<input type="radio" class="hidden bg-click" name="color1" value="Color1">
-									</label>
-									<label class="btn btn-secondary btn-color color2">
-										<input type="radio" class="hidden" name="color2" value="Color2"> a
-									</label>
-									<label class="btn btn-secondary btn-color color3">
-										<input type="radio" class="hidden" name="color3" value="Color3"> 
-									</label>
-									<label class="btn btn-secondary btn-color color4">
-										<input type="radio" class="hidden" name="color4" value="Color4"> 
-									</label> 
-									<label class="btn btn-secondary btn-color color5">
-										<input type="radio" class="hidden" name="color5" value="Color5">
-									</label>
-									<label class="btn btn-secondary btn-color color6">
-										<input type="radio" class="hidden" name="color6" value="Color6"> 
-									</label>
-									<label class="btn btn-secondary btn-color color7 radius-right">
-										<input type="radio" class="hidden" name="color7" value="Color7">
-									</label>
-									
-								</div> -->
 								<small class="text-danger"><?= form_error('days[]') ?></small>
 							</div>
 							<div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" name="Save" style="background: #3269bf;">Save</button></div>
@@ -177,9 +153,17 @@
 	<div class="row">
 		<div class="col-lg-12 col-xxl-12 mb-4">
 			<div class="card shadow mb-4 p-5 pt-4 pb-5">
+				<div class="row header-dates">
+					<div class="column"></div>
+					<div class="column date-banner"> <?= date("l") . ", " . date("F j, Y"); ?> </div>
+					<div class="column"></div>		
+				</div>
+				<!-- <div class="date-banner">
+					
+				</div><br> -->
 				<div class="table-responsive content-sched">
-					<div class="label-doctors"><h3>Doctors</h3></div>
 					<nav class="nav left">
+					<div class="label-doctors"><h3>Doctors</h3></div>
 						<div class=" list-doctors">
 							<?php
 								foreach($doctors as $doctor) {
@@ -206,25 +190,64 @@
 								<tr>
 									<!-- Sunday -->
 									<td>
-										<?php
-											foreach($sunday as $sun) {
-												echo '<div class="sched-card">
-													<h6>'.$sun->doctor_name.'</h6>
-													<p>'.$sun->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($sun->start_time)) .' - '. date("h:i A",strtotime($sun->end_time)).'</p>
-												</div>';
-											}
-										?>
+										<div class="sched-card closed">
+											<h6>No Clinic Hours</h6>
+											<p>All Day</p>
+										</div>
 									</td>
 									<!-- Monday -->
 									<td>
 										<?php
 											foreach($monday as $mon) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$mon->doctor_name.'</h6>
-													<p>'.$mon->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($mon->start_time)) .' - '. date("h:i A",strtotime($mon->end_time)) .'</p>
-												</div>';
+												if($mon->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
+												elseif ($mon->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$mon->doctor_name.'</h6>
+														<p>'.$mon->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($mon->start_time)) .' to '. date("h:i A",strtotime($mon->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
@@ -232,11 +255,55 @@
 									<td>
 										<?php
 											foreach($tuesday as $tue) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$tue->doctor_name.'</h6>
-													<p>'.$tue->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($tue->start_time)) .' - '. date("h:i A",strtotime($tue->end_time)) .'</p>
-												</div>';
+												if ($tue->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
+												elseif ($tue->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$tue->doctor_name.'</h6>
+														<p>'.$tue->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($tue->start_time)) .' to '. date("h:i A",strtotime($tue->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
@@ -244,11 +311,55 @@
 									<td>
 										<?php
 											foreach($wednesday as $wed) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$wed->doctor_name.'</h6>
-													<p>'.$wed->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($wed->start_time)) .' - '. date("h:i A",strtotime($wed->end_time)) .'</p>
-												</div>';
+												if ($wed->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
+												elseif ($wed->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$wed->doctor_name.'</h6>
+														<p>'.$wed->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($wed->start_time)) .' to '. date("h:i A",strtotime($wed->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
@@ -256,11 +367,55 @@
 									<td>
 										<?php
 											foreach($thursday as $thurs) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$thurs->doctor_name.'</h6>
-													<p>'.$thurs->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($thurs->start_time)) .' - '. date("h:i A",strtotime($thurs->end_time)) .'</p>
-												</div>';
+												if ($thurs->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
+												elseif ($thurs->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$thurs->doctor_name.'</h6>
+														<p>'.$thurs->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($thurs->start_time)) .' to '. date("h:i A",strtotime($thurs->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
@@ -268,11 +423,55 @@
 									<td>
 										<?php
 											foreach($friday as $fri) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$fri->doctor_name.'</h6>
-													<p>'.$fri->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($fri->start_time)) .' - '. date("h:i A",strtotime($fri->end_time)) .'</p>
-												</div>';
+												if ($fri->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
+												elseif ($fri->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$fri->doctor_name.'</h6>
+														<p>'.$fri->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($fri->start_time)) .' to '. date("h:i A",strtotime($fri->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
@@ -280,11 +479,55 @@
 									<td>
 										<?php
 											foreach($saturday as $sat) {
-												echo '<div class="sched-card">
-													<h6>Dr. '.$sat->doctor_name.'</h6>
-													<p>'.$sat->specialization.'</p><br>
-													<p>'. date("h:i A",strtotime($sat->start_time)) .' - '. date("h:i A",strtotime($sat->end_time)) .'</p>
-												</div>';
+												if ($sat->theme == 'color1') {
+													echo '<div class="sched-card color1">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)) .'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color2') {
+													echo '<div class="sched-card color2">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color3') {
+													echo '<div class="sched-card color3">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color4') {
+													echo '<div class="sched-card color4">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color5') {
+													echo '<div class="sched-card color5">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color6') {
+													echo '<div class="sched-card color6">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
+												elseif ($sat->theme == 'color7') {
+													echo '<div class="sched-card color7">
+														<h6>'.$sat->doctor_name.'</h6>
+														<p>'.$sat->specialization.'</p><br>
+														<p>'. date("h:i A",strtotime($sat->start_time)) .' to '. date("h:i A",strtotime($sat->end_time)).'</p>
+													</div>';
+												}
 											}
 										?>
 									</td>
