@@ -160,7 +160,7 @@
                             <tr>
                                 <th class="align-middle">ID</th>
                                 <th class="col-md-4 align-middle">Name</th>
-                                <th class="col-md-3 align-middle">Last Checkup</th>
+                                <th class="col-md-3 align-middle">Date Added</th>
                                 <th class="text-center col-md-3 align-middle">Action</th>
                             </tr>
                         </thead>
