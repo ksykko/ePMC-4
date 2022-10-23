@@ -5,6 +5,14 @@ class Admin_schedule_model extends CI_Model {
         return $this->db->insert('schedule', $data);
     }
 
+    public function get_unique_docnames() {
+        $this->db->select('doctor_name');
+        $this->db->distinct();
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function get_sunday_sched() {
         return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['sun' => 'Sun'])->result();
     }

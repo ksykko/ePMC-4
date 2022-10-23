@@ -16,12 +16,12 @@ class Admin_schedule extends CI_Controller {
 	//schedule page
 	public function index() { 
 		//Get doctors list from schedule table
-		$query = $this->db->get("schedule"); 
-        $data['doctors'] = $query->result();
+		$data['doctors'] = $this->schedModel->get_unique_docnames();
 		
-		$data['user_role'] = $this->session->userdata('role');
+		
 
 		//Get doctors list from user accounts
+		$data['user_role'] = $this->session->userdata('role');
 		$data['doctorname'] = $this->Doctors_model->get_all_doctors();
 
 		//Get Schedule Data
