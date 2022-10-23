@@ -5,44 +5,33 @@ class Admin_schedule_model extends CI_Model {
         return $this->db->insert('schedule', $data);
     }
 
-    // public function get_calendar_data($year, $month) {
-	// 	$query = $this->db->select('date, doctor_name')->from('schedule')->like('date', "$year-$month", 'after')->get();
-	// 	$cal_data = array();
-	// 	foreach ($query->result() as $row) {
-    //         $calendar_date = date("Y-m-j", strtotime($row->date)); // to remove leading zero from day format
-	// 		$cal_data[substr($calendar_date, 8,2)] = $row->doctor_name;
-	// 	}
-		
-	// 	return $cal_data;
+    public function get_sunday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['sun' => 'Sun'])->result();
+    }
 
+    public function get_monday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['mon' => 'Mon'])->result();
+    }
 
-        // $cell_data = array();
+    public function get_tuesday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['tue' => 'Tue'])->result();
+    }
 
-        // $query = $this->db->get('calendar');
+    public function get_wednesday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['wed' => 'Wed'])->result();
+    }
 
-        // if ($query->num_rows() > 0) {
+    public function get_thursday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['thurs' => 'Thurs'])->result();
+    }
 
-        //     $row = $query->row();
+    public function get_friday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['fri' => 'Fri'])->result();
+    }
 
-        //     $this->db->select('*');
-        //     $this->db->from('calendar');
-        //     $this->db->where('year', $year);
-        //     $this->db->where('month', $month);
-        //     $this->db->where('day', $row->day);
-
-
-        //     $query = $this->db->get();
-
-        //     foreach ($query->result() as $result) {
-        //         $cell_data[$result->day] = $result->data;
-        //     }
-
-        // return $cell_data;
-
-        // }
-        
-
-	// }
+    public function get_saturday_sched() {
+        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['sat' => 'Sat'])->result();
+    }
 }
 
 ?>
