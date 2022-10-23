@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 html {
     min-height: 100vh;
 }
@@ -827,4 +827,167 @@ hr {
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0
+}
+
+/* patient dashboard css */
+.patient-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /* height: 100%; */
+    padding: 70px;
+}
+
+.patient-container {
+    /* background-color: rgb(24, 36, 54); */
+    flex-basis: 75%;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    border-radius: 30px;
+    border: 5px solid rgb(255, 255, 255);
+    padding: 30px;
+    margin-right: 3%;
+}
+
+.avatar-box {
+    flex-basis: 30%;
+    /* height: 100%; */
+    max-height: 300px;
+}
+
+.avatar-box img {
+    max-height: 100%;
+    /* max-width: 100%; */
+}
+
+
+.personal-info {
+    color: rgb(0, 0, 0);
+    font-family: 'Poppins', sans-serif !important;
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+    font-size: 20px;
+    padding: 20px;
+    max-height: 300px;
+}
+
+.vline1 {
+    flex-basis: 100%;
+    /* border-left: 8px solid rgb(59, 58, 58); */
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+    font-size: 40px;
+    height: max-content !important;
+}
+
+.left-info {
+    flex-basis: 50%;
+}
+.right-info {
+    flex-basis: 50%;
+}
+
+.personal-info hr {
+    /* border: 5px solid rgb(174, 247, 243); */
+    border: 5px solid rgb(65, 103, 148);
+    background-color: rgb(65, 103, 148);
+    width: 90%;
+}
+
+.next-consultation {
+    flex-basis: 22%;
+    background-color: rgb(255, 255, 255);
+    /* width: 100%; */
+    border-radius: 30px;
+    border: 5px solid rgb(90, 197, 105);
+    padding: 50px;
+    width: 100% !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 30px;
+    text-align: center;
+}
+
+
+.next-consultation hr {
+    border: 5px solid rgb(89, 189, 94);
+    background-color: rgb(89, 189, 94);
+    width: 100%;
+}
+
+.next-consultation .fas {
+    color: rgb(37, 85, 39);
+    font-size: 80px;
+    margin: 20px;
+}
+
+.next-consultation label {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.recent-consultations {
+    background-color: gray;
+    width: 100%;
+    padding: 50px;
+    min-height: 505px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+/* 1361 */
+@media (max-width: 1580px) {
+    .patient-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .patient-dashboard {
+        display: block;
+        height: fit-content;
+    }
+
+    .personal-info {
+        justify-content: center;
+        max-height: 800px !important;
+    }
+
+    .left-info {
+        flex-basis: 100%;
+    }
+    
+    .right-info {
+        flex-basis: 100%;
+    }
+
+    img {
+        max-width: none;
+    }
+
+    .next-consultation {
+        flex-basis: none;
+        margin-top: 50px;
+    }
+
+    .recent-consultations {
+        margin-top: 50px;
+    }
+
+}
+
+@media (min-width: 2000px) {
+    .avatar-box {
+        padding: 20px;
+        max-height: none;
+        margin: auto;
+    }
+
+    
+
 }
