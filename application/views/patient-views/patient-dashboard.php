@@ -1,3 +1,9 @@
+<style>
+    body {
+        overflow-y: scroll;
+    }
+</style>
+
 <div class="container-fluid patient-dashboard">
     <div class="patient-container shadow">
         <div class="avatar-box">
@@ -24,8 +30,22 @@
         <i class="fas fa-calendar-plus"></i>
         <label for="" class="date-label">Tuesday, September 12, 2022</label>
     </div>
-
-    <div class="recent-consultations">
-            recent consultations
+    <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Recent Activity<br></label>
+    <div class="recent-consultations shadow">
+        <div class="dash-inner-content">
+                <table id="patient-diagnosis-table" class="table table-hover ">
+                    <thead>
+                        <tr>
+                            <th class="inv-td">Diagnosis Date</th>
+                            <th class="inv-td">Diagnosis</th>
+                            <th class="inv-td">Doctor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            
+        </div>    
     </div>
 </div>

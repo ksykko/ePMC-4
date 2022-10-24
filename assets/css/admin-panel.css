@@ -1029,12 +1029,23 @@ hr {
 }
 
 .recent-consultations {
-    background-color: gray;
+    background-color: rgb(255, 255, 255);
     width: 100%;
     padding: 50px;
-    min-height: 505px;
+    min-height: max-content;
     border-radius: 30px;
     margin-top: 20px;
+}
+
+.patient-diagnosis-table tbody {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+} 
+
+.recent-act-patient-label {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 30px;
 }
 
 /* 1361 */
@@ -1085,7 +1096,4 @@ hr {
         max-height: none;
         margin: auto;
     }
-
-    
-
 }
