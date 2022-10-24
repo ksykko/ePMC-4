@@ -28,9 +28,14 @@
     <div class="next-consultation shadow">
         <strong>Next Consultation</strong><hr>
         <i class="fas fa-calendar-plus"></i>
-        <label for="" class="date-label">Tuesday, September 12, 2022</label>
-    </div>
-    <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Recent Activity<br></label>
+        <?php 
+        $date = strtotime($patient_details->consul_next);
+        $consul_next = date("l, M d Y", $date);
+        $consul_time = date("g:i A", $date);
+        ?>
+        <label for="" class="Date-label"><?= $consul_next?> <br> <?= $consul_time?></label>
+    </Div>
+    <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Consultation History<br></label>
     <div class="recent-consultations shadow">
         <div class="dash-inner-content">
                 <table id="patient-diagnosis-table" class="table table-hover ">
