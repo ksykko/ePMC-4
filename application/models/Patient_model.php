@@ -26,9 +26,9 @@ class Patient_model extends CI_Model
         $this->db->update('patient_record', $avatar, ['patient_id' => $id]);
     }
     
-    public function get_patient_diagnosis_row($id)
+    public function get_patient_details_row($id)
     {
-        return $this->db->get_where('patient_diagnosis', ['patient_id' => $id])->row();
+        return $this->db->get_where('patient_details', ['patient_id' => $id])->row();
     }
 
     public function get_patient_diagnosis_tbl()
