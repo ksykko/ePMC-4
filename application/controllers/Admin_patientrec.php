@@ -615,8 +615,26 @@ class Admin_patientrec extends CI_Controller
             redirect('Admin_patientrec');
         }
 
-        require 'vendor/autoload.php';
+        // use Google Vision
+        include FCPATH . 'vendor/autoload.php';
+        
+        // use Google\Cloud\Vision\V1;
 
+        // $vision = new VisionClient([
+        //     'keyFilePath' => json_decode(file_get_contents('./assets/Keys/epmcdb-81960-8f63b95988a1.json'), true)
+        // ]);
+
+        // $importpic = $this->upload->data('file_name');
+
+        // $image = $vision->image($importpic, ['DOCUMENT_TEXT_DETECTION']);
+        
+        // $result = $vision->annotate($image);
+
+        // var_dump($result);
+        // die();
+        
+
+        
        
 
 

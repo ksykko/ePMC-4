@@ -623,7 +623,7 @@
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
-                <div class="card-header py-3 ch-patientrec ch-patientdiag">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
                     <div class="d-flex">
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Patient Diagnosis</h6>
@@ -746,7 +746,7 @@
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
-                <div class="card-header py-3 ch-patientrec ch-patientdiag">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
                     <div class="d-flex">
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Treatment Plan</h6>
