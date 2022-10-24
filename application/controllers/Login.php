@@ -12,7 +12,7 @@ class Login extends CI_Controller
 
     public function signin()
     {
-        //$this->session->sess_destroy();
+        $this->session->sess_destroy();
         if ($this->session->userdata('logged_in')) { //if logged in
             redirect('Users'); // directory if admin b ao user WALA PA
         } else {

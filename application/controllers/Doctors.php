@@ -134,7 +134,7 @@ class Doctors extends CI_Controller {
             $weight = (float)$row->weight;
 
             // skips the patient if height or weight is 0
-            if ($height == 0 || $weight == 0) {
+            if ($height == 0 || $weight == 0 || $height == null || $weight == null) {
                 continue;
             }
             
@@ -156,8 +156,8 @@ class Doctors extends CI_Controller {
             }
         }
 
-        var_dump($bmi_data);
-        die();
+        // var_dump($bmi_data);
+        // die();
         return $bmi_data['chart_data'] = json_encode($bmi_data);
     }
 }
