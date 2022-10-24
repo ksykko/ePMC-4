@@ -119,13 +119,17 @@
                     <div class="modal-header">
                         <h4 class="modal-title ms-3 fw-bolder">Add Via Import</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <?= form_open_multipart('Admin_patientrec/google_vision_ocr'); ?>
                     <div class="modal-body mx-5">
                         <p>Upload image below.</p>
+
                         <div class="input-group">
-                            <input class="form-control form-control-sm" type="file" />
+                            <input class="form-control form-control-sm" name="importPatientrec" type="file" />
                         </div>
+
                     </div>
-                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary" type="button">Save</button></div>
+                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary" type="submit">Save</button></div>
+                    <?= form_close(); ?>
                 </div>
             </div>
         </div>
@@ -150,6 +154,16 @@
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully deleted a patient.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- display upload errors -->
+                    <?php elseif ($this->session->flashdata('error-import')) : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Error!</strong> <?= $this->session->flashdata('error-import'); ?></span>
                                 </div>
                             </div>
                         </div>

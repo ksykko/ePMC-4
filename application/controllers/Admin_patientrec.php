@@ -596,15 +596,34 @@ class Admin_patientrec extends CI_Controller
     }
 
 
+    public function google_vision_ocr()
+    {
+
+        $img_config = array(
+            'upload_path' => './assets/img/patientrec-VisionAPI/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'file_name' => $_FILES['file']['name'],
+            'max_size' => 10000,
+        );
+
+        $this->load->library('upload', $img_config);
+        $this->upload->initialize($img_config);
+
+        if (!$this->upload->do_upload('importPatientrec'))
+        {
+            $this->session->set_flashdata('error-import', $this->upload->display_errors());
+            redirect('Admin_patientrec');
+        }
+
+        require 'vendor/autoload.php';
+
+       
 
 
 
 
 
-
-
-
-
+    }
 
     public function logout()
     {
