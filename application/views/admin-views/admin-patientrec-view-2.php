@@ -850,8 +850,8 @@
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
                 </div>
                 <div class="card-body mx-3">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div>
+                        <table id="consul_table" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th class="col-sm-6">Date and Time</th>
@@ -859,14 +859,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="border-0">Cell 1</td>
-                                    <td class="border-0">Cell 2</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">Cell 3</td>
-                                    <td class="border-0">Cell 4</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

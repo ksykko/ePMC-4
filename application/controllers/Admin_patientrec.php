@@ -145,6 +145,40 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+    public function consul_dt($id)
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+
+        $diagnoses = $this->Admin_model->get_diagnosis_tbl($id);
+        
+
+        $data = array();
+
+        foreach ($diagnoses->result() as $diagnosis) {
+
+
+            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+
+            $row = array();
+            $row[] = $diag_date;
+            $row[] = $diagnosis->p_doctor;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $diagnoses->num_rows(),
+            "recordsFiltered" => $diagnoses->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
     public function edit_patient($id)
     {
         $data['patient'] = $this->Admin_model->get_patient_row($id);

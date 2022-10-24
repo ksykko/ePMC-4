@@ -15,6 +15,11 @@ class Doctors_model extends CI_Model
         return $this->db->get_where('user_accounts', ['role' => 'Doctor'])->result();
     }
 
+    public function get_all_doctors_arr()
+    {
+        return $this->db->get_where('user_accounts', ['role' => 'Doctor'])->result_array();
+    }
+
 }
 
 

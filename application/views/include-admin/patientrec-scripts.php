@@ -89,6 +89,21 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#consul_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            responsive: true,
+            "ajax": {
+                url: "<?php echo site_url("Admin_patientrec/consul_dt/") . $patient->patient_id  ?>",
+                type: 'POST'
+            },
+            
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
