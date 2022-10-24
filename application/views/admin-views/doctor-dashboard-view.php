@@ -133,7 +133,10 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">Patient Satisfaction</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas id="sampleChart3"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,9 +148,9 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's BMI Overview</h6>
                         </div>
-                        <div class="card-body mx-3 my-3">
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">
-                                <canvas id="sampleChart2"></canvas>
+                                <canvas class=" align-items-center" id="sampleChart2"></canvas>
                             </div>
                         </div>
                     </div>
@@ -329,6 +332,8 @@
         }
     });
 
+    var bmiData = JSON.parse('<?= $bmi_data; ?>');
+    console.log(bmiData);
     let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
     let bmiChart = new Chart(sampleChart2, {
         type: 'pie',
@@ -336,7 +341,7 @@
             labels: ['Underweight, <18.5', 'Normal weight, 18.5–24.9', 'Overweight, 25–29.9', 'Obesity, BMI of 30 or greater'],
             datasets: [{
                 label: 'BMI',
-                data: [10, 20, 30, 40],
+                data: [bmiData['underweight'], bmiData['normal'], bmiData['overweight'], bmiData['obese']],
                 backgroundColor: [
                     "#115f9a",
                     "#1984c5",
@@ -349,8 +354,45 @@
                     "#f4f100"
                 ]
             }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: false,
         }
     })
+
+    let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
+    let satisfactionChart = new Chart(sampleChart3, {
+        type: 'polarArea',
+        data: {
+            labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very Unsatisfied'],
+            datasets: [{
+                label: 'Satisfaction',
+                data: [59, 20, 42, 16, 4],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: true,
+        }
+        
+    })
+
 </script>
 
 
