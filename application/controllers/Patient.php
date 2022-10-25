@@ -26,7 +26,6 @@ class Patient extends CI_Controller {
             $data['user_address'] = $this->session->userdata('address');
 
             $data['patient'] = $this->Patient_model->get_patient_row($id);
-            $data['patient'] = $this->Patient_model->get_patient_row($id);
             $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);  
 
             $this->load->view('include-admin/dashboard-header', $data);
