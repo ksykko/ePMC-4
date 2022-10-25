@@ -36,7 +36,7 @@ class Patient_patientrec extends CI_Controller
             $data['patient_id'] = $id;
             $data['user_role'] = $this->session->userdata('role');
 
-            $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);  
+            $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('patient-views/patient-patientrec-view', $data);
@@ -60,10 +60,9 @@ class Patient_patientrec extends CI_Controller
                 $row = array();
                 $row[] = $recent_diagnosis->p_diag_date;
                 $row[] = $recent_diagnosis->p_doctor;
-                
-                $data[] = $row;    
+
+                $data[] = $row;
             }
-            
         }
 
         $output = array(
@@ -73,7 +72,6 @@ class Patient_patientrec extends CI_Controller
             "data" => $data
         );
         echo json_encode($output);
-        
     }
 
     public function edit_patient($id)
@@ -153,41 +151,36 @@ class Patient_patientrec extends CI_Controller
             // </script>
             // ";
         } else {
-            $editPatient = $this->input->post('editPatient');
+            //$addPatient = $this->input->post('addPatient');
 
-            if (isset($editPatient)) {
-                
-                $info = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'middle_name' => $this->input->post('middle_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'age' => $this->input->post('age'),
-                    'birth_date' => $this->input->post('birth_date'),
-                    'sex' => $this->input->post('sex'),
-                    'occupation' => $this->input->post('occupation'),
-                    'address' => $this->input->post('address'),
-                    'cell_no' => $this->input->post('cell_no'),
-                    'tel_no' => $this->input->post('tel_no'),
-                    'email' => $this->input->post('email'),
-                    'ec_name' => $this->input->post('ec_name'),
-                    'relationship' => $this->input->post('relationship'),
-                    'ec_contact_no' => $this->input->post('ec_contact_no'),
-                    'last_accessed' => date('Y-m-d H:i:s')
-                );
+            $info = array(
+                'first_name' => $this->input->post('first_name'),
+                'middle_name' => $this->input->post('middle_name'),
+                'last_name' => $this->input->post('last_name'),
+                'age' => $this->input->post('age'),
+                'birth_date' => $this->input->post('birth_date'),
+                'sex' => $this->input->post('sex'),
+                'occupation' => $this->input->post('occupation'),
+                'address' => $this->input->post('address'),
+                'cell_no' => $this->input->post('cell_no'),
+                'tel_no' => $this->input->post('tel_no'),
+                'email' => $this->input->post('email'),
+                'ec_name' => $this->input->post('ec_name'),
+                'relationship' => $this->input->post('relationship'),
+                'ec_contact_no' => $this->input->post('ec_contact_no'),
+                'last_accessed' => date('Y-m-d H:i:s')
+            );
 
-                $this->session->set_flashdata('message', 'success-edit-patient-PI');
-                $this->Admin_model->edit_patient_PI($id, $info);
-                redirect('Patient_patientrec');
-
-            }
+            $this->session->set_flashdata('message', 'success-edit-patient-PI');
+            $this->Admin_model->edit_patient_PI($id, $info);
+            redirect('Patient_patientrec');
         }
     }
 
 
-
     // PATIENT RECORD VIEW INDIVIDUAL
 
-    public function update_health_info($id)
+    public function update_profilepic($id)
     {
         $patient = $this->Admin_model->get_patient_row($id);
 
@@ -206,28 +199,27 @@ class Patient_patientrec extends CI_Controller
         $this->upload->initialize($img_config);
         $fileExt = pathinfo($patient->avatar, PATHINFO_EXTENSION);
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
-            $this->session->set_flashdata('error', validation_errors());
-            redirect('Patient_patientrec');
-        } else {
-            if (!$this->upload->do_upload('avatar')) {
-                if ($patient->avatar == 'default-avatar.png') {
-                    $img_name = 'default-avatar.png';
-                } else {
-                    $img_name = $this->upload->data('file_name') . '.' . $fileExt;
-                }
-            } else {
-                $img_name = $this->upload->data('file_name');
-            }
 
-            $avatar = array(
-                'avatar' => $img_name
-            );
-            $this->Admin_model->update_avatar($id, $avatar);
-            $this->session->set_flashdata('message', 'success-healthinfo');
-            redirect('Patient_patientrec');
+        if (!$this->upload->do_upload('avatar')) {
+            if ($patient->avatar == 'default-avatar.png') {
+                $img_name = 'default-avatar.png';
+            } else {
+                $img_name = $this->upload->data('file_name') . '.' . $fileExt;
+                //set flashdata validation error
+                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+                redirect('Patient_patientrec');
+            }
+        } else {
+            $img_name = $this->upload->data('file_name');
         }
+
+        $avatar = array(
+            'avatar' => $img_name
+        );
+
+        $this->Admin_model->update_avatar($id, $avatar);
+        $this->session->set_flashdata('message', 'success-profilepic');
+        redirect('Patient_patientrec');
     }
 
     public function logout()

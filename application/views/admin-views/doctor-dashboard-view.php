@@ -31,7 +31,7 @@
                     </label><br>
                 </div>
             </div>
-            <div class="card shadow mb-4">
+            <!-- <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
                 </div>
                 <div class="card-body mx-3">
@@ -43,7 +43,7 @@
                 <div class="card-body mx-3">
 
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="col gy-3 gy-md-3 gy-lg-0">
@@ -170,14 +170,14 @@
 
     </div>
 
-    <div class="card shadow mb-4">
+    <!-- <div class="card shadow mb-4">
         <div class="card-header py-3 ch-patientrec">
         </div>
         <div class="card-body mx-3">
         </div>
-    </div>
+    </div> -->
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
@@ -236,7 +236,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 </div>
