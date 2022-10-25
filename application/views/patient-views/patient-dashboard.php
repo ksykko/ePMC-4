@@ -7,7 +7,7 @@
 <div class="container-fluid patient-dashboard">
     <div class="patient-container shadow">
         <div class="avatar-box">
-            <img class="img-fluid avatar" src="<?php echo base_url('/assets/img/profile-avatars/' . $this->session->userdata('avatar')); ?>" alt="avatar">
+            <img class="img-fluid avatar" src="<?php echo base_url('/assets/img/profile-avatars/' . $patient->avatar); ?>" alt="avatar">
         </div>
         <div class="personal-info">
             <div class="vline1"><?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?><br><hr></div>
