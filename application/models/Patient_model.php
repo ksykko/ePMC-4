@@ -41,4 +41,5 @@ class Patient_model extends CI_Model
         return $this->db->get('patient_diagnosis')->result();
     }
     
+    
 }

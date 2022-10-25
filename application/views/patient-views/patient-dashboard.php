@@ -29,9 +29,9 @@
         <strong>Next Consultation</strong><hr>
         <i class="fas fa-calendar-plus"></i>
         <?php 
-        $date = strtotime($patient_details->consul_next);
-        $consul_next = date("l, M d Y", $date);
-        $consul_time = date("g:i A", $date);
+            $date = strtotime($patient_details->consul_next);
+            $consul_next = date("l, M d Y", $date);
+            $consul_time = date("g:i A", $date);
         ?>
         <label for="" class="Date-label"><?= $consul_next?> <br> <?= $consul_time?></label>
     </Div>
@@ -41,8 +41,7 @@
                 <table id="patient-diagnosis-table" class="table table-hover ">
                     <thead>
                         <tr>
-                            <th class="inv-td">Diagnosis Date</th>
-                            <th class="inv-td">Diagnosis</th>
+                            <th class="inv-td">Consultation Date</th>
                             <th class="inv-td">Doctor</th>
                         </tr>
                     </thead>

@@ -54,8 +54,8 @@
 
                 <?php } elseif ($user_role == 'patient'){?>
                     <!-- patient record viewing only -->
-                    <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Admin_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
+                    <li <?php if($this->uri->segment(1) == "Patient_patientrec"){echo 'class="active"';}?> class="nav-item">
+                        <a class="nav-link" href="<?= site_url('Patient_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Record</a>
                     </li>   
                     <!-- change to viewing of schedules -->
                     <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
