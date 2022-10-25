@@ -116,7 +116,7 @@ class Admin_inventory extends CI_Controller {
                 );
             }
 
-            $this->session->set_flashdata('success', 'Product successfully added.');
+            $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_product($info);
             redirect('Admin_inventory');
 
@@ -202,7 +202,8 @@ class Admin_inventory extends CI_Controller {
     }
 
     public function delete_product($id)
-    {
+    {   
+        $this->session->set_flashdata('message', 'dlt_success');
         $this->Admin_model->delete_product($id);
         redirect('Admin_inventory/index');
     }

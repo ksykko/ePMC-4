@@ -101,7 +101,7 @@
                     <?php if ($this->session->flashdata('message') == 'success') : ?>
                         <div class="row">
                             <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
                                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully added a new product.</span>
                                 </div>
