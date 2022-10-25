@@ -161,17 +161,6 @@
                                         <h5 class="heading-modal fw-semibold">Product Information</h5>
                                         <hr size="5" />
                                         <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                        <div class="row mb-2">
-                                            <div class="col-3"><label class="col-form-label">Product ID:</label></div>
-                                            <div class="col-9">
-                                                <div class="input-error">
-                                                    <div class="input-group">
-                                                        <!-- full_name -->
-                                                        <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row mt-4 mb-2">
                                             <div class="col-3"><label class="col-form-label">Product Name:</label></div>
                                             <div class="col-9">
@@ -259,17 +248,6 @@
                                         <h5 class="heading-modal fw-semibold">Product Information</h5>
                                         <hr size="5" />
                                         <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                        <div class="row mb-2">
-                                            <div class="col-3"><label class="col-form-label">Product ID: <?= $product->item_id ?></label></div>
-                                            <div class="col-9">
-                                                <div class="input-error">
-                                                    <div class="input-group">
-                                                        <!-- full_name -->
-                                                        <input class="form-control item_id" type="text" id="item_id" name="item_id" value="<?= $product->item_id ?>" disabled />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row mt-4 mb-2">
                                             <div class="col-3"><label class="col-form-label">Product Name:</label></div>
                                             <div class="col-9">
