@@ -20,8 +20,8 @@
 <div class="container-fluid mt-5">
     <div class="row mb-3">
         <div class="col-lg-3">
-            <div class="card mb-4 profile-card h-100">
-                <div class="card-body text-center shadow profile-card">
+            <div class="card mb-4 profile-card">
+                <div class="card-body text-center shadow profile-card mt-5">
                     <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br>
                     <label for="avatar">Hello, <br>
                         <?= 'Dr. ' . $full_name ?>
@@ -31,7 +31,7 @@
                     </label><br>
                 </div>
             </div>
-            <!-- <div class="card shadow mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
                 </div>
                 <div class="card-body mx-3">
@@ -43,7 +43,7 @@
                 <div class="card-body mx-3">
 
                 </div>
-            </div> -->
+            </div>
         </div>
 
         <div class="col gy-3 gy-md-3 gy-lg-0">
@@ -126,11 +126,40 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-lg-5 col-xl-4">
                     <div class="card shadow mb-4 h-100">
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">Patient Satisfaction</h6>
+                        </div>
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas id="sampleChart3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
+                <div class="col-lg-7 col-xl-8">
+                    <div class="card shadow mb-4 h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's BMI Overview</h6>
+                        </div>
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas class=" align-items-center" id="sampleChart2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 col-xl-4">
+                    <div class="card shadow mb-4 h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">Chart Sample</h6>
                         </div>
                         <div class="card-body">
                         </div>
@@ -140,15 +169,79 @@
         </div>
 
     </div>
-    
-    <!-- <div class="card shadow mb-4">
+
+    <div class="card shadow mb-4">
         <div class="card-header py-3 ch-patientrec">
         </div>
         <div class="card-body mx-3">
         </div>
-    </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 ch-patientrec">
+                    <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
+                </div>
+                <div class="card-body mx-3">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Column 1</th>
+                                    <th>Column 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell 3</td>
+                                    <td>Cell 4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 ch-patientrec">
+                    <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
+                </div>
+                <div class="card-body mx-3">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Column 1</th>
+                                    <th>Column 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell 3</td>
+                                    <td>Cell 4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
+
+
 
 <!-- <div class="container-fluid">
     <div class="row">
@@ -238,6 +331,68 @@
             }
         }
     });
+
+    var bmiData = JSON.parse('<?= $bmi_data; ?>');
+    console.log(bmiData);
+    let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
+    let bmiChart = new Chart(sampleChart2, {
+        type: 'pie',
+        data: {
+            labels: ['Underweight, <18.5', 'Normal weight, 18.5–24.9', 'Overweight, 25–29.9', 'Obesity, BMI of 30 or greater'],
+            datasets: [{
+                label: 'BMI',
+                data: [bmiData['underweight'], bmiData['normal'], bmiData['overweight'], bmiData['obese']],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: false,
+        }
+    })
+
+    let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
+    let satisfactionChart = new Chart(sampleChart3, {
+        type: 'polarArea',
+        data: {
+            labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very Unsatisfied'],
+            datasets: [{
+                label: 'Satisfaction',
+                data: [59, 20, 42, 16, 4],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: true,
+        }
+        
+    })
+
 </script>
 
 

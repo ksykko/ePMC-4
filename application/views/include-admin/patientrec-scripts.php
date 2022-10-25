@@ -5,15 +5,19 @@
 
 
 <script type="text/javascript">
+    const user_role = '<?= $user_role ?>';
+
     $(document).ready(function() {
         $('#example').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
             responsive: true,
+
+            // if user is doctor, change url to doctor's datatable
             "ajax": {
-                url: "<?php echo site_url("Admin_patientrec/datatable") ?>",
-                type: 'POST'
+                url: user_role == 'Doctor' ? "<?= site_url('Doctor_patientrec/datatable') ?>" : "<?= site_url('Admin_patientrec/datatable') ?>",
+                type: "POST"
             },
 
             //Set column definition initialisation properties.
@@ -82,6 +86,21 @@
                     }
                 }
             ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#consul_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            responsive: true,
+            "ajax": {
+                url: "<?php echo site_url("Admin_patientrec/consul_dt/") . $patient->patient_id  ?>",
+                type: 'POST'
+            },
+            
         });
     });
 </script>

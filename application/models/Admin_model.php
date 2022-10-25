@@ -292,6 +292,7 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_details', ['patient_id' => $id])->row();
     }
 
+
     public function update_patient_details($id, $info)
     {
         $this->db->update('patient_details', $info, ['patient_id' => $id]);
@@ -412,6 +413,21 @@ class Admin_model extends CI_Model
         return $result;
     }
     // END OF age range chart
+
+    // START OF bmi data chart
+    public function get_bmi_data()
+    {
+        // get height and weight from patient_details table
+        $this->db->select('height, weight');
+        $this->db->from('patient_details');
+        $query = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    // END OF bmi data chart
+
 
 
 

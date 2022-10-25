@@ -12,7 +12,7 @@ class Login extends CI_Controller
 
     public function signin()
     {
-        //$this->session->sess_destroy();
+        $this->session->sess_destroy();
         if ($this->session->userdata('logged_in')) { //if logged in
             redirect('Users'); // directory if admin b ao user WALA PA
         } else {
@@ -72,8 +72,8 @@ class Login extends CI_Controller
 
                 elseif ($result->role == 'Doctor') {
                     $sess_data = array(
-                        'id' => $result->doctor_id,
-                        'full_name' => $result->first_name . ' ' . $result->last_name,
+                        'id' => $result->user_id,
+                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
                         'email' => $result->email,
                         'contact_no' => $result->contact_no,
                         'role' => $result->role,

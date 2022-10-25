@@ -24,7 +24,7 @@
                         <div class="modal-body d-xxl-flex justify-content-xxl-center">
                             <p><i class="typcn typcn-warning me-2"></i>Any unsaved changes will not be saved.</p>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Cancel</button><a href="<?= site_url('Admin_patientrec/index') ?>" class="btn btn-sm btn-primary btn-default-blue" role="button">Confirm</a></div>
+                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Cancel</button><a href="<?= ($user_role == 'Doctor') ? site_url('Doctor_patientrec/index') : site_url('Admin_patientrec/index') ?>" class="btn btn-sm btn-primary btn-default-blue" role="button">Confirm</a></div>
                     </div>
                 </div>
             </div>
@@ -623,7 +623,7 @@
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
-                <div class="card-header py-3 ch-patientrec ch-patientdiag">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
                     <div class="d-flex">
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Patient Diagnosis</h6>
@@ -746,7 +746,7 @@
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
-                <div class="card-header py-3 ch-patientrec ch-patientdiag">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
                     <div class="d-flex">
                         <div class="me-auto">
                             <h6 class="bd-highlight fw-bold fs-5 ch-heading">Treatment Plan</h6>
@@ -850,8 +850,8 @@
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
                 </div>
                 <div class="card-body mx-3">
-                    <div class="table-responsive">
-                        <table class="table">
+                    <div>
+                        <table id="consul_table" class="table table-hover">
                             <thead>
                                 <tr>
                                     <th class="col-sm-6">Date and Time</th>
@@ -859,14 +859,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="border-0">Cell 1</td>
-                                    <td class="border-0">Cell 2</td>
-                                </tr>
-                                <tr>
-                                    <td class="border-0">Cell 3</td>
-                                    <td class="border-0">Cell 4</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
