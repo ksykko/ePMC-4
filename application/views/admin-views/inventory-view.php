@@ -116,6 +116,15 @@
                                 </div>
                             </div>
                         </div>
+                    <?php elseif ($this->session->flashdata('message') == 'edit_prod_success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully deleted a product.</span>
+                                </div>
+                            </div>
+                        </div>    
                     <?php endif; ?>
                     <table id="inventory-table" class="table table-hover">
                         <thead>
@@ -236,7 +245,8 @@
                         <?= form_close(); ?>
 
                         <!-- Edit product modal -->
-                        <?= form_open_multipart('Admin_inventory/update_product'); ?>
+                        <?php $updateProductInfoPath = 'Admin_inventory/update_product/'. $product->item_id; ?>
+                        <?= form_open_multipart($updateProductInfoPath, array('id' => 'updateProduct')); ?>
                         <div id="product-edit-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -321,7 +331,7 @@
                                         </div>
                                         <br><br><br>
                                         <input type="hidden" name="item_id" class="item_id">
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" id="updateProduct" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
                                 </div>
                             </div>
