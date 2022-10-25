@@ -127,9 +127,9 @@ class Admin_inventory extends CI_Controller {
         }
     }
 
-    public function update_product()
+    public function update_product($id)
     {   
-        $this->form_validation->set_rules('item_id', 'Item id');
+        $data['product'] = $this->Admin_model->get_inventory_row($id);
 
         $this->form_validation->set_rules('prod_name', 'Product name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter your %s.'
@@ -155,13 +155,13 @@ class Admin_inventory extends CI_Controller {
             'numeric' => 'Please enter a valid %s.'
         ));
        
-        if ($this->form_validation->run() == TRUE)
+        if ($this->form_validation->run() == FALSE)
         {
             $this->index();
         }
         else
         {   
-            $id = $this->input->post('item_id');
+           
             $updateProduct = $this->input->post('updateProduct');
             if (isset($updateProduct))
             {
@@ -173,11 +173,9 @@ class Admin_inventory extends CI_Controller {
                     'stock_out' => $this->input->post('stock_out')
                 );
             }
-
-            $this->session->set_flashdata('success', 'Product successfully updated.');
+            $this->session->set_flashdata('message', 'edit_prod_success');
             $this->Admin_model->update_product($id, $info);
             redirect('Admin_inventory/index');  
-
         }
         // $data['products'] = $this->Admin_model->get_inventory_row($id);
         // $updateProduct = $this->input->post('updateProduct');
