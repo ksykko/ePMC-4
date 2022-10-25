@@ -35,9 +35,6 @@ class Login extends CI_Controller
             $this->load->model('Login_model');
             $result = $this->Login_model->login($email, $pass);
 
-            // var_dump($result);
-            // die();
-
             if (isset($result)) {
                 // if ($result->status == 0) {
                 //     $error = 'Account is not activated yet. Please check your email for activation link.';

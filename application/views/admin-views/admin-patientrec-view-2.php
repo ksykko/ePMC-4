@@ -29,209 +29,211 @@
                 </div>
             </div>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
-            <div id="mdl-personal-info" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title ms-3 fw-bolder">Edit Patient's Personal Information</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <?php $updatePatientInfoPath = 'Admin_patientrec/edit_patient/' . $patient->patient_id; ?>
-                        <?= form_open($updatePatientInfoPath, array('id' => 'editPatient')); ?>
-                        <div class="modal-body mx-5">
+        <?php if ($user_role == 'Admin') : ?>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
+                <div id="mdl-personal-info" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title ms-3 fw-bolder">Edit Patient's Personal Information</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <?php $updatePatientInfoPath = 'Admin_patientrec/edit_patient/' . $patient->patient_id; ?>
+                            <?= form_open($updatePatientInfoPath, array('id' => 'editPatient')); ?>
+                            <div class="modal-body mx-5">
 
-                            <!-- One "tab" for each step in the form: -->
-                            <div class="tab">
-                                <h5 class="heading-modal fw-semibold">Personal Information</h5>
-                                <hr size="5" />
-                                <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
-                                        <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                <!-- One "tab" for each step in the form: -->
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Personal Information</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
+                                            <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $patient->middle_name ?>" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        </div>
+                                        <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
+                                            <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $patient->last_name ?>" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        </div>
                                     </div>
-                                    <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
-                                        <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $patient->middle_name ?>" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Age</label>
+                                            <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= $patient->age ?>" /><small class="text-danger"><?= form_error('age') ?></small>
+                                            <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                        </div>
+                                        <div class="col form-group px-1"><label class="form-label">Birth date</label>
+                                            <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        </div>
                                     </div>
-                                    <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
-                                        <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $patient->last_name ?>" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                                <?php if ($patient->sex == 'Male') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male" selected>Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php elseif ($patient->sex == 'Female') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female" selected>Female</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php endif; ?>
+                                            </select><small class="text-danger"><?= form_error('sex') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Address</label>
+                                            <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" /><small class="text-danger"><?= form_error('address') ?></small>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Age</label>
-                                        <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= $patient->age ?>" /><small class="text-danger"><?= form_error('age') ?></small>
-                                        <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Contact Information</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" value="<?= $patient->cell_no ?>" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" value="<?= $patient->tel_no ?>" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
                                     </div>
-                                    <div class="col form-group px-1"><label class="form-label">Birth date</label>
-                                        <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" value="<?= $patient->email ?>" /><small class="text-danger"><?= form_error('email') ?></small>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
-                                            <?php if ($patient->sex == 'Male') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Male" selected>Male</option>
-                                                <option value="Female">Female</option>
-                                            <?php elseif ($patient->sex == 'Female') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female" selected>Female</option>
-                                            <?php else : ?>
-                                                <option value="select" selected disabled>select ...</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            <?php endif; ?>
-                                        </select><small class="text-danger"><?= form_error('sex') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Address</label>
-                                        <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" /><small class="text-danger"><?= form_error('address') ?></small>
+
+                                <div class="tab">
+                                    <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
+                                    <hr size="5" />
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
+                                        <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= $patient->ec_name ?>" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Relationship</label>
+                                            <select class="form-select form-select-sm" id="relationship" name="relationship">
+                                                <?php if ($patient->relationship == 'Father') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father" selected>Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Mother') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother" selected>Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Sibling') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling" selected>Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Child') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child" selected>Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Spouse') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse" selected>Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Grandparent') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent" selected>Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Guardian') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian" selected>Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php elseif ($patient->relationship == 'Other') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other" selected>Other</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                <?php endif; ?>
+
+                                            </select><small class="text-danger"><?= form_error('relationship') ?></small>
+                                        </div>
                                     </div>
+                                    <div class="row mb-2">
+                                        <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
+                                            <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= $patient->ec_contact_no ?>" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" style="background: #3269bf;">Next</button></div> -->
+                            <div class="modal-footer" style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button class="btn btn-sm btn-light" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button class="btn btn-sm btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                 </div>
                             </div>
 
-                            <div class="tab">
-                                <h5 class="heading-modal fw-semibold">Contact Information</h5>
-                                <hr size="5" />
-                                <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" value="<?= $patient->cell_no ?>" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" value="<?= $patient->tel_no ?>" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" value="<?= $patient->email ?>" /><small class="text-danger"><?= form_error('email') ?></small>
-                                    </div>
-                                </div>
+
+                            <?= form_close(); ?>
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div class="mb-4" style="text-align:center;">
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
                             </div>
-
-                            <div class="tab">
-                                <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
-                                <hr size="5" />
-                                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= $patient->ec_name ?>" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Relationship</label>
-                                        <select class="form-select form-select-sm" id="relationship" name="relationship">
-                                            <?php if ($patient->relationship == 'Father') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father" selected>Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Mother') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother" selected>Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Sibling') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling" selected>Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Child') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child" selected>Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Spouse') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse" selected>Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Grandparent') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent" selected>Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Guardian') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian" selected>Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php elseif ($patient->relationship == 'Other') : ?>
-                                                <option value="select" disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other" selected>Other</option>
-                                            <?php else : ?>
-                                                <option value="select" selected disabled>select ...</option>
-                                                <option value="Father">Father</option>
-                                                <option value="Mother">Mother</option>
-                                                <option value="Sibling">Sibling</option>
-                                                <option value="Child">Child</option>
-                                                <option value="Spouse">Spouse</option>
-                                                <option value="Grandparent">Grandparent</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Other">Other</option>
-                                            <?php endif; ?>
-
-                                        </select><small class="text-danger"><?= form_error('relationship') ?></small>
-                                    </div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
-                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= $patient->ec_contact_no ?>" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" style="background: #3269bf;">Next</button></div> -->
-                        <div class="modal-footer" style="overflow:auto;">
-                            <div style="float:right;">
-                                <button class="btn btn-sm btn-light" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                <button class="btn btn-sm btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                            </div>
-                        </div>
-
-
-                        <?= form_close(); ?>
-                        <!-- Circles which indicates the steps of the form: -->
-                        <div class="mb-4" style="text-align:center;">
-                            <span class="step"></span>
-                            <span class="step"></span>
-                            <span class="step"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
     </div>
     <div class="row">
