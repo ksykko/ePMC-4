@@ -121,7 +121,7 @@
                     </div>
                     <?= form_open_multipart('Admin_patientrec/google_vision_ocr'); ?>
                     <div class="modal-body mx-5">
-                        <p>Upload image below.</p>
+                        <p>Import image below.</p>
 
                         <div class="input-group">
                             <input class="form-control form-control-sm" name="importPatientrec" type="file" />
