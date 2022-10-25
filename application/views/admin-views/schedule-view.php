@@ -163,7 +163,7 @@
 					
 				</div><br> -->
 				<div class="table-responsive content-sched">
-					<nav class="nav left">
+					<nav class="nav left left-sched">
 						<div class="label-doctors">
 							<h3>Doctors</h3>
 						</div>
@@ -176,7 +176,7 @@
 
 						</div>
 					</nav>
-					<nav class="nav right">
+					<nav class="nav right right-sched">
 						<table class="table table-bordered text-center week-table">
 							<thead>
 								<tr>
