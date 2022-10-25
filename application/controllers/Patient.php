@@ -48,7 +48,6 @@ class Patient extends CI_Controller {
             if ($id == $recent_diagnosis->patient_id) {
                 $row = array();
                 $row[] = $recent_diagnosis->p_diag_date;
-                $row[] = $recent_diagnosis->p_recent_diagnosis;
                 $row[] = $recent_diagnosis->p_doctor;
                 
                 $data[] = $row;    
