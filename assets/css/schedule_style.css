@@ -118,7 +118,7 @@
     z-index: 9;
 }
 
-.left {
+.left-sched {
     flex: 0.5;
     border: 1px #C6C6C6 solid;
     margin-top: 81px;
@@ -142,7 +142,7 @@
 }
 
 
-.right {
+.right-sched {
     flex:2;
     border: 1px #C6C6C6 solid;
 }
