@@ -362,7 +362,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col"><iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyByj_EzB3LfRXf_ledKDYFFXCPia_q0BSo&amp;q=Pagtakhan+Medical+Clinic&amp;zoom=20" loading="lazy" width="100%" height="100%"></iframe></div>
+            <div class="col">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.4193806834173!2d120.95123321483855!3d14.460591389891727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397cd900bae4f3b%3A0xb2a6637905fe97c!2sPagtakhan%20Medical%20Clinic!5e0!3m2!1sen!2sph!4v1666695885492!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+                <!-- <iframe allowfullscreen frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyByj_EzB3LfRXf_ledKDYFFXCPia_q0BSo&amp;q=Pagtakhan+Medical+Clinic&amp;zoom=20" loading="lazy" width="100%" height="100%"></iframe> -->
+            </div>
         </div>
     </div>
 </section>
