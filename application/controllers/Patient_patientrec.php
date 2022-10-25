@@ -153,29 +153,33 @@ class Patient_patientrec extends CI_Controller
             // </script>
             // ";
         } else {
-            //$addPatient = $this->input->post('addPatient');
+            $editPatient = $this->input->post('editPatient');
 
-            $info = array(
-                'first_name' => $this->input->post('first_name'),
-                'middle_name' => $this->input->post('middle_name'),
-                'last_name' => $this->input->post('last_name'),
-                'age' => $this->input->post('age'),
-                'birth_date' => $this->input->post('birth_date'),
-                'sex' => $this->input->post('sex'),
-                'occupation' => $this->input->post('occupation'),
-                'address' => $this->input->post('address'),
-                'cell_no' => $this->input->post('cell_no'),
-                'tel_no' => $this->input->post('tel_no'),
-                'email' => $this->input->post('email'),
-                'ec_name' => $this->input->post('ec_name'),
-                'relationship' => $this->input->post('relationship'),
-                'ec_contact_no' => $this->input->post('ec_contact_no'),
-                'last_accessed' => date('Y-m-d H:i:s')
-            );
+            if (isset($editPatient)) {
+                
+                $info = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'middle_name' => $this->input->post('middle_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'age' => $this->input->post('age'),
+                    'birth_date' => $this->input->post('birth_date'),
+                    'sex' => $this->input->post('sex'),
+                    'occupation' => $this->input->post('occupation'),
+                    'address' => $this->input->post('address'),
+                    'cell_no' => $this->input->post('cell_no'),
+                    'tel_no' => $this->input->post('tel_no'),
+                    'email' => $this->input->post('email'),
+                    'ec_name' => $this->input->post('ec_name'),
+                    'relationship' => $this->input->post('relationship'),
+                    'ec_contact_no' => $this->input->post('ec_contact_no'),
+                    'last_accessed' => date('Y-m-d H:i:s')
+                );
 
-            $this->session->set_flashdata('message', 'success-edit-patient-PI');
-            $this->Admin_model->edit_patient_PI($id, $info);
-            redirect('Patient_patientrec');
+                $this->session->set_flashdata('message', 'success-edit-patient-PI');
+                $this->Admin_model->edit_patient_PI($id, $info);
+                redirect('Patient_patientrec');
+
+            }
         }
     }
 

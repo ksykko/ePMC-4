@@ -670,8 +670,21 @@ class Admin_patientrec extends CI_Controller
         $response = $imageAnnotatorClient->documentTextDetection($image_content);
         $fullTextAnnotation = $response->getFullTextAnnotation();
 
-        var_dump($fullTextAnnotation->getText());
+        // get Vision response from Google
+        
+
+        var_dump($fullTextAnnotation);
         die();
+
+        // create and save to json file
+        $json = json_encode($fullTextAnnotation);
+        $json_file = 'assets/img/patientrec-imports/' . $import . '.json';
+        file_put_contents($json_file, $json);
+
+        echo json_encode($fullTextAnnotation);
+        redirect('Admin_patientrec');
+        // var_dump($fullTextAnnotation->getText());
+        // die();
 
 
         // use Google\Cloud\Vision\VisionClient;
