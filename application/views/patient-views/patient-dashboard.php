@@ -8,10 +8,9 @@
     <div class="patient-container shadow">
         <div class="avatar-box">
             <img class="img-fluid avatar" src="<?php echo base_url('/assets/img/profile-avatars/' . $this->session->userdata('avatar')); ?>" alt="avatar">
-            <!-- <img src="<?php echo base_url('/assets/img/profile-avatars/avatar1.png'); ?>" alt="avatar" class="avatar"> -->
         </div>
         <div class="personal-info">
-            <div class="vline1"><?= $user_name ?><br><hr></div>
+            <div class="vline1"><?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?><br><hr></div>
             <div class="left-info">
                 <strong>Age: </strong> <?= $user_age ?> years old<br>
                 <strong>Birthday: </strong> <?= $user_birthday ?><br>
@@ -34,7 +33,8 @@
             $consul_time = date("g:i A", $date);
         ?>
         <label for="" class="Date-label"><?= $consul_next?> <br> <?= $consul_time?></label>
-    </Div>
+    </div>
+
     <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Consultation History<br></label>
     <div class="recent-consultations shadow">
         <div class="dash-inner-content">
