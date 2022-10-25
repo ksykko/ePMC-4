@@ -1,10 +1,15 @@
 <?php
 
+use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+
 class Admin_patientrec extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
+        require_once 'vendor/autoload.php';
+
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=/assets/Keys/epmcdb-81960-8f63b95988a1');
 
         $this->load->helper(['url', 'form', 'date', 'string']);
         $this->load->library(['form_validation', 'session', 'pagination']);
@@ -140,6 +145,40 @@ class Admin_patientrec extends CI_Controller
             "draw" => $draw,
             "recordsTotal" => $treatments->num_rows(),
             "recordsFiltered" => $treatments->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
+    public function consul_dt($id)
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+
+        $diagnoses = $this->Admin_model->get_diagnosis_tbl($id);
+
+
+        $data = array();
+
+        foreach ($diagnoses->result() as $diagnosis) {
+
+
+            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+
+            $row = array();
+            $row[] = $diag_date;
+            $row[] = $diagnosis->p_doctor;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $diagnoses->num_rows(),
+            "recordsFiltered" => $diagnoses->num_rows(),
             "data" => $data
         );
         echo json_encode($output);
@@ -378,14 +417,25 @@ class Admin_patientrec extends CI_Controller
 
             $patientDetails = array(
                 'patient_id' => $insert_id,
+                'height' => '0',
+                'weight' => '0',
+            );
+
+            $setId = array(
+                'patient_id' => $insert_id
             );
 
             $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_patient_details($patientDetails);
-            $this->Admin_model->add_patient_diagnosis($patientDetails);
-            $this->Admin_model->add_patient_lab_reports($patientDetails);
-            $this->Admin_model->add_patient_treatment_plan($patientDetails);
-            redirect('Admin_patientrec');
+            $this->Admin_model->add_patient_diagnosis($setId);
+            $this->Admin_model->add_patient_lab_reports($setId);
+            $this->Admin_model->add_patient_treatment_plan($setId);
+
+            if ($this->session->userdata('role') == 'Admin') {
+                redirect('Admin_patientrec');
+            } else {
+                redirect('Doctor_patientrec');
+            }
         }
     }
 
@@ -577,7 +627,6 @@ class Admin_patientrec extends CI_Controller
                 }
             }
         }
-
     }
 
     public function delete_treatment($patient_id, $id)
@@ -589,6 +638,56 @@ class Admin_patientrec extends CI_Controller
     }
 
 
+    public function google_vision_ocr()
+    {
+
+        $img_config = array(
+            'upload_path' => './assets/img/patientrec-imports/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'file_name' => 'patientrec-imports-',
+            'max_size' => 10000,
+        );
+
+        $this->load->library('upload', $img_config);
+        $this->upload->initialize($img_config);
+
+        // use Google Vision
+        $imageAnnotatorClient = new ImageAnnotatorClient([
+            'credentials' => json_decode(file_get_contents('assets/Keys/epmc-credentials.json'), true),
+        ]);
+
+        if (!$this->upload->do_upload('importPatientrec')) {
+            $this->session->set_flashdata('error-import', $this->upload->display_errors());
+            redirect('Admin_patientrec');
+        }
+        if ($this->upload->data('file_name'))
+        {
+            $import = $this->upload->data('file_name');
+            $image_path = 'assets/img/patientrec-imports/' . $import;
+            $image_content = file_get_contents($image_path);
+        }
+
+        $response = $imageAnnotatorClient->documentTextDetection($image_content);
+        $fullTextAnnotation = $response->getFullTextAnnotation();
+
+        var_dump($fullTextAnnotation->getText());
+        die();
+
+
+        // use Google\Cloud\Vision\VisionClient;
+
+        // $vision = new VisionClient([
+        //     'keyFilePath' => json_decode(file_get_contents('./assets/Keys/epmcdb-81960-8f63b95988a1.json'), true)
+        // ]);
+
+        // $importpic = $this->upload->data('file_name');
+
+        // $image = $vision->image($importpic, ['DOCUMENT_TEXT_DETECTION']);
+
+        // $result = $vision->annotate($image);
+
+        // var_dump($result);
+        // die();
 
 
 
@@ -598,6 +697,7 @@ class Admin_patientrec extends CI_Controller
 
 
 
+    }
 
     public function logout()
     {

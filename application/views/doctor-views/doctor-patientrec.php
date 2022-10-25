@@ -111,28 +111,7 @@
             </div>
         </div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" onclick="formValidation()" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add Patient Record</span></button></div>
-        <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-import" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-3"><i class="fa fa-picture-o"></i><span class="d-none d-lg-inline-block ms-1">Add via Import</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><a id="btn-view-archives" href="<?= base_url('Admin_archives/index') ?>" class="btn btn-sm btn-dark" type="button"><i class="fas fa-file-archive"></i><span class="d-none d-lg-inline-block ms-1">Archives</span></a></div>
-        <div id="modal-3" class="modal fade" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title ms-3 fw-bolder">Add Via Import</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <?= form_open_multipart('Admin_patientrec/google_vision_ocr'); ?>
-                    <div class="modal-body mx-5">
-                        <p>Import image below.</p>
-
-                        <div class="input-group">
-                            <input class="form-control form-control-sm" name="importPatientrec" type="file" />
-                        </div>
-
-                    </div>
-                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary" type="submit">Save</button></div>
-                    <?= form_close(); ?>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -154,16 +133,6 @@
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully deleted a patient.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- display upload errors -->
-                    <?php elseif ($this->session->flashdata('error-import')) : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Error!</strong> <?= $this->session->flashdata('error-import'); ?></span>
                                 </div>
                             </div>
                         </div>
