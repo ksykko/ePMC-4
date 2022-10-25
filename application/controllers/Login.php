@@ -45,7 +45,7 @@ class Login extends CI_Controller
                 if ($result->role == 'patient') {
                     $sess_data = array(
                         'id' => $result->patient_id,
-                        'full_name' => $result->first_name .' '. $result->middle_name . ' ' . $result->last_name,
+                        'full_name' => $result->full_name,
                         'age' => $result->age,
                         'birth_date' => $result->birth_date,
                         'sex' => $result->sex,
@@ -59,12 +59,11 @@ class Login extends CI_Controller
                         'ec_contact_no' => $result->ec_contact_no,
                         'password' => $result->password,
                         'role' => $result->role,
-                        'avatar' => $result->avatar,
                         'logged_in' => TRUE
                     );
 
                     $this->session->set_userdata($sess_data);
-                    redirect('Patient');
+                    redirect('Users');
                 }
 
                 elseif ($result->role == 'Doctor') {
