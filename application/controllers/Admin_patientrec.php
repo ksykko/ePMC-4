@@ -1,6 +1,11 @@
 <?php
 
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+use Google\Cloud\Vision\V1\Feature;
+use Google\Cloud\Vision\V1\Feature\Type;
+use Google\Cloud\Vision\V1\AnnotateImageRequest;
+use Google\Cloud\Vision\V1\ImageSource;
+use Google\Cloud\Vision\V1\Image;
 
 class Admin_patientrec extends CI_Controller
 {
@@ -651,10 +656,7 @@ class Admin_patientrec extends CI_Controller
         $this->load->library('upload', $img_config);
         $this->upload->initialize($img_config);
 
-        // use Google Vision
-        $imageAnnotatorClient = new ImageAnnotatorClient([
-            'credentials' => json_decode(file_get_contents('assets/Keys/epmc-credentials.json'), true),
-        ]);
+        
 
         if (!$this->upload->do_upload('importPatientrec')) {
             $this->session->set_flashdata('error-import', $this->upload->display_errors());
@@ -667,44 +669,46 @@ class Admin_patientrec extends CI_Controller
             $image_content = file_get_contents($image_path);
         }
 
-        $response = $imageAnnotatorClient->documentTextDetection($image_content);
-        $fullTextAnnotation = $response->getFullTextAnnotation();
+        // ---------------------------------------------------------------- 
+        // $response = $imageAnnotatorClient->documentTextDetection($image_content); 
+        // $fullTextAnnotation = $response->getFullTextAnnotation(); 
 
-        // get Vision response from Google
-        
+
+        // redirect('Admin_patientrec');
+        // var_dump($fullTextAnnotation->getText());
+        // die();
+
+        // ---------------------------------------------------------------- 
+
+        // use Google Vision
+        $imageAnnotatorClient = new ImageAnnotatorClient([
+            'credentials' => json_decode(file_get_contents('assets/Keys/epmc-credentials.json'), true),
+        ]);
+
+
+        try {
+            $request = [
+                'image' => [
+                    'content' => $image_content,
+                ],
+                'features' => [
+                    [
+                        'type' => Feature\Type::DOCUMENT_TEXT_DETECTION,
+                    ],
+                ],
+            ];
+            $response = $imageAnnotatorClient->batchAnnotateFiles($request);
+        }
+        catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $fullTextAnnotation = $response->getResponses();
 
         var_dump($fullTextAnnotation);
         die();
 
-        // create and save to json file
-        $json = json_encode($fullTextAnnotation);
-        $json_file = 'assets/img/patientrec-imports/' . $import . '.json';
-        file_put_contents($json_file, $json);
-
-        echo json_encode($fullTextAnnotation);
         redirect('Admin_patientrec');
-        // var_dump($fullTextAnnotation->getText());
-        // die();
-
-
-        // use Google\Cloud\Vision\VisionClient;
-
-        // $vision = new VisionClient([
-        //     'keyFilePath' => json_decode(file_get_contents('./assets/Keys/epmcdb-81960-8f63b95988a1.json'), true)
-        // ]);
-
-        // $importpic = $this->upload->data('file_name');
-
-        // $image = $vision->image($importpic, ['DOCUMENT_TEXT_DETECTION']);
-
-        // $result = $vision->annotate($image);
-
-        // var_dump($result);
-        // die();
-
-
-
-
 
 
 
