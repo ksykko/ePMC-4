@@ -215,7 +215,16 @@
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                        <?php elseif ($this->session->flashdata('message') == 'edit_user_success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully updated a user.</span>
+                                </div>
+                            </div>
+                        </div>    
+                        <?php endif; ?>
                     <table id="useracc-table" class="table table-hover">
                         <thead>
                             <tr>
@@ -248,138 +257,148 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <?= form_open_multipart('Admin_useracc/edit_useracc'); ?>
-                    <div id="product-edit-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                    <?php foreach ($users as $user) : ?>
+                        <?php $updateUserInfoPath = 'Admin_useracc/edit_useracc/'. $user->user_id; ?>
+                        <?= form_open_multipart($updateUserInfoPath, array('id' => 'editUser')); ?>
+                        <div id="user-edit-modal-<?= $user->user_id?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
 
-                                <div class="modal-body mx-5">
-                                    <h5 class="heading-modal fw-semibold">Edit User</h5>
-                                    <hr size="5" />
-                                    <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">User ID:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control item_id" type="text" id="user_id" name="user_id" disabled />
+                                    <div class="modal-body mx-5">
+                                        <h5 class="heading-modal fw-semibold">Edit User</h5>
+                                        <hr size="5" />
+                                        <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">User ID:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- user_id -->
+                                                        <input class="form-control user_id" type="text" id="user_id" name="user_id" value="<?= $user->user_id ?>" disabled />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-4 mb-2">
-                                        <div class="col-3"><label class="col-form-label">First name:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- full_name -->
-                                                    <input class="form-control first_name" type="text" id="first_name" name="first_name" />
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col-3"><label class="col-form-label">First name:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- full_name -->
+                                                        <input class="form-control first_name" type="text" id="first_name" name="first_name" value="<?= $user->first_name ?>"/>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('first_name') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('first_name') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Last name:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="last_name" name="last_name" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Last name:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control prod_dosage" type="text" id="last_name" name="last_name" value="<?= $user->last_name ?>"/>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('last_name') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('last_name') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Username:</label></div>
-                                        <div class="col-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control prod_dosage" type="text" id="username" name="username" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Username:</label></div>
+                                            <div class="col-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control prod_dosage" type="text" id="username" name="username" value="<?= $user->username ?>"/>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('username') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('username') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Role:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- role -->
-                                                    <select class="form-select" id="role" name="role" value="<?= set_value('role'); ?>">
-                                                        <option value="select" selected>select...</option>
-                                                        <option value="admin">Admin</option>
-                                                        <option value="physician">Physician</option>
-                                                        <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                    </select>
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Role:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- role -->
+                                                        <select class="form-select" id="role" name="role">
+                                                            <option value="<?= ucfirst($user->role) ?>" selected><?= ucfirst($user->role) ?></option>
+                                                            <?php if (ucfirst($user->role) == 'Admin') : ?>
+                                                                <option value="physician">Physician</option>
+                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                                            <?php elseif (ucfirst($user->role) == 'Physician') : ?>
+                                                                <option value="admin">Admin</option>
+                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                                            <?php elseif (ucfirst($user->role) == 'Pharmacy Assistant') : ?>
+                                                            <option value="admin">Admin</option>
+                                                            <option value="physician">Physician</option>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('role') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('role') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Specialization:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control quantity" type="text" id="specialization" name="specialization" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Specialization:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control quantity" type="text" id="specialization" name="specialization" value="<?= $user->specialization ?>"/>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('specialization') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('specialization') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Birthdate:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Birthdate:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= $user->birth_date ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('birth_date') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('birth_date') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Contact #:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control stock_out" type="text" id="contact_no" name="contact_no" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Contact #:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control stock_out" type="text" id="contact_no" name="contact_no" value="<?= $user->contact_no ?>"/>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('contact_no') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('contact_no') ?></small>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col-3"><label class="col-form-label">Email address:</label></div>
-                                        <div class="col-9 col-sm-9">
-                                            <div class="input-error">
-                                                <div class="input-group">
-                                                    <!-- TODO: -->
-                                                    <input class="form-control" type="email" id="email" name="email" value="<?= set_value('email'); ?>" />
+                                        <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Email address:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- TODO: -->
+                                                        <input class="form-control" type="email" id="email" name="email" value="<?= $user->email ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('email') ?></small>
                                                 </div>
-                                                <small class="text-danger"><?= form_error('email') ?></small>
                                             </div>
                                         </div>
+                                        <br><br><br>
+                                        <input type="hidden" name="item_id" class="item_id">
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" id="editUser" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
-                                    <br><br><br>
-                                    <input type="hidden" name="item_id" class="item_id">
-                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?= form_close(); ?>
+                        <?= form_close(); ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>

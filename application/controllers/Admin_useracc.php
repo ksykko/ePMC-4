@@ -24,7 +24,7 @@ class Admin_useracc extends CI_Controller {
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/useraccounts-view', $data);
-            $this->load->view('include-admin/useraccounts-scripts');
+            $this->load->view('include-admin/useraccounts-scripts', $data);
         } else {
             redirect('Login/signin');
         }
@@ -55,8 +55,8 @@ class Admin_useracc extends CI_Controller {
             $row[] = '
                 <td class="text-center" colspan="1">
                 
-                <button class="btn btn-light mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#product-edit-modal" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_specialization="' . $user->specialization . '" data-user_birthdate="' . $user->birth_date. '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
-                    <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $user->user_id . ' "><i class="far fa-trash-alt"></i></button> 
+                <button class="btn btn-light mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#user-edit-modal-'. $user->user_id .'" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_specialization="' . $user->specialization . '" data-user_birthdate="' . $user->birth_date. '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
+                <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $user->user_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
             $data[] = $row;
@@ -70,7 +70,7 @@ class Admin_useracc extends CI_Controller {
             "data" => $data
         );
         echo json_encode($output);
-        exit();
+        // exit();
     }
 
     public function add_useracc_validation() {
@@ -170,9 +170,11 @@ class Admin_useracc extends CI_Controller {
 
     }
 
-    public function edit_useracc()
+    public function edit_useracc($id)
     {   
-        $this->form_validation->set_rules('user_id', 'User id');
+        $data['user'] = $this->Admin_model->get_useracc_row($id);
+
+        // $this->form_validation->set_rules('user_id', 'User id');
 
         $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
@@ -198,10 +200,6 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('gender', 'Gender', 'required', array(
-            'required' => 'Please enter user\'s %s.'
-        ));
-
         $this->form_validation->set_rules('contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
             'required' => 'Please enter user\'s %s.',
             'numeric' => 'Please enter a valid %s.'
@@ -212,13 +210,13 @@ class Admin_useracc extends CI_Controller {
             'valid_email' => 'Please enter a valid %s.'
         ));
        
-        if ($this->form_validation->run() == TRUE)
+        if ($this->form_validation->run() == FALSE)
         {
             $this->index();
+            echo 'error';
         }
         else
         {   
-            $id = $this->input->post('user_id');
             $editUser = $this->input->post('editUser');
             if (isset($editUser))
             {
@@ -235,7 +233,7 @@ class Admin_useracc extends CI_Controller {
                 );
             }
 
-            $this->session->set_flashdata('success', 'User successfully updated.');
+            $this->session->set_flashdata('message', 'edit_user_success');
             $this->Admin_model->edit_useracc($id, $info);
             redirect('Admin_useracc/index');  
 
