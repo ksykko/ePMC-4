@@ -400,7 +400,6 @@ class Admin_model extends CI_Model
     }
     // END OF patient_lab_reports table
 
-
     // START OF age range chart
     public function get_age_range()
     {
@@ -427,6 +426,21 @@ class Admin_model extends CI_Model
     }
 
     // END OF bmi data chart
+
+    // START OF gender data chart
+    public function get_gender_data()
+    {
+        // get gender from patient_records table
+        $this->db->select('sex');
+        $this->db->from('patient_record');
+        $query = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+
+    // END OF gender data chart
 
 
 
