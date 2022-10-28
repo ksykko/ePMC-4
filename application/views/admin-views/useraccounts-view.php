@@ -223,7 +223,17 @@
                                         <strong>Success!</strong> You successfully updated a user.</span>
                                 </div>
                             </div>
-                        </div>    
+                        </div>  
+                        <?php elseif ($this->session->flashdata('message') == 'dlt_user_success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully deleted a user.</span>
+                                </div>
+                            </div>
+                        </div> 
+                        
                         <?php endif; ?>
                     <table id="useracc-table" class="table table-hover">
                         <thead>

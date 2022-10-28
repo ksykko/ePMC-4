@@ -256,6 +256,7 @@ class Admin_useracc extends CI_Controller {
     }
 
     public function delete_useracc($id) {
+        $this->session->set_flashdata('message', 'dlt_user_success');
         $this->Admin_model->delete_useracc($id);
         redirect('Admin_useracc/index');
     }
