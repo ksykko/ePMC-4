@@ -132,12 +132,47 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">Patient Satisfaction</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas class="align-items-center" id="sampleChart2"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
+                <div class="col-lg-7 col-xl-8">
+                    <div class="card shadow mb-4 h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's BMI Overview</h6>
+                        </div>
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas class=" align-items-center" id="sampleChart2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 col-xl-4">
+                    <div class="card shadow mb-4 h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patients' Sex Overview</h6>
+                        </div>
+                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                            <div class="chart-area">
+                                <canvas class=" align-items-center" id="sampleChart3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                
+
         </div>
+
+        
 
     </div>
     
@@ -238,6 +273,62 @@
             }
         }
     });
+
+    let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
+    let satisfactionChart = new Chart(sampleChart2, {
+        type: 'polarArea',
+        data: {
+            labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very Unsatisfied'],
+            datasets: [{
+                label: 'Satisfaction',
+                data: [59, 20, 42, 16, 4],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: true,
+        }
+        
+    })
+
+    var genderData = JSON.parse('<?= $gender_data; ?>');
+    console.log(genderData);
+
+    let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
+    let genderChart = new Chart(sampleChart3, {
+        type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ['Male', 'Female'],
+            datasets: [{
+                label: 'Sex',
+                data: [genderData['male'], genderData['female']],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        }
+    })
 </script>
 
 
