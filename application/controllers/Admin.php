@@ -18,6 +18,7 @@ class Admin extends CI_Controller {
 
             $data['user_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
+            $data['user_specialization'] = $this->session->userdata('specialization');
             $data['product'] = $this->Admin_model->get_inventory_row($id);
             $data['inventory_stocks'] = $this->Admin_model->get_inventory_table_contents();
             $data['users_count'] = $this->Admin_model->get_useracc_count();

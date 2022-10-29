@@ -35,6 +35,7 @@ class Patient_patientrec extends CI_Controller
             // $data['patients'] = $this->Admin_model->get_patient_table();
             $data['patient_id'] = $id;
             $data['user_role'] = $this->session->userdata('role');
+            $data['user_specialization'] = $this->session->userdata('specialization');
 
             $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);
             $this->load->view('include-admin/dashboard-header', $data);
