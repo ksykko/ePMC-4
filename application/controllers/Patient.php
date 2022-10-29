@@ -18,6 +18,7 @@ class Patient extends CI_Controller {
 
             $data['user_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
+            $data['user_specialization'] = $this->session->userdata('specialization');
             $data['user_age'] = $this->session->userdata('age');
             $data['user_birthday'] = $this->session->userdata('birth_date');
             $data['user_sex'] = $this->session->userdata('sex');
