@@ -16,9 +16,9 @@ body {
     padding: 0;
 }
 
-i {
+/* i {
     margin-right: 10px;
-}
+} */
 
 
 /* ---------horizontal-navbar-menu-----------*/
@@ -593,7 +593,32 @@ i {
         flex-direction: row;
         flex-basis: 100%;
     }
+}    
+
+@media (max-width: 850px){
+    .inventory-container, .patientrec-container, .schedule {
+        padding: 5% !important;
+    }
+
+    .navbar-icon{
+        margin: 19px !important;
+        border: 0;
+        background-color: rgb(26, 40, 78);
+    }
 }
+
+@media (max-width: 1360px){
+    .inventory-container, .patientrec-container, .schedule {
+        padding: 5% !important;
+    }
+
+    .navbar-icon{
+        margin: 19px !important;
+        border: 0;
+        background-color: rgb(26, 40, 78);
+    }
+}
+
 
 
 /* Inventory Page CSS */
@@ -601,7 +626,7 @@ i {
 .inventory-container {
     width: 100%;
     height: 100vh;
-    padding: 70px !important;
+    padding: 70px;
 }
 
 .inv-td {
@@ -643,7 +668,7 @@ i {
 .patientrec-container {
     width: 100%;
     height: 100vh;
-    padding: 70px !important;
+    padding: 70px;
 }
 
 .search-input {
