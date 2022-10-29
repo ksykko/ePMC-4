@@ -24,7 +24,8 @@ class Admin extends CI_Controller {
             $data['patient_count'] = $this->Admin_model->get_patient_count();
             $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
 
-            $data['chart_data'] = $this->ageRange_chart_js();
+            $data['chart_data'] = $this->ageRange_chart();
+            $data['gender_data'] = $this->gender_chart();
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
@@ -37,7 +38,7 @@ class Admin extends CI_Controller {
         }
     }
 
-    public function ageRange_chart_js()
+    public function ageRange_chart()
     {
         // get age range data from database
         $query = $this->Admin_model->get_age_range();
@@ -103,6 +104,41 @@ class Admin extends CI_Controller {
         }
 
         return $age_range['chart_data'] = json_encode($age_range);
+    }
+
+    public function gender_chart()
+    {
+        // get no. gender data from database
+        $query = $this->Admin_model->get_gender_data();
+
+        // var_dump($query);
+        // die();
+        // store data in array
+        $gender_data = [
+            'male' => 0,
+            'female' => 0,
+        ];
+        
+        // loop through the data and store in array
+        foreach ($query as $row)
+        {
+            if ($row->sex == 'Male')
+            {
+                $gender_data['male'] = $gender_data['male'] + 1;
+            }
+            else {
+                $gender_data['female'] = $gender_data['female'] + 1;
+            }
+
+        }
+
+        return $gender_data['chart_data'] = json_encode($gender_data);
+
+    }
+
+    public function weekly_added_patients()
+    {
+        
     }
 }
 
