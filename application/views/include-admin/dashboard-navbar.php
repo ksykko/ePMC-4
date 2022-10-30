@@ -2,7 +2,7 @@
     
     <nav class="navbar navbar-expand-custom navbar-mainbg">
         <a class="navbar-brand navbar-logo" href="#">ePMC</a>
-        <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-icon" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,8 +46,8 @@
                     <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
                         <a class="nav-link" href="<?= site_url('Doctor_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
                     </li> 
-
-                <?php } elseif ($user_role == 'Pharmacy assistant' || $user_role == 'pharmacy assistant'){?>
+                
+                <?php } elseif ($user_role == 'Pharmacy Assistant' || $user_role == 'pharmacy assistant' || $user_specialization == 'Pharmacy Assistant' || $user_specialization == 'pharmacy assistant'){?>
                     <li <?php if($this->uri->segment(1) == "Admin_inventory"){echo 'class="active"';}?> class="nav-item">
                         <a class="nav-link" href="<?= site_url('Admin_inventory/index') ?>"><i class="far fa-chart-bar"></i>Inventory</a>
                     </li>  

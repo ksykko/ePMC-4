@@ -86,6 +86,7 @@ class Login extends CI_Controller
                     $sess_data = array(
                         'id' => $result->admin_id,
                         'full_name' => $result->full_name,
+                        'specialization' => $result->specialization,
                         'email' => $result->email,
                         'role' => $result->role,
                         'logged_in' => TRUE
