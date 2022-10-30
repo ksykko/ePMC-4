@@ -1,11 +1,8 @@
 <?php
 
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
-use Google\Cloud\Vision\V1\Feature;
-use Google\Cloud\Vision\V1\Feature\Type;
-use Google\Cloud\Vision\V1\AnnotateImageRequest;
-use Google\Cloud\Vision\V1\ImageSource;
-use Google\Cloud\Vision\V1\Image;
+use Google\Cloud\Vision\VisionClient;
+
 
 class Admin_patientrec extends CI_Controller
 {
@@ -656,14 +653,13 @@ class Admin_patientrec extends CI_Controller
         $this->load->library('upload', $img_config);
         $this->upload->initialize($img_config);
 
-        
+
 
         if (!$this->upload->do_upload('importPatientrec')) {
             $this->session->set_flashdata('error-import', $this->upload->display_errors());
             redirect('Admin_patientrec');
         }
-        if ($this->upload->data('file_name'))
-        {
+        if ($this->upload->data('file_name')) {
             $import = $this->upload->data('file_name');
             $image_path = 'assets/img/patientrec-imports/' . $import;
             $image_content = file_get_contents($image_path);
@@ -685,35 +681,17 @@ class Admin_patientrec extends CI_Controller
             'credentials' => json_decode(file_get_contents('assets/Keys/epmc-credentials.json'), true),
         ]);
 
+        // get full response including bounding boxes
+        $response = $imageAnnotatorClient->documentTextDetection($image_content);
+        $fullTextAnnotation = $response->getFullTextAnnotation();
 
-        try {
-            $request = [
-                'image' => [
-                    'content' => $image_content,
-                ],
-                'features' => [
-                    [
-                        'type' => Feature\Type::DOCUMENT_TEXT_DETECTION,
-                    ],
-                ],
-            ];
-            $response = $imageAnnotatorClient->batchAnnotateFiles($request);
-        }
-        catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        // get 
 
-        $fullTextAnnotation = $response->getResponses();
+
+
 
         var_dump($fullTextAnnotation);
         die();
-
-        redirect('Admin_patientrec');
-
-
-
-
-
     }
 
     public function logout()
