@@ -21,6 +21,7 @@ class Doctors extends CI_Controller {
 
             $data['full_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
+            $data['user_specialization'] = $this->session->userdata('specialization');
             $data['avatar'] = $this->session->userdata('avatar');
             $data['specialization'] = $this->session->userdata('specialization');
             $data['product'] = $this->Admin_model->get_inventory_row($id);
