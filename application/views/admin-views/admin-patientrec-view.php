@@ -202,7 +202,7 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="<?= base_url('/assets/js/Vision.js') ?>"></script>
+
 <script>
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
@@ -403,4 +403,16 @@
             console.log($('#regForm'));
         })
     });
+</script> -->
+<!-- <script>
+    const vision = require('@google-cloud/vision');
+
+    const client = new vision.ImageAnnotatorClient();
+
+    const fileName = '<?= base_url('/assets/img/patientrec-imports/patientrec-imports-1.jpg')?>';
+
+    const [result] = client.textDetection(fileName);
+    const detections = result.textAnnotations;
+    console.log('Text:');
+    detections.forEach(text => console.log(text));
 </script> -->
