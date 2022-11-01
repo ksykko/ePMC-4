@@ -207,6 +207,10 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var form_data = JSON.parse('<?= $form_data ?>');
+
+</script>
 
 <script>
     var currentTab = 0; // Current tab is set to be the first tab (0)

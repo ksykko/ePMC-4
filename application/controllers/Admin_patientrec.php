@@ -1,8 +1,7 @@
 <?php
 
-use Google\Cloud\Vision\V1\ImageAnnotatorClient;
-use Google\Cloud\Vision\VisionClient;
-
+use Aws\Textract\TextractClient;
+use Aws\Exception\AwsException;
 
 class Admin_patientrec extends CI_Controller
 {
@@ -665,34 +664,177 @@ class Admin_patientrec extends CI_Controller
             $image_path = 'assets/img/patientrec-imports/' . $import;
             $image_content = file_get_contents($image_path);
         }
+       //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-.jpg'); // TESTING
 
-        // ---------------------------------------------------------------- 
-        // $response = $imageAnnotatorClient->documentTextDetection($image_content); 
-        // $fullTextAnnotation = $response->getFullTextAnnotation(); 
-
-
-        // redirect('Admin_patientrec');
-        // var_dump($fullTextAnnotation->getText());
-        // die();
-
-        // ---------------------------------------------------------------- 
-
-        // use Google Vision
-        $imageAnnotatorClient = new ImageAnnotatorClient([
-            'credentials' => json_decode(file_get_contents('assets/Keys/epmc-credentials.json'), true),
+        $textractClient = new TextractClient([
+            'version' => 'latest',
+            'region' => 'ap-southeast-1',
+            'credentials' => [
+                'key'    => 'AKIA2SWBFTYJC7NANFMK',
+                'secret' => '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'
+            ]
         ]);
 
-        // get full response including bounding boxes
-        $response = $imageAnnotatorClient->documentTextDetection($image_content);
-        $fullTextAnnotation = $response->getFullTextAnnotation();
+        $result = $textractClient->analyzeDocument([
+            'Document' => [ // REQUIRED
+                'Bytes' => $image_content
+            ],
+            'FeatureTypes' => ['FORMS', 'QUERIES'], // REQUIRED
+            'QueriesConfig' => [
+                'Queries' => [ // REQUIRED
+                    [
+                        'Text' => 'Name:'
+                    ],
+                    [
+                        'Text' => 'Mobile No.:'
+                    ],
+                    [
+                        'Text' => 'Address:'
+                    ],
+                    [
+                        'Text' => 'Tel. No.:'
+                    ],
+                    [
+                        'Text' => 'Birthday:'
+                    ],
+                    [
+                        'Text' => 'Age:'
+                    ],
+                    [
+                        'Text' => 'Sex:'
+                    ],
+                    [
+                        'Text' => 'Civil Status:'
+                    ],
+                    [
+                        'Text' => 'Weight:'
+                    ],
+                    [
+                        'Text' => 'Height:'
+                    ],
+                    [
+                        'Text' => 'Occupation:'
+                    ],
+                ],
+            ],
+        ]);
 
-        // get 
+        $blocks = $result->get('Blocks');
+
+        //$this->dd($blocks);
+        $ext_data = [
+            'Name' => '',
+            'Mobile No.' => '',
+            'Address' => '',
+            'Tel. No.' => '',
+            'Birthday' => '',
+            'Age' => '',
+            'Sex' => '',
+            'Civil Status' => '',
+            'Weight' => '',
+            'Height' => '',
+            'Occupation' => ''
+        ];
 
 
+        // Loop through the blocks and get the KEY and VALUE 
+        // foreach ($blocks as $key => $value) // $key = 0 - 200+
+        // {
+        //     foreach ($value as $key2 => $value2) // $key2 = BlockType, Confidence, Text, Geometry, Id, Relationships, EntityTypes
+        //     {
+        //         if ($key2 == 'BlockType')
+        //         {
+        //             if ($value2 == 'QUERY_RESULT')
+        //             {
+        //                 continue;
+        //             }
+        //         }
+        //         if ($key2 == 'Text')
+        //         {
+        //             echo $value2 . '<br>';
+        //         }
+        //     }
+        // }
 
+        foreach (end($blocks) as $key => $value)
+        {
+            if ($key == 'Text') {
+                $ext_data['Occupation'] = $value;
+            }
+        }
 
-        var_dump($fullTextAnnotation);
-        die();
+        foreach ($blocks[count($blocks)-3] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Height'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-5] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Weight'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-7] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Civil Status'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-9] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Sex'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-11] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Age'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-13] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Birthday'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-15] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Tel. No.'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-17] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Address'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-19] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Mobile No.'] = $value;
+            }
+        }
+
+        foreach ($blocks[count($blocks)-21] as $key => $value) 
+        {
+            if ($key == 'Text') {
+                $ext_data['Name'] = $value;
+            }
+        }
+        
+        $this->dd($ext_data);
+
     }
 
     public function logout()
@@ -701,7 +843,7 @@ class Admin_patientrec extends CI_Controller
         redirect('Login/signin');
     }
 
-    private function dd($data)
+    public function dd($data)
     {
         echo "<pre>";
         die(var_dump($data));

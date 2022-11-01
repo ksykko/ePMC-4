@@ -4,6 +4,7 @@
 <script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
 
+</script>
 <script type="text/javascript">
     const user_role = '<?= $user_role ?>';
 
@@ -100,7 +101,7 @@
                 url: "<?php echo site_url("Admin_patientrec/consul_dt/") . $patient->patient_id  ?>",
                 type: 'POST'
             },
-            
+
         });
     });
 </script>
