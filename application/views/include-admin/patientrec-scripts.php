@@ -1,9 +1,19 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
 <script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
 
+<?php $ext_data = $this->session->flashdata('success-import') ?>
+<script type="text/javascript">
+    var import_success = '<?= $ext_data['Name'] ?>';
+    console.log(import_success);
+    if (import_success) {
+        $(document).ready(function() {
+            $("#modal-verify").modal('show');
+        });
+    }
 </script>
 <script type="text/javascript">
     const user_role = '<?= $user_role ?>';
