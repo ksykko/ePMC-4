@@ -670,8 +670,8 @@ class Admin_patientrec extends CI_Controller
             'version' => 'latest',
             'region' => 'ap-southeast-1',
             'credentials' => [
-                'key'    => 'AKIA2SWBFTYJC7NANFMK',
-                'secret' => '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'
+                'key'    => 'AKIAYYGS3C66OXBV6ST3',
+                'secret' => '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'
             ]
         ]);
 
@@ -833,7 +833,23 @@ class Admin_patientrec extends CI_Controller
             }
         }
         
-        $this->dd($ext_data);
+    //    $ext_data = [
+    //         'Name' => 'Pedrito',
+    //         'Mobile No.' => '123',
+    //         'Address' => 'Cavite',
+    //         'Tel No.' => '456',
+    //         'Birthday' => 'Jan. 14',
+    //         'Age' => '48',
+    //         'Sex' => 'M',
+    //         'Civil Status' => 'Married',
+    //         'Weight' => '130lbs',
+    //         'Height' => '5',
+    //         'Occupation' => 'Tel Technician'
+    //     ];
+
+
+        $this->session->set_flashdata('success-import', $ext_data);
+        redirect('Admin_patientrec');
 
     }
 
