@@ -546,16 +546,15 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="card-prescription" class="card shadow mb-4" style="height: 548px;">
+                        <div class="card shadow mb-4">
                             <div class="card-header py-3 ch-patientrec">
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                             </div>
                             <div class="card-body mx-3">
-                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription"><?= $healthinfo->prescription ?></textarea></div>
-
+                                <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $healthinfo->prescription ?></textarea></div>
                             </div>
                         </div>
-                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 251px">
+                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 247px">
                             <div class="card-header py-3 ch-patientrec">
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
                             </div>
@@ -571,9 +570,9 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="card shadow mb-4">
+        <div class="card shadow mb-4">
             <div class="card-header py-3 ch-patientrec">
-                <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
+                <h6 class="m-0 fw-bold fs-5 ch-heading">Documents</h6>
             </div>
             <div class="card-body mx-3">
                 <div class="table-responsive">
@@ -597,7 +596,7 @@
                     </table>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="row row-cols-1">
             <div class="col">
                 <div class="card shadow mb-4">

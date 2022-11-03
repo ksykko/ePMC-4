@@ -144,55 +144,55 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title ms-3 fw-bolder">Verify Extracted Form Data</h4><button class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title ms-3 fw-bolder">Verify Extracted Patient Data</h4><button class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mx-3">
-                                <div class="col d-flex justify-content-center align-items-center mb-3 mb-sm-3"><img class="img-fluid" src="<?= base_url('/assets/img/patientrec-imports/patientrec-imports-.jpg') ?>" /></div>
+                                <div class="col d-flex justify-content-center align-items-center mb-3 mb-sm-3"><img class="img-fluid" src="<?= base_url('/assets/img/patientrec-imports/') . $ext_data['File'] ?>" /></div>
                                 <div class="col">
                                     <div class="row mb-3 mt-3">
                                         <div class="col"><label class="form-label">Name:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Name'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Name:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Mobile No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Mobile No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Mobile No.:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Address:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Address'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Address:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Tel No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Tel. No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Tel. No.:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Birthday:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Birthday'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Birthday:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Age:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Age'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Age:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Sex:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Sex'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Sex:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Civil Status:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Civil Status'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Civil Status:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Weight:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Weight'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Weight:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Height:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Height'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Height:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col col-6"><label class="form-label">Occupation:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Occupation'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Occupation:'] ?>" /></div>
                                         </div>
                                     </div>
                                 </div>
