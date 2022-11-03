@@ -7,7 +7,7 @@
 
 <?php $ext_data = $this->session->flashdata('success-import') ?>
 <script type="text/javascript">
-    var import_success = '<?= $ext_data['Name'] ?>';
+    var import_success = "<?= $ext_data['File'] ?>";
     console.log(import_success);
     if (import_success) {
         $(document).ready(function() {

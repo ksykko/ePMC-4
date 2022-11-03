@@ -639,7 +639,6 @@ class Admin_patientrec extends CI_Controller
         redirect('Admin_patientrec/view_patient/' . $patient_id);
     }
 
-
     public function google_vision_ocr()
     {
 
@@ -664,7 +663,7 @@ class Admin_patientrec extends CI_Controller
             $image_path = 'assets/img/patientrec-imports/' . $import;
             $image_content = file_get_contents($image_path);
         }
-       //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-.jpg'); // TESTING
+        //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
 
         $textractClient = new TextractClient([
             'version' => 'latest',
@@ -722,22 +721,24 @@ class Admin_patientrec extends CI_Controller
         $blocks = $result->get('Blocks');
 
         //$this->dd($blocks);
-        $ext_data = [
-            'Name' => '',
-            'Mobile No.' => '',
-            'Address' => '',
-            'Tel. No.' => '',
-            'Birthday' => '',
-            'Age' => '',
-            'Sex' => '',
-            'Civil Status' => '',
-            'Weight' => '',
-            'Height' => '',
-            'Occupation' => ''
-        ];
+
+        // $ext_data = [
+        //     'Name' => '',
+        //     'Mobile No.' => '',
+        //     'Address' => '',
+        //     'Tel. No.' => '',
+        //     'Birthday' => '',
+        //     'Age' => '',
+        //     'Sex' => '',
+        //     'Civil Status' => '',
+        //     'Weight' => '',
+        //     'Height' => '',
+        //     'Occupation' => '',
+        //     'File' => $import
+        // ];
 
 
-        // Loop through the blocks and get the KEY and VALUE 
+        // //Loop through the blocks and get the KEY and VALUE 
         // foreach ($blocks as $key => $value) // $key = 0 - 200+
         // {
         //     foreach ($value as $key2 => $value2) // $key2 = BlockType, Confidence, Text, Geometry, Id, Relationships, EntityTypes
@@ -755,101 +756,126 @@ class Admin_patientrec extends CI_Controller
         //         }
         //     }
         // }
-
-        foreach (end($blocks) as $key => $value)
-        {
-            if ($key == 'Text') {
-                $ext_data['Occupation'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-3] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Height'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-5] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Weight'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-7] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Civil Status'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-9] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Sex'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-11] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Age'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-13] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Birthday'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-15] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Tel. No.'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-17] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Address'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-19] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Mobile No.'] = $value;
-            }
-        }
-
-        foreach ($blocks[count($blocks)-21] as $key => $value) 
-        {
-            if ($key == 'Text') {
-                $ext_data['Name'] = $value;
-            }
-        }
         
-    //    $ext_data = [
-    //         'Name' => 'Pedrito',
-    //         'Mobile No.' => '123',
-    //         'Address' => 'Cavite',
-    //         'Tel No.' => '456',
-    //         'Birthday' => 'Jan. 14',
-    //         'Age' => '48',
-    //         'Sex' => 'M',
-    //         'Civil Status' => 'Married',
-    //         'Weight' => '130lbs',
-    //         'Height' => '5',
-    //         'Occupation' => 'Tel Technician'
-    //     ];
+        // Loop through the blocks and check if key "BlockType" => "QUERY_RESULT"
+        foreach ($blocks as $array)
+        {
+            foreach ($array as $key => $value)
+            {
+                if ($key == 'Query')
+                {
+                    foreach ($value as $key2 => $value2)
+                    {
+                        if ($key2 == 'Text')
+                        {
+                            //echo $value2 . '<br>';
+                            $ext_data[$value2] = '';
+                        }
+                    }
+                }
+
+                // if the last $array['BlockType'] == 'QUERY' and this $array['BlockType'] == 'QUERY_RESULT', then get the text
+                if ($value == 'QUERY')
+                {
+                    $prev = true;
+                    continue;
+                }
+
+                if (isset($prev) && $value == 'QUERY_RESULT')
+                {
+                    //echo $array['Text'] . '<br>';
+                    $ext_data[$value2] = $array['Text'];
+                }
+            }
+        } 
 
 
+        // foreach (end($blocks) as $key => $value)
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Occupation'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-3] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Height'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-5] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Weight'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-7] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Civil Status'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-9] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Sex'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-11] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Age'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-13] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Birthday'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-15] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Tel. No.'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-17] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Address'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-19] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Mobile No.'] = $value;
+        //     }
+        // }
+
+        // foreach ($blocks[count($blocks)-21] as $key => $value) 
+        // {
+        //     if ($key == 'Text') {
+        //         $ext_data['Name'] = $value;
+        //     }
+        // }
+
+        $ext_data['File'] = $import;
+        //$this->dd($ext_data);
+        
         $this->session->set_flashdata('success-import', $ext_data);
         redirect('Admin_patientrec');
+
+    }
+
+    public function verify_import(){
 
     }
 
