@@ -15,6 +15,22 @@
         });
     }
 </script>
+<script>
+    const toastTrigger = document.getElementById('liveToastTrigger')
+    const toastLiveExample = document.getElementById('liveToast')
+
+    var $active_toast = "<?= $this->session->flashdata('message') ?>"
+    var $err_toast = "<?= $this->session->flashdata('error-import') ?>"
+    var $err_img = "<?= $this->session->flashdata('error-profilepic') ?>"
+    var $err_info = "<?= $this->session->flashdata('error') ?>"
+
+    if (toastTrigger) {
+        if ($active_toast || $err_toast || $err_img || $err_info) {
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
+    }
+</script>
 <script type="text/javascript">
     const user_role = '<?= $user_role ?>';
 

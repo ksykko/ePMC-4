@@ -290,45 +290,43 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
-                    <?php if ($this->session->flashdata('message') == 'success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully added a new patient.</span>
-                                </div>
+                    <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <?php if ($this->session->flashdata('message') == 'success') : ?>
+                            <div class="toast-header text-bg-success bg-opacity-100">
+                                <strong class="me-auto">Success!</strong>
+                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
-                        </div>
-                    <?php elseif ($this->session->flashdata('message') == 'import-success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully imported a new patient.</span>
-                                </div>
+                            <div class="toast-body bg-opacity-50">
+                                <span>You successfully added a new patient.</span>
                             </div>
-                        </div>
-                    <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully deleted a patient.</span>
-                                </div>
+                        <?php elseif ($this->session->flashdata('message') == 'import-success') : ?>
+                            <div class="toast-header text-bg-success bg-opacity-100">
+                                <strong class="me-auto">Success!</strong>
+                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
-                        </div>
-                        <!-- display upload errors -->
-                    <?php elseif ($this->session->flashdata('error-import')) : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Error!</strong> <?= $this->session->flashdata('error-import'); ?></span>
-                                </div>
+                            <div class="toast-body bg-opacity-50">
+                                <span>You successfully imported a new patient.</span>
                             </div>
+                        <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
+                            <div class="toast-header text-bg-success bg-opacity-100">
+                                <strong class="me-auto">Success!</strong>
+                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body bg-opacity-50">
+                                <span>You successfully deleted a patient.</span>
+                            </div>
+                        <?php elseif ($this->session->flashdata('error-import')) : ?>
+                            <div class="toast-header text-bg-danger bg-opacity-100">
+                                <strong class="me-auto">Error!</strong>
+                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body bg-opacity-50">
+                                <span><?= $this->session->flashdata('error-import'); ?></span>
+                            </div>
+                        <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-
+                    </div>
                     <table id="example" class="table table-hover">
                         <thead>
                             <tr>

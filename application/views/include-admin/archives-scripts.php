@@ -3,7 +3,24 @@
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
 <script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
+<script>
+    const toastTrigger = document.getElementById('liveToastTrigger')
+    const toastLiveExample = document.getElementById('liveToast')
 
+    var $active_toast = "<?= $this->session->flashdata('message') ?>"
+
+    if (toastTrigger) {
+        if ($active_toast) {
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+        }
+        toastTrigger.addEventListener('click', () => {
+            const toast = new bootstrap.Toast(toastLiveExample)
+
+            toast.show()
+        })
+    }
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#example').DataTable({

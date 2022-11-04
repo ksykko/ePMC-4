@@ -10,17 +10,19 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
-                    <?php if ($this->session->flashdata('message') == 'rstr_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully restore a patient record.</span>
+                    <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                            <?php if ($this->session->flashdata('message') == 'rstr_success') : ?>
+                                <div class="toast-header text-bg-success bg-opacity-75">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
-                            </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully restore a patient record.</span>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-
+                    </div>
                     <table id="example" class="table table-hover">
                         <thead>
                             <tr>
