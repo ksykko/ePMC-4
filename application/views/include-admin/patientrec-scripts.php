@@ -33,10 +33,10 @@
 
             //Set column definition initialisation properties.
             "columnDefs": [{
-                "targets": [3], //first column / numbering column
+                "targets": [4], //first column / numbering column
                 "orderable": false, //set not orderable
                 "className": "text-center",
-                "targets": [3]
+                "targets": [4]
             }]
         });
 

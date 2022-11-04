@@ -54,10 +54,14 @@ class Admin_patientrec extends CI_Controller
 
             $no++;
             // $editId = 'edit-patient-' . $patient->patient_id;
+
+            $dt = new DateTime($patient->date_created);
+            $date_added = $dt->format('Y-m-d');
             $row = array();
             $row[] = $no;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
-            $row[] = $patient->last_checkup;
+            $row[] = $date_added;
+            $row[] = $patient->type;
             $row[] = '
                 <td class="text-center" colspan="1"> 
                     <a class="btn btn-sm btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
@@ -272,6 +276,7 @@ class Admin_patientrec extends CI_Controller
                 'age' => $this->input->post('age'),
                 'birth_date' => $this->input->post('birth_date'),
                 'sex' => $this->input->post('sex'),
+                'civil_status' => $this->input->post('civil_status'),
                 'occupation' => $this->input->post('occupation'),
                 'address' => $this->input->post('address'),
                 'cell_no' => $this->input->post('cell_no'),
@@ -398,6 +403,7 @@ class Admin_patientrec extends CI_Controller
                 'age' => $this->input->post('age'),
                 'birth_date' => $this->input->post('birth_date'),
                 'sex' => $this->input->post('sex'),
+                'civil_status' => $this->input->post('civil_status'),
                 'occupation' => $this->input->post('occupation'),
                 'address' => $this->input->post('address'),
                 'cell_no' => $this->input->post('cell_no'),
@@ -407,6 +413,7 @@ class Admin_patientrec extends CI_Controller
                 'relationship' => $this->input->post('relationship'),
                 'ec_contact_no' => $this->input->post('ec_contact_no'),
                 'password' => $this->input->post('birth_date'),
+                'type' => 'added',
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
                 'last_checkup' => date('Y-m-d H:i:s'),
@@ -439,6 +446,241 @@ class Admin_patientrec extends CI_Controller
                 redirect('Doctor_patientrec');
             }
         }
+    }
+
+    public function aws_textract_ocr()
+    {
+
+        $img_config = array(
+            'upload_path' => './assets/img/patientrec-imports/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'file_name' => 'patientrec-imports-',
+            'max_size' => 10000,
+        );
+
+        $this->load->library('upload', $img_config);
+        $this->upload->initialize($img_config);
+
+
+
+        if (!$this->upload->do_upload('importPatientrec')) {
+            $this->session->set_flashdata('error-import', $this->upload->display_errors());
+            redirect('Admin_patientrec');
+        }
+        if ($this->upload->data('file_name')) {
+            $import = $this->upload->data('file_name');
+            $image_path = 'assets/img/patientrec-imports/' . $import;
+            $image_content = file_get_contents($image_path);
+        }
+        //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
+
+        $textractClient = new TextractClient([
+            'version' => 'latest',
+            'region' => 'ap-southeast-1',
+            'credentials' => [
+                'key'    => 'AKIAYYGS3C66OXBV6ST3',
+                'secret' => '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'
+            ]
+        ]);
+
+        $result = $textractClient->analyzeDocument([
+            'Document' => [ // REQUIRED
+                'Bytes' => $image_content
+            ],
+            'FeatureTypes' => ['QUERIES'], // REQUIRED
+            'QueriesConfig' => [
+                'Queries' => [ // REQUIRED
+                    [
+                        'Text' => 'Name:'
+                    ],
+                    [
+                        'Text' => 'Mobile No.:'
+                    ],
+                    [
+                        'Text' => 'Address:'
+                    ],
+                    [
+                        'Text' => 'Tel. No.:'
+                    ],
+                    [
+                        'Text' => 'Birthday:'
+                    ],
+                    [
+                        'Text' => 'Age:'
+                    ],
+                    [
+                        'Text' => 'Sex:'
+                    ],
+                    [
+                        'Text' => 'Civil Status:'
+                    ],
+                    [
+                        'Text' => 'Weight:'
+                    ],
+                    [
+                        'Text' => 'Height:'
+                    ],
+                    [
+                        'Text' => 'Occupation:'
+                    ],
+                ],
+            ],
+        ]);
+
+        $blocks = $result->get('Blocks');
+
+        // Loop through the blocks and check if key "BlockType" => "QUERY_RESULT"
+        foreach ($blocks as $array) {
+            foreach ($array as $key => $value) // $array = ['BlockTypes], ['Geometry'], ['Relationships'], etc.
+            {
+                if ($key == 'Query') {
+                    foreach ($value as $key2 => $value2) {
+                        if ($key2 == 'Text') {
+                            //echo $value2 . '<br>';
+                            $ext_data[$value2] = '';
+                        }
+                    }
+                }
+
+                // if the last $array['BlockType'] == 'QUERY' and this $array['BlockType'] == 'QUERY_RESULT', then get the text
+                if ($value == 'QUERY') {
+                    $prev = true;
+                    continue;
+                }
+
+                if (isset($prev) && $value == 'QUERY_RESULT') {
+                    //echo $array['Text'] . '<br>';
+                    $ext_data[$value2] = $array['Text'];
+                }
+            }
+        }
+
+        $ext_data['File'] = $import;
+
+        $ext_data = $this->format_import($ext_data);
+        //$this->dd($ext_data);
+
+        $this->session->set_flashdata('success-import', $ext_data);
+        redirect('Admin_patientrec');
+    }
+
+    public function format_import($ext_data)
+    {
+        // format extracted data
+        $name = ucwords(strtolower($ext_data['Name:']));
+
+        // if birth_date is null then set to null
+        if ($ext_data['Birthday:'] == '') {
+            $ext_data['Birthday:'] = null;
+        } else {
+            $birth_date = date('Y-m-d', strtotime($ext_data['Birthday:']));
+        }
+        $occupation = ucwords(strtolower($ext_data['Occupation:']));
+
+        $sex = strtolower($ext_data['Sex:']);
+        if ($sex == 'Male' || $sex == 'M' || $sex == 'm' || $sex == 'male') {
+            $sex = 'Male';
+        } elseif ($sex == 'Female' || $sex == 'F' || $sex == 'f' || $sex == 'female') {
+            $sex = 'Female';
+        }
+
+        $address = ucwords(strtolower($ext_data['Address:']));
+
+        // convert lbs to kg
+        if (str_contains($ext_data['Weight:'], 'lbs')) {
+            $weight = (int) filter_var($ext_data['Weight:'], FILTER_SANITIZE_NUMBER_INT);
+            $weight = $weight * 0.453592;
+            $weight = round($weight);
+        } 
+        // if empty, set to null
+        elseif ($ext_data['Weight:'] == '') {
+            $weight = null;
+        }
+        else {
+            $weight = (int) filter_var($ext_data['Weight:'], FILTER_SANITIZE_NUMBER_INT);
+        }
+
+        $formatted_data = [
+            'Name' => $name,
+            'Mobile No.' => $ext_data['Mobile No.:'],
+            'Address' => $address,
+            'Tel. No.' => $ext_data['Tel. No.:'],
+            'Birthday' => $birth_date,
+            'Age' => $ext_data['Age:'],
+            'Sex' => $sex,
+            'Civil Status' => $ext_data['Civil Status:'],
+            'Weight' => $weight,
+            'Height' => $ext_data['Height:'],
+            'Occupation' => $occupation,
+            'File' => $ext_data['File'],
+        ];
+
+        //$this->dd($formatted_data);
+
+        return $formatted_data;
+    }
+
+    public function verify_import()
+    {
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     $this->session->set_flashdata('error-import', validation_errors());
+        //     $this->dd(validation_errors());
+        //     redirect('Admin_patientrec');
+        // } else {
+            $submit = $this->input->post('save_verified');
+
+            if (isset($submit)) {
+
+                $info = array(
+                    'first_name' => $this->input->post('name'),
+                    'cell_no' => $this->input->post('mobile_no'),
+                    'address' => $this->input->post('address'),
+                    'tel_no' => $this->input->post('tel_no'),
+                    'birth_date' => $this->input->post('birthday'),
+                    'age' => $this->input->post('age'),
+                    'sex' => $this->input->post('sex'),
+                    'civil_status' => $this->input->post('civil_status'),
+                    'occupation' => $this->input->post('occupation'),
+                    'password' => $this->input->post('birthday'),
+                    'type' => 'import',
+                    'role' => 'patient',
+                    'avatar' => 'default-avatar.png',
+                    'activation_code' => random_string('alnum', 16),
+                    'status' => '0',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+            }
+
+            $insert_id = $this->Admin_model->add_patient($info);
+
+            $patientDetails = array(
+                'patient_id' => $insert_id,
+                'height' => $this->input->post('height'),
+                'weight' => $this->input->post('weight'),
+            );
+
+            $documents = array(
+                'patient_id' => $insert_id,
+                'import' => $this->input->post('file'),
+            );
+
+            $setId = array(
+                'patient_id' => $insert_id,
+            );
+
+            $this->session->set_flashdata('message', 'import-success');
+            $this->Admin_model->add_patient_details($patientDetails);
+            $this->Admin_model->add_patient_diagnosis($setId);
+            $this->Admin_model->add_patient_lab_reports($documents);
+            $this->Admin_model->add_patient_treatment_plan($setId);
+
+            if ($this->session->userdata('role') == 'Admin') {
+                redirect('Admin_patientrec');
+            } else {
+                redirect('Doctor_patientrec');
+            }
+        //}
     }
 
 
@@ -637,246 +879,6 @@ class Admin_patientrec extends CI_Controller
         $this->Admin_model->delete_patient_treatment($id);
         $this->session->set_flashdata('message', 'success-dlt-treatment');
         redirect('Admin_patientrec/view_patient/' . $patient_id);
-    }
-
-    public function google_vision_ocr()
-    {
-
-        $img_config = array(
-            'upload_path' => './assets/img/patientrec-imports/',
-            'allowed_types' => 'jpg|jpeg|png',
-            'file_name' => 'patientrec-imports-',
-            'max_size' => 10000,
-        );
-
-        $this->load->library('upload', $img_config);
-        $this->upload->initialize($img_config);
-
-
-
-        if (!$this->upload->do_upload('importPatientrec')) {
-            $this->session->set_flashdata('error-import', $this->upload->display_errors());
-            redirect('Admin_patientrec');
-        }
-        if ($this->upload->data('file_name')) {
-            $import = $this->upload->data('file_name');
-            $image_path = 'assets/img/patientrec-imports/' . $import;
-            $image_content = file_get_contents($image_path);
-        }
-        //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
-
-        $textractClient = new TextractClient([
-            'version' => 'latest',
-            'region' => 'ap-southeast-1',
-            'credentials' => [
-                'key'    => 'AKIAYYGS3C66OXBV6ST3',
-                'secret' => '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'
-            ]
-        ]);
-
-        $result = $textractClient->analyzeDocument([
-            'Document' => [ // REQUIRED
-                'Bytes' => $image_content
-            ],
-            'FeatureTypes' => ['FORMS', 'QUERIES'], // REQUIRED
-            'QueriesConfig' => [
-                'Queries' => [ // REQUIRED
-                    [
-                        'Text' => 'Name:'
-                    ],
-                    [
-                        'Text' => 'Mobile No.:'
-                    ],
-                    [
-                        'Text' => 'Address:'
-                    ],
-                    [
-                        'Text' => 'Tel. No.:'
-                    ],
-                    [
-                        'Text' => 'Birthday:'
-                    ],
-                    [
-                        'Text' => 'Age:'
-                    ],
-                    [
-                        'Text' => 'Sex:'
-                    ],
-                    [
-                        'Text' => 'Civil Status:'
-                    ],
-                    [
-                        'Text' => 'Weight:'
-                    ],
-                    [
-                        'Text' => 'Height:'
-                    ],
-                    [
-                        'Text' => 'Occupation:'
-                    ],
-                ],
-            ],
-        ]);
-
-        $blocks = $result->get('Blocks');
-
-        //$this->dd($blocks);
-
-        // $ext_data = [
-        //     'Name' => '',
-        //     'Mobile No.' => '',
-        //     'Address' => '',
-        //     'Tel. No.' => '',
-        //     'Birthday' => '',
-        //     'Age' => '',
-        //     'Sex' => '',
-        //     'Civil Status' => '',
-        //     'Weight' => '',
-        //     'Height' => '',
-        //     'Occupation' => '',
-        //     'File' => $import
-        // ];
-
-
-        // //Loop through the blocks and get the KEY and VALUE 
-        // foreach ($blocks as $key => $value) // $key = 0 - 200+
-        // {
-        //     foreach ($value as $key2 => $value2) // $key2 = BlockType, Confidence, Text, Geometry, Id, Relationships, EntityTypes
-        //     {
-        //         if ($key2 == 'BlockType')
-        //         {
-        //             if ($value2 == 'QUERY_RESULT')
-        //             {
-        //                 continue;
-        //             }
-        //         }
-        //         if ($key2 == 'Text')
-        //         {
-        //             echo $value2 . '<br>';
-        //         }
-        //     }
-        // }
-        
-        // Loop through the blocks and check if key "BlockType" => "QUERY_RESULT"
-        foreach ($blocks as $array)
-        {
-            foreach ($array as $key => $value)
-            {
-                if ($key == 'Query')
-                {
-                    foreach ($value as $key2 => $value2)
-                    {
-                        if ($key2 == 'Text')
-                        {
-                            //echo $value2 . '<br>';
-                            $ext_data[$value2] = '';
-                        }
-                    }
-                }
-
-                // if the last $array['BlockType'] == 'QUERY' and this $array['BlockType'] == 'QUERY_RESULT', then get the text
-                if ($value == 'QUERY')
-                {
-                    $prev = true;
-                    continue;
-                }
-
-                if (isset($prev) && $value == 'QUERY_RESULT')
-                {
-                    //echo $array['Text'] . '<br>';
-                    $ext_data[$value2] = $array['Text'];
-                }
-            }
-        } 
-
-
-        // foreach (end($blocks) as $key => $value)
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Occupation'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-3] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Height'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-5] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Weight'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-7] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Civil Status'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-9] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Sex'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-11] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Age'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-13] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Birthday'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-15] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Tel. No.'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-17] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Address'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-19] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Mobile No.'] = $value;
-        //     }
-        // }
-
-        // foreach ($blocks[count($blocks)-21] as $key => $value) 
-        // {
-        //     if ($key == 'Text') {
-        //         $ext_data['Name'] = $value;
-        //     }
-        // }
-
-        $ext_data['File'] = $import;
-        //$this->dd($ext_data);
-        
-        $this->session->set_flashdata('success-import', $ext_data);
-        redirect('Admin_patientrec');
-
-    }
-
-    public function verify_import(){
-
     }
 
     public function logout()
