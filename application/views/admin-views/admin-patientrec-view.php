@@ -43,11 +43,19 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                    <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
                                             <option value="select" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
+                                            <option value="select" selected disabled>select ...</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Widowed">Widowed</option>
+                                        </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
                                 </div>
                                 <div class="row mb-2">
@@ -102,8 +110,6 @@
                                 <button class="btn btn-sm btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                             </div>
                         </div>
-
-
                         <?= form_close(); ?>
                         <!-- Circles which indicates the steps of the form: -->
                         <div class="mb-4" style="text-align:center;">
@@ -124,7 +130,7 @@
                     <div class="modal-header">
                         <h4 class="modal-title ms-3 fw-bolder">Add Via Import</h4><button class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <?= form_open_multipart('Admin_patientrec/google_vision_ocr'); ?>
+                    <?= form_open_multipart('Admin_patientrec/aws_textract_ocr'); ?>
                     <div class="modal-body mx-5">
                         <p>Import image below.</p>
 
@@ -140,6 +146,7 @@
         </div>
         <?php if ($this->session->flashdata('success-import')) : ?>
             <?php $ext_data = $this->session->flashdata('success-import') ?>
+            <?= form_open('Admin_patientrec/verify_import'); ?>
             <div id="modal-verify" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
@@ -149,59 +156,133 @@
                         <div class="modal-body">
                             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mx-3">
                                 <div class="col d-flex justify-content-center align-items-center mb-3 mb-sm-3"><img class="img-fluid" src="<?= base_url('/assets/img/patientrec-imports/') . $ext_data['File'] ?>" /></div>
-                                <div class="col">
+                                <!-- <div class="col">
                                     <div class="row mb-3 mt-3">
                                         <div class="col"><label class="form-label">Name:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Name:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="name" value="<?= $ext_data['Name:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Mobile No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Mobile No.:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="mobile_no" value="<?= $ext_data['Mobile No.:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Address:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Address:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="address" value="<?= $ext_data['Address:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Tel No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Tel. No.:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="tel_no" value="<?= $ext_data['Tel. No.:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Birthday:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Birthday:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="birthday" value="<?= $ext_data['Birthday:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Age:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Age:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="age" value="<?= $ext_data['Age:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Sex:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Sex:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="sex" value="<?= $ext_data['Sex:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Civil Status:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Civil Status:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="civil_status" value="<?= $ext_data['Civil Status:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Weight:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Weight:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="weight" value="<?= $ext_data['Weight:'] ?>" /></div>
                                         </div>
                                         <div class="col"><label class="form-label">Height:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Height:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="height" value="<?= $ext_data['Height:'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col col-6"><label class="form-label">Occupation:</label>
-                                            <div class="input-group"><input class="form-control" type="text" value="<?= $ext_data['Occupation:'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control" type="text" name="occupation" value="<?= $ext_data['Occupation:'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <input type='hidden' name='file' value='<?= $ext_data['File'] ?>'>
+                                <div class="col">
+                                    <div class="row mb-3">
+                                        <div class="col"><label class="form-label">Name</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="name" value="<?= $ext_data['Name'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col pe-1"><label class="form-label">Age</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="age" value="<?= $ext_data['Age'] ?>" /></div>
+                                        </div>
+                                        <div class="col ps-1"><label class="form-label">Birth date</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="date" name="birthday" value="<?= $ext_data['Birthday'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-sm-3 mb-3 gy-3 gy-md-0">
+                                        <div class="col pe-sm-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                                <?php if ($ext_data['Sex'] == 'Male') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male" selected>Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php elseif ($ext_data['Sex'] == 'Female') : ?>
+                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female" selected>Female</option>
+                                                <?php else : ?>
+                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                <?php endif; ?>
+                                            </select>
+                                            <!-- <div class="input-group"><input class="form-control form-control-sm" type="text" name="sex" value="" /></div> -->
+                                        </div>
+                                        <div class="col col-auto px-sm-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
+                                                <option value=" " selected disabled>select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            </select>
+                                            <!-- <div class="input-group"><input class="form-control form-control-sm" type="text" name="civil_status" value="" /></div> -->
+                                        </div>
+                                        <div class="col ps-sm-1"><label class="form-label">Occupation</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="occupation" value="<?= $ext_data['Occupation'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col"><label class="form-label">Address</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="address" value="<?= $ext_data['Address'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-3 gy-3 gy-md-0">
+                                        <div class="col pe-sm-1"><label class="form-label">Mobile No.</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="mobile_no" value="<?= $ext_data['Mobile No.'] ?>" /></div>
+                                        </div>
+                                        <div class="col ps-sm-1"><label class="form-label">Tel No.</label>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="tel_no" value="<?= $ext_data['Tel. No.'] ?>" /></div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col pe-1"><label class="form-label">Weight</label>
+                                            <div class="input-group input-weight"><input class="form-control form-control-sm" type="text" name="weight" value="<?= $ext_data['Weight'] ?>" />
+                                                <span class="input-group-text span-text">kg</span>
+                                            </div>
+                                        </div>
+                                        <div class="col ps-1"><label class="form-label">Height</label>
+                                            <div class="input-group input-height"><input class="form-control form-control-sm" type="text" name="height" value="<?= $ext_data['Height'] ?>" />
+                                                <span class="input-group-text span-text">cm</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-default-blue" type="button">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-default-blue" name="save_verified" type="submit">Save</button></div>
                     </div>
                 </div>
             </div>
+            <?= form_close(); ?>
         <?php endif; ?>
     </div>
 
@@ -215,6 +296,15 @@
                                 <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                                         <strong>Success!</strong> You successfully added a new patient.</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php elseif ($this->session->flashdata('message') == 'import-success') : ?>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                                        <strong>Success!</strong> You successfully imported a new patient.</span>
                                 </div>
                             </div>
                         </div>
@@ -245,6 +335,7 @@
                                 <th class="align-middle">ID</th>
                                 <th class="col-md-4 align-middle">Name</th>
                                 <th class="col-md-3 align-middle">Date Added</th>
+                                <th class="col-md-1 align-middle text-center">Type</th>
                                 <th class="text-center col-md-3 align-middle">Action</th>
                             </tr>
                         </thead>
@@ -469,23 +560,3 @@
         }, false);
     })()
 </script>
-<!-- <script>
-    $(document).ready(function() {
-        $('#closeFormModal').on('click', function() {
-            $('#regForm').trigger("reset");
-            console.log($('#regForm'));
-        })
-    });
-</script> -->
-<!-- <script>
-    const vision = require('@google-cloud/vision');
-
-    const client = new vision.ImageAnnotatorClient();
-
-    const fileName = '<?= base_url('/assets/img/patientrec-imports/patientrec-imports-1.jpg') ?>';
-
-    const [result] = client.textDetection(fileName);
-    const detections = result.textAnnotations;
-    console.log('Text:');
-    detections.forEach(text => console.log(text));
-</script> -->
