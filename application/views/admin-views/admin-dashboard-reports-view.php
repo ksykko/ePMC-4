@@ -145,7 +145,7 @@
                 <div class="col-lg-7 col-xl-8">
                     <div class="card shadow mb-4 h-100">
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's BMI Overview</h6>
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">User Activity</h6>
                         </div>
                         <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">

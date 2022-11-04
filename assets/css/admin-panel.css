@@ -961,6 +961,12 @@ hr {
     outline: 0
 }
 
+.toast-dialog {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 
 /* patient dashboard css */
 

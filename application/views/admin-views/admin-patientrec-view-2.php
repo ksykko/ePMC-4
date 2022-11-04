@@ -245,7 +245,87 @@
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
     </div>
     <div class="row">
-        <div class="col d-flex justify-content-center">
+        <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <?php if ($this->session->flashdata('message') == 'success-profilepic') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's profile picture has been updated.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-healthinfo') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's health information has been updated.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's diagnosis has been added.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-treatment') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's treatment plan has been added.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-edit-patient-PI') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's personal information has been updated.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-dlt-diagnosis') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's diagnosis has been deleted.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('message') == 'success-dlt-treatment') : ?>
+                    <div class="toast-header text-bg-success bg-opacity-100">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's treatment plan has been deleted.</span>
+                    </div>
+                <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
+                    <div class="toast-header text-bg-danger bg-opacity-100">
+                        <strong class="me-auto">Error!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></span>
+                    </div>
+                <?php elseif ($this->session->flashdata('error')) : ?>
+                    <div class="toast-header text-bg-danger bg-opacity-100">
+                        <strong class="me-auto">Error!</strong>
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <?php $errors = $this->session->flashdata('error') ?>
+                        <span>Invalid input/s.</span>
+                        <?= $errors['img_errors'] ?>
+                        <?= $errors['info_errors'] ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <!-- <div class="col d-flex justify-content-center">
             <?php if ($this->session->flashdata('message') == 'success-profilepic') : ?>
                 <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -289,12 +369,11 @@
             <?php elseif ($this->session->flashdata('error')) : ?>
                 <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
                     <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+
                     <p><strong>Error!</strong> Invalid input/s.</p>
-                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error-profilepic') ?></p>
-                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error') ?></p>
                 </div>
             <?php endif; ?>
-        </div>
+        </div> -->
     </div>
     <?php $updatePatientPath = 'Admin_patientrec/update_health_info/' . $patient->patient_id; ?>
     <?= form_open_multipart($updatePatientPath, array('id' => 'healthForm')); ?>

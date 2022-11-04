@@ -10,8 +10,6 @@ class Admin_patientrec extends CI_Controller
         parent::__construct();
         require_once 'vendor/autoload.php';
 
-        putenv('GOOGLE_APPLICATION_CREDENTIALS=/assets/Keys/epmcdb-81960-8f63b95988a1');
-
         $this->load->helper(['url', 'form', 'date', 'string']);
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
@@ -705,31 +703,38 @@ class Admin_patientrec extends CI_Controller
         $this->upload->initialize($img_config);
         $fileExt = pathinfo($patient->avatar, PATHINFO_EXTENSION);
 
-        $this->form_validation->set_rules('bp_systolic', 'Systolic', 'required|numeric', array(
+        $this->form_validation->set_rules('bp_systolic', 'Systolic', 'numeric', array(
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('bp_diastolic', 'Diastolic', 'required|numeric', array(
+        $this->form_validation->set_rules('bp_diastolic', 'Diastolic', 'numeric', array(
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('pulse_rate', 'Pulse rate', 'required|numeric', array(
+        $this->form_validation->set_rules('pulse_rate', 'Pulse rate', 'numeric', array(
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('height', 'Height', 'required|numeric', array(
+        $this->form_validation->set_rules('height', 'Height', 'numeric', array(
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('weight', 'Weight', 'required|numeric', array(
+        $this->form_validation->set_rules('weight', 'Weight', 'numeric', array(
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
-            $this->session->set_flashdata('error', validation_errors());
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $errors = array(
+                'img_errors' => $this->upload->display_errors(),
+                'info_errors' => validation_errors()
+            );
+            $this->session->set_flashdata('error', $errors);
             redirect('Admin_patientrec/view_patient/' . $id);
-        } else {
+
+        } 
+        else {
+            
             if (!$this->upload->do_upload('avatar')) {
                 if ($patient->avatar == 'default-avatar.png') {
                     $img_name = 'default-avatar.png';
@@ -763,10 +768,10 @@ class Admin_patientrec extends CI_Controller
             );
 
 
-
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
             redirect('Admin_patientrec/view_patient/' . $id);
+
         }
     }
 
