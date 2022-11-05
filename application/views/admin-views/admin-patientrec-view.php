@@ -291,74 +291,81 @@
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
                     <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
-                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                         <?php if ($this->session->flashdata('message') == 'success') : ?>
-                            <div class="toast-header text-bg-success bg-opacity-100">
-                                <strong class="me-auto">Success!</strong>
-                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body bg-opacity-50">
-                                <span>You successfully added a new patient.</span>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-success">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully added a new patient.</span>
+                                </div>
                             </div>
                         <?php elseif ($this->session->flashdata('message') == 'import-success') : ?>
-                            <div class="toast-header text-bg-success bg-opacity-100">
-                                <strong class="me-auto">Success!</strong>
-                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body bg-opacity-50">
-                                <span>You successfully imported a new patient.</span>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-success">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully imported a patient.</span>
+                                </div>
                             </div>
                         <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
-                            <div class="toast-header text-bg-success bg-opacity-100">
-                                <strong class="me-auto">Success!</strong>
-                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body bg-opacity-50">
-                                <span>You successfully deleted a patient.</span>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-success">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully deleted a patient.</span>
+                                </div>
                             </div>
                         <?php elseif ($this->session->flashdata('error-import')) : ?>
-                            <div class="toast-header text-bg-danger bg-opacity-100">
-                                <strong class="me-auto">Error!</strong>
-                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                            <div class="toast-body bg-opacity-50">
-                                <span><?= $this->session->flashdata('error-import'); ?></span>
+                            <div id="liveToast" class="toast border-0 toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-error">
+                                    <strong class="me-auto">Error!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span><?= $this->session->flashdata('error-import'); ?></span>
+                                </div>
                             </div>
                         <?php endif; ?>
-                        </div>
                     </div>
-                    <table id="example" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="align-middle">ID</th>
-                                <th class="col-md-4 align-middle">Name</th>
-                                <th class="col-md-3 align-middle">Date Added</th>
-                                <th class="col-md-1 align-middle text-center">Type</th>
-                                <th class="text-center col-md-3 align-middle">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($patients as $patient) : ?>
-                                <div id="delete-dialog-<?= $patient->patient_id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete a Patient</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this patient?</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_patient/') . $patient->patient_id ?>" type="button">Confirm</a></div>
+                </div>
+                <table id="example" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="align-middle">ID</th>
+                            <th class="col-md-4 align-middle">Name</th>
+                            <th class="col-md-3 align-middle">Date Added</th>
+                            <th class="col-md-1 align-middle text-center">Type</th>
+                            <th class="text-center col-md-3 align-middle">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($patients as $patient) : ?>
+                            <div id="delete-dialog-<?= $patient->patient_id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete a Patient</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
+                                        <div class="modal-body">
+                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this patient?</p>
+                                        </div>
+                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_patient/') . $patient->patient_id ?>" type="button">Confirm</a></div>
                                     </div>
                                 </div>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>

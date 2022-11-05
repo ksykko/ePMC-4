@@ -11,8 +11,9 @@
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
                     <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
-                        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                            <?php if ($this->session->flashdata('message') == 'rstr_success') : ?>
+                        <?php if ($this->session->flashdata('message') == 'rstr_success') : ?>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+
                                 <div class="toast-header text-bg-success bg-opacity-75">
                                     <strong class="me-auto">Success!</strong>
                                     <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -20,8 +21,9 @@
                                 <div class="toast-body bg-opacity-50">
                                     <span>You successfully restore a patient record.</span>
                                 </div>
-                            <?php endif; ?>
-                        </div>
+
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <table id="example" class="table table-hover">
                         <thead>

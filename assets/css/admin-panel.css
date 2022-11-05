@@ -967,6 +967,16 @@ hr {
     transform: translateX(-50%);
 }
 
+.toast-error {
+    background-color: #f75663d5;
+    color: white;
+}
+
+.toast-success {
+    background-color: #0abd90e1;
+    color: white;
+}
+
 
 /* patient dashboard css */
 
