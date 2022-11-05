@@ -137,10 +137,10 @@ class Admin_useracc extends CI_Controller {
         }
         else
         {
-            $addUser = $this->input->post('addUser');
+            // $addUser = $this->input->post('addUser');
 
-            if (isset($addUser))
-            {
+            // if (isset($addUser))
+            // {
                 $info = array(
                     'first_name' => $this->input->post('first_name'),
                     'middle_name' => $this->input->post('middle_name'),
@@ -156,10 +156,12 @@ class Admin_useracc extends CI_Controller {
                     'avatar' => 'default-avatar.png',
                     'date_created' => date('Y-m-d H:i:s')
                 );
-            }
+            // }
 
             $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_useracc($info);
+
+
             redirect('Admin_useracc');
 
             // <div class="alert alert-warning alert-dismissible fade show" role="alert">
