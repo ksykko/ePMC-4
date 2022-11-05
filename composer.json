@@ -13,7 +13,8 @@
 	"require": {
 		"php": ">=5.3.7",
 		"google/cloud-vision": "^1.5",
-		"google/apiclient": "^2.12.1"
+		"google/apiclient": "^2.12.1",
+		"aws/aws-sdk-php": "^3.240"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

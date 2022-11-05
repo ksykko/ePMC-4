@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "line-segmentation-algorithm-to-gcp-vision": "^1.0.2"
-  }
+    "dependencies": {
+        "@google-cloud/vision": "^3.0.1",
+        "line-segmentation-algorithm-to-gcp-vision": "^1.0.2"
+    }
 }

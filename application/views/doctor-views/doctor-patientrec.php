@@ -38,11 +38,19 @@
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                    <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
                                             <option value="select" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
+                                            <option value="select" selected disabled>select ...</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Widowed">Widowed</option>
+                                        </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
                                 </div>
                                 <div class="row mb-2">
@@ -118,32 +126,36 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
-                    <?php if ($this->session->flashdata('message') == 'success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully added a new patient.</span>
+                    <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+                        <?php if ($this->session->flashdata('message') == 'success') : ?>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-success">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully added a new patient.</span>
                                 </div>
                             </div>
-                        </div>
-                    <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully deleted a patient.</span>
+                        <?php elseif ($this->session->flashdata('message') == 'dlt_success') : ?>
+                            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-success">
+                                    <strong class="me-auto">Success!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>You successfully deleted a patient.</span>
                                 </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
-
+                        <?php endif; ?>
+                    </div>
                     <table id="example" class="table table-hover">
                         <thead>
                             <tr>
                                 <th class="align-middle">ID</th>
                                 <th class="col-md-4 align-middle">Name</th>
                                 <th class="col-md-3 align-middle">Date Added</th>
+                                <th class="col-md-1 align-middle text-center">Type</th>
                                 <th class="text-center col-md-3 align-middle">Action</th>
                             </tr>
                         </thead>

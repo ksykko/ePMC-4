@@ -1,4 +1,3 @@
-
 html {
     min-height: 100vh;
 }
@@ -15,6 +14,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 
 /* i {
     margin-right: 10px;
@@ -560,6 +560,7 @@ body {
     background-color: rgb(176, 250, 166);
 }
 
+
 /* .dshb-main.bw-dashboard:last-child .dash-inner-content {
     font-size: 18px;
     font-weight: 400;
@@ -593,32 +594,33 @@ body {
         flex-direction: row;
         flex-basis: 100%;
     }
-}    
+}
 
-@media (max-width: 850px){
-    .inventory-container, .patientrec-container, .schedule {
+@media (max-width: 850px) {
+    .inventory-container,
+    .patientrec-container,
+    .schedule {
         padding: 5% !important;
     }
-
-    .navbar-icon{
+    .navbar-icon {
         margin: 19px !important;
         border: 0;
         background-color: rgb(26, 40, 78);
     }
 }
 
-@media (max-width: 1360px){
-    .inventory-container, .patientrec-container, .schedule {
+@media (max-width: 1360px) {
+    .inventory-container,
+    .patientrec-container,
+    .schedule {
         padding: 5% !important;
     }
-
-    .navbar-icon{
+    .navbar-icon {
         margin: 19px !important;
         border: 0;
         background-color: rgb(26, 40, 78);
     }
 }
-
 
 
 /* Inventory Page CSS */
@@ -842,6 +844,15 @@ body {
     height: 76px;
 }
 
+.span-text {
+    font-size: 12px;
+}
+
+.input-weight,
+.input-height {
+    height: 37.19px;
+}
+
 
 /* multi step css */
 
@@ -950,7 +961,25 @@ hr {
     outline: 0
 }
 
+.toast-dialog {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast-error {
+    background-color: #f75663d5;
+    color: white;
+}
+
+.toast-success {
+    background-color: #0abd90e1;
+    color: white;
+}
+
+
 /* patient dashboard css */
+
 .patient-dashboard {
     display: flex;
     flex-wrap: wrap;
@@ -985,7 +1014,6 @@ hr {
     border-radius: 50%;
 }
 
-
 .personal-info {
     color: rgb(0, 0, 0);
     font-family: 'Poppins', sans-serif !important;
@@ -1011,6 +1039,7 @@ hr {
 .left-info {
     flex-basis: 50%;
 }
+
 .right-info {
     flex-basis: 50%;
 }
@@ -1038,7 +1067,6 @@ hr {
     align-items: center;
     justify-content: center;
 }
-
 
 .next-consultation hr {
     border: 5px solid rgb(89, 189, 94);
@@ -1069,7 +1097,7 @@ hr {
 .patient-diagnosis-table tbody {
     font-family: 'Poppins', sans-serif !important;
     font-weight: 400 !important;
-} 
+}
 
 .recent-act-patient-label {
     font-family: 'Poppins', sans-serif !important;
@@ -1077,46 +1105,40 @@ hr {
     font-size: 30px;
 }
 
+
 /* 1361 */
+
 @media (max-width: 1580px) {
     .patient-container {
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
     }
-
     .patient-dashboard {
         display: block;
         height: fit-content;
     }
-
     .personal-info {
         justify-content: center;
         max-height: 800px !important;
     }
-
     .left-info {
         flex-basis: 100%;
     }
-    
     .right-info {
         flex-basis: 100%;
     }
-
     .avatar-box img {
         max-width: none;
         max-height: 100%;
     }
-
     .next-consultation {
         flex-basis: none;
         margin-top: 50px;
     }
-
     .recent-consultations {
         margin-top: 50px;
     }
-
 }
 
 @media (min-width: 2000px) {
