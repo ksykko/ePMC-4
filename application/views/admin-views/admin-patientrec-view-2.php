@@ -81,6 +81,14 @@
                                                     <option value="Female">Female</option>
                                                 <?php endif; ?>
                                             </select><small class="text-danger"><?= form_error('sex') ?></small></div>
+                                        <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
+                                                <option value="select" selected disabled>select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                         <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
                                     </div>
                                     <div class="row mb-2">
@@ -236,54 +244,100 @@
         <?php endif; ?>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
     </div>
-    <div class="row">
-        <div class="col d-flex justify-content-center">
+    <div>
+        <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
             <?php if ($this->session->flashdata('message') == 'success-profilepic') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's profile picture has been updated.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's profile picture has been updated.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-healthinfo') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's health information has been updated.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's health information has been updated.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's diagnosis has been added.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's diagnosis has been added.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-treatment') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's treatment plan has been added.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's treatment plan has been added.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-edit-patient-PI') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's personal information has been updated.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's personal information has been updated.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-dlt-diagnosis') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's diagnosis has been deleted.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's diagnosis has been deleted.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('message') == 'success-dlt-treatment') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Patient's treatment plan has been deleted.</p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's treatment plan has been deleted.</span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show w-25" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Error!</strong> Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></p>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header text-bg-danger bg-opacity-100">
+                        <strong class="me-auto">Error!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></span>
+                    </div>
                 </div>
             <?php elseif ($this->session->flashdata('error')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Error!</strong> Invalid input/s.</p>
-                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error-profilepic') ?></p>
-                    <p style="margin-bottom: 0rem;"><?php echo $this->session->flashdata('error') ?></p>
+                <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header text-bg-danger bg-opacity-100">
+                        <strong class="me-auto">Error!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <?php $errors = $this->session->flashdata('error') ?>
+                        <span>Invalid input/s.</span>
+                        <?= $errors['img_errors'] ?>
+                        <?= $errors['info_errors'] ?>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -337,6 +391,12 @@
                                 <div class="col-4 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
                                     <div class="input-group"><input class="form-control input-personal-info" type="text" name="sex" value="<?= $patient->sex ?>" readonly /></div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Civil Status:</label></div>
+                                <div class="col-7 col-sm-9 col-md-10 col-lg-7 col-xl-9 d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="civil_status" value="<?= $patient->civil_status ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -546,16 +606,15 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="card-prescription" class="card shadow mb-4" style="height: 548px;">
+                        <div class="card shadow mb-4">
                             <div class="card-header py-3 ch-patientrec">
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                             </div>
                             <div class="card-body mx-3">
-                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription"><?= $healthinfo->prescription ?></textarea></div>
-
+                                <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 529px;"><?= $healthinfo->prescription ?></textarea></div>
                             </div>
                         </div>
-                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 251px">
+                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 248px">
                             <div class="card-header py-3 ch-patientrec">
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
                             </div>
@@ -571,9 +630,9 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="card shadow mb-4">
+        <div class="card shadow mb-4">
             <div class="card-header py-3 ch-patientrec">
-                <h6 class="m-0 fw-bold fs-5 ch-heading">Lab Reports</h6>
+                <h6 class="m-0 fw-bold fs-5 ch-heading">Documents</h6>
             </div>
             <div class="card-body mx-3">
                 <div class="table-responsive">
@@ -597,7 +656,7 @@
                     </table>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="row row-cols-1">
             <div class="col">
                 <div class="card shadow mb-4">
