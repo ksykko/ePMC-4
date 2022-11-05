@@ -48,12 +48,25 @@
             },
 
             //Set column definition initialisation properties.
-            "columnDefs": [{
-                "targets": [4], //first column / numbering column
-                "orderable": false, //set not orderable
-                "className": "text-center",
-                "targets": [4]
-            }]
+            "columnDefs": [
+                {
+                    "targets": [4], //first column / numbering column
+                    "orderable": false, //set not orderable
+                    "className": "text-center",
+                    "targets": [4]
+                },
+                { "targets": [3],
+                    render: function (data, type, row) 
+                    {
+                        if (data == 'added'){
+                            return '<span class="badge bg-success">Added</span>';
+                        } else {
+                            return '<span class="badge bg-warning">Imported</span>';
+                        }
+                    },
+                    "targets": [3], "className": "text-center"
+                }
+            ]
         });
 
     });
