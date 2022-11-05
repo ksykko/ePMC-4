@@ -47,11 +47,14 @@ class Doctor_patientrec extends CI_Controller
         foreach ($patients->result() as $patient) {
 
             $no++;
-            // $editId = 'edit-patient-' . $patient->patient_id;
+            $dt = new DateTime($patient->date_created);
+            $date_added = $dt->format('Y-m-d');
+
             $row = array();
             $row[] = $no;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
-            $row[] = $patient->last_checkup;
+            $row[] = $date_added;
+            $row[] = $patient->type;
             $row[] = '
                 <td class="text-center" colspan="1"> 
                     <a class="btn btn-sm btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
