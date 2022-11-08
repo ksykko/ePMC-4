@@ -17,8 +17,8 @@
 
             //Set column definition initialisation properties.
             "columnDefs": [
-                { "targets": [ 9 ], "orderable": false}, //set not orderable
-                { "className": "text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center", targets: [9] }
+                { "targets": [ 8 ], "orderable": false}, //set not orderable
+                { "className": "text-center d-xxl-flex justify-content-xxl-end align-items-xxl-center", targets: [8] }
             ]
         
         });
