@@ -613,8 +613,7 @@ class Admin_patientrec extends CI_Controller
             'File' => $ext_data['File'],
         ];
 
-        //$this->dd($formatted_data);
-
+        //$this->dd($formatted_data);W
         return $formatted_data;
     }
 
