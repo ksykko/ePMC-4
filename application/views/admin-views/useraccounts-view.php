@@ -4,6 +4,56 @@
     }
 </style>
 <div class="container-fluid patientrec-container">
+    <?php if ($this->session->flashdata('message') == 'success') : ?>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                        <strong>Success!</strong> You successfully added a new user.</span>
+                </div>
+            </div>
+        </div>
+        <?php elseif ($this->session->flashdata('message') == 'edit_user_success') : ?>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                        <strong>Success!</strong> You successfully updated a user.</span>
+                </div>
+            </div>
+        </div>  
+        <?php elseif ($this->session->flashdata('message') == 'add_failed') : ?>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                        <strong>Fail!</strong> You have failed in adding a new user.</span>
+                        <small class="text-danger"><?= form_error('first_name') ?></small>
+                        <small class="text-danger"><?= form_error('middle_name') ?></small>
+                        <small class="text-danger"><?= form_error('last_name') ?></small>
+                        <small class="text-danger"><?= form_error('username') ?></small>
+                        <small class="text-danger"><?= form_error('password') ?></small>
+                        <small class="text-danger"><?= form_error('conf_password') ?></small>
+                        <small class="text-danger"><?= form_error('role') ?></small>
+                        <small class="text-danger"><?= form_error('specialization') ?></small>
+                        <small class="text-danger"><?= form_error('birth_date') ?></small>
+                        <small class="text-danger"><?= form_error('gender') ?></small>
+                        <small class="text-danger"><?= form_error('contact_no') ?></small>
+                        <small class="text-danger"><?= form_error('email') ?></small>
+                </div>
+            </div>
+        </div>  
+        <?php elseif ($this->session->flashdata('message') == 'dlt_user_success') : ?>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+                        <strong>Success!</strong> You successfully deleted a user.</span>
+                </div>
+            </div>
+        </div> 
+        
+    <?php endif; ?>
     <div class="d-flex mb-3">
         <div>
             <h1 class="d-none d-sm-block patientrec-label">User Accounts</h1>
@@ -14,6 +64,7 @@
                 <i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add User</span>
             </button>
 
+            
             
             <div id="modal-1" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg" role="document">
@@ -110,7 +161,7 @@
                                                 <select class="form-select" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                                     <option value="select" selected>select...</option>
                                                     <option value="admin">Admin</option>
-                                                    <option value="physician">Physician</option>
+                                                    <option value="doctor">Doctor</option>
                                                     <option value="pharmacy assistant">Pharmacy Assistant</option>
                                                 </select>
                                             </div>
@@ -118,13 +169,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-4 mb-2" id="specialization" style="display: none;">
+                                <div class="row mt-4 mb-2" id="specialization_div" style="display: none;">
                                     <div class="col"><label class="col-form-label">Specialization:</label></div>
                                     <div class="col">
-                                        <div class="input-error">
+                                    <div class="input-error">
                                             <div class="input-group">
                                                 <!-- specialization -->
-                                                <input class="form-control" type="text" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>" />
+                                                <select class="form-select" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
+                                                    <option value=" " selected>select...</option>
+                                                    <option value="internal medicine">Internal Medicine</option>
+                                                    <option value="family medicine">Family Medicine</option>
+                                                    <option value="obstetrics and gynecology">Obstetrics and Gynecology</option>
+                                                    <option value="orthopedics">Orthopedics</option>
+                                                </select>
                                             </div>
                                             <small class="text-danger"><?= form_error('specialization') ?></small>
                                         </div>
@@ -198,35 +255,6 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-3 pt-4 pb-5">
                 <div>
-                    <?php if ($this->session->flashdata('message') == 'success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully added a new user.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <?php elseif ($this->session->flashdata('message') == 'edit_user_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully updated a user.</span>
-                                </div>
-                            </div>
-                        </div>  
-                        <?php elseif ($this->session->flashdata('message') == 'dlt_user_success') : ?>
-                        <div class="row">
-                            <div class="col d-flex justify-content-center">
-                                <div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
-                                    <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-                                        <strong>Success!</strong> You successfully deleted a user.</span>
-                                </div>
-                            </div>
-                        </div> 
-                        
-                        <?php endif; ?>
                     <table id="useracc-table" class="table table-hover">
                         <thead>
                             <tr>
@@ -238,7 +266,7 @@
                                 <th>Birthdate</th>
                                 <th>Contact #</th>
                                 <th>Email</th>
-                                <th class="text-center col-md-2">Action</th>
+                                <th class="text-center col-md-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -284,6 +312,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row mt-4 mb-2">
                                             <div class="col-3"><label class="col-form-label">First name:</label></div>
                                             <div class="col-9">
@@ -296,6 +325,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Last name:</label></div>
                                             <div class="col-9">
@@ -308,6 +338,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Username:</label></div>
                                             <div class="col-9">
@@ -320,23 +351,25 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Role:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- role -->
-                                                        <select class="form-select" id="role" name="role">
+                                                        
+                                                        <select class="form-select" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                                             <option value="<?= ucfirst($user->role) ?>" selected><?= ucfirst($user->role) ?></option>
                                                             <?php if (ucfirst($user->role) == 'Admin') : ?>
-                                                                <option value="physician">Physician</option>
-                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                            <?php elseif (ucfirst($user->role) == 'Physician') : ?>
-                                                                <option value="admin">Admin</option>
-                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                                                    <option value="doctor">Doctor</option>
+                                                                    <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                                            <?php elseif (ucfirst($user->role) == 'Doctor') : ?>
+                                                                    <option value="admin">Admin</option>
+                                                                    <option value="pharmacy assistant">Pharmacy Assistant</option>
                                                             <?php elseif (ucfirst($user->role) == 'Pharmacy Assistant') : ?>
-                                                            <option value="admin">Admin</option>
-                                                            <option value="physician">Physician</option>
+                                                                <option value="admin">Admin</option>
+                                                                <option value="doctor">Doctor</option>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
@@ -344,18 +377,52 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-2">
+                                                                
+                                        <?php if ($user->role == 'Doctor' || $user->role == 'doctor') : ?>
+                                            
+                                        <div class="row mb-2" id="specialization_div">
                                             <div class="col-3"><label class="col-form-label">Specialization:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
                                                     <div class="input-group">
-                                                        <!-- TODO: -->
-                                                        <input class="form-control quantity" type="text" id="specialization" name="specialization" value="<?= $user->specialization ?>"/>
+                                                        <!-- specialization -->
+                                                        <select class="form-select" id="specialization" name="specialization">
+                                                            <option value="<?= ucfirst($user->specialization) ?>" selected><?= ucfirst($user->specialization) ?></option>
+
+                                                            <?php if ($user->specialization == 'Internal Medicine') : ?>
+                                                                <option value="Family Medicine">Family Medicine</option>
+                                                                <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                                                <option value="Orthopedics">Orthopedics</option>
+                                                            <?php elseif ($user->specialization == 'Family Medicine') : ?>
+                                                                <option value="Internal Medicine">Internal Medicine</option>
+                                                                <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                                                <option value="Orthopedics">Orthopedics</option>
+                                                            <?php elseif ($user->specialization == 'Obstetrics and Gynecology') : ?>
+                                                                <option value="Internal Medicine">Internal Medicine</option>
+                                                                <option value="Family Medicine">Family Medicine</option>
+                                                                <option value="Orthopedics">Orthopedics</option>
+                                                            <?php elseif ($user->specialization == 'Orthopedics') : ?> 
+                                                                <option value="Internal Medicine">Internal Medicine</option>
+                                                                <option value="Family Medicine">Family Medicine</option>
+                                                                <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                                            <?php else : ?> 
+                                                                <option value=" " selected>select...</option>
+                                                                <option value="Internal Medicine">Internal Medicine</option>
+                                                                <option value="Family Medicine">Family Medicine</option>
+                                                                <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                                                <option value="Orthopedics">Orthopedics</option>
+                                                            <?php endif; ?>
+                                                        </select>
                                                     </div>
                                                     <small class="text-danger"><?= form_error('specialization') ?></small>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <?php endif; ?>
+
+
+
                                         <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Birthdate:</label></div>
                                             <div class="col-9 col-sm-9">
@@ -394,8 +461,8 @@
                                         </div>
                                         <br><br><br>
                                         <input type="hidden" name="item_id" class="item_id">
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" id="editUser" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
+                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" id="editUser" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>
                                 </div>
                             </div>
                         </div>
@@ -407,16 +474,29 @@
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
 
     function toggleDropdown(){
     let value = document.querySelector('select').value;
-      if (value == "physician" || value == "Physician") {
-        document.getElementById("specialization").style.display = "flex";
+
+      if (value == "doctor" || value == "Doctor") {
+        document.getElementById("specialization_div").style.display = "flex !important";
       } else {
-        document.getElementById("specialization").style.display = "none";
+        document.getElementById("specialization_div").style.display = "none";
      }
     }
+
+    function toggleDropdownEdit(){
+    let value = document.querySelector('select').value;
+
+      if (value == "doctor" || value == "Doctor") {
+        document.getElementById("specialization_div").style.display = "flex !important";
+      } else {
+        document.getElementById("specialization_div").style.display = "none";
+     }
+    }
+
 
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
@@ -474,13 +554,12 @@
         // A loop that checks every input field in the current tab:
         for (i = 0; i < y.length; i++) {
             // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
+            if (y[i].value == ''){
                 y[i].className += " invalid";
-                // and set the current valid status to false
                 input_valid = false;
-            } else
-                y[i].className = "form-control form-control-sm valid";
+            } else {
+                y[i].className += " form-control form-control-sm valid"; 
+            }
         }
 
         // A loop that checks every select field in the current tab:
@@ -493,6 +572,7 @@
                 select_valid = false;
             } else
                 z[j].className = "form-select form-select-sm valid";
+                
         }
 
 
