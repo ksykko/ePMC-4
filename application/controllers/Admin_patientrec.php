@@ -476,8 +476,8 @@ class Admin_patientrec extends CI_Controller
             'version' => 'latest',
             'region' => 'ap-southeast-1',
             'credentials' => [
-                'key'    => 'AKIAYYGS3C66OXBV6ST3',
-                'secret' => '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'
+                'key'    => 'AKIAWZWT4IZV267Q567H',
+                'secret' => '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'
             ]
         ]);
 
@@ -613,8 +613,7 @@ class Admin_patientrec extends CI_Controller
             'File' => $ext_data['File'],
         ];
 
-        //$this->dd($formatted_data);
-
+        //$this->dd($formatted_data);W
         return $formatted_data;
     }
 
