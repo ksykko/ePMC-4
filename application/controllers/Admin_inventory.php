@@ -79,8 +79,9 @@ class Admin_inventory extends CI_Controller {
             'required' => 'Please enter your %s.'
         ));
 
-        $this->form_validation->set_rules('prod_dosage', 'Product Dosage', 'required', array(
-            'required' => 'Please enter your %s.'
+        $this->form_validation->set_rules('prod_dosage', 'Product Dosage', 'required|numeric', array(
+            'required' => 'Please enter your %s.',
+            'numeric' => 'Please enter a valid %s.'
         ));
 
         $this->form_validation->set_rules('prod_desc', 'Product Description', 'required', array(
@@ -99,6 +100,7 @@ class Admin_inventory extends CI_Controller {
        
         if ($this->form_validation->run() == FALSE)
         {
+            $this->session->set_flashdata('message', 'add_failed');
             $this->index();
         }
         else
@@ -158,6 +160,7 @@ class Admin_inventory extends CI_Controller {
        
         if ($this->form_validation->run() == FALSE)
         {
+            $this->session->set_flashdata('message', 'edit_failed');
             $this->index();
         }
         else
