@@ -63,6 +63,11 @@
                                         <input class="form-control form-control-sm" type="text" id="address" name="address" /><small class="text-danger"><?= form_error('address') ?></small>
                                     </div>
                                 </div>
+                                <div class="row mb-2">
+                                    <div class="col form-group px-1"><label class="form-label">Full Name</label>
+                                        <input class="form-control form-control-sm combine" type="text" id="full_name" name="full_name" value="" />
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab">
@@ -470,98 +475,4 @@
         //... and adds the "active" class on the current step:
         x[n].className += " active";
     }
-</script>
-<script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-
-            const first_name = document.getElementById('first_name')
-            const middle_name = document.getElementById('middle_name')
-            const last_name = document.getElementById('last_name')
-            const age = document.getElementById('age')
-            const birthdate = document.getElementById('birth_date')
-            const sex = document.getElementById('sex')
-            const occupation = document.getElementById('occupation')
-            const address = document.getElementById('address')
-            const cell_no = document.getElementById('cell_no')
-            const tel_no = document.getElementById('tel_no')
-            const email = document.getElementById('email')
-            const ec_name = document.getElementById('ec_name')
-            const relationship = document.getElementById('relationship')
-            const ec_contact_no = document.getElementById('ec_contact_no')
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const setError = (element, message) => {
-                const inputControl = element.parentElement;
-                const errorDisplay = inputControl.querySelector('.error');
-
-                errorDisplay.innerText = message;
-                inputControl.classList.add('invalid');
-                inputControl.classList.remove('success')
-            }
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to 
-            const setSuccess = element => {
-                const inputControl = element.parentElement;
-                const errorDisplay = inputControl.querySelector('.error');
-
-                errorDisplay.innerText = '';
-                inputControl.classList.add('success');
-                inputControl.classList.remove('error');
-            };
-
-            const isValidEmail = email => {
-                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(String(email).toLowerCase());
-            }
-
-
-            // fetch all the forms we want to apply custom style
-            var inputs = document.getElementsByClassName('form-control')
-
-            // loop over each input and watch blur event
-            var validation = Array.prototype.filter.call(inputs, function(input) {
-
-                input.addEventListener('blur', function(event) {
-                    // reset
-                    input.classList.remove('is-invalid')
-                    input.classList.remove('is-valid')
-
-                    // if (input.checkValidity() === false) {
-                    //     input.classList.add('is-invalid')
-                    // } else {
-                    //     input.classList.add('is-valid')
-                    // }
-
-                    // const first_nameValue = first_name.value.trim();
-                    // const middle_nameValue = middle_name.value.trim();
-                    // const last_nameValue = last_name.value.trim();
-                    // const ageValue = age.value.trim();
-                    // const birthdateValue = birthdate.value.trim();
-                    // const sexValue = sex.value.trim();
-                    // const occupationValue = occupation.value.trim();
-                    // const addressValue = address.value.trim();
-                    // const cell_noValue = cell_no.value.trim();
-                    // const tel_noValue = tel_no.value.trim();
-                    // const emailValue = email.value.trim();
-                    // const ec_nameValue = ec_name.value.trim();
-                    // const relationshipValue = relationship.value.trim();
-                    // const ec_contact_noValue = ec_contact_no.value.trim();
-
-                    if (first_name.value === '') {
-                        setError(first_name, 'First name cannot be blank');
-                    } else {
-                        setSuccess(first_name);
-                    }
-
-
-
-
-
-
-                }, false);
-            });
-        }, false);
-    })()
 </script>

@@ -3439,7 +3439,9 @@ fieldset:disabled .btn {
 }
 
 
-/* .collapse:not(.show) {
+/* NAVBAR ISSUES */
+
+.collapse:not(.show) {
     display: none
 }
 
@@ -3465,7 +3467,7 @@ fieldset:disabled .btn {
     .collapsing.collapse-horizontal {
         transition: none
     }
-} */
+}
 
 .dropup,
 .dropend,
