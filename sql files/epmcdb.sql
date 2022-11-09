@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2022 at 11:50 AM
+-- Generation Time: Nov 09, 2022 at 08:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.17
 
@@ -46,11 +46,8 @@ CREATE TABLE `arc_patient_details` (
 --
 
 INSERT INTO `arc_patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `bp_diastolic`, `pulse_rate`, `height`, `weight`, `prescription`, `consul_next`, `objectives`, `symptoms`) VALUES
-(39, 'A+', 0, 0, 0, '0', '0', '', '1970-01-01 08:00:00', '', ''),
-(12, '', 0, 0, 0, '170', '53', '', '1970-01-01 08:00:00', '', ''),
-(36, '', 0, 0, 0, '160 cm', '58', '', '0000-00-00 00:00:00', '', ''),
-(37, '', 0, 0, 0, '160 cm', '58', '', '0000-00-00 00:00:00', '', ''),
-(49, '', 0, 0, 0, '160', '58', '', '0000-00-00 00:00:00', '', '');
+(78, '', 0, 0, 0, '0', '0', '', '1970-01-01 08:00:00', '', ''),
+(79, '', 0, 0, 0, '0', '0', '', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -71,11 +68,8 @@ CREATE TABLE `arc_patient_diagnosis` (
 --
 
 INSERT INTO `arc_patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recent_diagnosis`, `p_doctor`) VALUES
-(23, 12, '0000-00-00 00:00:00', '', ''),
-(45, 36, '0000-00-00 00:00:00', '', ''),
-(46, 37, '0000-00-00 00:00:00', '', ''),
-(48, 39, '0000-00-00 00:00:00', '', ''),
-(58, 49, '0000-00-00 00:00:00', '', '');
+(68, 78, '0000-00-00 00:00:00', '', ''),
+(69, 79, '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -86,20 +80,17 @@ INSERT INTO `arc_patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recen
 CREATE TABLE `arc_patient_lab_reports` (
   `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  `p_lab_reports` blob NOT NULL,
-  `import` blob NOT NULL
+  `doc_name` varchar(100) DEFAULT NULL,
+  `document` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `arc_patient_lab_reports`
 --
 
-INSERT INTO `arc_patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `import`) VALUES
-(10, 12, '', ''),
-(32, 36, '', 0x70617469656e747265632d696d706f7274732d362e6a7067),
-(33, 37, '', 0x70617469656e747265632d696d706f7274732d2e6a7067),
-(35, 39, '', ''),
-(45, 49, '', 0x70617469656e747265632d696d706f7274732d31322e6a7067);
+INSERT INTO `arc_patient_lab_reports` (`id`, `patient_id`, `doc_name`, `document`) VALUES
+(57, 78, NULL, NULL),
+(58, 79, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -110,20 +101,20 @@ INSERT INTO `arc_patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `imp
 CREATE TABLE `arc_patient_record` (
   `patient_id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
-  `middle_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) NOT NULL,
-  `age` int(11) NOT NULL,
+  `age` int(11) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `sex` varchar(20) DEFAULT NULL,
   `civil_status` varchar(55) DEFAULT NULL,
-  `occupation` varchar(50) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `cell_no` varchar(30) NOT NULL,
-  `tel_no` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `ec_name` varchar(100) NOT NULL,
-  `relationship` varchar(30) NOT NULL,
-  `ec_contact_no` varchar(30) NOT NULL,
+  `occupation` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `cell_no` varchar(30) DEFAULT NULL,
+  `tel_no` varchar(30) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `ec_name` varchar(100) DEFAULT NULL,
+  `relationship` varchar(30) DEFAULT NULL,
+  `ec_contact_no` varchar(30) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,
   `role` varchar(10) NOT NULL,
@@ -140,11 +131,8 @@ CREATE TABLE `arc_patient_record` (
 --
 
 INSERT INTO `arc_patient_record` (`patient_id`, `first_name`, `middle_name`, `last_name`, `age`, `birth_date`, `sex`, `civil_status`, `occupation`, `address`, `cell_no`, `tel_no`, `email`, `ec_name`, `relationship`, `ec_contact_no`, `password`, `type`, `role`, `avatar`, `activation_code`, `status`, `date_created`, `last_checkup`, `last_accessed`) VALUES
-(12, 'Venge', 'C', 'Angot', 60, '1962-05-26', 'Female', '', 'Programmer', 'Taguig, NCR', '+639772524193', '9586674', 'venge@gmail.com', 'Venge', 'Grandparent', '09263748245', '1962-05-26', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 01:53:49', '2022-10-23', '2022-11-05 13:24:27'),
-(36, 'Kentrick Andre Sagala', '', '', 21, '2000-11-06', 'Male', NULL, 'Student', 'Marikina City', '09176810006', '532-5162', '', '', '', '', '2000-11-06', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 02:00:15', '0000-00-00', '2022-11-05 13:24:22'),
-(37, 'Kentrick Andre Sagala', '', '', 21, '2000-11-06', 'Male', NULL, 'Student', 'Marikina City', '09176810006', '532-5162', '', '', '', '', '2000-11-06', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 02:07:26', '0000-00-00', '2022-11-05 13:24:02'),
-(39, 'Kendrick Andre', 'Aquino', 'Sagala', 21, '1111-11-11', 'Male', 'Divorced', 'Student', 'Manila, Philippines', '+639176810006', '5325162', 'sagala.krch@gmail.com', 'Luciel Sagala', 'Mother', '09175059036', '1111-11-11', 'added', 'patient', 'patient-avatar-39.png', 0, 0, '2022-11-05 02:52:28', '2022-11-05', '2022-11-05 13:19:31'),
-(49, 'Kendrick Andre Sagala', '', '', 21, '2000-11-06', 'Male', NULL, 'Student', 'Marikina City', '09176810006', '532-5162', '', '', '', '', '2000-11-06', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:21:03', '0000-00-00', '0000-00-00 00:00:00');
+(78, 'Ken', '', 'Sagala', 0, '1111-11-11', NULL, NULL, '', '', '', '', '', '', NULL, '', '1111-11-11', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-11-10 02:17:52', '2022-11-10', '2022-11-10 02:20:30'),
+(79, 'Ken', '', 'Sagala', 0, '1111-11-11', NULL, NULL, '', '', '', '', '', '', NULL, '', '1111-11-11', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-11-10 02:42:55', '2022-11-10', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -164,11 +152,8 @@ CREATE TABLE `arc_patient_treatment_plan` (
 --
 
 INSERT INTO `arc_patient_treatment_plan` (`id`, `patient_id`, `p_diagnosis`, `p_treatment_plan`) VALUES
-(17, 12, '', ''),
-(39, 36, '', ''),
-(40, 37, '', ''),
-(42, 39, '', ''),
-(52, 49, '', '');
+(60, 78, '', ''),
+(61, 79, '', '');
 
 -- --------------------------------------------------------
 
@@ -237,26 +222,16 @@ INSERT INTO `patient_details` (`patient_id`, `blood_type`, `bp_systolic`, `bp_di
 (8, '', 0, 0, 0, '0', '0', '', '1970-01-01 08:00:00', '', ''),
 (9, '', 0, 0, 0, '155', '74', '', '1970-01-01 08:00:00', '', ''),
 (10, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(11, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (13, '', 0, 0, 0, '', '', '', '1970-01-01 08:00:00', '', ''),
-(14, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
+(14, '', 0, 0, 0, '', '', '', '1970-01-01 08:00:00', '', ''),
 (15, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (16, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (17, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (18, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (19, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
 (21, '', 0, 0, 0, '0', '0', '', '0000-00-00 00:00:00', '', ''),
-(38, '', 0, 0, 0, '152', '59', '', '0000-00-00 00:00:00', '', ''),
-(40, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(41, '', 0, 0, 0, '152', '', '', '0000-00-00 00:00:00', '', ''),
-(42, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(43, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(44, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(45, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(46, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(47, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(48, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', ''),
-(50, '', 0, 0, 0, '0', '0', '', '1970-01-01 08:00:00', '', '');
+(76, '', 0, 0, 0, '152', '59', '', '1970-01-01 08:00:00', '', ''),
+(77, '', 0, 0, 0, '', '', '', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -286,12 +261,11 @@ INSERT INTO `patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recent_di
 (14, 2, '2022-10-22 01:01:00', 'diag2_3', 'Jass Hussein'),
 (15, 5, '2022-10-22 02:08:00', 'diag5_1', 'Miguel Pagtakhan'),
 (16, 5, '2022-10-22 02:09:00', 'This is diagnosis5_2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut lorem massa, imperdiet vitae fermentum sit amet, fermentum non sapien. Vestibulum luctus tempor sapien, eu rutrum dolor lacinia eu. Cras iaculis pulvinar diam at scelerisque.', 'Jass Hussein'),
-(17, 6, '0000-00-00 00:00:00', '', ''),
+(17, 6, '2022-11-09 10:51:00', 'diag6_1', 'Jass Hussein'),
 (18, 7, '0000-00-00 00:00:00', '', ''),
 (19, 8, '0000-00-00 00:00:00', '', ''),
 (20, 9, '0000-00-00 00:00:00', '', ''),
 (21, 10, '0000-00-00 00:00:00', '', ''),
-(22, 11, '0000-00-00 00:00:00', '', ''),
 (24, 13, '0000-00-00 00:00:00', '', ''),
 (25, 14, '0000-00-00 00:00:00', '', ''),
 (26, 15, '0000-00-00 00:00:00', '', ''),
@@ -300,17 +274,9 @@ INSERT INTO `patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recent_di
 (29, 18, '0000-00-00 00:00:00', '', ''),
 (30, 19, '0000-00-00 00:00:00', '', ''),
 (31, 21, '0000-00-00 00:00:00', '', ''),
-(47, 38, '0000-00-00 00:00:00', '', ''),
-(49, 40, '0000-00-00 00:00:00', '', ''),
-(50, 41, '0000-00-00 00:00:00', '', ''),
-(51, 42, '0000-00-00 00:00:00', '', ''),
-(52, 43, '0000-00-00 00:00:00', '', ''),
-(53, 44, '0000-00-00 00:00:00', '', ''),
-(54, 45, '0000-00-00 00:00:00', '', ''),
-(55, 46, '0000-00-00 00:00:00', '', ''),
-(56, 47, '0000-00-00 00:00:00', '', ''),
-(57, 48, '0000-00-00 00:00:00', '', ''),
-(59, 50, '0000-00-00 00:00:00', '', '');
+(61, 1, '2022-11-09 01:34:00', 'This is patient-1\'s diagnosis 5', 'Jass Hussein'),
+(66, 76, '0000-00-00 00:00:00', '', ''),
+(67, 77, '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -321,15 +287,15 @@ INSERT INTO `patient_diagnosis` (`id`, `patient_id`, `p_diag_date`, `p_recent_di
 CREATE TABLE `patient_lab_reports` (
   `id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
-  `p_lab_reports` blob NOT NULL,
-  `import` blob NOT NULL
+  `doc_name` varchar(100) DEFAULT NULL,
+  `document` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `patient_lab_reports`
 --
 
-INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `import`) VALUES
+INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `doc_name`, `document`) VALUES
 (1, 1, '', ''),
 (2, 2, '', ''),
 (3, 5, '', ''),
@@ -338,7 +304,6 @@ INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `import`
 (6, 8, '', ''),
 (7, 9, '', ''),
 (8, 10, '', ''),
-(9, 11, '', ''),
 (11, 13, '', ''),
 (12, 14, '', ''),
 (13, 15, '', ''),
@@ -347,17 +312,7 @@ INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `import`
 (16, 18, '', ''),
 (17, 19, '', ''),
 (18, 21, '', ''),
-(34, 38, '', 0x70617469656e747265632d696d706f7274732d312e6a7067),
-(36, 40, '', 0x70617469656e747265632d696d706f7274732d322e6a7067),
-(37, 41, '', 0x70617469656e747265632d696d706f7274732d332e6a7067),
-(38, 42, '', 0x70617469656e747265632d696d706f7274732d342e6a7067),
-(39, 43, '', 0x70617469656e747265632d696d706f7274732d362e6a7067),
-(40, 44, '', 0x70617469656e747265632d696d706f7274732d372e6a7067),
-(41, 45, '', 0x70617469656e747265632d696d706f7274732d382e6a7067),
-(42, 46, '', 0x70617469656e747265632d696d706f7274732d392e6a7067),
-(43, 47, '', 0x70617469656e747265632d696d706f7274732d31302e6a7067),
-(44, 48, '', 0x70617469656e747265632d696d706f7274732d31312e6a7067),
-(46, 50, '', '');
+(55, 76, 'Imported File', 0x696d706f72742d37362e6a7067);
 
 -- --------------------------------------------------------
 
@@ -368,20 +323,20 @@ INSERT INTO `patient_lab_reports` (`id`, `patient_id`, `p_lab_reports`, `import`
 CREATE TABLE `patient_record` (
   `patient_id` int(11) NOT NULL,
   `first_name` varchar(100) NOT NULL,
-  `middle_name` varchar(100) NOT NULL,
+  `middle_name` varchar(100) DEFAULT NULL,
   `last_name` varchar(100) NOT NULL,
-  `age` int(11) NOT NULL,
-  `birth_date` date DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `birth_date` date NOT NULL,
   `sex` varchar(20) DEFAULT NULL,
   `civil_status` varchar(55) DEFAULT NULL,
-  `occupation` varchar(50) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `cell_no` varchar(30) NOT NULL,
-  `tel_no` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `ec_name` varchar(100) NOT NULL,
-  `relationship` varchar(30) NOT NULL,
-  `ec_contact_no` varchar(30) NOT NULL,
+  `occupation` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `cell_no` varchar(30) DEFAULT NULL,
+  `tel_no` varchar(30) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `ec_name` varchar(100) DEFAULT NULL,
+  `relationship` varchar(30) DEFAULT NULL,
+  `ec_contact_no` varchar(30) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,
   `role` varchar(10) NOT NULL,
@@ -406,7 +361,6 @@ INSERT INTO `patient_record` (`patient_id`, `first_name`, `middle_name`, `last_n
 (8, 'Paul', 'Jeremy', 'Manuel', 40, '1982-08-29', 'Male', '', 'Software Developer', 'Pasig, Philippines', '+639772524193', '5647584', 'paul.jeremy@gmail.com', 'PJ', 'Spouse', '09354738465', '1982-08-29', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 01:10:25', '2022-10-23', '0000-00-00 00:00:00'),
 (9, 'Meynard', 'Julien', 'Trinidad', 51, '1970-11-25', 'Male', '', 'Driver', 'Pasig, Philippines', '+639772524193', '5748837', 'meynard@gmail.com', 'Meynard', 'Grandparent', '09354738465', '1970-11-25', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 01:34:57', '2022-10-23', '0000-00-00 00:00:00'),
 (10, 'Luciel', 'Ann', 'Sagala', 40, '1982-09-15', 'Female', '', 'Secretary', 'Marikina, NCR', '+639176810006', '8675586', 'luciel@gmail.com', 'Roderick Sagala', 'Spouse', '09263748245', '1982-09-15', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 01:36:56', '2022-10-23', '0000-00-00 00:00:00'),
-(11, 'Angelika', 'Jayne', 'Tanseco', 63, '1959-09-30', 'Female', 'Married', 'Businesswoman ', 'Cavite, Philippines', '+639772524193', '9847563', 'angelika.jayne@gmail.com', 'Ange', 'Mother', '09175059036', '1959-09-30', 'added', 'patient', 'default-avatar.png', 3, 0, '2022-10-23 01:38:20', '2022-10-23', '2022-11-04 15:59:51'),
 (13, 'Alden', 'Horn', 'Mcgee', 38, '1984-03-14', 'Male', 'Single', 'Worker', 'Manila, Philippines', '+639176810006', '84756473', 'alden@gmail.com', 'Collin Nguyen', 'Spouse', '09364734263', '1984-03-14', 'added', 'patient', 'patient-avatar-13.png', 0, 0, '2022-10-23 13:18:40', '2022-10-23', '2022-11-05 13:46:42'),
 (14, 'Deborah', 'Merritt', 'Burch', 49, '1973-09-12', 'Female', '', 'Businesswoman ', 'Cavite, Philippines', '+639772524193', '4857748', 'deborah@gmail.com', 'Faith Holden', 'Sibling', '09354738465', '1973-09-12', 'added', 'patient', 'default-avatar.png', 6, 0, '2022-10-23 13:21:01', '2022-10-23', '0000-00-00 00:00:00'),
 (15, 'Bryce', 'Larsen', 'Boone', 77, '1945-10-06', 'Male', '', 'Businessman', 'Mandaluyong, NCR', '+639176810006', '92847284', 'bryce.boone@gmail.com', 'Hayley Wiley', 'Spouse', '09354738465', '1945-10-06', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 13:24:35', '2022-10-23', '0000-00-00 00:00:00'),
@@ -415,17 +369,8 @@ INSERT INTO `patient_record` (`patient_id`, `first_name`, `middle_name`, `last_n
 (18, 'Breanna', 'Riggs', 'Combs', 79, '1942-11-03', 'Female', '', 'Housewife', 'Laguna, Philippines', '+639176810006', '9284473', 'breanna@yahoo.com', 'Kendra Riggs', 'Guardian', '09175059036', '1942-11-03', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-23 13:28:58', '2022-10-23', '0000-00-00 00:00:00'),
 (19, 'Keane', 'Uy', 'Jose', 14, '2008-04-26', 'Male', '', 'Student', 'Manila, Philippines', '+639176810006', '5847736', 'keane@gmail.com', 'Lily', 'Mother', '09236437573', '2008-04-26', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-24 00:06:01', '2022-10-24', '2022-11-04 23:32:55'),
 (21, 'John', 'Melvil', 'Templanza', 85, '1111-11-11', 'Male', '', 'Student', 'Manila, Philippines', '+639176810006', '4345232', 'melviltemplanza@gmail.com', 'Melvs', 'Other', '09175059036', '1111-11-11', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-10-25 01:27:56', '2022-10-25', '2022-11-05 02:37:02'),
-(38, 'Pedrito Lopez', '', '', 63, '1958-01-12', 'Male', 'Married', 'Tel Technician', 'Aswapt Legaspi St Binakayan Kawit Cavite', '09493100165', '436-7753', '', '', '', '', '1958-01-12', 'import', 'patient', 'default-avatar.png', 6, 0, '2022-11-05 02:51:50', '0000-00-00', '0000-00-00 00:00:00'),
-(40, 'Jojo Ugalino', '', '', 47, '0000-00-00', 'Male', NULL, '', '237 Dangot St. Kaingen Bacoor, Cavite', '', '09477035559', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:02:18', '0000-00-00', '0000-00-00 00:00:00'),
-(41, 'Elizabeth Baylon', '', '', 49, '0000-00-00', 'Female', NULL, '', '333 L Reyes Bacoor, Cavite', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:09:41', '0000-00-00', '0000-00-00 00:00:00'),
-(42, 'Lalaine Policarpio', '', '', 37, '0000-00-00', 'Female', 'Married', 'Employee', '136 A Banalo, Bacoor Cavite', '', '09274427768', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:10:47', '0000-00-00', '0000-00-00 00:00:00'),
-(43, 'Aiesha Juliana P. Dominero', '', '', 6, '0000-00-00', NULL, NULL, '', '229 Talaba II Bacoor, Cavite', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:13:56', '0000-00-00', '0000-00-00 00:00:00'),
-(44, 'Laura C. Tortona', '', '', 72, '0000-00-00', 'Female', NULL, '', '200 Tramo St. Bacoor, Cavite', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:14:57', '0000-00-00', '0000-00-00 00:00:00'),
-(45, 'Jocelyn Tenedero', '', '', 54, '1967-08-19', 'Female', NULL, '', '351 Silangan Talaba 7, Bacoor Cavite', '09098945810', '', '', '', '', '', '1967-08-19', 'import', 'patient', 'default-avatar.png', 3, 0, '2022-11-05 14:16:42', '0000-00-00', '0000-00-00 00:00:00'),
-(46, 'Felecitas Santos \"Fely\"', '', '', 74, '0000-00-00', NULL, NULL, '', 'Kaingen Bacoor, Cavite', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:17:41', '0000-00-00', '0000-00-00 00:00:00'),
-(47, 'Romeo D. Frani', '', '', 44, '0000-00-00', 'Male', NULL, '', '', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:18:54', '0000-00-00', '0000-00-00 00:00:00'),
-(48, 'Gilbert Francisco', '', '', 62, '0000-00-00', 'Male', NULL, '', 'Ligas Bacoor', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 14:19:37', '0000-00-00', '0000-00-00 00:00:00'),
-(50, 'Kendrick Andre', 'Aquino', 'Sagala', 66, '1111-11-11', 'Male', 'Single', 'Student', 'Manila, Philippines', '+639176810006', '5463374', 'sagala.krch@gmail.com', 'Kendrick Andre Aquino Sagala', 'Sibling', '09175059036', '1111-11-11', 'added', 'patient', 'default-avatar.png', 0, 0, '2022-11-05 15:33:38', '2022-11-05', '0000-00-00 00:00:00');
+(76, 'Pedrito Lopez', '', '', 63, '1958-01-12', 'Male', 'Married', 'Tel Technician', 'Aswapt Legaspi St Binakayan Kawit Cavite', '09493100165', '436-7753', '', '', '', '', '1958-01-12', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-09 23:58:12', '0000-00-00', '0000-00-00 00:00:00'),
+(77, 'Felecitas Santos \"Fely\"', '', '', 74, '0000-00-00', NULL, NULL, '', 'Kaingen Bacoor, Cavite', '', '', '', '', '', '', '', 'import', 'patient', 'default-avatar.png', 0, 0, '2022-11-09 23:59:33', '0000-00-00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -455,7 +400,6 @@ INSERT INTO `patient_treatment_plan` (`id`, `patient_id`, `p_diagnosis`, `p_trea
 (13, 8, '', ''),
 (14, 9, '', ''),
 (15, 10, '', ''),
-(16, 11, '', ''),
 (18, 13, '', ''),
 (19, 14, '', ''),
 (20, 15, '', ''),
@@ -464,17 +408,8 @@ INSERT INTO `patient_treatment_plan` (`id`, `patient_id`, `p_diagnosis`, `p_trea
 (23, 18, '', ''),
 (24, 19, '', ''),
 (25, 21, '', ''),
-(41, 38, '', ''),
-(43, 40, '', ''),
-(44, 41, '', ''),
-(45, 42, '', ''),
-(46, 43, '', ''),
-(47, 44, '', ''),
-(48, 45, '', ''),
-(49, 46, '', ''),
-(50, 47, '', ''),
-(51, 48, '', ''),
-(53, 50, '', '');
+(58, 76, '', ''),
+(59, 77, '', '');
 
 -- --------------------------------------------------------
 
@@ -619,7 +554,7 @@ ALTER TABLE `inventory`
 -- Indexes for table `patient_details`
 --
 ALTER TABLE `patient_details`
-  ADD PRIMARY KEY (`patient_id`) USING BTREE;
+  ADD KEY `patient_id` (`patient_id`);
 
 --
 -- Indexes for table `patient_diagnosis`
@@ -674,25 +609,25 @@ ALTER TABLE `user_accounts`
 -- AUTO_INCREMENT for table `arc_patient_diagnosis`
 --
 ALTER TABLE `arc_patient_diagnosis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `arc_patient_lab_reports`
 --
 ALTER TABLE `arc_patient_lab_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `arc_patient_record`
 --
 ALTER TABLE `arc_patient_record`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `arc_patient_treatment_plan`
 --
 ALTER TABLE `arc_patient_treatment_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -704,25 +639,25 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `patient_diagnosis`
 --
 ALTER TABLE `patient_diagnosis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `patient_lab_reports`
 --
 ALTER TABLE `patient_lab_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `patient_record`
 --
 ALTER TABLE `patient_record`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `patient_treatment_plan`
 --
 ALTER TABLE `patient_treatment_plan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `schedule`
