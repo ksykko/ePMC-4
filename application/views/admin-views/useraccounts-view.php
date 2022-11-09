@@ -86,7 +86,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- first_name -->
-                                                <input class="form-control" type="text" id="first_name" name="first_name" value="<?= set_value('first_name'); ?>" />
+                                                <input class="form-control" type="text" id="first_name" name="first_name" value="<?= set_value('first_name'); ?>" placeholder="Juan" />
                                             </div>
                                             <small class="text-danger"><?= form_error('first_name') ?></small>
                                         </div>
@@ -98,7 +98,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- middle_name -->
-                                                <input class="form-control" type="text" id="middle_name" name="middle_name" value="<?= set_value('middle_name'); ?>" />
+                                                <input class="form-control" type="text" id="middle_name" name="middle_name" value="<?= set_value('middle_name'); ?>" placeholder="Martinez" />
                                             </div>
                                             <small class="text-danger"><?= form_error('middle_name') ?></small>
                                         </div>
@@ -110,7 +110,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- last_name -->
-                                                <input class="form-control" type="text" id="last_name" name="last_name" value="<?= set_value('last_name'); ?>" />
+                                                <input class="form-control" type="text" id="last_name" name="last_name" value="<?= set_value('last_name'); ?>" placeholder="Dela Cruz" />
                                             </div>
                                             <small class="text-danger"><?= form_error('last_name') ?></small>
                                         </div>
@@ -122,7 +122,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- username -->
-                                                <input class="form-control" type="text" id="username" name="username" value="<?= set_value('username'); ?>" />
+                                                <input class="form-control" type="text" id="username" name="username" value="<?= set_value('username'); ?>" placeholder="jmdelacruz"/>
                                             </div>
                                             <small class="text-danger"><?= form_error('username') ?></small>
                                         </div>
@@ -134,7 +134,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- password -->
-                                                <input class="form-control" type="text" id="password" name="password" value="<?= set_value('password'); ?>" />
+                                                <input class="form-control" type="password" id="password" name="password" value="<?= set_value('password'); ?>" placeholder="•••••••" />
                                             </div>
                                             <small class="text-danger"><?= form_error('password') ?></small>
                                         </div>
@@ -146,7 +146,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- password -->
-                                                <input class="form-control" type="text" id="conf_password" name="conf_password" value="<?= set_value('conf_password'); ?>" />
+                                                <input class="form-control" type="password" id="conf_password" name="conf_password" value="<?= set_value('conf_password'); ?>" placeholder="•••••••" />
                                             </div>
                                             <small class="text-danger"><?= form_error('conf_password') ?></small>
                                         </div>
@@ -221,10 +221,14 @@
                                 <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="contact_no" name="contact_no" /><small class="text-danger"><?= form_error('contact_no') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label>
+                                    <input class="form-control form-control-sm" type="tel" id="contact_no" name="contact_no" placeholder="09561234567"/>
+                                    <small class="text-danger"><?= form_error('contact_no') ?></small></div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
+                                    <div class="col form-group px-1"><label class="form-label">Email</label>
+                                    <input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" />
+                                    <small class="text-danger"><?= form_error('email') ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -301,17 +305,17 @@
                                         <h5 class="heading-modal fw-semibold">Edit User</h5>
                                         <hr size="5" />
                                         <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                        <div class="row mb-2">
+                                        <!-- <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">User ID:</label></div>
                                             <div class="col-9">
                                                 <div class="input-error">
-                                                    <div class="input-group">
+                                                    <div class="input-group"> -->
                                                         <!-- user_id -->
-                                                        <input class="form-control user_id" type="text" id="user_id" name="user_id" value="<?= $user->user_id ?>" disabled />
+                                                        <!-- <input class="form-control user_id" type="text" id="user_id" name="user_id" value="<?= $user->user_id ?>" disabled />
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="row mt-4 mb-2">
                                             <div class="col-3"><label class="col-form-label">First name:</label></div>

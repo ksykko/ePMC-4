@@ -1142,7 +1142,7 @@ hr {
 
 /* 1361 */
 
-@media (max-width: 1580px) {
+@media (max-width: 1480px) {
     .patient-container {
         flex-wrap: wrap;
         justify-content: center;
