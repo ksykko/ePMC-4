@@ -394,6 +394,11 @@ class Admin_model extends CI_Model
         $this->db->insert('patient_lab_reports', $info);
     }
 
+    public function get_patient_documents($id)
+    {
+        return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result();
+    }
+
     public function get_patient_lab_reports_row($id)
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->row();
