@@ -47,7 +47,7 @@ class Admin_useracc extends CI_Controller {
             $row[] = $no;
             $row[] = $user->first_name . ' ' . $user->last_name;
             $row[] = $user->username;
-            $row[] = $user->role;
+            $row[] = ucfirst($user->role);
             $row[] = $user->specialization;
             $row[] = $user->birth_date;
             $row[] = $user->contact_no;
@@ -102,9 +102,7 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('specialization', 'Specialization', 'required', array(
-            'required' => 'Please enter user\'s %s.'
-        ));
+        $this->form_validation->set_rules('specialization', 'Specialization');
 
         $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
             'required' => 'Please enter user\'s %s.'
@@ -126,13 +124,7 @@ class Admin_useracc extends CI_Controller {
        
         if ($this->form_validation->run() == FALSE)
         {
-            // echo '
-            // <script type="text/javascript"> 
-            //     $(document).ready(function(){
-            //     $("#modal-1").modal("show");
-            //     });
-            // </script>
-            // ';
+            $this->session->set_flashdata('message', 'add_failed');
             $this->index();
         }
         else
@@ -194,9 +186,7 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('specialization', 'Specialization', 'required', array(
-            'required' => 'Please enter user\'s %s.'
-        ));
+        $this->form_validation->set_rules('specialization', 'Specialization');
 
         $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
             'required' => 'Please enter user\'s %s.'
