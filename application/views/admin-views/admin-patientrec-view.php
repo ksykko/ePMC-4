@@ -63,11 +63,11 @@
                                         <input class="form-control form-control-sm" type="text" id="address" name="address" /><small class="text-danger"><?= form_error('address') ?></small>
                                     </div>
                                 </div>
-                                <div class="row mb-2">
+                                <!-- <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Full Name</label>
                                         <input class="form-control form-control-sm combine" type="text" id="full_name" name="full_name" value="" />
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="tab">
@@ -431,28 +431,82 @@
         y = x[currentTab].getElementsByTagName("input");
         z = x[currentTab].getElementsByTagName("select");
 
+
         // A loop that checks every input field in the current tab:
+        // TODO: Add validation for input fields
+        for (i = 0; i < y.length; i++) {
+
+            // If first_name is empty
+            if (y[i].name == "first_name" && y[i].value == "") {
+                y[i].className += " invalid";
+                input_valid = false;
+            } else
+                y[i].className = "form-control form-control-sm warning";
+
+
+
+
+
+            // If an input field is empty...
+            // if (y[i].value == "") {
+            //     // add an "invalid" class to the field:
+            //     y[i].className += " invalid";
+            //     // and set the current valid status to false
+            //     input_valid = false;
+            // } else
+            //y[i].className = "form-control form-control-sm valid";
+        }
+
+        // A loop that checks every select field in the current tab:
+        // TODO: Add validation for select fields
+        for (j = 0; j < z.length; j++) {
+            //If a select field is empty...
+            if (z[j].value == "select") {
+                // add an "invalid" class to the field:
+                z[j].className += " warning";
+                // and set the current valid status to false
+                select_valid = true;
+            } else
+                z[j].className = "form-select form-select-sm warning";
+        }
+
+
+        // TODO: If input/select is blank display yellow border
         for (i = 0; i < y.length; i++) {
             // If an input field is empty...
             if (y[i].value == "") {
                 // add an "invalid" class to the field:
-                y[i].className += " invalid";
+                y[i].className += " warning";
                 // and set the current valid status to false
-                input_valid = false;
+                input_valid = true;
             } else
-                y[i].className = "form-control form-control-sm valid";
+                y[i].className = "form-control form-control-sm warning";
         }
 
-        // A loop that checks every select field in the current tab:
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " invalid";
-                // and set the current valid status to false
-                select_valid = false;
-            } else
-                z[j].className = "form-select form-select-sm valid";
+        // A loop that checks every input field in the current tab:
+        // TODO: Add validation for input fields
+        for (i = 0; i < y.length; i++) {
+
+            // If first_name is empty
+            if (y[i].name == "first_name" && y[i].value == "") {
+                y[i].className = "form-control form-control-sm invalid";
+                input_valid = false;
+            }
+            else
+                y[i].className = "form-control form-control-sm warning";
+
+
+
+
+
+            // If an input field is empty...
+            // if (y[i].value == "") {
+            //     // add an "invalid" class to the field:
+            //     y[i].className += " invalid";
+            //     // and set the current valid status to false
+            //     input_valid = false;
+            // } else
+            //y[i].className = "form-control form-control-sm valid";
         }
 
 
