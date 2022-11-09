@@ -399,10 +399,31 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result();
     }
 
+    public function get_patient_document($id)
+    {
+        return $this->db->get_where('patient_lab_reports', ['id' => $id])->row();
+    }
+
+    public function get_patient_documents_arr($id)
+    {
+        return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result_array();
+    }
+
     public function get_patient_lab_reports_row($id)
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->row();
     }
+
+    public function delete_patient_document($id)
+    {
+        $this->db->delete('patient_lab_reports', ['id' => $id]);
+    }
+
+    public function get_patient_documents_array($id)
+    {
+        return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result_array();
+    }
+    
     // END OF patient_lab_reports table
 
     // START OF age range chart

@@ -147,9 +147,9 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">User Activity</h6>
                         </div>
-                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                        <div class="card-body mx-3 my-3">
                             <div class="chart-area">
-                                <canvas class=" align-items-center" id="sampleChart2"></canvas>
+                                <canvas id="sampleChart4"></canvas>
                             </div>
                         </div>
                     </div>
@@ -328,6 +328,29 @@
                 ]
             }]
         }
+    })
+
+    let sampleChart4 = document.getElementById('sampleChart4').getContext('2d');
+    let userActChart = new Chart(sampleChart4, {
+        type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'User Activity',
+                data: [12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5, 6],
+                backgroundColor: [
+                    "#115f9a",
+                    "#1984c5",
+                    "#22a7f0",
+                    "#48b5c4",
+                    "#76c68f",
+                    "#a6d75b",
+                    "#c9e52f",
+                    "#d0ee11",
+                    "#f4f100"
+                ]
+            }]
+        },
     })
 </script>
 
