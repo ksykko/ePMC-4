@@ -94,9 +94,12 @@ class Admin_patientrec extends CI_Controller
 
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+            // format data to eg 01/01/2021 12:00 AM
+            $dt = new DateTime($diag_date);
+            $date_added = $dt->format('m/d/y h:i A');
 
             $row = array();
-            $row[] = $diag_date;
+            $row[] = $date_added;
             $row[] = $diagnosis->p_recent_diagnosis;
             $row[] = $diagnosis->p_doctor;
             $row[] = '
@@ -171,9 +174,11 @@ class Admin_patientrec extends CI_Controller
 
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+            $dt = new DateTime($diag_date);
+            $conul_date = $dt->format('m/d/y h:i A');
 
             $row = array();
-            $row[] = $diag_date;
+            $row[] = $conul_date;
             $row[] = $diagnosis->p_doctor;
 
             $data[] = $row;
@@ -307,8 +312,12 @@ class Admin_patientrec extends CI_Controller
         $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
         $data['treatments'] = $this->Admin_model->get_treatment_table();
         // $data['patients'] = $this->Admin_model->get_patient_table();
+
+        $data['documents'] = $this->Admin_model->get_patient_documents($id);
+        //$this->dd($data['documents']);
         $data['patient_id'] = $id;
         $data['doctors'] = $this->Doctors_model->get_all_doctors();
+        //$this->dd($data['doctors']);
         $data['user_role'] = $this->session->userdata('role');
 
         $this->load->view('include-admin/dashboard-header', $data);
@@ -657,9 +666,16 @@ class Admin_patientrec extends CI_Controller
                 'weight' => $this->input->post('weight'),
             );
 
+            // Create a folder for the patient and move the file to the folder
+            $this->create_folder($insert_id);
+
+            $file = $this->input->post('file');
+
+            $new_file =$this->copy_file($file, $insert_id);
+
             $documents = array(
                 'patient_id' => $insert_id,
-                'import' => $this->input->post('file'),
+                'import' => $new_file,
             );
 
             $setId = array(
@@ -677,9 +693,36 @@ class Admin_patientrec extends CI_Controller
             } else {
                 redirect('Doctor_patientrec');
             }
-        //}
     }
 
+    public function create_folder($id)
+    {
+        $folder = './uploads/' . $id;
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
+        }
+        return $folder;
+    }
+
+    public function copy_file($file, $id)
+    {
+        $file_path = 'assets/img/patientrec-imports/' . $file;
+        $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+        $new_file = 'import-' . $id . '.' . $file_ext;
+        $new_path = 'uploads/' . $id . '/' . $new_file;
+
+        // copy file to patient folder
+        copy($file_path, $new_path);
+
+        // delete file from patientrec-imports folder
+        $check = unlink($file_path);
+
+        if ($check) {
+            return $new_file;
+        } else {
+            return false;
+        }
+    }
 
     // PATIENT RECORD VIEW INDIVIDUAL
 
@@ -774,6 +817,28 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+    public  function add_document($id)
+    {
+        $patient = $this->Admin_model->get_patient_row($id);
+
+        $doc_config = array(
+            'upload_path' => './assets/img/patient-documents/',
+            'allowed_types' => 'jpg|jpeg|png|pdf',
+            'max_size' => 2048,
+            'max_width' => 2048,
+            'max_height' => 2048,
+            'file_name' => 'patient-doc-' . $id,
+            'file_ext_tolower' => TRUE,
+            'overwrite' => TRUE
+        ); 
+
+        
+
+        //$this->Admin_model->add_patient_document($id, $document);
+        $this->session->set_flashdata('message', 'success-document');
+        redirect('Admin_patientrec/view_patient/' . $id);
+    }
+
     public function add_diagnosis($id)
     {
         $patient = $this->Admin_model->get_patient_diagnosis_resultArr($id);
@@ -788,7 +853,7 @@ class Admin_patientrec extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
+            $this->session->set_flashdata('error', 'input-error');
             redirect('Admin_patientrec/view_patient/' . $id);
         } else {
 
@@ -846,7 +911,7 @@ class Admin_patientrec extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
+            $this->session->set_flashdata('error', 'error-treatment');
             redirect('Admin_patientrec/view_patient/' . $id);
         } else {
 

@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     height: 100vh;
     display: flex;
     background-color: #f0f0f0 !important;
@@ -96,7 +96,7 @@ body {
     height: 100%;
     top: 0px;
     transition: all 0.3s ease;
-    top: calc( 100% + 5rem);
+    top: calc(100% + 5rem);
     /*100% - height*/
     background-color: #f0f0f0;
     border-top-left-radius: 15px;
@@ -123,7 +123,7 @@ body {
 
 .hori-selector .right:before,
 .hori-selector .left:before {
-    content: '';
+    content: "";
     position: absolute;
     width: 50px;
     height: 50px;
@@ -141,7 +141,7 @@ body {
     left: -25px;
 }
 
-@media(min-width: 992px) {
+@media (min-width: 992px) {
     .navbar-expand-custom {
         -ms-flex-flow: row nowrap;
         flex-flow: row nowrap;
@@ -156,8 +156,8 @@ body {
         display: none;
     }
     .navbar-expand-custom .navbar-collapse {
-        display: -ms-flexbox!important;
-        display: flex!important;
+        display: -ms-flexbox !important;
+        display: flex !important;
         -ms-flex-preferred-size: auto;
         flex-basis: auto;
     }
@@ -491,7 +491,7 @@ body {
 /* NEW */
 
 .profile-card {
-    background: #284A94;
+    background: #284a94;
     border-radius: 2rem;
     height: 100%;
     color: #ffffff;
@@ -515,7 +515,7 @@ body {
 
 .dshb-main .bw-dashboard .dash-inner-content .number-label {
     font-size: 30px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 700 !important;
     color: rgb(150, 37, 37);
 }
@@ -633,7 +633,7 @@ body {
 
 .inv-td {
     padding: 10px !important;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 800;
 }
 
@@ -642,14 +642,14 @@ body {
 }
 
 .inv-td-desc {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
 
 .patientrec-label,
 .inventory-label {
     padding: 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 600;
 }
 
@@ -853,6 +853,22 @@ body {
     height: 37.19px;
 }
 
+.hover {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+    text-decoration: none;
+}
+
+.card:hover .hover {
+    display: block;
+}
+
 
 /* multi step css */
 
@@ -864,14 +880,14 @@ input.valid {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2300b779' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(0.4em + 0.3rem) center;
-    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem)
+    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem);
 }
 
 textarea.valid:focus,
 select.valid:focus,
 input.valid:focus {
     border-color: #00b779;
-    box-shadow: 0 0 0 .25rem rgba(0, 183, 121, .25)
+    box-shadow: 0 0 0 0.25rem rgba(0, 183, 121, 0.25);
 }
 
 textarea.invalid,
@@ -882,14 +898,14 @@ input.invalid {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(0.4em + 0.3rem) center;
-    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem)
+    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem);
 }
 
 textarea.invalid:focus,
 select.invalid:focus,
 input.invalid:focus {
     border-color: #dc3545;
-    box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .25)
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 }
 
 
@@ -958,7 +974,7 @@ hr {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    outline: 0
+    outline: 0;
 }
 
 .toast-dialog {
@@ -1016,7 +1032,7 @@ hr {
 
 .personal-info {
     color: rgb(0, 0, 0);
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     flex-basis: 70%;
     display: flex;
     flex-direction: row;
@@ -1030,7 +1046,7 @@ hr {
 .vline1 {
     flex-basis: 100%;
     /* border-left: 8px solid rgb(59, 58, 58); */
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     font-weight: 600;
     font-size: 40px;
     height: max-content !important;
@@ -1059,7 +1075,7 @@ hr {
     border: 5px solid rgb(90, 197, 105);
     padding: 40px;
     width: 100% !important;
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     font-size: 30px;
     text-align: center;
     display: flex;
@@ -1095,12 +1111,12 @@ hr {
 }
 
 .patient-diagnosis-table tbody {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     font-weight: 400 !important;
 }
 
 .recent-act-patient-label {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
     font-weight: 600 !important;
     font-size: 30px;
 }

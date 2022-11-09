@@ -2,9 +2,35 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
-<script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
 
+<script>
+    // merge first, middle and last name
+    $(function() {
+        $('#first_name, #middle_name, #last_name').on('input', function() {
+            $('#full_name').val(
+                $('#first_name, #middle_name, #last_name').map(function() {
+                    return $(this).val();
+                }).get().join(' ') /* added space */
+            );
+
+        });
+    });
+
+    jQuery.ajax({
+        url: "<?= site_url('Admin_patientrec') ?>",
+        data: 'full_name=' + $("#full_name").val(),
+        type: "POST",
+        success: function(data) {
+            $("#suggesstion-box").show();
+            $("#suggesstion-box").html(data);
+            $("#full_name").css("background", "#FFF");
+        }
+    });
+
+
+
+</script>
 <?php $ext_data = $this->session->flashdata('success-import') ?>
 <script type="text/javascript">
     var import_success = "<?= $ext_data['File'] ?>";
@@ -20,15 +46,32 @@
     const toastLiveExample = document.getElementById('liveToast')
 
     var $active_toast = "<?= $this->session->flashdata('message') ?>"
+    console.log($active_toast);
     var $err_toast = "<?= $this->session->flashdata('error-import') ?>"
+    console.log($err_toast);
     var $err_img = "<?= $this->session->flashdata('error-profilepic') ?>"
     var $err_info = "<?= $this->session->flashdata('error') ?>"
+    console.log($err_info);
+    var $err_diag = "<?= $this->session->flashdata('error-diagnosis') ?>"
+    console.log($err_diag);
 
     if (toastTrigger) {
-        if ($active_toast || $err_toast || $err_img || $err_info) {
+        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag) {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show()
-        }
+
+            if ($err_info == "input-error") {
+                $(document).ready(function() {
+                    $("#mdl-add-diagnosis").modal('show');
+                });
+            }
+
+            if ($err_info == "error-treatment") {
+                $(document).ready(function() {
+                    $("#mdl-add-treatment-plan").modal('show');
+                });
+            }
+        };
     }
 </script>
 <script type="text/javascript">
@@ -48,23 +91,23 @@
             },
 
             //Set column definition initialisation properties.
-            "columnDefs": [
-                {
+            "columnDefs": [{
                     "targets": [4], //first column / numbering column
                     "orderable": false, //set not orderable
                     "className": "text-center",
                     "targets": [4]
                 },
-                { "targets": [3],
-                    render: function (data, type, row) 
-                    {
-                        if (data == 'added'){
+                {
+                    "targets": [3],
+                    render: function(data, type, row) {
+                        if (data == 'added') {
                             return '<span class="badge bg-success">Added</span>';
                         } else {
                             return '<span class="badge bg-warning">Imported</span>';
                         }
                     },
-                    "targets": [3], "className": "text-center"
+                    "targets": [3],
+                    "className": "text-center"
                 }
             ]
         });
