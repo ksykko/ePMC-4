@@ -28,8 +28,6 @@
         }
     });
 
-
-
 </script>
 <?php $ext_data = $this->session->flashdata('success-import') ?>
 <script type="text/javascript">
@@ -54,9 +52,11 @@
     console.log($err_info);
     var $err_diag = "<?= $this->session->flashdata('error-diagnosis') ?>"
     console.log($err_diag);
+    var $err_doc = "<?= $this->session->flashdata('error-doc') ?>"
+    console.log($err_doc);
 
     if (toastTrigger) {
-        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag) {
+        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc) {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show()
 
