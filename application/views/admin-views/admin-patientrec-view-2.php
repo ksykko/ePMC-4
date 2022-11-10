@@ -825,19 +825,19 @@
                                     <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 529px;"><?= $healthinfo->prescription ?></textarea></div>
                                 </div>
                             </div>
-                        
-                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 248px">
-                            <div class="card-header py-3 ch-patientrec">
-                                <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
-                            </div>
-                            <div class="card-body mx-3">
-                                <div class="row">
-                                    <div class="col-xxl-12">
-                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
+
+                            <div id="card-next-consultation" class="card shadow mb-4" style="height: 248px">
+                                <div class="card-header py-3 ch-patientrec">
+                                    <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
+                                </div>
+                                <div class="card-body mx-3">
+                                    <div class="row">
+                                        <div class="col-xxl-12">
+                                            <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <?php endif; ?>
                         <?php if ($user_role == 'Admin') : ?>
                             <div id="card-next-consultation" class="card shadow mb-4" style="height: 350px">
@@ -944,7 +944,7 @@
                                                                     <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                                                     <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path>
                                                                     </svg>
-                                                                </button><a class="btn btn-light fw-semibold" type="button" href="<?= base_url('Admin_patientrec/download_document/') . $document->patient_id . '/' . $document->id ?>" ><span class="d-none d-xxl-inline-block">Download</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                                </button><a class="btn btn-light fw-semibold" type="button" href="<?= base_url('Admin_patientrec/download_document/') . $document->patient_id . '/' . $document->id ?>"><span class="d-none d-xxl-inline-block">Download</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
                                                                         <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                                                         <path d="M480 352h-133.5l-45.25 45.25C289.2 409.3 273.1 416 256 416s-33.16-6.656-45.25-18.75L165.5 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32v-96C512 366.3 497.7 352 480 352zM432 456c-13.2 0-24-10.8-24-24c0-13.2 10.8-24 24-24s24 10.8 24 24C456 445.2 445.2 456 432 456zM233.4 374.6C239.6 380.9 247.8 384 256 384s16.38-3.125 22.62-9.375l128-128c12.49-12.5 12.49-32.75 0-45.25c-12.5-12.5-32.76-12.5-45.25 0L288 274.8V32c0-17.67-14.33-32-32-32C238.3 0 224 14.33 224 32v242.8L150.6 201.4c-12.49-12.5-32.75-12.5-45.25 0c-12.49 12.5-12.49 32.75 0 45.25L233.4 374.6z"></path>
                                                                     </svg></a></div>
@@ -985,24 +985,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-cols-1">
+            <div class="row mb-4">
                 <div class="col">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 ch-patientrec">
-                            <h6 class="m-0 fw-bold fs-5 ch-heading">Objectives</h6>
-                        </div>
-                        <div class="card-body mx-3">
-                            <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $healthinfo->objectives ?></textarea></div>
+                    <div id="accordion-2" class="accordion" role="tablist">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-1" aria-expanded="true" aria-controls="accordion-2 .item-1">Objectives</button></h2>
+                            <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                                <div class="accordion-body mx-3">
+                                    <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $healthinfo->objectives ?></textarea></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row mb-4">
                 <div class="col">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 ch-patientrec">
-                            <h6 class="m-0 fw-bold fs-5 ch-heading">Symptoms</h6>
-                        </div>
-                        <div class="card-body mx-3">
-                            <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $healthinfo->symptoms ?></textarea></div>
+                    <div id="accordion-3" class="accordion" role="tablist">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="true" aria-controls="accordion-3 .item-1">Symptoms</button></h2>
+                            <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                                <div class="accordion-body mx-3">
+                                    <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $healthinfo->symptoms ?></textarea></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
