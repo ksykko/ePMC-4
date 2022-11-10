@@ -86,6 +86,14 @@ class Admin_schedule extends CI_Controller {
 			// 		'sun' => $this->input->post('day1')
 			// 	);
 			// }
+			$activity = array(
+				'activity' => 'A new schedule has been added in the schedules',
+				'module' => 'Schedule',
+				'date_created' => date('Y-m-d H:i:s')
+			);
+	
+			$this->Admin_model->add_activity($activity);
+
 
 			$this->session->set_flashdata('message', 'success');
 			$this->schedModel->insertSchedule($schedData);

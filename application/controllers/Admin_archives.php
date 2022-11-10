@@ -74,8 +74,15 @@ class Admin_archives extends CI_Controller
     }
 
     public function restore_patient($id)
-    {
+    {   
+        $activity = array(
+            'activity' => 'A patient has been restored from the archives',
+            'module' => 'Archives',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
         $this->Admin_model->restore_patient($id);
+        $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'rstr_success');
         redirect('Admin_archives');
     }

@@ -149,7 +149,14 @@ class Admin_useracc extends CI_Controller {
                     'date_created' => date('Y-m-d H:i:s')
                 );
             // }
-
+            
+            $activity = array(
+                'activity' => 'A new user has been added in the user accounts',
+                'module' => 'User Accounts',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+    
+            $this->Admin_model->add_activity($activity);
             $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_useracc($info);
 
@@ -225,6 +232,13 @@ class Admin_useracc extends CI_Controller {
                 );
             }
 
+            $activity = array(
+                'activity' => 'A user\'s account has been updated in the user accounts',
+                'module' => 'User Accounts',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
             $this->session->set_flashdata('message', 'edit_user_success');
             $this->Admin_model->edit_useracc($id, $info);
             redirect('Admin_useracc/index');  
@@ -248,6 +262,14 @@ class Admin_useracc extends CI_Controller {
     }
 
     public function delete_useracc($id) {
+
+        $activity = array(
+            'activity' => 'A user\'s account has been deleted in the user accounts',
+            'module' => 'User Accounts',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'dlt_user_success');
         $this->Admin_model->delete_useracc($id);
         redirect('Admin_useracc/index');

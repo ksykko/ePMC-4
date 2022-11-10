@@ -279,6 +279,14 @@ class Admin_patientrec extends CI_Controller
             'last_accessed' => date('Y-m-d H:i:s')
         );
 
+        $activity = array(
+            'activity' => 'A patient record has been updated in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
+
         $this->session->set_flashdata('message', 'success-edit-patient-PI');
         $this->Admin_model->edit_patient_PI($id, $info);
         redirect('Admin_patientrec/view_patient/' . $id);
@@ -287,6 +295,13 @@ class Admin_patientrec extends CI_Controller
 
     public function delete_patient($id)
     {
+        $activity = array(
+            'activity' => 'A patient record has been deleted in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient($id);
         $this->session->set_flashdata('message', 'dlt_success');
         redirect('Admin_patientrec/index');
@@ -432,6 +447,14 @@ class Admin_patientrec extends CI_Controller
             'patient_id' => $insert_id
         );
 
+        $activity = array(
+            'activity' => 'A new patient record has been added in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
+
         $this->session->set_flashdata('message', 'success');
         $this->Admin_model->add_patient_details($patientDetails);
         $this->Admin_model->add_patient_diagnosis($setId);
@@ -558,6 +581,8 @@ class Admin_patientrec extends CI_Controller
         $ext_data = $this->format_import($ext_data);
         //$this->dd($ext_data);
 
+        
+
         $this->session->set_flashdata('success-import', $ext_data);
         redirect('Admin_patientrec');
     }
@@ -672,6 +697,14 @@ class Admin_patientrec extends CI_Controller
         $setId = array(
             'patient_id' => $insert_id,
         );
+
+        $activity = array(
+            'activity' => 'A new patient record has been imported in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
 
         $this->session->set_flashdata('message', 'import-success');
         $this->Admin_model->add_patient_details($patientDetails);
@@ -797,6 +830,13 @@ class Admin_patientrec extends CI_Controller
                 'symptoms' => $this->input->post('symptoms')
             );
 
+            $activity = array(
+                'activity' => 'A patient record has been updated in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
 
             $this->Admin_model->update_patient_details($id, $health_info);
             $this->session->set_flashdata('message', 'success-healthinfo');
@@ -858,7 +898,13 @@ class Admin_patientrec extends CI_Controller
                 //     redirect('Admin_patientrec/view_patient/' . $id);
                 // }
 
-
+                $activity = array(
+                    'activity' => 'A patient document has been added in the patient records',
+                    'module' => 'Patient Records',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+        
+                $this->Admin_model->add_activity($activity);
 
                 $this->Admin_model->add_patient_lab_reports($doc_data);
                 $this->session->set_flashdata('message', 'success-doc');
@@ -878,6 +924,13 @@ class Admin_patientrec extends CI_Controller
 
     public function delete_document($id, $doc_id)
     {
+        $activity = array(
+            'activity' => 'A patient document has been deleted in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient_document($doc_id);
         $this->session->set_flashdata('message', 'success-doc-delete');
         redirect('Admin_patientrec/view_patient/' . $id);
@@ -925,16 +978,31 @@ class Admin_patientrec extends CI_Controller
                     redirect('Admin_patientrec/view_patient/' . $id);
                 }
             }
+
+            $activity = array(
+                'activity' => 'A patient diagnosis has been added in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
         }
     }
 
     public function edit_diagnosis($id)
     {
+
     }
 
     public function delete_diagnosis($patient_id, $id)
     {
+        $activity = array(
+            'activity' => 'A patient diagnosis has been deleted in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
 
+        $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient_diagnosis($id);
         $this->session->set_flashdata('message', 'success-dlt-diagnosis');
         redirect('Admin_patientrec/view_patient/' . $patient_id);
@@ -982,12 +1050,26 @@ class Admin_patientrec extends CI_Controller
                     redirect('Admin_patientrec/view_patient/' . $id);
                 }
             }
+
+            $activity = array(
+                'activity' => 'A patient treatment plan has been added in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
         }
     }
 
     public function delete_treatment($patient_id, $id)
     {
+        $activity = array(
+            'activity' => 'A patient treatment plan has been deleted in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
 
+        $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient_treatment($id);
         $this->session->set_flashdata('message', 'success-dlt-treatment');
         redirect('Admin_patientrec/view_patient/' . $patient_id);

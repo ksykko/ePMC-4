@@ -468,7 +468,13 @@ class Admin_model extends CI_Model
 
     // END OF gender data chart
 
+    // Start of Recent Activity 
+    public function add_activity($info)
+    {
+        $this->db->insert('recent_activity', $info);
+    }
 
+    // End of Recent Activity 
 
 
 
