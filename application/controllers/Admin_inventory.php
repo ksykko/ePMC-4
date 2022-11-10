@@ -119,6 +119,14 @@ class Admin_inventory extends CI_Controller {
                 );
             }
 
+            $activity = array(
+                'activity' => 'A new product has been added in the inventory',
+                'module' => 'Inventory',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+    
+            $this->Admin_model->add_activity($activity);
+
             $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_product($info);
             redirect('Admin_inventory');
@@ -177,6 +185,14 @@ class Admin_inventory extends CI_Controller {
                     'stock_out' => $this->input->post('stock_out')
                 );
             }
+
+            $activity = array(
+                'activity' => 'A product has been updated in the inventory',
+                'module' => 'Inventory',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+    
+            $this->Admin_model->add_activity($activity);
             $this->session->set_flashdata('message', 'edit_prod_success');
             $this->Admin_model->update_product($id, $info);
             redirect('Admin_inventory/index');  
@@ -205,6 +221,13 @@ class Admin_inventory extends CI_Controller {
 
     public function delete_product($id)
     {   
+        $activity = array(
+            'activity' => 'A product has been deleted in the inventory',
+            'module' => 'Inventory',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'dlt_success');
         $this->Admin_model->delete_product($id);
         redirect('Admin_inventory/index');

@@ -172,6 +172,14 @@ class Patient_patientrec extends CI_Controller
                 'last_accessed' => date('Y-m-d H:i:s')
             );
 
+            $activity = array(
+                'activity' => 'A patient record has been updated in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+    
+            $this->Admin_model->add_activity($activity);
+
             $this->session->set_flashdata('message', 'success-edit-patient-PI');
             $this->Admin_model->edit_patient_PI($id, $info);
             redirect('Patient_patientrec');
@@ -217,6 +225,14 @@ class Patient_patientrec extends CI_Controller
         $avatar = array(
             'avatar' => $img_name
         );
+
+        $activity = array(
+            'activity' => 'A patient record profile pic has been updated in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
 
         $this->Admin_model->update_avatar($id, $avatar);
         $this->session->set_flashdata('message', 'success-profilepic');
