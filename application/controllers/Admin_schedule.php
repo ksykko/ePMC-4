@@ -62,6 +62,7 @@ class Admin_schedule extends CI_Controller {
         // ));
 
 		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message', 'add_failed');
 			$this->index();
 		}
 		else {
@@ -86,7 +87,7 @@ class Admin_schedule extends CI_Controller {
 			// 	);
 			// }
 
-
+			$this->session->set_flashdata('message', 'success');
 			$this->schedModel->insertSchedule($schedData);
 			redirect('Admin_schedule');
 			

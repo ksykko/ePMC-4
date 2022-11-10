@@ -47,7 +47,6 @@
 												<?php endforeach; ?>
 											</select>
 										</div>
-										<small class="text-danger"><?= form_error('doctor_name') ?></small>
 									</div>
 								</div>
 							</div>
@@ -59,7 +58,7 @@
 										<div class="input-group">
 											<input type="text" class="form-control" name="specialization" id="specialization" placeholder="Enter Specialization">
 										</div>
-										<small class="text-danger"><?= form_error('specialization') ?></small>
+										
 									</div>
 								</div>
 							</div>
@@ -71,7 +70,7 @@
 										<div class="input-group">
 											<input type="time" class="form-control" name="start_time" id="start_time">
 										</div>
-										<small class="text-danger"><?= form_error('start_time') ?></small>
+										
 									</div>
 								</div>
 							</div>
@@ -83,7 +82,7 @@
 										<div class="input-group">
 											<input type="time" class="form-control" name="end_time" id="end_time">
 										</div>
-										<small class="text-danger"><?= form_error('end_time') ?></small>
+										
 									</div>
 								</div>
 							</div>
@@ -113,7 +112,7 @@
 									</label>
 
 								</div>
-								<small class="text-danger"><?= form_error('days[]') ?></small>
+								
 							</div>
 							<!-- THEME COLOR -->
 							<div class="row mt-4 mb-2">
@@ -139,7 +138,7 @@
 									<input type="radio" class="btn-check" name="color" id="color7" value="color7" autocomplete="off">
 									<label class="btn btn-outline color7" for="color7"> </label>
 								</div>
-								<small class="text-danger"><?= form_error('days[]') ?></small>
+								
 							</div>
 							<div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" name="Save" style="background: #3269bf;">Save</button></div>
 						</div>
@@ -152,6 +151,32 @@
 
 	<!-- Schedule Body -->
 	<div class="row">
+		<?php if ($this->session->flashdata('message') == 'success') : ?>
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
+						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+							<strong>Success!</strong> You successfully added a new schedule.</span>
+							<small class="text-danger"><?= form_error('doctor_name') ?></small>
+							<small class="text-danger"><?= form_error('specialization') ?></small>
+							<small class="text-danger"><?= form_error('start_time') ?></small>
+							<small class="text-danger"><?= form_error('end_time') ?></small>
+							<small class="text-danger"><?= form_error('days[]') ?></small>
+							<small class="text-danger"><?= form_error('days[]') ?></small>
+					</div>
+				</div>
+			</div>
+		
+		<?php elseif ($this->session->flashdata('message') == 'add_failed') : ?>
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+							<strong>Fail!</strong> You have failed in adding a new schedule.</span>
+					</div>
+				</div>
+			</div>    
+		<?php endif; ?>
 		<div class="col-lg-12 col-xxl-12 mb-4">
 			<div class="card shadow mb-4 p-5 pt-4 pb-5">
 				<div class="row header-dates">
