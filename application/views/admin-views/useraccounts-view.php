@@ -266,7 +266,6 @@
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Role</th>
-                                <th>Specialization</th>
                                 <th>Birthdate</th>
                                 <th>Contact #</th>
                                 <th>Email</th>

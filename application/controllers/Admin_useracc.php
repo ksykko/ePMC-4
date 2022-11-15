@@ -48,14 +48,13 @@ class Admin_useracc extends CI_Controller {
             $row[] = $user->first_name . ' ' . $user->last_name;
             $row[] = $user->username;
             $row[] = ucfirst($user->role);
-            $row[] = $user->specialization;
             $row[] = $user->birth_date;
             $row[] = $user->contact_no;
             $row[] = $user->email;
             $row[] = '
                 <td class="text-center" colspan="1">
                 
-                <button class="btn btn-light mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#user-edit-modal-'. $user->user_id .'" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_specialization="' . $user->specialization . '" data-user_birthdate="' . $user->birth_date. '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
+                <button class="btn btn-light mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#user-edit-modal-'. $user->user_id .'" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_birthdate="' . $user->birth_date. '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
                 <button class="btn btn-link mx-2 shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $user->user_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
