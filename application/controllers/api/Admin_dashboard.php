@@ -10,7 +10,7 @@ use chriskacerguis\RestServer\RestController;
 
 require(APPPATH.'/libraries/RestController.php');
 
-class Login_mobile extends RestController
+class Admin_dashboard extends RestController
 {
     public function __construct()
     {
@@ -18,51 +18,33 @@ class Login_mobile extends RestController
 
         $this->load->helper(['url', 'form']);
         $this->load->library(['form_validation', 'session']);
-        $this->load->model('Login_model');
+        $this->load->model('Admin_model');
     }
     
-    public function validation_post() {
+    public function validation_get() {
         $data=json_decode(file_get_contents('php://input'));
         
         $email=$data->email;
         $pass=$data->pass;
 
-        $result = $this->Login_model->login($email,$pass);
+        $query1 = $this->Login_model->login($email,$pass);
 
-        // if($result) {
-        //     $role = "Login successful";  
+        // if($query1) {
+        //     $Message = "Login successful";  
         // } else {
-        //     $role = "Invalid email or password";
+        //     $Message = "Invalid email or password";
         // }
 
-        // if($result->role == 'Admin') {
-        //     $role = "Welcome to ePMC, admin!";  
-        // } elseif($result->role == 'Doctor') {
-        //     $role = "Welcome to ePMC, doc!";
+        // if($query1->role == 'Admin') {
+        //     $Message = "Welcome to ePMC, admin!";  
+        // } elseif($query1->role == 'Doctor') {
+        //     $Message = "Welcome to ePMC, doc!";
         // }
 
-        if ($result->role == "Admin") {
-            $response[] = array("role" => $result->role, //index[0]                                
-                                'id' => $result->user_id, 
-                                'full_name' => $result->first_name . ' ' .  $result->last_name,
-                                'specialization' => $result->specialization,
-                                'email' => $result->email,
-                                'pass' => $result->password,
-                                'bday' => $result->birth_date,
-                                'gender' => $result->gender,
-                                'avatar' => $result->avatar
-            );
-        }
-        // else if ($result->role == "Doctor") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // } 
-        // else if ($result->role == "patient") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // }
-        else {
-            $response[] = array("role" => "Invalid");
+        if ($query1) {
+            $response[] = array("Message" => $query1->role);
+        } else {
+            $response[] = array("Message" => "Invalid");
         }
 
         echo json_encode($response);
@@ -96,7 +78,7 @@ class Login_mobile extends RestController
         //         http_response_code(400);
         //         echo json_encode([
         //             'error'=>true,
-        //             'role'=>'Invalid email or password.'
+        //             'message'=>'Invalid email or password.'
         //         ]);
         //     }
         // }
