@@ -12,14 +12,14 @@
         <div class="personal-info">
             <div class="vline1"><?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?><br><hr></div>
             <div class="left-info">
-                <strong>Age: </strong> <?= $user_age ?> years old<br>
-                <strong>Birthday: </strong> <?= $user_birthday ?><br>
-                <strong>Sex: </strong><?= $user_sex ?>
+                <strong>Age: </strong> <?= ($user_age) ? $user_age . ' years old' : 'N/A' ?><br>
+                <strong>Birthday: </strong> <?= ($user_birthday == '0000-00-00') ? 'N/A' : $user_birthday ?><br>
+                <strong>Sex: </strong><?= ($user_sex) ? $user_sex : 'N/A' ?>
             </div>
             <div class="right-info">
-                <strong>Occupation: </strong><?= $user_occupation ?><br>
-                <strong>Address: </strong><?= $user_address ?><br>
-                <strong>Contact No: </strong><?= $user_contact_no ?>
+                <strong>Occupation: </strong><?= ($user_occupation) ? $user_occupation : 'N/A' ?><br>
+                <strong>Address: </strong><?= ($user_address) ? $user_address : 'N/A' ?><br>
+                <strong>Contact No: </strong><?= ($user_contact_no) ? $user_contact_no : 'N/A' ?>
             </div>
         </div>
     </div>
