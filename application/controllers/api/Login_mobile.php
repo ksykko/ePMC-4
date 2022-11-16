@@ -28,41 +28,29 @@ class Login_mobile extends RestController
         $pass=$data->pass;
 
         $result = $this->Login_model->login($email,$pass);
-
-        // if($result) {
-        //     $role = "Login successful";  
-        // } else {
-        //     $role = "Invalid email or password";
-        // }
-
-        // if($result->role == 'Admin') {
-        //     $role = "Welcome to ePMC, admin!";  
-        // } elseif($result->role == 'Doctor') {
-        //     $role = "Welcome to ePMC, doc!";
-        // }
-
-        if (isset($result)){
-            if ($result->role == "Admin") {
-                $response = array('role' => $result->role,                              
-                                    'id' => $result->user_id, 
-                                    'full_name' => $result->first_name . ' ' .  $result->last_name,
-                                    'specialization' => $result->specialization,
-                                    'email' => $result->email,
-                                    'pass' => $result->password,
-                                    'bday' => $result->birth_date,
-                                    'gender' => $result->gender,
-                                    'avatar' => $result->avatar
-                );
-            }
-            else if ($result->role == "Doctor") {
-                $response = array("role" => $result->role,  
-                );
-            } 
-            else if ($result->role == "patient") {
-                $response = array("role" => $result->role,  
-                );
-            }
+        //login as admin
+        if ($result->role == "Admin") {
+            $response[] = array("role" => $result->role, //index[0]                                
+                                'admin_id' => $result->user_id, 
+                                'full_name' => $result->first_name . ' ' .  $result->last_name,
+                                'specialization' => $result->specialization,
+                                'email' => $result->email,
+                                'pass' => $result->password,
+                                'bday' => $result->birth_date,
+                                'gender' => $result->gender,
+                                'avatar' => $result->avatar
+            );
         }
+        // else if ($result->role == "Doctor") {
+        //     $response[] = array("role" => $result->role,  
+        //     );
+        // } 
+        // else if ($result->role == "patient") {
+        //     $response[] = array("role" => $result->role,  
+        //     );
+        // }
+
+        //invalid credentials
         else {
             $response = array('role' => 'Invalid');
         }
