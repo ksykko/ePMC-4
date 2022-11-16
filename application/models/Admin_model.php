@@ -474,6 +474,19 @@ class Admin_model extends CI_Model
         $this->db->insert('recent_activity', $info);
     }
 
+    public function get_activity_tbl()
+    {
+        return $this->db->get('recent_activity');
+    }
+
+    public function get_recent_act()
+    {
+        $this->db->select("recent_id,activity");
+        $this->db->from('recent_activity');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // End of Recent Activity 
 
 

@@ -31,18 +31,20 @@ class Admin_dashboard extends RestController
         }
             $total_inventory = $sum_stockin + $sum_stockout;
 
+        $result2=$this->Admin_model->get_recent_act(); 
+
         $response[] = array(
                     'id'=>1,
                     'inventory'=>$total_inventory,
                     'users'=>$this->Admin_model->get_useracc_count(),
                     'patient'=>$this->Admin_model->get_patient_count(),
-                    'new_patient'=>$this->Admin_model->get_nUser_count()
+                    'new_patient'=>$this->Admin_model->get_nUser_count(),
                     );
-        $response[] = array(
-                    'id'=>2,
-                    'recentact'=>$total_inventory,
-                    );            
         
+        echo json_encode($response);
+    }
+    public function recent_get() {
+        $response = array("recentact"=>$this->Admin_model->get_recent_act());
         echo json_encode($response);
     }
 }

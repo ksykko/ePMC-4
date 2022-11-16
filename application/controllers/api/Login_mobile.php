@@ -29,31 +29,34 @@ class Login_mobile extends RestController
 
         $result = $this->Login_model->login($email,$pass);
         //login as admin
-        if ($result->role == "Admin") {
-            $response[] = array("role" => $result->role, //index[0]                                
-                                'admin_id' => $result->user_id, 
-                                'full_name' => $result->first_name . ' ' .  $result->last_name,
-                                'specialization' => $result->specialization,
-                                'email' => $result->email,
-                                'pass' => $result->password,
-                                'bday' => $result->birth_date,
-                                'gender' => $result->gender,
-                                'avatar' => $result->avatar
-            );
+        if (isset($result)){
+            if ($result->role == "Admin") {
+                $response = array("role" => $result->role, //index[0]                                
+                                    'admin_id' => $result->user_id, 
+                                    'full_name' => $result->first_name . ' ' .  $result->last_name,
+                                    'specialization' => $result->specialization,
+                                    'email' => $result->email,
+                                    'pass' => $result->password,
+                                    'bday' => $result->birth_date,
+                                    'gender' => $result->gender,
+                                    'avatar' => $result->avatar
+                );
+            }
+            // else if ($result->role == "Doctor") {
+            //     $response[] = array("role" => $result->role,  
+            //     );
+            // } 
+            // else if ($result->role == "patient") {
+            //     $response[] = array("role" => $result->role,  
+            //     );
+            // }
         }
-        // else if ($result->role == "Doctor") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // } 
-        // else if ($result->role == "patient") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // }
-
-        //invalid credentials
-        else {
+         //invalid credentials
+         else {
             $response = array('role' => 'Invalid');
         }
+       
+       
 
         echo json_encode($response);
         
