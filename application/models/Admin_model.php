@@ -474,6 +474,12 @@ class Admin_model extends CI_Model
         $this->db->insert('recent_activity', $info);
     }
 
+    public function get_activity_tbl()
+    {   
+        // get recent_activity order by descending date_created
+        return $this->db->order_by('date_created', 'DESC')->get('recent_activity');
+    }
+
     // End of Recent Activity 
 
 
