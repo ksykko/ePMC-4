@@ -132,7 +132,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
                             <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
                         </div>
-                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                        <div class="card-body">
                             <div class="chart-area">
                                 <canvas class="align-items-center" id="sampleChart2"></canvas>
                             </div>
