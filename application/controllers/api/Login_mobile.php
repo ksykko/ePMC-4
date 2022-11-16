@@ -28,6 +28,7 @@ class Login_mobile extends RestController
         $pass=$data->pass;
 
         $result = $this->Login_model->login($email,$pass);
+        $response = array('role' => 'Invalid');
 
         // if($result) {
         //     $role = "Login successful";  
@@ -41,28 +42,30 @@ class Login_mobile extends RestController
         //     $role = "Welcome to ePMC, doc!";
         // }
 
-        if ($result->role == "Admin") {
-            $response[] = array("role" => $result->role, //index[0]                                
-                                'id' => $result->user_id, 
-                                'full_name' => $result->first_name . ' ' .  $result->last_name,
-                                'specialization' => $result->specialization,
-                                'email' => $result->email,
-                                'pass' => $result->password,
-                                'bday' => $result->birth_date,
-                                'gender' => $result->gender,
-                                'avatar' => $result->avatar
-            );
+        if (isset($result)){
+            if ($result->role == "Admin") {
+                $response = array('role' => $result->role,                              
+                                    'id' => $result->user_id, 
+                                    'full_name' => $result->first_name . ' ' .  $result->last_name,
+                                    'specialization' => $result->specialization,
+                                    'email' => $result->email,
+                                    'pass' => $result->password,
+                                    'bday' => $result->birth_date,
+                                    'gender' => $result->gender,
+                                    'avatar' => $result->avatar
+                );
+            }
+            else if ($result->role == "Doctor") {
+                $response = array("role" => $result->role,  
+                );
+            } 
+            else if ($result->role == "patient") {
+                $response = array("role" => $result->role,  
+                );
+            }
         }
-        // else if ($result->role == "Doctor") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // } 
-        // else if ($result->role == "patient") {
-        //     $response[] = array("role" => $result->role,  
-        //     );
-        // }
         else {
-            $response[] = array("role" => "Invalid");
+            $response = array('role' => 'Invalid');
         }
 
         echo json_encode($response);
