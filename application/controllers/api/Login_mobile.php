@@ -28,22 +28,10 @@ class Login_mobile extends RestController
         $pass=$data->pass;
 
         $result = $this->Login_model->login($email,$pass);
-
-        // if($result) {
-        //     $role = "Login successful";  
-        // } else {
-        //     $role = "Invalid email or password";
-        // }
-
-        // if($result->role == 'Admin') {
-        //     $role = "Welcome to ePMC, admin!";  
-        // } elseif($result->role == 'Doctor') {
-        //     $role = "Welcome to ePMC, doc!";
-        // }
-
+        //login as admin
         if ($result->role == "Admin") {
             $response[] = array("role" => $result->role, //index[0]                                
-                                'id' => $result->user_id, 
+                                'admin_id' => $result->user_id, 
                                 'full_name' => $result->first_name . ' ' .  $result->last_name,
                                 'specialization' => $result->specialization,
                                 'email' => $result->email,
@@ -61,6 +49,8 @@ class Login_mobile extends RestController
         //     $response[] = array("role" => $result->role,  
         //     );
         // }
+
+        //invalid credentials
         else {
             $response[] = array("role" => "Invalid");
         }
