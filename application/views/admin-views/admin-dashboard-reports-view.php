@@ -116,9 +116,9 @@
 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's Age Range Overview</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-red">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's Age Range Overview</h6>
                         </div>
                         <div class="card-body mx-3 my-3">
                             <div class="chart-area">
@@ -128,9 +128,9 @@
                     </div>
                 </div>
                 <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient Satisfaction</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-violet">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
                         </div>
                         <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">
@@ -143,9 +143,9 @@
 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">User Activity</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-purp">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
                         </div>
                         <div class="card-body mx-3 my-3">
                             <div class="chart-area">
@@ -156,9 +156,9 @@
 
                 </div>
                 <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patients' Sex Overview</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-blue">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-blue">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patients' Sex Overview</h6>
                         </div>
                         <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">
@@ -242,15 +242,16 @@
                 label: 'Age Range',
                 data: cData,
                 backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
+                    "#cc001b",
+                    "#100002",
+                    "#a30015",
+                    "#390007",
+                    "#9b0014",
+                    "#410008",
+                    "#72000f",
+                    "#6a000e",
+                    "#a30015",
+                    "#100002"
                 ]
             }]
         },
@@ -266,9 +267,24 @@
                         beginAtZero: true,
                         stepSize: 1,
                         min: 0,
-                        max: 100
-                    },
+                        max: 100,
+                        color: '#333333',
 
+                    },
+                    grid: {
+                        color: "#FF5A5A",
+                        borderDash: [3, 4],
+                    }
+                },
+                x: {
+                    display: true,
+                    grid: {
+                        color: "#FF5A5A",
+                        borderDash: [3, 4],
+                    },
+                    ticks: {
+                        color: '#333333'
+                    }
                 }
             }
         }
@@ -283,15 +299,11 @@
                 label: 'Satisfaction',
                 data: [59, 20, 42, 16, 4],
                 backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
+                    "#CB2B92",
+                    "#FC3F93",
+                    "#FE77FE",
+                    "#8c0d49",
+                    "#FF1696"
                 ]
             }]
         },
@@ -316,17 +328,18 @@
                 label: 'Sex',
                 data: [genderData['male'], genderData['female']],
                 backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
+                    "#7C57E4",
+                    "#115f9a"
                 ]
             }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: true,
+            segmentShowStroke: false,
+
         }
     })
 
@@ -351,6 +364,39 @@
                 ]
             }]
         },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            scales: {
+                y: {
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1,
+                        min: 0,
+                        max: 100,
+                        color: '#333333',
+
+                    },
+                    grid: {
+                        color: "#5D61C0",
+                        borderDash: [3, 4],
+                    }
+                },
+                x: {
+                    display: true,
+                    grid: {
+                        color: "#5D61C0",
+                        borderDash: [3, 4],
+                    },
+                    ticks: {
+                        color: '#333333'
+                    }
+                }
+            }
+        }
     })
 </script>
 
