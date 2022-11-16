@@ -57,3 +57,5 @@ $route['translate_uri_dashes'] = FALSE;
 //Schedule Routes
 $route['schedule'] = 'Admin_schedule/schedule';
 $route['addSchedule'] = 'Admin_schedule/addSchedule';
+
+$route['api/Login_mobile'] = 'api/Login_mobile/validation';
