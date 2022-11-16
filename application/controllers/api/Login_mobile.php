@@ -28,7 +28,6 @@ class Login_mobile extends RestController
         $pass=$data->pass;
 
         $result = $this->Login_model->login($email,$pass);
-        $response = array('role' => 'Invalid');
 
         // if($result) {
         //     $role = "Login successful";  
