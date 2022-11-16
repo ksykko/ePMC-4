@@ -339,7 +339,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                <table id="example" class="table table-hover">
+                <table id="example" class="table table-hover" style="width: 100%">
                     <thead>
                         <tr>
                             <th class="align-middle">ID</th>
