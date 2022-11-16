@@ -582,43 +582,43 @@
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-3 col-xl-3 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Name:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="full_name" value="<?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="full_name" value="<?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Age:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="age" value="<?= $patient->age ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="age" value="<?= $patient->age ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-2 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="birth_date" value="<?= $patient->birth_date ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $patient->birth_date ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="sex" value="<?= $patient->sex ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $patient->sex ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Civil Status:</label></div>
                                 <div class="col-7 col-sm-9 col-md-10 col-lg-7 col-xl-9 d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="civil_status" value="<?= $patient->civil_status ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="civil_status" value="<?= $patient->civil_status ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Occupation:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="occupation" value="<?= $patient->occupation ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="occupation" value="<?= $patient->occupation ?>" readonly /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Address:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->address ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->address ?>" readonly /></div>
                                 </div>
                             </div>
                         </div>
@@ -632,19 +632,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Cellphone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->cell_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->cell_no ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-2 col-lg-5 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Telephone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->tel_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->tel_no ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-2 col-lg-3 col-xl-4 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->email ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->email ?>" readonly /></div>
                             </div>
                         </div>
                     </div>
@@ -657,19 +657,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Name:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->ec_name ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->ec_name ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Relationship:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->relationship ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->relationship ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-1 col-lg-4 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" value="<?= $patient->ec_contact_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->ec_contact_no ?>" readonly /></div>
                             </div>
                         </div>
                     </div>
@@ -783,7 +783,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="pulse_rate"><strong>Pulse Rate:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="pulse_rate" value="<?= $healthinfo->pulse_rate ?>" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="pulse_rate" value="<?= $healthinfo->pulse_rate ?>" /><span class="input-group-text d-none d-sm-inline-block">bpm</span></div>
                                                 <small class="text-danger"><?= form_error('pulse_rate') ?></small>
                                             </div>
                                         </div>
@@ -791,25 +791,25 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="bp_systolic"><strong>Systolic:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="bp_systolic" value="<?= $healthinfo->bp_systolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="bp_systolic" value="<?= $healthinfo->bp_systolic ?>" /><span class="input-group-text d-none d-sm-inline-block">mmHg</span></div>
                                             </div>
                                             <small class="text-danger"><?= form_error('bp_systolic') ?></small>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="height"><strong>Height:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="height" value="<?= $healthinfo->height ?>" /><span class="input-group-text d-none d-md-inline-block">cm</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="height" value="<?= $healthinfo->height ?>" /><span class="input-group-text d-none d-sm-inline-block">cm</span></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="bp_diastolic"><strong>Diastolic:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" value="<?= $healthinfo->bp_diastolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="bp_diastolic" value="<?= $healthinfo->bp_diastolic ?>" /><span class="input-group-text d-none d-sm-inline-block">mmHg</span></div>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="weight"><strong>Weight:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="weight" value="<?= $healthinfo->weight ?>" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="weight" value="<?= $healthinfo->weight ?>" /><span class="input-group-text d-none d-sm-inline-block">kg</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -858,7 +858,7 @@
                                 </div>
                                 <div class="card-body mx-3">
                                     <div>
-                                        <table id="consul_table" class="table table-hover">
+                                        <table id="consul_table" class="table table-hover" style="width: 100%">
                                             <thead>
                                                 <tr>
                                                     <th class="col-sm-6">Date and Time</th>
@@ -1073,7 +1073,7 @@
                         <div class="row">
                             <div class="col">
                                 <div>
-                                    <table id="diag_table" class="table table-hover">
+                                    <table id="diag_table" class="table table-hover" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th class="align-middle">Date Created</th>
@@ -1185,7 +1185,7 @@
                         <div class="row">
                             <div class="col">
                                 <div>
-                                    <table id="treatment_plan_table" class="table table-hover">
+                                    <table id="treatment_plan_table" class="table table-hover" style="width: 100%">
                                         <thead>
                                             <tr>
                                                 <th class="align-middle col-md-5">Diagnosis</th>
@@ -1250,7 +1250,7 @@
                     </div>
                     <div class="card-body mx-3">
                         <div>
-                            <table id="consul_table" class="table table-hover">
+                            <table id="consul_table" class="table table-hover" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th class="col-sm-6">Date and Time</th>

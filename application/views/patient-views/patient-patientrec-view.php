@@ -279,37 +279,37 @@
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-3 col-xl-3 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Name:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="full_name" disabled value="<?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="full_name" readonly value="<?= ($patient->first_name) ? $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Age:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="age" disabled value="<?= $patient->age ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="age" readonly value="<?= ($patient->age) ? $patient->age : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-2 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="birth_date" disabled value="<?= $patient->birth_date ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" readonly value="<?= ($patient->birth_date == '0000-00-00') ? 'N/A' : $patient->birth_date ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="sex" disabled value="<?= $patient->sex ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" readonly value="<?= ($patient->sex) ? $patient->sex : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Occupation:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="occupation" disabled value="<?= $patient->occupation ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="occupation" readonly value="<?= ($patient->occupation) ? $patient->occupation : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Address:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->address ?>" /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->address) ? $patient->address : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                         </div>
@@ -323,19 +323,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Cellphone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->cell_no ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->cell_no ) ? $patient->cell_no : 'N/A' ?>" /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-2 col-lg-5 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Telephone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->tel_no ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->tel_no ) ? $patient->tel_no : 'N/A' ?>" /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-2 col-lg-3 col-xl-4 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->email ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->email) ? $patient->email : 'N/A' ?>" /></div>
                             </div>
                         </div>
                     </div>
@@ -348,19 +348,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Name:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->ec_name ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->ec_name) ? $patient->ec_name : 'N/A' ?>" /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Relationship:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->relationship ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->relationship) ? $patient->relationship : 'N/A' ?>" /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-1 col-lg-4 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control input-personal-info" type="text" name="address" disabled value="<?= $patient->ec_contact_no ?>" /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->ec_contact_no) ? $patient->ec_contact_no : 'N/A' ?>" /></div>
                             </div>
                         </div>
                     </div>
@@ -377,104 +377,13 @@
                                 <form>
                                     <div class="row">
                                         <div class="col">
-                                            <div class="mb-3"><label class="form-label" for="username"><strong>Blood Type:</strong></label><small class="text-danger"><?= form_error('blood_type') ?></small><select class="form-select" name="blood_type" disabled>
-                                                    <?php if ($healthinfo->blood_type == 'A+') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+" selected>A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'A-') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-" selected>A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'B+') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+" selected>B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'B-') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-" selected>B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'AB+') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+" selected>AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                        <?php elseif ($healthinfo->blood_type == 'AB-') : ?>\
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-" selected>AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'O+') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+" selected>O+</option>
-                                                        <option value="O-">O-</option>
-                                                    <?php elseif ($healthinfo->blood_type == 'O-') : ?>
-                                                        <option disabled>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-" selected>O-</option>
-                                                    <?php else : ?>
-                                                        <option disabled selected>select ...</option>
-                                                        <option value="A+">A+</option>
-                                                        <option value="A-">A-</option>
-                                                        <option value="B+">B+</option>
-                                                        <option value="B-">B-</option>
-                                                        <option value="O+">O+</option>
-                                                        <option value="O-">O-</option>
-                                                        <option value="AB+">AB+</option>
-                                                        <option value="AB-">AB-</option>
-                                                    <?php endif; ?>
-                                                </select>
+                                            <div class="mb-3"><label class="form-label" for="username"><strong>Blood Type:</strong></label><small class="text-danger"><?= form_error('blood_type') ?></small>
+                                                <input type="text" class="form-control" name="blood_type" readonly value="<?= ($healthinfo->blood_type) ? $healthinfo->blood_type : 'N/A' ?>">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="pulse_rate"><strong>Pulse Rate:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="pulse_rate" disabled value="<?= $healthinfo->pulse_rate ?>" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="pulse_rate" readonly value="<?= ($healthinfo->pulse_rate == NULL || $healthinfo->pulse_rate == '0') ? 'N/A' : $healthinfo->pulse_rate ?>" /><span class="input-group-text d-none d-md-inline-block">bpm</span></div>
                                                 <small class="text-danger"><?= form_error('pulse_rate') ?></small>
                                             </div>
                                         </div>
@@ -482,25 +391,25 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="bp_systolic"><strong>Systolic:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="bp_systolic" disabled value="<?= $healthinfo->bp_systolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="bp_systolic" readonly value="<?= ($healthinfo->bp_systolic == NULL || $healthinfo->bp_systolic == '0') ? 'N/A' : $healthinfo->bp_systolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                             </div>
                                             <small class="text-danger"><?= form_error('bp_systolic') ?></small>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="height"><strong>Height:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="height" disabled value="<?= $healthinfo->height ?>" /><span class="input-group-text d-none d-md-inline-block">cm</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="height" readonly value="<?= ($healthinfo->height == NULL || $healthinfo->height == '0') ? 'N/A' : $healthinfo->height ?>" /><span class="input-group-text d-none d-md-inline-block">cm</span></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="bp_diastolic"><strong>Diastolic:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="bp_diastolic" disabled value="<?= $healthinfo->bp_diastolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="bp_diastolic" readonly value="<?= ($healthinfo->bp_diastolic == NULL || $healthinfo->bp_diastolic == '0') ? 'N/A' : $healthinfo->bp_diastolic ?>" /><span class="input-group-text d-none d-md-inline-block">mmHg</span></div>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="weight"><strong>Weight:</strong></label>
-                                                <div class="input-group"><input class="form-control" type="text" name="weight" disabled value="<?= $healthinfo->weight ?>" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="weight" readonly value="<?= ($healthinfo->weight == NULL || $healthinfo->weight == '0') ? 'N/A' : $healthinfo->weight ?>" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
                                             </div>
                                         </div>
                                     </div>
@@ -512,7 +421,7 @@
                                 <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                             </div>
                             <div class="card-body mx-3">
-                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription" disabled><?= $patient_details->prescription ?></textarea></div>
+                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription" readonly><?= $patient_details->prescription ?></textarea></div>
 
                             </div>
                         </div>
@@ -528,7 +437,7 @@
                                         $consul_next = date("l, M d Y", $date);
                                         $consul_time = date("g:i A", $date);
                                         ?>
-                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $consul_next ?>  <?= $consul_time ?>" disabled /></div>
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $consul_next ?>  <?= $consul_time ?>" readonly /></div>
                                     </div>
                                 </div>
                             </div>
@@ -575,7 +484,7 @@
                 </div>
                 <div class="card-body mx-3">
                     <div>
-                        <table id="diag_table" class="table table-hover">
+                        <table id="diag_table" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th class="col-sm-6">Date and Time</th>

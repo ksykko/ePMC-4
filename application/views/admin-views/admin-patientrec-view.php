@@ -25,21 +25,26 @@
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                     <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
                                         <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        <span id="fullName_result"></span>
+                                        <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
                                         <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
                                         <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Age</label>
                                         <input class="form-control form-control-sm" type="text" id="age" name="age" /><small class="text-danger"><?= form_error('age') ?></small>
-                                        <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                        <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group px-1"><label class="form-label">Birth date</label>
                                         <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
@@ -126,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" onclick="formValidation()" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add Patient Record</span></button></div>
+        <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-patient" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-1"><i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add Patient Record</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><button id="btn-add-import" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-3"><i class="fa fa-picture-o"></i><span class="d-none d-lg-inline-block ms-1">Add via Import</span></button></div>
         <div class="d-sm-flex d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4"><a id="btn-view-archives" href="<?= base_url('Admin_archives/index') ?>" class="btn btn-sm btn-dark" type="button"><i class="fas fa-file-archive"></i><span class="d-none d-lg-inline-block ms-1">Archives</span></a></div>
         <div id="modal-3" class="modal fade" role="dialog" tabindex="-1">
@@ -339,7 +344,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                <table id="example" class="table table-hover">
+                <table id="example" class="table table-hover" style="width: 100%">
                     <thead>
                         <tr>
                             <th class="align-middle">ID</th>
@@ -377,156 +382,3 @@
     var form_data = JSON.parse('<?= $form_data ?>');
 </script>
 
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
-
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-
-            document.getElementById("nextBtn").innerHTML = "Submit";
-
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("regForm").submit();
-
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, j, input_valid = true,
-            select_valid = true;
-
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        z = x[currentTab].getElementsByTagName("select");
-
-
-        // A loop that checks every input field in the current tab:
-        // TODO: Add validation for input fields
-        for (i = 0; i < y.length; i++) {
-
-            // If first_name is empty
-            if (y[i].name == "first_name" && y[i].value == "") {
-                y[i].className += " invalid";
-                input_valid = false;
-            } else
-                y[i].className = "form-control form-control-sm warning";
-
-
-
-
-
-            // If an input field is empty...
-            // if (y[i].value == "") {
-            //     // add an "invalid" class to the field:
-            //     y[i].className += " invalid";
-            //     // and set the current valid status to false
-            //     input_valid = false;
-            // } else
-            //y[i].className = "form-control form-control-sm valid";
-        }
-
-        // A loop that checks every select field in the current tab:
-        // TODO: Add validation for select fields
-        for (j = 0; j < z.length; j++) {
-            //If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " warning";
-                // and set the current valid status to false
-                select_valid = true;
-            } else
-                z[j].className = "form-select form-select-sm warning";
-        }
-
-
-        // TODO: If input/select is blank display yellow border
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " warning";
-                // and set the current valid status to false
-                input_valid = true;
-            } else
-                y[i].className = "form-control form-control-sm warning";
-        }
-
-        // A loop that checks every input field in the current tab:
-        // TODO: Add validation for input fields
-        for (i = 0; i < y.length; i++) {
-
-            // If first_name is empty
-            if (y[i].name == "first_name" && y[i].value == "") {
-                y[i].className = "form-control form-control-sm invalid";
-                input_valid = false;
-            }
-            else
-                y[i].className = "form-control form-control-sm warning";
-
-
-
-
-
-            // If an input field is empty...
-            // if (y[i].value == "") {
-            //     // add an "invalid" class to the field:
-            //     y[i].className += " invalid";
-            //     // and set the current valid status to false
-            //     input_valid = false;
-            // } else
-            //y[i].className = "form-control form-control-sm valid";
-        }
-
-
-        // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-
-        console.log(select_valid);
-        // return the valid status
-        return input_valid && select_valid;
-    }
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
-</script>
