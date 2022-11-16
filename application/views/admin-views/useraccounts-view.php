@@ -257,16 +257,15 @@
     </div>
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4 p-3 pt-4 pb-5">
+            <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
-                    <table id="useracc-table" class="table table-hover">
+                    <table id="useracc-table" class="table table-hover" style="width: 100%">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Role</th>
-                                <th>Specialization</th>
                                 <th>Birthdate</th>
                                 <th>Contact #</th>
                                 <th>Email</th>

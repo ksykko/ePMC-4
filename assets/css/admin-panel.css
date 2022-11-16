@@ -1182,3 +1182,48 @@ hr {
         margin: auto;
     }
 }
+
+@media (max-width: 767px) {
+    .rounded-end-sm {
+        border-top-right-radius: 15px !important;
+        border-bottom-right-radius: 15px !important;
+    }
+    .font-size-sm {
+        font-size: 13px !important;
+    }
+}
+
+
+/* dashboard */
+
+.chart-header-red {
+    background-color: #FF5A5A;
+}
+
+.chart-body-red {
+    background-color: #FDD2D2;
+}
+
+.chart-header-purp {
+    background-color: #5D61C0;
+}
+
+.chart-body-purp {
+    background-color: #D8D9F1;
+}
+
+.chart-header-blue {
+    background-color: #5D96C0;
+}
+
+.chart-body-blue {
+    background-color: #E5F1FA;
+}
+
+.chart-header-violet {
+    background-color: #C64783;
+}
+
+.chart-body-violet {
+    background-color: #FAE5EF;
+}
