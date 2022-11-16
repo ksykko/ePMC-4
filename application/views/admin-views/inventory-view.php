@@ -153,7 +153,7 @@
         <div class="col-lg-12 col-xxl-12 mb-4">
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div>
-                    <table id="inventory-table" class="table table-hover">
+                    <table id="inventory-table" class="table table-hover" style="width: 100%">
                         <thead>
                             <tr>
                                 <th class="inv-td">ID</th>
