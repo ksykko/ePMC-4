@@ -19,9 +19,9 @@
             //Set column definition initialisation properties.
             "columnDefs": [
             { 
-                "targets": [ 8 ], //first column / numbering column
+                "targets": [ 7 ], //first column / numbering column
                 "orderable": false, //set not orderable
-                "className": "text-center", "targets": [8]
+                "className": "text-center", "targets": [7]
             }
             ]
         });

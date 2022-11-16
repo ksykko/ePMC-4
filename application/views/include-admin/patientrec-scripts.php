@@ -44,16 +44,11 @@
     const toastLiveExample = document.getElementById('liveToast')
 
     var $active_toast = "<?= $this->session->flashdata('message') ?>"
-    console.log($active_toast);
     var $err_toast = "<?= $this->session->flashdata('error-import') ?>"
-    console.log($err_toast);
     var $err_img = "<?= $this->session->flashdata('error-profilepic') ?>"
     var $err_info = "<?= $this->session->flashdata('error') ?>"
-    console.log($err_info);
     var $err_diag = "<?= $this->session->flashdata('error-diagnosis') ?>"
-    console.log($err_diag);
     var $err_doc = "<?= $this->session->flashdata('error-doc') ?>"
-    console.log($err_doc);
 
     if (toastTrigger) {
         if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc) {
