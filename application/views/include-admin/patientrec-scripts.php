@@ -104,10 +104,408 @@
         if ($('#birthdate_error').val() == '') {
             $('#birthdate_error').hide();
         }
+        if ($('#cell_no_error').val() == '') {
+            $('#cell_no_error').hide();
+        }
+        if ($('#tel_no_error').val() == '') {
+            $('#tel_no_error').hide();
+        }
+        if ($('#email_error').val() == '') {
+            $('#email_error').hide();
+        }
+        if ($('#email_error').val() == '') {
+            $('#email_error').hide();
+        }
+        if ($('#contact_error').val() == '') {
+            $('#contact_error').hide();
+        }
     });
 
+
+    var input_valid = false;
+
+    // validation onchange
+    var first_name = document.getElementById('first_name'),
+        middle_name = document.getElementById('middle_name'),
+        last_name = document.getElementById('last_name'),
+        age = document.getElementById('age'),
+        birthdate = document.getElementById('birth_date'),
+        sex = document.getElementById('sex'),
+        civil_status = document.getElementById('civil_status'),
+        occupation = document.getElementById('occupation'),
+        address = document.getElementById('address'),
+        cell_no = document.getElementById('cell_no'),
+        tel_no = document.getElementById('tel_no'),
+        email = document.getElementById('email'),
+        ec_name = document.getElementById('ec_name'),
+        relationship = document.getElementById('relationship'),
+        ec_contact = document.getElementById('ec_contact_no');
+
+
+    first_name.onblur = function() {
+        if (first_name.value == '') {
+            $('#firstName_error').show();
+            $('#firstName_error').html('First name is required');
+            $('#first_name').removeClass('valid');
+            $('#first_name').addClass('invalid');
+            //$('#first_name').focus();
+
+            input_valid = false;
+        } else {
+            $('#firstName_error').hide();
+
+            $('#first_name').removeClass('invalid');
+            $('#first_name').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    middle_name.onblur = function() {
+        if (middle_name.value == '') {
+            $('#middle_name').removeClass('invalid');
+            $('#middle_name').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#middle_name').removeClass('warning');
+            $('#middle_name').removeClass('invalid');
+            $('#middle_name').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    last_name.onblur = function() {
+        // first_name, and last_name are not empty checkName()
+        if (first_name.value != '' && last_name.value != '') {
+            checkName();
+        }
+
+        if (last_name.value == '') {
+            $('#lastName_error').show();
+            $('#lastName_error').html('Last name is required');
+            $('#last_name').removeClass('valid');
+            $('#last_name').addClass('invalid');
+            //$('#last_name').focus();
+
+            input_valid = false;
+        } else {
+            $('#lastName_error').hide();
+
+            $('#last_name').removeClass('invalid');
+            $('#last_name').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    age.onblur = function() {
+        if (age.value < 0 || age.value > 120) {
+            $('#age_error').show();
+            $('#age_error').html('Age must be between 0 and 120');
+
+            $('#age').removeClass('warning');
+            $('#age').removeClass('valid');
+            $('#age').addClass('invalid');
+            //$('#age').focus();
+
+            input_valid = false;
+
+        } else if (isNaN(age.value)) {
+            $('#age').removeClass('warning');
+            $('#age').addClass('invalid');
+
+            // add error message
+            $('#age_error').show();
+            $('#age_error').html('Invalid age');
+            input_valid = false;
+
+        } else if (age.value == '') {
+            $('#age').removeClass('invalid');
+            $('#age').addClass('warning');
+
+            $('#age_error').hide();
+            $('#age_error').html('');
+
+            input_valid = true;
+        } else {
+            $('#age_error').hide();
+
+            $('#age').removeClass('warning');
+            $('#age').removeClass('invalid');
+            $('#age').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    birthdate.onblur = function() {
+        if (birthdate.value == '') {
+            $('#birth_date').removeClass('invalid');
+            $('#birth_date').addClass('warning');
+
+            $('#birthdate_error').hide();
+            $('#birthdate_error').html('');
+
+            input_valid = true;
+        } else if (age.value != '') {
+            var birthdate_year = birthdate.value.split('-')[0];
+            var birthdate_month = birthdate.value.split('-')[1];
+            var birthdate_day = birthdate.value.split('-')[2];
+
+            var today = new Date();
+            var current_year = today.getFullYear();
+            var current_month = today.getMonth() + 1;
+            var current_day = today.getDate();
+
+            var age_year = current_year - birthdate_year;
+            var age_month = current_month - birthdate_month;
+            var age_day = current_day - birthdate_day;
+
+            if (age_year != age.value) {
+                $('#birth_date').addClass('invalid');
+
+                // add error message
+                $('#birthdate_error').show();
+                $('#birthdate_error').html('Birthdate does not match age');
+
+                $('#birth_date').removeClass('warning');
+                $('#birth_date').addClass('invalid');
+                input_valid = false;
+
+            } else {
+                // clear error message
+                $('#birthdate_error').hide();
+                $('#birthdate_error').html('');
+
+                $('#birth_date').removeClass('warning');
+                $('#birth_date').removeClass('invalid');
+                $('#birth_date').addClass('valid');
+
+                input_valid = true;
+            }
+
+        } else {
+            // clear error message
+            $('#birthdate_error').hide();
+            $('#birthdate_error').html('');
+
+            $('#birth_date').removeClass('warning');
+            $('#birth_date').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    sex.onblur = function() {
+        if (sex.value == '') {
+            $('#sex').removeClass('valid');
+            $('#sex').addClass('warning');
+
+
+            input_valid = true;
+        } else {
+            $('#sex').removeClass('warning');
+            $('#sex').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    civil_status.onblur = function() {
+        if (civil_status.value == '') {
+            $('#civil_status').removeClass('valid');
+            $('#civil_status').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#civil_status').removeClass('warning');
+            $('#civil_status').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    occupation.onblur = function() {
+        if (occupation.value == '') {
+            $('#occupation').removeClass('valid');
+            $('#occupation').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#occupation').removeClass('warning');
+            $('#occupation').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    address.onblur = function() {
+        if (address.value == '') {
+            $('#address').removeClass('valid');
+            $('#address').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#address').removeClass('warning');
+            $('#address').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    cell_no.onblur = function() {
+        if (cell_no.value == '') {
+            $('#cell_no').removeClass('valid');
+            $('#cell_no').addClass('warning');
+
+            $('#cell_no_error').hide();
+            $('#cell_no_error').html('');
+
+            input_valid = true;
+
+        } else if (isNaN(cell_no.value) || cell_no.value.length != 11) {
+            $('#cell_no').removeClass('warning');
+            $('#cell_no').addClass('invalid');
+
+            // add error message
+            $('#cell_no_error').show();
+            $('#cell_no_error').html('Invalid cellphone number');
+            input_valid = false;
+
+        } else {
+            $('#cell_no_error').hide();
+
+            $('#cell_no').removeClass('warning');
+            $('#cell_no').removeClass('invalid');
+            $('#cell_no').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    tel_no.onblur = function() {
+        if (tel_no.value == '') {
+            $('#tel_no').removeClass('valid');
+            $('#tel_no').addClass('warning');
+
+            $('#tel_no_error').hide();
+            $('#tel_no_error').html('');
+
+            input_valid = true;
+
+        } else if (isNaN(tel_no.value)) {
+            $('#tel_no').removeClass('warning');
+            $('#tel_no').addClass('invalid');
+
+            // add error message
+            $('#tel_no_error').show();
+            $('#tel_no_error').html('Invalid telephone number');
+            input_valid = false;
+
+        } else {
+            $('#tel_no_error').hide();
+
+            $('#tel_no').removeClass('warning');
+            $('#tel_no').removeClass('invalid');
+            $('#tel_no').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    // validateEmail
+    var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    email.onblur = function() {
+        if (email.value == '') {
+            $('#email').removeClass('valid');
+            $('#email').addClass('warning');
+
+            $('#email_error').hide();
+            $('#email_error').html('');
+
+            input_valid = true;
+
+        } else if (!email.value.match(email_regex)) {
+            $('#email').removeClass('warning');
+            $('#email').addClass('invalid');
+
+            // add error message
+            $('#email_error').show();
+            $('#email_error').html('Invalid email');
+
+            input_valid = false;
+
+        } else {
+            $('#email_error').hide();
+
+            $('#email').removeClass('warning');
+            $('#email').removeClass('invalid');
+            $('#email').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    ec_name.onblur = function() {
+        if (ec_name.value == '') {
+            $('#ec_name').removeClass('valid');
+            $('#ec_name').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#ec_name').removeClass('warning');
+            $('#ec_name').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    relationship.onblur = function() {
+        if (relationship.value == '') {
+            $('#relationship').removeClass('valid');
+            $('#relationship').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#relationship').removeClass('warning');
+            $('#relationship').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ec_contact.onblur = function() {
+        if (ec_contact.value == '') {
+            $('#ec_contact_no').removeClass('valid');
+            $('#ec_contact_no').addClass('warning');
+
+            $('#ec_contact_error').hide();
+            $('#ec_contact_error').html('');
+
+            input_valid = true;
+
+        } else if (isNaN(ec_contact.value)) {
+            $('#ec_contact_no').removeClass('warning');
+            $('#ec_contact_no').addClass('invalid');
+
+            // add error message
+            $('#ec_contact_error').show();
+            $('#ec_contact_error').html('Invalid cellphone number1');
+            input_valid = false;
+
+        } else {
+            $('#ec_contact_error').hide();
+
+            $('#ec_contact_no').removeClass('warning');
+            $('#ec_contact_no').removeClass('invalid');
+            $('#ec_contact_no').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+
+
+
     function validateForm() {
-        // This function deals with validation of the form fields
+        console.log(input_valid);
+
         var input_valid = true,
             select_valid = true,
             first_name = $('#first_name').val(),
@@ -124,15 +522,8 @@
             email = $('#email').val(),
             ec_name = $('#ec_name').val(),
             relationship = $('#relationship').val(),
-            ec_contact = $('#ec_contact').val();
+            ec_contact = $('#ec_contact_no').val();
 
-
-        checkName().then((data) => {
-            if (data != 'false') {
-                return 'putangina';
-            }
-
-        });
 
         // name validation
         if (first_name == '') {
@@ -151,12 +542,14 @@
 
             $('#first_name').removeClass('invalid');
             $('#first_name').addClass('valid');
+
+            input_valid = true;
         }
 
         if (middle_name == '') {
             $('#middle_name').removeClass('invalid');
             $('#middle_name').addClass('warning');
-            
+
             $('#middleName_error').hide();
             $('#middleName_error').html('');
 
@@ -185,7 +578,24 @@
 
             $('#last_name').removeClass('invalid');
             $('#last_name').addClass('valid');
+
+            input_valid = true;
         }
+
+
+        checkName().then((data) => {
+            if (data != 'false') {
+                return 'putangina';
+            }
+
+        });
+
+        //if record already exists input_valid = false
+        if (checkName() == 'true') {
+            input_valid = false;
+            alert('Patient already exists!');
+        }
+
 
         // age validation
         // if age has error add invalid class
@@ -213,7 +623,7 @@
         } else if (age == '') {
             $('#age').removeClass('invalid');
             $('#age').addClass('warning');
-            
+
             $('#age_error').hide();
             $('#age_error').html('');
         } else {
@@ -226,6 +636,7 @@
             $('#age').addClass('valid');
         }
 
+
         // birthdate validation
         // if empty add warning class
         if (birthdate == '') {
@@ -235,7 +646,7 @@
             $('#birthdate_error').hide();
             $('#birthdate_error').html('');
 
-        // check if birthdate matches age input
+            // check if birthdate matches age input
         } else if (age != '') {
             var birthdate_year = birthdate.split('-')[0];
             var birthdate_month = birthdate.split('-')[1];
@@ -281,24 +692,170 @@
         }
 
 
+        // sex validation
+        if (sex == null) {
+            $('#sex').removeClass('invalid');
+            $('#sex').addClass('warning');
+        } else {
+            $('#sex').removeClass('warning');
+            $('#sex').addClass('valid');
+        }
+        console.log(sex);
 
-        
+
+        // civil status validation
+        if (civil_status == '') {
+            $('#civil_status').removeClass('invalid');
+            $('#civil_status').addClass('warning');
+        } else {
+            $('#civil_status').removeClass('warning');
+            $('#civil_status').addClass('valid');
+        }
+
+
+        // occupation validation
+        if (occupation == '') {
+            $('#occupation').removeClass('invalid');
+            $('#occupation').addClass('warning');
+        } else {
+            $('#occupation').removeClass('warning');
+            $('#occupation').addClass('valid');
+        }
+
+        // address validation
+        if (address == '') {
+            $('#address').removeClass('invalid');
+            $('#address').addClass('warning');
+        } else {
+            $('#address').removeClass('warning');
+            $('#address').addClass('valid');
+        }
+
+
+        // if current tab is 1
+        if (currentTab == 1) {
+            // cellphone number validation
+            if (cell_no == '') {
+                $('#cell_no').removeClass('valid');
+                $('#cell_no').addClass('warning');
+
+                $('#cell_no_error').hide();
+                $('#cell_no_error').html('');
+
+            } else if (cell_no.length != 11 || isNaN(cell_no)) {
+                $('#cell_no').removeClass('warning');
+                $('#cell_no').addClass('invalid');
+
+                // add error message
+                $('#cell_no_error').show();
+                $('#cell_no_error').html('Invalid cellphone number');
+
+                input_valid = false;
+
+            } else {
+                $('#cell_no_error').hide();
+
+                $('#cell_no').removeClass('warning');
+                $('#cell_no').removeClass('invalid');
+                $('#cell_no').addClass('valid');
+            }
+
+
+            // telephone number validation
+            if (tel_no == '') {
+                $('#tel_no').removeClass('valid');
+                $('#tel_no').addClass('warning');
+
+                $('#tel_no_error').hide();
+                $('#tel_no_error').html('');
+
+            } else if (isNaN(tel_no)) {
+                $('#tel_no').removeClass('warning');
+                $('#tel_no').addClass('invalid');
+
+                // add error message
+                $('#tel_no_error').show();
+                $('#tel_no_error').html('Invalid telephone number');
+
+                input_valid = false;
+
+            } else {
+                $('#tel_no_error').hide();
+
+                $('#tel_no').removeClass('warning');
+                $('#tel_no').removeClass('invalid');
+                $('#tel_no').addClass('valid');
+            }
+
+            var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            // email validation
+            if (email == '') {
+                $('#email').removeClass('valid');
+                $('#email').addClass('warning');
+
+                $('#email_error').hide();
+                $('#email_error').html('');
+
+            } else if (!email.match(email_regex)) {
+                $('#email').removeClass('warning');
+                $('#email').addClass('invalid');
+
+                // add error message
+                $('#email_error').show();
+                $('#email_error').html('Invalid email');
+
+                input_valid = false;
+
+            } else {
+                $('#email_error').hide();
+
+                $('#email').removeClass('warning');
+                $('#email').removeClass('invalid');
+                $('#email').addClass('valid');
+            }
+        }
+
+        if (currentTab == 2) {
+            // ec_contact_no validation
+            if (ec_contact == '') {
+                $('#ec_contact_no').removeClass('valid');
+                $('#ec_contact_no').addClass('warning');
+
+                $('#ec_contact_error').hide();
+                $('#ec_contact_error').html('');
+
+            } else if (isNaN(ec_contact)) {
+                $('#ec_contact_no').removeClass('warning');
+                $('#ec_contact_no').addClass('invalid');
+
+                // add error message
+                $('#ec_contact_error').show();
+                $('#ec_contact_error').html('Invalid cellphone number2');
+
+                input_valid = false;
+
+            } else {
+                $('#ec_contact_error').hide();
+
+                $('#ec_contact_no').removeClass('warning');
+                $('#ec_contact_no').removeClass('invalid');
+                $('#ec_contact_no').addClass('valid');
+            }
+        }
 
 
 
 
-
-
-
-        input_valid = false; // remove this
+        //input_valid = false; // remove this
         // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
+        if (input_valid) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
 
         //console.log(select_valid);
         // return the valid status
-        return input_valid && select_valid;
+        return input_valid;
     }
 
     async function checkName() {
