@@ -56,7 +56,7 @@ class Admin_patientrec extends CI_Controller
             $dt = new DateTime($patient->date_created);
             $date_added = $dt->format('Y-m-d');
             $row = array();
-            $row[] = $no;
+            $row[] = $patient->un_patient_id;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
             $row[] = $date_added;
             $row[] = $patient->type;
@@ -360,7 +360,7 @@ class Admin_patientrec extends CI_Controller
         $this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);
         $this->load->view('admin-views/admin-patientrec-view-2', $data);
-        $this->load->view('include-admin/patientrec-scripts');
+        $this->load->view('include-admin/patientrec2-scripts');
     }
 
     public function add_patient_validation()
@@ -476,8 +476,9 @@ class Admin_patientrec extends CI_Controller
             $info['password'] = '0000-00-00';
         }
 
-
-        $this->dd($info);
+        // update patient
+        $update = $this->Admin_model->update_patient($insert_id, $info);
+        //$this->dd($update);
 
         $this->create_folder($insert_id);
 
@@ -741,7 +742,8 @@ class Admin_patientrec extends CI_Controller
             $info['password'] = '0000-00-00';
         }
 
-        $this->dd($info);
+        $this->Admin_model->update_patient($insert_id, $info);
+
 
         $patientDetails = array(
             'patient_id' => $insert_id,
