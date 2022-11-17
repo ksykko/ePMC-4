@@ -5,45 +5,6 @@
 
 
 <script>
-    // merge first, middle and last name
-    // $(function() {
-    //     $('#first_name, #middle_name, #last_name').on('input', function() {
-    //         $('#full_name').val(
-    //             $('#first_name, #middle_name, #last_name').map(function() {
-    //                 return $(this).val();
-    //             }).get().join(' ') /* added space */
-    //         );
-
-    //     });
-    // });
-
-    // change event on last_name field that checks if first_name, middle_name and last_name already exist
-    // $(function() {
-    //     $('#last_name').on('change', function() {
-    //         var first_name = $('#first_name').val();
-    //         var middle_name = $('#middle_name').val();
-    //         var last_name = $('#last_name').val();
-    //         var full_name = first_name + ' ' + middle_name + ' ' + last_name;
-    //         var url = '<?= base_url('admin/patientrec/check_name') ?>';
-    //         $.ajax({
-    //             url: url,
-    //             method: 'POST',
-    //             data: {
-    //                 full_name: full_name
-    //             },
-    //             success: function(data) {
-    //                 if (data == 'true') {
-    //                     $('#last_name').val('');
-    //                     $('#last_name').focus();
-    //                     alert('Patient already exists!');
-    //                 }
-    //             }
-    //         });
-    //     });
-    // });
-
-    // change event on last_name field that checks if first_name, middle_name and last_name already exist
-
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
 
@@ -119,6 +80,30 @@
         if ($('#contact_error').val() == '') {
             $('#contact_error').hide();
         }
+        if ($('#ext_name_error').val() == '') {
+            $('#ext_name_error').hide();
+        }
+        if ($('#ext_age_error').val() == '') {
+            $('#ext_age_error').hide();
+        }
+        if ($('#ext_birthdate_error').val() == '') {
+            $('#ext_birthdate_error').hide();
+        }
+        if ($('#ext_mob_error').val() == '') {
+            $('#ext_mob_error').hide();
+        }
+        if ($('#ext_tel_error').val() == '') {
+            $('#ext_tel_error').hide();
+        }
+        if ($('#ext_weight_error').val() == '') {
+            $('#ext_weight_error').hide();
+        }
+        if ($('#ext_height_error').val() == '') {
+            $('#ext_height_error').hide();
+        }
+
+
+        
     });
 
 
@@ -504,7 +489,7 @@
 
 
     function validateForm() {
-        console.log(input_valid);
+        //console.log(input_valid);
 
         var input_valid = true,
             select_valid = true,
@@ -700,7 +685,6 @@
             $('#sex').removeClass('warning');
             $('#sex').addClass('valid');
         }
-        console.log(sex);
 
 
         // civil status validation
@@ -858,6 +842,574 @@
         return input_valid;
     }
 
+
+
+    var ext_name = document.getElementById('ext_name'),
+        ext_age = document.getElementById('ext_age'),
+        ext_birthdate = document.getElementById('ext_birthdate'),
+        ext_sex = document.getElementById('ext_sex'),
+        ext_cs = document.getElementById('ext_cs'),
+        ext_occ = document.getElementById('ext_occ'),
+        ext_address = document.getElementById('ext_address'),
+        ext_mob = document.getElementById('ext_mob'),
+        ext_tel = document.getElementById('ext_tel'),
+        ext_weight = document.getElementById('ext_weight'),
+        ext_height = document.getElementById('ext_height');
+
+    
+    ext_name.onblur = function() {
+        if (ext_name.value == '') {
+            $('#ext_name_error').show();
+            $('#ext_name_error').html('Name is required');
+            $('#ext_name').removeClass('valid');
+            $('#ext_name').addClass('invalid');
+            //$('#first_name').focus();
+
+            input_valid = false;
+        } else {
+            $('#ext_name_error').hide();
+
+            $('#ext_name').removeClass('invalid');
+            $('#ext_name').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ext_age.onblur = function() {
+        if (ext_age.value < 0 || ext_age.value > 120) {
+            $('#ext_age_error').show();
+            $('#ext_age_error').html('Age must be between 0 and 120');
+
+            $('#ext_age').removeClass('warning');
+            $('#ext_age').removeClass('valid');
+            $('#ext_age').addClass('invalid');
+            //$('#age').focus();
+
+            input_valid = false;
+
+        } else if (isNaN(ext_age.value)) {
+            $('#ext_age').removeClass('warning');
+            $('#ext_age').addClass('invalid');
+
+            // add error message
+            $('#ext_age_error').show();
+            $('#ext_age_error').html('Invalid age');
+            input_valid = false;
+
+        } else if (ext_age.value == '') {
+            $('#ext_age').removeClass('invalid');
+            $('#ext_age').addClass('warning');
+
+            $('#ext_age_error').hide();
+            $('#ext_age_error').html('');
+
+            input_valid = true;
+        } else {
+            $('#ext_age_error').hide();
+
+            $('#ext_age').removeClass('warning');
+            $('#ext_age').removeClass('invalid');
+            $('#ext_age').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    ext_birthdate.onblur = function() {
+
+        if (ext_birthdate.value == '') {
+            $('#ext_birthdate').removeClass('invalid');
+            $('#ext_birthdate').addClass('warning');
+
+            $('#ext_birthdate_error').hide();
+            $('#ext_birthdate_error').html('');
+
+            input_valid = true;
+        } else if (ext_age.value != '') {
+            var ext_birthdate_year = ext_birthdate.value.split('-')[0];
+            var ext_birthdate_month = ext_birthdate.value.split('-')[1];
+            var ext_birthdate_day = ext_birthdate.value.split('-')[2];
+
+            var ext_today = new Date();
+            var ext_current_year = ext_today.getFullYear();
+            var ext_current_month = ext_today.getMonth() + 1;
+            var ext_current_day = ext_today.getDate();
+
+            var ext_age_year = ext_current_year - ext_birthdate_year;
+            var ext_age_month = ext_current_month - ext_birthdate_month;
+            var ext_age_day = ext_current_day - ext_birthdate_day;
+
+            if (ext_age_year != ext_age.value) {
+                $('#ext_birthdate').addClass('invalid');
+
+                // add error message
+                $('#ext_birthdate_error').show();
+                $('#ext_birthdate_error').html('Birthdate does not match age');
+
+                $('#ext_birthdate').removeClass('warning');
+                $('#ext_birthdate').addClass('invalid');
+                input_valid = false;
+            } else {
+                $('#ext_birthdate_error').hide();
+
+                $('#ext_birthdate').removeClass('warning');
+                $('#ext_birthdate').removeClass('invalid');
+                $('#ext_birthdate').addClass('valid');
+                input_valid = true;
+            }
+        }
+        else {
+            $('#ext_birthdate_error').hide();
+
+            $('#ext_birthdate').removeClass('warning');
+            $('#ext_birthdate').removeClass('invalid');
+            $('#ext_birthdate').addClass('valid');
+            input_valid = true;
+        }
+
+    }
+
+    ext_sex.onblur = function() {
+        if (ext_sex.value == '') {
+            $('#ext_sex').removeClass('valid');
+            $('#ext_sex').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#ext_sex').removeClass('warning');
+            $('#ext_xex').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ext_cs.onblur = function() {
+        if (ext_cs.value == '') {
+            $('#ext_cs').removeClass('valid');
+            $('#ext_cs').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#ext_cs').removeClass('warning');
+            $('#ext_cs').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ext_occ.onblur = function() {
+        if (ext_occ.value == '') {
+            $('#ext_occ').removeClass('valid');
+            $('#ext_occ').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#ext_occ').removeClass('warning');
+            $('#ext_occ').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ext_address.onblur = function() {
+        if (ext_address.value == '') {
+            $('#ext_address').removeClass('valid');
+            $('#ext_address').addClass('warning');
+
+            input_valid = true;
+        } else {
+            $('#ext_address').removeClass('warning');
+            $('#ext_address').addClass('valid');
+
+            input_valid = true;
+        }
+    }
+
+    ext_mob.onblur = function() {
+        if (ext_mob.value == '') {
+            $('#ext_mob').removeClass('valid');
+            $('#ext_mob').addClass('warning');
+
+            $('#ext_mob_error').hide();
+            $('#ext_mob_error').html('');
+
+            input_valid = true;
+        } else if (isNaN(ext_mob.value) || ext_mob.value.length != 11) {
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').addClass('invalid');
+
+            // add error message
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Invalid mobile number');
+            input_valid = false;
+
+        } else {
+            $('#ext_mob_error').hide();
+
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').removeClass('invalid');
+            $('#ext_mob').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    ext_tel.onblur = function() {
+        if (ext_tel.value == '') {
+            $('#ext_tel').removeClass('valid');
+            $('#ext_tel').addClass('warning');
+
+            $('#ext_tel_error').hide();
+            $('#ext_tel_error').html('');
+
+            input_valid = true;
+        } else {
+            $('#ext_tel_error').hide();
+
+            $('#ext_tel').removeClass('warning');
+            $('#ext_tel').removeClass('invalid');
+            $('#ext_tel').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    ext_weight.onblur = function() {
+        if (ext_weight.value == '') {
+            $('#ext_weight').removeClass('valid');
+            $('#ext_weight').addClass('warning');
+
+            $('#ext_weight_error').hide();
+            $('#ext_weight_error').html('');
+
+            input_valid = true;
+        } else if (isNaN(ext_weight.value)) {
+            $('#ext_weight').removeClass('warning');
+            $('#ext_weight').addClass('invalid');
+
+            // add error message
+            $('#ext_weight_error').show();
+            $('#ext_weight_error').html('Invalid weight');
+            input_valid = false;
+
+        } else {
+            $('#ext_weight_error').hide();
+
+            $('#ext_weight').removeClass('warning');
+            $('#ext_weight').removeClass('invalid');
+            $('#ext_weight').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    ext_height.onblur = function() {
+        if (ext_height.value == '') {
+            $('#ext_height').removeClass('valid');
+            $('#ext_height').addClass('warning');
+
+            $('#ext_height_error').hide();
+            $('#ext_height_error').html('');
+
+            input_valid = true;
+        } else if (isNaN(ext_height.value)) {
+            $('#ext_height').removeClass('warning');
+            $('#ext_height').addClass('invalid');
+
+            // add error message
+            $('#ext_height_error').show();
+            $('#ext_height_error').html('Invalid height');
+            input_valid = false;
+
+        } else {
+            $('#ext_height_error').hide();
+
+            $('#ext_height').removeClass('warning');
+            $('#ext_height').removeClass('invalid');
+            $('#ext_height').addClass('valid');
+            input_valid = true;
+        }
+    }
+    
+
+    ext_mob.onblur = function() {
+        if (ext_mob.value == '') {
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Mobile number is required');
+            $('#ext_mob').removeClass('valid');
+            $('#ext_mob').addClass('invalid');
+            //$('#first_name').focus();
+
+            input_valid = false;
+        } else if (isNaN(ext_mob.value)) {
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').addClass('invalid');
+
+            // add error message
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Invalid cellphone number');
+            input_valid = false;
+
+        } else {
+            $('#ext_mob_error').hide();
+
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').removeClass('invalid');
+            $('#ext_mob').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+
+    
+        
+
+    function validateImport() {
+        var input_valid = true,
+            name = $('#ext_name').val(),
+            age = $('#ext_age').val(),
+            birthdate = $('#ext_birthdate').val(),
+            sex = $('#ext_sex').val(),
+            cs = $('#ext_cs').val(),
+            occ = $('#ext_occ').val(),
+            address = $('#ext_address').val(),
+            mob = $('#ext_mob').val(),
+            tel = $('#ext_tel').val(),
+            weight = $('#ext_weight').val(),
+            height = $('#ext_height').val();
+
+
+        if (name == '') {
+            $('#ext_name').addClass('invalid');
+
+            $('#ext_name_error').show();
+            $('#ext_name_error').html('Name is required');
+
+            input_valid = false;
+        } else {
+            $('#ext_name_error').hide();
+            $('#ext_name').html('');
+
+            $('#ext_name').removeClass('invalid');
+            $('#ext_name').addClass('valid');
+        }
+        
+
+        if (age < 0 || age > 120) {
+            $('#ext_age').removeClass('warning');
+            $('#ext_age').removeClass('valid');
+            $('#ext_age').addClass('invalid');
+
+            $('#ext_age_error').show();
+            $('#ext_age_error').html('Invalid age');
+
+            input_valid = false;
+
+        } else if (age == '') {
+            $('#ext_age').removeClass('valid');
+            $('#ext_age').removeClass('invalid');
+            $('#ext_age').addClass('warning');
+
+            $('#ext_age_error').hide();
+            $('#ext_age_error').html('');
+
+            input_valid = true;
+        } else {
+            $('#ext_age_error').hide();
+
+            $('#ext_age').removeClass('warning');
+            $('#ext_age').removeClass('invalid');
+            $('#ext_age').addClass('valid');
+            input_valid = true;
+        }
+
+
+        if (birthdate == '') {
+            $('#ext_birthdate').removeClass('valid');
+            $('#ext_birthdate').addClass('warning');
+
+            $('#ext_birthdate_error').hide();
+            $('#ext_birthdate_error').html('');
+
+            input_valid = true;
+
+        } else if (age != '') {
+            var birthdate_year = birthdate.split('-')[0];
+            var birthdate_month = birthdate.split('-')[1];
+            var birthdate_day = birthdate.split('-')[2];
+
+            var today = new Date();
+            var current_year = today.getFullYear();
+            var current_month = today.getMonth() + 1;
+            var current_day = today.getDate();
+
+            var age_year = current_year - birthdate_year;
+            var age_month = current_month - birthdate_month;
+
+            if (age_year != age) {
+                $('#ext_birthdate').removeClass('warning');
+                $('#ext_birthdate').addClass('invalid');
+
+                $('#ext_birthdate_error').show();
+                $('#ext_birthdate_error').html('Invalid birthdate');
+
+                input_valid = false;
+            } else {
+                $('#ext_birthdate_error').hide();
+
+                $('#ext_birthdate').removeClass('warning');
+                $('#ext_birthdate').removeClass('invalid');
+                $('#ext_birthdate').addClass('valid');
+                input_valid = true;
+            }
+        } else {
+            $('#ext_birthdate_error').hide();
+
+            $('#ext_birthdate').removeClass('warning');
+            $('#ext_birthdate').removeClass('invalid');
+            $('#ext_birthdate').addClass('valid');
+            input_valid = true;
+        }
+
+
+        if (sex == null) {
+            $('#ext_sex').removeClass('invalid');
+            $('#ext_sex').addClass('warning');
+        } else {
+            $('#ext_sex').removeClass('warning');
+            $('#ext_sex').removeClass('invalid');
+            $('#ext_sex').addClass('valid');
+        }
+
+
+        if (cs == '') {
+            $('#ext_cs').removeClass('valid');
+            $('#ext_cs').addClass('warning');
+        } else {
+            $('#ext_cs').removeClass('warning');
+            $('#ext_cs').removeClass('invalid');
+            $('#ext_cs').addClass('valid');
+        }
+
+
+        if (occ = '') {
+            $('#ext_occ').removeClass('valid');
+            $('#ext_occ').addClass('warning');
+        } else {
+            $('#ext_occ').removeClass('warning');
+            $('#ext_occ').removeClass('invalid');
+            $('#ext_occ').addClass('valid');
+        }
+
+
+        if (address == '') {
+            $('#ext_address').removeClass('valid');
+            $('#ext_address').addClass('warning');
+        } else {
+            $('#ext_address').removeClass('warning');
+            $('#ext_address').removeClass('invalid');
+            $('#ext_address').addClass('valid');
+        }
+
+        if (mob == '') {
+            $('#ext_mob').removeClass('valid');
+            $('#ext_mob').addClass('warning');
+
+            $('#ext_mob_error').hide();
+            $('#ext_mob_error').html('');
+
+        } else if (mob.length != 11 || isNaN(mob)) {
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').addClass('invalid');
+
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Invalid cellphone number');
+
+            input_valid = false;
+        } else {
+            $('#ext_mob_error').hide();
+
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').removeClass('invalid');
+            $('#ext_mob').addClass('valid');
+            input_valid = true;
+        }
+       
+
+        if (tel == '') {
+            $('#ext_tel').removeClass('valid');
+            $('#ext_tel').addClass('warning');
+
+            $('#ext_tel_error').hide();
+            $('#ext_tel_error').html('');
+
+        } else {
+            $('#ext_tel_error').hide();
+
+            $('#ext_tel').removeClass('warning');
+            $('#ext_tel').removeClass('invalid');
+            $('#ext_tel').addClass('valid');
+            input_valid = true;
+        }
+
+
+        if (weight == '') {
+            $('#ext_weight').removeClass('valid');
+            $('#ext_weight').addClass('warning');
+
+            $('#ext_weight_error').hide();
+            $('#ext_weight_error').html('');
+
+        } else if (isNaN(weight)) {
+            $('#ext_weight').removeClass('warning');
+            $('#ext_weight').addClass('invalid');
+
+            $('#ext_weight_error').show();
+            $('#ext_weight_error').html('Invalid weight');
+
+            input_valid = false;
+        } else {
+            $('#ext_weight_error').hide();
+
+            $('#ext_weight').removeClass('warning');
+            $('#ext_weight').removeClass('invalid');
+            $('#ext_weight').addClass('valid');
+            input_valid = true;
+        }
+
+        if (height == '') {
+            $('#ext_height').removeClass('valid');
+            $('#ext_height').addClass('warning');
+
+            $('#ext_height_error').hide();
+            $('#ext_height_error').html('');
+
+        } else if (isNaN(height)) {
+            $('#ext_height').removeClass('warning');
+            $('#ext_height').addClass('invalid');
+
+            $('#ext_height_error').show();
+            $('#ext_height_error').html('Invalid height');
+
+            input_valid = false;
+        } else {
+            $('#ext_height_error').hide();
+
+            $('#ext_height').removeClass('warning');
+            $('#ext_height').removeClass('invalid');
+            $('#ext_height').addClass('valid');
+            input_valid = true;
+        }
+        
+
+
+
+        // if input_valid is true submit the form
+        if (input_valid == true) {
+            // add type=submit to the button
+            $('#save_import').attr('type', 'submit');
+            $('#importForm').submit();
+        }
+    }
+
+
     async function checkName() {
         var first_name = $('#first_name').val();
         var middle_name = $('#middle_name').val();
@@ -904,7 +1456,6 @@
 <?php $ext_data = $this->session->flashdata('success-import') ?>
 <script type="text/javascript">
     var import_success = "<?= $ext_data['File'] ?>";
-    console.log(import_success);
     if (import_success) {
         $(document).ready(function() {
             $("#modal-verify").modal('show');
