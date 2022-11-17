@@ -467,7 +467,7 @@
 
             // add error message
             $('#ec_contact_error').show();
-            $('#ec_contact_error').html('Invalid cellphone number1');
+            $('#ec_contact_error').html('Invalid cellphone number');
             input_valid = false;
 
         } else {
@@ -797,7 +797,7 @@
 
                 // add error message
                 $('#ec_contact_error').show();
-                $('#ec_contact_error').html('Invalid cellphone number2');
+                $('#ec_contact_error').html('Invalid cellphone number');
 
                 input_valid = false;
 

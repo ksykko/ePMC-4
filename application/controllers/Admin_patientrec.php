@@ -343,7 +343,16 @@ class Admin_patientrec extends CI_Controller
 
     public function view_patient($id)
     {
-        $data['title'] = 'Admin - Patient Records | ePMC';
+        $data['user_role'] = $this->session->userdata('role');
+
+        if ($data['user_role'] == 'Admin'){
+            $data['title'] = 'Admin - Patient Records | ePMC';
+        }
+        else {
+            $data['title'] = 'Doctor - Patient Records | ePMC';
+        }
+
+        
         $data['patient'] = $this->Admin_model->get_patient_row($id);
         $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
         $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
