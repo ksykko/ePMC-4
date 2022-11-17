@@ -31,8 +31,6 @@ class Admin_dashboard extends RestController
         }
             $total_inventory = $sum_stockin + $sum_stockout;
 
-        $result2=$this->Admin_model->get_recent_act(); 
-
         $response[] = array(
                     'id'=>1,
                     'inventory'=>$total_inventory,

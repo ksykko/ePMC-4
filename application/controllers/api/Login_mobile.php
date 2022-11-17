@@ -42,17 +42,17 @@ class Login_mobile extends RestController
                                     'avatar' => $result->avatar
                 );
             }
-            // else if ($result->role == "Doctor") {
-            //     $response[] = array("role" => $result->role,  
-            //     );
-            // } 
-            // else if ($result->role == "patient") {
-            //     $response[] = array("role" => $result->role,  
-            //     );
-            // }
+            else if ($result->role == "Doctor") {
+                $response = array("role" => $result->role,  
+                );
+            } 
+            else if ($result->role == "patient") {
+                $response = array("role" => $result->role,  
+                );
+            }
         }
          //invalid credentials
-         else {
+        else {
             $response = array('role' => 'Invalid');
         }
 
