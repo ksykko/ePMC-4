@@ -58,4 +58,8 @@ $route['translate_uri_dashes'] = FALSE;
 $route['schedule'] = 'Admin_schedule/schedule';
 $route['addSchedule'] = 'Admin_schedule/addSchedule';
 
-$route['api/Login_mobile'] = 'api/Login_mobile/validation';
+$route['login_mobile'] = 'api/Login_mobile/validation';
+$route['adm_dashboard_total'] = 'api/Admin_dashboard/total';
+$route['adm_dashboard_recent'] = 'api/Admin_dashboard/recent';
+$route['adm_patientrec_total'] = 'api/Admin_patientrec_mobile/total';
+$route['adm_patientrec_patients'] = 'api/Admin_patientrec_mobile/patients';
