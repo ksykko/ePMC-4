@@ -27,6 +27,28 @@
         
     });
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#recent_activity_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            "ajax": {
+                url: "<?php echo site_url("Admin/datatable") ?>",
+                type: 'POST'
+            },
+
+            //Set column definition initialisation properties.
+            "columnDefs": [
+                // { "targets": [ 6 ], "orderable": false }, //set not orderable
+                { "className": "inv-td" , targets: [] },
+               { "className": "w-50", targets: [1] }
+            ]
+        });
+        
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>

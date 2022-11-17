@@ -409,7 +409,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="mb-3"><label class="form-label" for="weight"><strong>Weight:</strong></label>
-                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="weight" readonly value="<?= ($healthinfo->weight == NULL || $healthinfo->weight == 'NULL') ? 'N/A' : $healthinfo->weight ?>" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
+                                                <div class="input-group"><input class="form-control rounded-end-sm" type="text" name="weight" readonly value="<?= ($healthinfo->weight == NULL || $healthinfo->weight == '0') ? 'N/A' : $healthinfo->weight ?>" /><span class="input-group-text d-none d-md-inline-block">kg</span></div>
                                             </div>
                                         </div>
                                     </div>

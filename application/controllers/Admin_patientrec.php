@@ -193,6 +193,40 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+    public function check_name()
+    {
+        $this->load->model('Admin_model');
+
+        //var_dump($_POST['full_name']);
+
+        if ($this->Admin_model->is_patient_exists($_POST['full_name'])) {
+            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Record already exists</label>';
+
+            // add invalid class to input
+            echo '<script>
+            $(document).ready(function(){
+                $("#first_name").addClass("invalid");
+                $("#middle_name").addClass("invalid");
+                $("#last_name").addClass("invalid");
+            });
+            </script>';
+        }
+        // } else {
+        //     echo '<label class="text-success font-monospace" style="font-size:13px"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+        //     <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+        //     <path d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM371.8 211.8C382.7 200.9 382.7 183.1 371.8 172.2C360.9 161.3 343.1 161.3 332.2 172.2L224 280.4L179.8 236.2C168.9 225.3 151.1 225.3 140.2 236.2C129.3 247.1 129.3 264.9 140.2 275.8L204.2 339.8C215.1 350.7 232.9 350.7 243.8 339.8L371.8 211.8z"></path>
+        //     </svg> Record available</label>';
+
+        //     echo '<script>
+        //     $(document).ready(function(){
+        //         $("#first_name").addClass("valid");
+        //         $("#middle_name").addClass("valid");
+        //         $("#last_name").addClass("valid");
+        //     });
+        //     </script>';
+        // }
+    }
+
     public function edit_patient($id)
     {
         $data['patient'] = $this->Admin_model->get_patient_row($id);
@@ -432,7 +466,8 @@ class Admin_patientrec extends CI_Controller
             'date_created' => date('Y-m-d H:i:s')
         );
 
-        //$this->dd($info);
+        $this->dd($info);
+        
         $insert_id = $this->Admin_model->add_patient($info);
 
         $this->create_folder($insert_id);
@@ -581,7 +616,7 @@ class Admin_patientrec extends CI_Controller
         $ext_data = $this->format_import($ext_data);
         //$this->dd($ext_data);
 
-        
+
 
         $this->session->set_flashdata('success-import', $ext_data);
         redirect('Admin_patientrec');
@@ -903,7 +938,7 @@ class Admin_patientrec extends CI_Controller
                     'module' => 'Patient Records',
                     'date_created' => date('Y-m-d H:i:s')
                 );
-        
+
                 $this->Admin_model->add_activity($activity);
 
                 $this->Admin_model->add_patient_lab_reports($doc_data);
@@ -991,7 +1026,6 @@ class Admin_patientrec extends CI_Controller
 
     public function edit_diagnosis($id)
     {
-
     }
 
     public function delete_diagnosis($patient_id, $id)

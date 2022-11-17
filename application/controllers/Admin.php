@@ -39,6 +39,38 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function datatable()
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $activity = $this->Admin_model->get_activity_tbl();
+        $data = array();
+
+
+        foreach ($activity->result() as $recent_act) {
+            
+                $dt = new DateTime($recent_act->date_created);
+                $date_created = $dt->format('m/d/y h:i A');
+
+
+                $row = array();
+                $row[] = $recent_act->activity;
+                $row[] = $date_created;
+                
+                $data[] = $row;    
+            
+            
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $activity->num_rows(),
+            "recordsFiltered" => $activity->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
     public function ageRange_chart()
     {
         // get age range data from database
