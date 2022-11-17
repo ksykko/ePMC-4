@@ -132,7 +132,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
                             <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
                         </div>
-                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
+                        <div class="card-body">
                             <div class="chart-area">
                                 <canvas class="align-items-center" id="sampleChart2"></canvas>
                             </div>
@@ -168,6 +168,30 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="card shadow mb-4 h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                            <h6 class="fw-bold fs-5 m-0 ch-heading">Recent Activity</h6>
+                        </div>
+                        <div class="card-body mx-3 ">
+                            <table id="recent_activity_table" class="table table-hover d-column w-100  ">
+                                <thead>
+                                    <tr>
+                                        <th class="inv-td">Activity</th>
+                                        <th class="inv-td">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            
+
         </div>                
 
         </div>
@@ -228,6 +252,7 @@
 </main>
 </div>
 </div> -->
+
 <script>
     var cData = JSON.parse('<?= $chart_data; ?>');
     console.log(cData);

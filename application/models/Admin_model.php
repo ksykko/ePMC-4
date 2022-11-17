@@ -1,5 +1,7 @@
 <?php
 
+use Google\Service\AndroidPublisher\Variant;
+
 class Admin_model extends CI_Model
 {
     public function __construct()
@@ -484,7 +486,7 @@ class Admin_model extends CI_Model
 
     public function get_activity_tbl()
     {
-        return $this->db->get('recent_activity');
+        return $this->db->order_by('date_created', 'DESC')->get('recent_activity');
     }
 
     public function get_recent_act()
@@ -497,7 +499,22 @@ class Admin_model extends CI_Model
 
     // End of Recent Activity 
 
+    // check if patient exists
+    public function is_patient_exists($name)
+    {
+        $this->db->select('CONCAT(first_name, " ", middle_name, " ", last_name) AS full_name');
+        $this->db->from('patient_record');
+        $query = $this->db->get();
 
+       // loop through the result and check if the name exists
+        foreach ($query->result() as $row) {
+            if ($row->full_name == $name) {
+                return true;
+            }
+        }
+        return false;
+        
+    }
 
 
 }
