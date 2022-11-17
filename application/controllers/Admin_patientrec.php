@@ -200,10 +200,7 @@ class Admin_patientrec extends CI_Controller
         //var_dump($_POST['full_name']);
 
         if ($this->Admin_model->is_patient_exists($_POST['full_name'])) {
-            echo '<label class="text-danger font-monospace" style="font-size:13px"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
-            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z"></path>
-            </svg> Record already exists</label>';
+            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Record already exists</label>';
 
             // add invalid class to input
             echo '<script>
@@ -469,7 +466,8 @@ class Admin_patientrec extends CI_Controller
             'date_created' => date('Y-m-d H:i:s')
         );
 
-        //$this->dd($info);
+        $this->dd($info);
+        
         $insert_id = $this->Admin_model->add_patient($info);
 
         $this->create_folder($insert_id);
