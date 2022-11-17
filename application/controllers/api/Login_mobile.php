@@ -42,57 +42,22 @@ class Login_mobile extends RestController
                                     'avatar' => $result->avatar
                 );
             }
-            // else if ($result->role == "Doctor") {
-            //     $response[] = array("role" => $result->role,  
-            //     );
-            // } 
-            // else if ($result->role == "patient") {
-            //     $response[] = array("role" => $result->role,  
-            //     );
-            // }
+            else if ($result->role == "Doctor") {
+                $response = array("role" => $result->role,  
+                );
+            } 
+            else if ($result->role == "patient") {
+                $response = array("role" => $result->role,  
+                );
+            }
         }
          //invalid credentials
-         else {
+        else {
             $response = array('role' => 'Invalid');
         }
-       
-       
 
         echo json_encode($response);
         
-        
-        
-        
-        // $r = $this->Login_model->login($email,$password);
-        // $this->response($r); 
-
-        // $email=$data->email;
-        // $password=$data->password;
-
-        // $email='adminri@gmail.com';
-        // $password='admin123';
-        
-        // echo json_encode($email);
-
-        // if(isset($decodedData)) {
-        //     $email = $decodedData['email'];
-        //     $password = $decodedData['password'];
-        //     echo 'null';
-        // }
-
-        // http_response_code(200);
-        // if($email && $password){
-        //     $json = $this->Login_model->login($email,$password);
-        //     if($json){
-        //         echo json_encode($json);
-        //     } else {
-        //         http_response_code(400);
-        //         echo json_encode([
-        //             'error'=>true,
-        //             'role'=>'Invalid email or password.'
-        //         ]);
-        //     }
-        // }
     }
 }
 ?>

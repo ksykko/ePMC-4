@@ -249,65 +249,70 @@
                                         <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                             <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
                                                 <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                                <span id="fullName_result"></span>
+                                                <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                             <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
                                                 <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $patient->middle_name ?>" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                                <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                             <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
                                                 <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $patient->last_name ?>" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                                <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                             <div class="col form-group px-1"><label class="form-label">Age</label>
                                                 <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= $patient->age ?>" /><small class="text-danger"><?= form_error('age') ?></small>
-                                                <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                                <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                             <div class="col form-group px-1"><label class="form-label">Birth date</label>
-                                                <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                                <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                                <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                         <div class="row mb-2">
-                                            <div class="col form-group px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
-                                                    <?php if ($patient->sex == 'Male') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Male" selected>Male</option>
-                                                        <option value="Female">Female</option>
-                                                    <?php elseif ($patient->sex == 'Female') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female" selected>Female</option>
-                                                    <?php else : ?>
-                                                        <option value="select" selected disabled>select ...</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                    <?php endif; ?>
+                                            <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                                    <option value="" selected disabled>select ...</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
                                                 </select><small class="text-danger"><?= form_error('sex') ?></small></div>
                                             <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
-                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="" selected>select ...</option>
                                                     <option value="Single">Single</option>
                                                     <option value="Married">Married</option>
                                                     <option value="Divorced">Divorced</option>
                                                     <option value="Separated">Separated</option>
                                                     <option value="Widowed">Widowed</option>
                                                 </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
-                                            <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= $patient->occupation ?>" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                            <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /></div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col form-group px-1"><label class="form-label">Address</label>
-                                                <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" /><small class="text-danger"><?= form_error('address') ?></small>
+                                                <input class="form-control form-control-sm" type="text" id="address" name="address" />
                                             </div>
                                         </div>
+                                        <!-- <div class="row mb-2">
+                                            <div class="col form-group px-1"><label class="form-label">Full Name</label>
+                                                <input class="form-control form-control-sm combine" type="text" id="full_name" name="full_name" value="" />
+                                            </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="tab">
                                         <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                         <hr size="5" />
                                         <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                            <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" value="<?= $patient->cell_no ?>" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
-                                            <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" value="<?= $patient->tel_no ?>" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                            <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" />
+                                                <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                            </div>
+                                            <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" />
+                                                <label id="tel_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                            </div>
                                         </div>
                                         <div class="row mb-2">
-                                            <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" value="<?= $patient->email ?>" /><small class="text-danger"><?= form_error('email') ?></small>
+                                            <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" />
+                                                <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -316,107 +321,23 @@
                                         <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                         <hr size="5" />
                                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                            <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= $patient->ec_name ?>" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
-                                            <div class="col form-group px-1"><label class="form-label">Relationship</label>
-                                                <select class="form-select form-select-sm" id="relationship" name="relationship">
-                                                    <?php if ($patient->relationship == 'Father') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father" selected>Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Mother') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother" selected>Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Sibling') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling" selected>Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Child') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child" selected>Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Spouse') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse" selected>Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Grandparent') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent" selected>Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Guardian') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian" selected>Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php elseif ($patient->relationship == 'Other') : ?>
-                                                        <option value="select" disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other" selected>Other</option>
-                                                    <?php else : ?>
-                                                        <option value="select" selected disabled>select ...</option>
-                                                        <option value="Father">Father</option>
-                                                        <option value="Mother">Mother</option>
-                                                        <option value="Sibling">Sibling</option>
-                                                        <option value="Child">Child</option>
-                                                        <option value="Spouse">Spouse</option>
-                                                        <option value="Grandparent">Grandparent</option>
-                                                        <option value="Guardian">Guardian</option>
-                                                        <option value="Other">Other</option>
-                                                    <?php endif; ?>
-
-                                                </select><small class="text-danger"><?= form_error('relationship') ?></small>
-                                            </div>
+                                            <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /></div>
+                                            <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" id="relationship" name="relationship">
+                                                    <option value="" selected disabled>select ...</option>
+                                                    <option value="Father">Father</option>
+                                                    <option value="Mother">Mother</option>
+                                                    <option value="Sibling">Sibling</option>
+                                                    <option value="Child">Child</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Grandparent">Grandparent</option>
+                                                    <option value="Guardian">Guardian</option>
+                                                    <option value="Other">Other</option>
+                                                </select></div>
                                         </div>
                                         <div class="row mb-2">
-                                            <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
-                                                <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= $patient->ec_contact_no ?>" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                            <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No.</label>
+                                                <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" />
+                                                <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                     </div>
@@ -429,7 +350,6 @@
                                         <button class="btn btn-sm btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                     </div>
                                 </div>
-
 
                                 <?= form_close(); ?>
                                 <!-- Circles which indicates the steps of the form: -->
@@ -582,43 +502,37 @@
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-3 col-xl-3 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Name:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="full_name" value="<?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="full_name" readonly value="<?= ($patient->first_name) ? $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6">Age:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="age" value="<?= $patient->age ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="age" readonly value="<?= ($patient->age) ? $patient->age : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-2 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $patient->birth_date ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" readonly value="<?= ($patient->birth_date == '0000-00-00') ? 'N/A' : $patient->birth_date ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-4 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $patient->sex ?>" readonly /></div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Civil Status:</label></div>
-                                <div class="col-7 col-sm-9 col-md-10 col-lg-7 col-xl-9 d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="civil_status" value="<?= $patient->civil_status ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" readonly value="<?= ($patient->sex) ? $patient->sex : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xl-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Occupation:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="occupation" value="<?= $patient->occupation ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="occupation" readonly value="<?= ($patient->occupation) ? $patient->occupation : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-3 d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Address:</label></div>
                                 <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->address ?>" readonly /></div>
+                                    <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" readonly value="<?= ($patient->address) ? $patient->address : 'N/A' ?>" /></div>
                                 </div>
                             </div>
                         </div>
@@ -632,19 +546,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Cellphone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->cell_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->cell_no ) ? $patient->cell_no : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-2 col-lg-5 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Telephone #:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->tel_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->tel_no ) ? $patient->tel_no : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-2 col-lg-3 col-xl-4 col-xxl-3 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->email ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->email) ? $patient->email : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                     </div>
@@ -657,19 +571,19 @@
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Name:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->ec_name ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->ec_name) ? $patient->ec_name : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-5 col-sm-3 col-md-2 col-lg-5 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Relationship:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->relationship ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->relationship) ? $patient->relationship : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-3 col-sm-2 col-md-1 col-lg-4 col-xl-4 col-xxl-4 d-lg-flex d-xxl-flex align-items-lg-center justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Email:</label></div>
                             <div class="col d-flex d-sm-flex d-lg-flex d-xxl-flex align-items-center align-items-sm-center align-items-lg-center justify-content-xxl-center align-items-xxl-center">
-                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= $patient->ec_contact_no ?>" readonly /></div>
+                                <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="address" value="<?= ($patient->ec_contact_no) ? $patient->ec_contact_no : 'N/A' ?>" readonly /></div>
                             </div>
                         </div>
                     </div>
@@ -840,7 +754,7 @@
                             </div>
                         <?php endif; ?>
                         <?php if ($user_role == 'Admin') : ?>
-                            <div id="card-next-consultation" class="card shadow mb-4" style="height: 350px">
+                            <div id="card-next-consultation" class="card shadow mb-4" style="height: 270px">
                                 <div class="card-header py-3 ch-patientrec">
                                     <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
                                 </div>
