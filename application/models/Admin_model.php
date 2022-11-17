@@ -28,6 +28,14 @@ class Admin_model extends CI_Model
         return $this->db->count_all('patient_record');
     }
 
+    public function get_patient_fullname()
+    {
+        $this->db->select("patient_id,first_name,middle_name,last_name,avatar");
+        $this->db->from('patient_record');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     // get patient row based on patient_id ($id = primary key)
     public function get_patient_row($id)
     {
