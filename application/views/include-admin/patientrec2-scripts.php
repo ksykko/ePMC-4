@@ -41,7 +41,7 @@
         // if you have reached the end of the form...
         if (currentTab >= x.length) {
             // ... the form gets submitted:
-            document.getElementById("regForm").submit();
+            document.getElementById("editPatient").submit();
 
             return false;
         }
@@ -161,11 +161,6 @@
     }
 
     last_name.onblur = function() {
-        // first_name, and last_name are not empty checkName()
-        if (first_name.value != '' && last_name.value != '') {
-            checkName();
-        }
-
         if (last_name.value == '') {
             $('#lastName_error').show();
             $('#lastName_error').html('Last name is required');
@@ -567,19 +562,6 @@
             input_valid = true;
         }
 
-
-        checkName().then((data) => {
-            if (data != 'false') {
-                return 'putangina';
-            }
-
-        });
-
-        //if record already exists input_valid = false
-        if (checkName() == 'true') {
-            input_valid = false;
-            alert('Patient already exists!');
-        }
 
 
         // age validation
@@ -1127,6 +1109,38 @@
             input_valid = true;
         }
     }
+    
+
+    ext_mob.onblur = function() {
+        if (ext_mob.value == '') {
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Mobile number is required');
+            $('#ext_mob').removeClass('valid');
+            $('#ext_mob').addClass('invalid');
+            //$('#first_name').focus();
+
+            input_valid = false;
+        } else if (isNaN(ext_mob.value)) {
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').addClass('invalid');
+
+            // add error message
+            $('#ext_mob_error').show();
+            $('#ext_mob_error').html('Invalid cellphone number');
+            input_valid = false;
+
+        } else {
+            $('#ext_mob_error').hide();
+
+            $('#ext_mob').removeClass('warning');
+            $('#ext_mob').removeClass('invalid');
+            $('#ext_mob').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+
+    
         
 
     function validateImport() {
@@ -1375,36 +1389,6 @@
             $('#save_import').attr('type', 'submit');
             $('#importForm').submit();
         }
-    }
-
-
-    async function checkName() {
-        var first_name = $('#first_name').val();
-        var middle_name = $('#middle_name').val();
-        var last_name = $('#last_name').val();
-        var full_name = first_name + ' ' + middle_name + ' ' + last_name;
-        var url = '<?= site_url('Admin_patientrec/check_name') ?>';
-
-        let result;
-
-        try {
-            if (full_name != '') {
-                result = await $.ajax({
-                    url: url,
-                    method: 'POST',
-                    data: {
-                        full_name: full_name
-                    },
-                    success: function(data) {
-                        $('#fullName_result').html(data);
-                    }
-                });
-                return result;
-            }
-        } catch (error) {
-            console.error(error);
-        }
-
     }
 
     function fixStepIndicator(n) {
