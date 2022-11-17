@@ -55,10 +55,9 @@ class Login_mobile extends RestController
         else {
             $response = array('role' => 'Invalid');
         }
-       
-       
 
         echo json_encode($response);
+        
     }
 }
 ?>

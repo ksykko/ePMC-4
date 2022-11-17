@@ -49,12 +49,12 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
-                                            <option value="select" selected disabled>select ...</option>
+                                            <option value="" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
-                                            <option value="select" selected disabled>select ...</option>
+                                            <option value="" selected>select ...</option>
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
                                             <option value="Divorced">Divorced</option>
@@ -79,11 +79,16 @@
                                 <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" />
+                                        <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" />
+                                        <label id="tel_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
+                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" />
+                                        <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                             </div>
@@ -92,9 +97,9 @@
                                 <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /><small class="text-danger"><?= form_error('ec_name') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /></div>
                                     <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" id="relationship" name="relationship">
-                                            <option value="select" selected disabled>select ...</option>
+                                            <option value="" selected disabled>select ...</option>
                                             <option value="Father">Father</option>
                                             <option value="Mother">Mother</option>
                                             <option value="Sibling">Sibling</option>
@@ -103,11 +108,12 @@
                                             <option value="Grandparent">Grandparent</option>
                                             <option value="Guardian">Guardian</option>
                                             <option value="Other">Other</option>
-                                        </select><small class="text-danger"><?= form_error('relationship') ?></small></div>
+                                        </select></div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
-                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                    <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No.</label>
+                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" />
+                                        <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                             </div>
@@ -381,4 +387,3 @@
 <script>
     var form_data = JSON.parse('<?= $form_data ?>');
 </script>
-
