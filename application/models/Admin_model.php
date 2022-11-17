@@ -120,7 +120,7 @@ class Admin_model extends CI_Model
 
     public function add_patient($info)
     { // add patient record
-        //$this->db->insert('patient_record', $info); uncomment
+        $this->db->insert('patient_record', $info); 
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
