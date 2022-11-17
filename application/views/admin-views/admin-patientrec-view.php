@@ -61,11 +61,11 @@
                                             <option value="Separated">Separated</option>
                                             <option value="Widowed">Widowed</option>
                                         </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Address</label>
-                                        <input class="form-control form-control-sm" type="text" id="address" name="address" /><small class="text-danger"><?= form_error('address') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="address" name="address" />
                                     </div>
                                 </div>
                                 <!-- <div class="row mb-2">
@@ -162,7 +162,7 @@
         </div>
         <?php if ($this->session->flashdata('success-import')) : ?>
             <?php $ext_data = $this->session->flashdata('success-import') ?>
-            <?= form_open('Admin_patientrec/verify_import'); ?>
+            <?= form_open('Admin_patientrec/verify_import', array('id' => 'importForm')); ?>
             <div id="modal-verify" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
@@ -223,78 +223,83 @@
                                 <div class="col">
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Name</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="name" value="<?= $ext_data['Name'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_name" name="name" value="<?= $ext_data['Name'] ?>" /></div>
+                                            <label id="ext_name_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col pe-1"><label class="form-label">Age</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="age" value="<?= $ext_data['Age'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_age" name="age" value="<?= $ext_data['Age'] ?>" /></div>
+                                            <label id="ext_age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-1"><label class="form-label">Birth date</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="date" name="birthday" value="<?= $ext_data['Birthday'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="date" id="ext_birthdate" name="birthday" value="<?= $ext_data['Birthday'] ?>" /></div>
+                                            <label id="ext_birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row row-cols-1 row-cols-sm-3 mb-3 gy-3 gy-md-0">
-                                        <div class="col pe-sm-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
+                                        <div class="col pe-sm-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="ext_sex" name="sex">
                                                 <?php if ($ext_data['Sex'] == 'Male') : ?>
-                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="" disabled>select ...</option>
                                                     <option value="Male" selected>Male</option>
                                                     <option value="Female">Female</option>
                                                 <?php elseif ($ext_data['Sex'] == 'Female') : ?>
-                                                    <option value="select" disabled>select ...</option>
+                                                    <option value="" disabled>select ...</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female" selected>Female</option>
                                                 <?php else : ?>
-                                                    <option value="select" selected disabled>select ...</option>
+                                                    <option value="" selected disabled>select ...</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                 <?php endif; ?>
                                             </select>
-                                            <!-- <div class="input-group"><input class="form-control form-control-sm" type="text" name="sex" value="" /></div> -->
                                         </div>
-                                        <div class="col col-auto px-sm-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
-                                                <option value=" " selected disabled>select ...</option>
+                                        <div class="col col-auto px-sm-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="ext_cs" name="civil_status">
+                                                <option value="" selected>select ...</option>
                                                 <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
                                                 <option value="Divorced">Divorced</option>
                                                 <option value="Separated">Separated</option>
                                                 <option value="Widowed">Widowed</option>
                                             </select>
-                                            <!-- <div class="input-group"><input class="form-control form-control-sm" type="text" name="civil_status" value="" /></div> -->
                                         </div>
                                         <div class="col ps-sm-1"><label class="form-label">Occupation</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="occupation" value="<?= $ext_data['Occupation'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_occ" name="occupation" value="<?= $ext_data['Occupation'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Address</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="address" value="<?= $ext_data['Address'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_address" name="address" value="<?= $ext_data['Address'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row row-cols-1 row-cols-sm-2 mb-3 gy-3 gy-md-0">
                                         <div class="col pe-sm-1"><label class="form-label">Mobile No.</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="mobile_no" value="<?= $ext_data['Mobile No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_mob" name="mobile_no" value="<?= $ext_data['Mobile No.'] ?>" /></div>
+                                            <label id="ext_mob_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-sm-1"><label class="form-label">Tel No.</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" name="tel_no" value="<?= $ext_data['Tel. No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_tel" name="tel_no" value="<?= $ext_data['Tel. No.'] ?>" /></div>
+                                            <label id="ext_tel_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col pe-1"><label class="form-label">Weight</label>
-                                            <div class="input-group input-weight"><input class="form-control form-control-sm" type="text" name="weight" value="<?= $ext_data['Weight'] ?>" />
+                                            <div class="input-group input-weight"><input class="form-control form-control-sm" type="text" id="ext_weight" name="weight" value="<?= $ext_data['Weight'] ?>" />
                                                 <span class="input-group-text span-text">kg</span>
                                             </div>
+                                            <label id="ext_weight_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-1"><label class="form-label">Height</label>
-                                            <div class="input-group input-height"><input class="form-control form-control-sm" type="text" name="height" value="<?= $ext_data['Height'] ?>" />
+                                            <div class="input-group input-height"><input class="form-control form-control-sm" type="text" id="ext_height" name="height" value="<?= $ext_data['Height'] ?>" />
                                                 <span class="input-group-text span-text">cm</span>
                                             </div>
+                                            <label id="ext_height_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-default-blue" name="save_verified" type="submit">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-default-blue" id="save_import" onclick="validateImport()" type="button">Save</button></div>
                     </div>
                 </div>
             </div>
