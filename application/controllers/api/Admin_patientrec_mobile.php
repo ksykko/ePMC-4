@@ -10,7 +10,7 @@ use chriskacerguis\RestServer\RestController;
 
 require(APPPATH.'/libraries/RestController.php');
 
-class Admin_dashboard extends RestController
+class Admin_patientrec_mobile extends RestController
 {
     public function __construct()
     {
@@ -22,27 +22,19 @@ class Admin_dashboard extends RestController
     }
 
     public function total_get() {
-        $result=$this->Admin_model->get_inventory_table_contents();
-        $sum_stockin = 0;
-        $sum_stockout = 0;
-        foreach ($result as $product) {
-            $sum_stockin += $product->stock_in;
-            $sum_stockout += $product->stock_out;
-        }
-            $total_inventory = $sum_stockin + $sum_stockout;
-
-        $response[] = array(
-                    'id'=>1,
-                    'inventory'=>$total_inventory,
-                    'users'=>$this->Admin_model->get_useracc_count(),
-                    'patient'=>$this->Admin_model->get_patient_count(),
-                    'new_patient'=>$this->Admin_model->get_nUser_count(),
-                    );
-        
+        $response[] = array('id'=>1,
+                            'patient'=>$this->Admin_model->get_patient_count());
         echo json_encode($response);
     }
-    public function recent_get() {
-        $response = array("recentact"=>$this->Admin_model->get_recent_act());
+
+    public function patients_get() {
+        // $response[] = array('records'=>$this->Admin_model->get_patient_table());
+        $result=$this->Admin_model->get_patient_fullname();
+        foreach($result as $fullname) {
+            $response[] = array('id'=>$fullname->patient_id,
+                                'pt_fullname'=>$fullname->first_name . ' ' . $fullname->middle_name . ' ' . $fullname->last_name,
+                                'image'=>'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$fullname->avatar);
+        }
         echo json_encode($response);
     }
 }

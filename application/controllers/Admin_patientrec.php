@@ -56,7 +56,7 @@ class Admin_patientrec extends CI_Controller
             $dt = new DateTime($patient->date_created);
             $date_added = $dt->format('Y-m-d');
             $row = array();
-            $row[] = $no;
+            $row[] = $patient->un_patient_id;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
             $row[] = $date_added;
             $row[] = $patient->type;
@@ -200,10 +200,7 @@ class Admin_patientrec extends CI_Controller
         //var_dump($_POST['full_name']);
 
         if ($this->Admin_model->is_patient_exists($_POST['full_name'])) {
-            echo '<label class="text-danger font-monospace" style="font-size:13px"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
-            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-            <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM232 152C232 138.8 242.8 128 256 128s24 10.75 24 24v128c0 13.25-10.75 24-24 24S232 293.3 232 280V152zM256 400c-17.36 0-31.44-14.08-31.44-31.44c0-17.36 14.07-31.44 31.44-31.44s31.44 14.08 31.44 31.44C287.4 385.9 273.4 400 256 400z"></path>
-            </svg> Record already exists</label>';
+            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Record already exists</label>';
 
             // add invalid class to input
             echo '<script>
@@ -363,7 +360,7 @@ class Admin_patientrec extends CI_Controller
         $this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);
         $this->load->view('admin-views/admin-patientrec-view-2', $data);
-        $this->load->view('include-admin/patientrec-scripts');
+        $this->load->view('include-admin/patientrec2-scripts');
     }
 
     public function add_patient_validation()
@@ -469,8 +466,19 @@ class Admin_patientrec extends CI_Controller
             'date_created' => date('Y-m-d H:i:s')
         );
 
-        //$this->dd($info);
         $insert_id = $this->Admin_model->add_patient($info);
+
+        // create custom patient id based on name initials
+        $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+
+        // if birthdate is empty, set password to default value 0000-00-00
+        if ($info['birth_date'] == '') {
+            $info['password'] = '0000-00-00';
+        }
+
+        // update patient
+        $update = $this->Admin_model->update_patient($insert_id, $info);
+        //$this->dd($update);
 
         $this->create_folder($insert_id);
 
@@ -504,6 +512,20 @@ class Admin_patientrec extends CI_Controller
             redirect('Doctor_patientrec');
         }
         //}
+    }
+
+    public function create_patient_id($first_name, $middle_name, $last_name, $insert_id)
+    {
+        $first_name = substr($first_name, 0, 1);
+        $middle_name = substr($middle_name, 0, 1);
+        $last_name = substr($last_name, 0, 1);
+
+        //format $insert_id to 4 digits
+        $insert_id = str_pad($insert_id, 4, '0', STR_PAD_LEFT);
+
+        $patient_id = 'PMC' . $first_name . $middle_name . $last_name . '-' . $insert_id;
+
+        return $patient_id;
     }
 
     public function aws_textract_ocr()
@@ -686,31 +708,42 @@ class Admin_patientrec extends CI_Controller
         //     $this->dd(validation_errors());
         //     redirect('Admin_patientrec');
         // } else {
-        $submit = $this->input->post('save_verified');
+        //$submit = $this->input->post('save_verified');
 
-        if (isset($submit)) {
+        //if (isset($submit)) {
 
-            $info = array(
-                'first_name' => $this->input->post('name'),
-                'cell_no' => $this->input->post('mobile_no'),
-                'address' => $this->input->post('address'),
-                'tel_no' => $this->input->post('tel_no'),
-                'birth_date' => $this->input->post('birthday'),
-                'age' => $this->input->post('age'),
-                'sex' => $this->input->post('sex'),
-                'civil_status' => $this->input->post('civil_status'),
-                'occupation' => $this->input->post('occupation'),
-                'password' => $this->input->post('birthday'),
-                'type' => 'import',
-                'role' => 'patient',
-                'avatar' => 'default-avatar.png',
-                'activation_code' => random_string('alnum', 16),
-                'status' => '0',
-                'date_created' => date('Y-m-d H:i:s')
-            );
-        }
+        $info = array(
+            'first_name' => $this->input->post('name'),
+            'cell_no' => $this->input->post('mobile_no'),
+            'address' => $this->input->post('address'),
+            'tel_no' => $this->input->post('tel_no'),
+            'birth_date' => $this->input->post('birthday'),
+            'age' => $this->input->post('age'),
+            'sex' => $this->input->post('sex'),
+            'civil_status' => $this->input->post('civil_status'),
+            'occupation' => $this->input->post('occupation'),
+            'password' => $this->input->post('birthday'),
+            'type' => 'import',
+            'role' => 'patient',
+            'avatar' => 'default-avatar.png',
+            'activation_code' => random_string('alnum', 16),
+            'status' => '0',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+        //}
 
         $insert_id = $this->Admin_model->add_patient($info);
+
+        // create custom patient id based on name initials
+        $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
+
+        // if birthdate is empty, set password to default value 0000-00-00
+        if ($info['birth_date'] == '') {
+            $info['password'] = '0000-00-00';
+        }
+
+        $this->Admin_model->update_patient($insert_id, $info);
+
 
         $patientDetails = array(
             'patient_id' => $insert_id,
@@ -754,6 +787,17 @@ class Admin_patientrec extends CI_Controller
         } else {
             redirect('Doctor_patientrec');
         }
+    }
+
+    public function create_imp_patient_id($setId, $insert_id)
+    {
+        $name = explode(' ', $setId);
+        // format $insert_id to 4 digits
+        $insert_id = sprintf('%04d', $insert_id);
+
+        $patient_id = 'PMC' . $name[0][0] . $name[1][0] . '-' . $insert_id;
+
+        return $patient_id;
     }
 
     public function create_folder($id)
