@@ -30,7 +30,7 @@
                                             <canvas class="align-items-center" id="Chart1"></canvas>
                                             <div id="chart"></div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -77,9 +77,9 @@
                     <div class="col-lg-7 col-xl-8">
                         <div class="row mb-3">
                             <div class="col">
-                                <div class="card h-100 chart-body-red">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
-                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Active vs Archived Patients</h6>
+                                <div class="card h-100 chart-body-yellow">
+                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-yellow">
+                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Insertions vs Deletions of Patients</h6>
                                         <div class="dropdown no-arrow"><button class="btn btn-link btn-sm shadow-none" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-white"></i></button>
                                             <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                                                 <p class="text-center dropdown-header">View:</p><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a>
@@ -90,15 +90,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body"></div>
+                                    <div class="card-body">
+                                        <div id="add_dlt"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="card h-100">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading">Stock Items</h6>
+                                <div class="card h-100 chart-body-red">
+                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
+                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Stock Items</h6>
                                         <div class="dropdown no-arrow"><button class="btn btn-link btn-sm shadow-none" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-white"></i></button>
                                             <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
                                                 <p class="text-center dropdown-header">View:</p><a class="dropdown-item" href="#">Weekly</a><a class="dropdown-item" href="#">Monthly</a>
@@ -109,7 +111,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body"></div>
+                                    <div class="card-body">
+                                        <div id="stock_chart"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -146,14 +150,14 @@
 
     })
 
-
     var options = {
         series: [{
             data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
         }],
         chart: {
             type: 'bar',
-            height: 350
+            height: 350,
+            fontFamily: 'Poppins, sans-serif'
         },
         plotOptions: {
             bar: {
@@ -173,4 +177,93 @@
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
+
+
+    var stock_products = JSON.parse('<?= $stock_products ?>');
+    var stock_in = JSON.parse('<?= $stock_in ?>');
+    var stock_out = JSON.parse('<?= $stock_out ?>');
+    console.log(stock_products);
+
+    var options = {
+        series: [{
+            name: 'Stock In',
+            data: stock_in
+        }, {
+            name: 'Stock Out',
+            data: stock_out
+        }],
+        chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true,
+            stackType: '100%',
+            fontFamily: 'Poppins, sans-serif'
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+            },
+        },
+        stroke: {
+            width: 1,
+            colors: ['#fff']
+        },
+        xaxis: {
+            categories: stock_products,
+        },
+        fill: {
+            opacity: 1,
+            colors: ['#EA4873', '#F47867']
+
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'left',
+            offsetX: 40
+        },
+        dataLabels: {
+            style: {
+                colors: ['#fff']
+            }
+        },
+        colors: ['#EA4873', '#F47867']
+    };
+
+    var stockChart = new ApexCharts(document.querySelector("#stock_chart"), options);
+    stockChart.render();
+
+
+    var options = {
+        series: [{
+            name: "Patient Records",
+            data: [10, 41, 35, 51, 49, 100]
+        }],
+        chart: {
+            height: 350,
+            type: 'line',
+            zoom: {
+                enabled: false
+            },
+            fontFamily: 'Poppins, sans-serif'
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            curve: 'straight'
+        },
+        grid: {
+            row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0.5
+            },
+        },
+        xaxis: {
+            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        },
+        colors: ['#EDB007']
+    };
+
+    var add_dlt = new ApexCharts(document.querySelector("#add_dlt"), options);
+    add_dlt.render();
 </script>

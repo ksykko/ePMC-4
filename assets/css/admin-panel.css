@@ -1227,3 +1227,11 @@ hr {
 .chart-body-violet {
     background-color: #FAE5EF;
 }
+
+.chart-header-yellow {
+    background-color: #F9C851;
+}
+
+.chart-body-yellow {
+    background-color: #FFF8D2;
+}

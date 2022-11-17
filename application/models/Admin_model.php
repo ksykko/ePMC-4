@@ -516,5 +516,43 @@ class Admin_model extends CI_Model
         
     }
 
+    // START OF ApexCharts
+    public function get_stockprod() 
+    {
+        $this->db->select('prod_name')->from('inventory');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_stockIn() 
+    {
+        $this->db->select('stock_in')->from('inventory');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function get_stockOut() 
+    {
+        $this->db->select('stock_out')->from('inventory');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+    public function daily_patientrec()
+    {
+        // count added patients in a day
+        $this->db->select('COUNT(*) AS daily_patientrec');
+        $this->db->from('patient_record');
+        $this->db->where('date_created', date('Y-m-d'));
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    // END OF ApexCharts
+
 
 }
