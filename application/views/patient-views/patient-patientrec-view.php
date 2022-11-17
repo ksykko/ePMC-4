@@ -285,7 +285,7 @@
                                                 <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                             <div class="col form-group px-1"><label class="form-label">Birth date</label>
-                                                <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                                <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= $patient->birth_date ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
                                                 <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
