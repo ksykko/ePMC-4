@@ -478,7 +478,7 @@ class Admin_model extends CI_Model
 
     public function get_activity_tbl()
     {
-        return $this->db->get('recent_activity');
+        return $this->db->order_by('date_created', 'DESC')->get('recent_activity');
     }
 
     public function get_recent_act()
