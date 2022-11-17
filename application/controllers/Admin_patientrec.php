@@ -466,9 +466,18 @@ class Admin_patientrec extends CI_Controller
             'date_created' => date('Y-m-d H:i:s')
         );
 
-        $this->dd($info);
-        
         $insert_id = $this->Admin_model->add_patient($info);
+
+        // create custom patient id based on name initials
+        $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+
+        // if birthdate is empty, set password to default value 0000-00-00
+        if ($info['birth_date'] == '') {
+            $info['password'] = '0000-00-00';
+        }
+
+
+        $this->dd($info);
 
         $this->create_folder($insert_id);
 
@@ -502,6 +511,20 @@ class Admin_patientrec extends CI_Controller
             redirect('Doctor_patientrec');
         }
         //}
+    }
+
+    public function create_patient_id($first_name, $middle_name, $last_name, $insert_id)
+    {
+        $first_name = substr($first_name, 0, 1);
+        $middle_name = substr($middle_name, 0, 1);
+        $last_name = substr($last_name, 0, 1);
+
+        //format $insert_id to 4 digits
+        $insert_id = str_pad($insert_id, 4, '0', STR_PAD_LEFT);
+
+        $patient_id = 'PMC' . $first_name . $middle_name . $last_name . '-' . $insert_id;
+
+        return $patient_id;
     }
 
     public function aws_textract_ocr()
@@ -684,31 +707,41 @@ class Admin_patientrec extends CI_Controller
         //     $this->dd(validation_errors());
         //     redirect('Admin_patientrec');
         // } else {
-        $submit = $this->input->post('save_verified');
+        //$submit = $this->input->post('save_verified');
 
-        if (isset($submit)) {
+        //if (isset($submit)) {
 
-            $info = array(
-                'first_name' => $this->input->post('name'),
-                'cell_no' => $this->input->post('mobile_no'),
-                'address' => $this->input->post('address'),
-                'tel_no' => $this->input->post('tel_no'),
-                'birth_date' => $this->input->post('birthday'),
-                'age' => $this->input->post('age'),
-                'sex' => $this->input->post('sex'),
-                'civil_status' => $this->input->post('civil_status'),
-                'occupation' => $this->input->post('occupation'),
-                'password' => $this->input->post('birthday'),
-                'type' => 'import',
-                'role' => 'patient',
-                'avatar' => 'default-avatar.png',
-                'activation_code' => random_string('alnum', 16),
-                'status' => '0',
-                'date_created' => date('Y-m-d H:i:s')
-            );
-        }
+        $info = array(
+            'first_name' => $this->input->post('name'),
+            'cell_no' => $this->input->post('mobile_no'),
+            'address' => $this->input->post('address'),
+            'tel_no' => $this->input->post('tel_no'),
+            'birth_date' => $this->input->post('birthday'),
+            'age' => $this->input->post('age'),
+            'sex' => $this->input->post('sex'),
+            'civil_status' => $this->input->post('civil_status'),
+            'occupation' => $this->input->post('occupation'),
+            'password' => $this->input->post('birthday'),
+            'type' => 'import',
+            'role' => 'patient',
+            'avatar' => 'default-avatar.png',
+            'activation_code' => random_string('alnum', 16),
+            'status' => '0',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+        //}
 
         $insert_id = $this->Admin_model->add_patient($info);
+
+        // create custom patient id based on name initials
+        $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
+
+        // if birthdate is empty, set password to default value 0000-00-00
+        if ($info['birth_date'] == '') {
+            $info['password'] = '0000-00-00';
+        }
+
+        $this->dd($info);
 
         $patientDetails = array(
             'patient_id' => $insert_id,
@@ -752,6 +785,17 @@ class Admin_patientrec extends CI_Controller
         } else {
             redirect('Doctor_patientrec');
         }
+    }
+
+    public function create_imp_patient_id($setId, $insert_id)
+    {
+        $name = explode(' ', $setId);
+        // format $insert_id to 4 digits
+        $insert_id = sprintf('%04d', $insert_id);
+
+        $patient_id = 'PMC' . $name[0][0] . $name[1][0] . '-' . $insert_id;
+
+        return $patient_id;
     }
 
     public function create_folder($id)
