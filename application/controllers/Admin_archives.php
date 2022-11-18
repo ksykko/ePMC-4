@@ -53,7 +53,7 @@ class Admin_archives extends CI_Controller
             $no++;
             // $editId = 'edit-patient-' . $patient->patient_id;
             $row = array();
-            $row[] = $no;
+            $row[] = $patient->un_patient_id;
             $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
             $row[] = $last_accessed;
             $row[] = '

@@ -49,7 +49,8 @@ class Doctors extends CI_Controller {
     public function ageRange_chart_js()
     {
         // get age range data from database
-        $query = $this->Admin_model->get_age_range();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_age_range();
 
         // create array to store age range data
         $age_range = [
@@ -117,7 +118,8 @@ class Doctors extends CI_Controller {
     public function bmi_chart_js() 
     {
         // fetch height and weight data from database
-        $query = $this->Admin_model->get_bmi_data();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_bmi_data();
 
         // create array to store bmi data
         $bmi_data = [
