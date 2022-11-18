@@ -19,16 +19,30 @@
 
 <div class="container-fluid mt-5">
     <div class="row mb-3">
-        <div class="col-lg-3">
-            <div class="card mb-4 profile-card">
-                <div class="card-body text-center shadow profile-card mt-5">
-                    <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br>
-                    <label for="avatar">Hello, <br>
-                        <?= 'Dr. ' . $full_name ?>
-                    </label><br>
-                    <label for="avatar" class="role">
-                        <?= $specialization ?>
-                    </label><br>
+        <div class="col-12 col-lg-4">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card mb-4 profile-card">
+                        <div class="card-body text-center shadow profile-card mt-5">
+                            <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br>
+                            <label for="avatar">Hello, <br>
+                                <?= 'Dr. ' . $full_name ?>
+                            </label><br>
+                            <label for="avatar" class="role">
+                                <?= $specialization ?>
+                            </label><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-4 chart-body-red">
+                        <div class=" py-3 ch-patientrec">
+                        </div>
+                        <div class="card-body mx-3">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- <div class="card shadow mb-4">
@@ -45,6 +59,7 @@
                 </div>
             </div> -->
         </div>
+
 
         <div class="col gy-3 gy-md-3 gy-lg-0">
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 dshb-main">
@@ -116,9 +131,9 @@
 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's Age Range Overview</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-red">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's Age Range Overview</h6>
                         </div>
                         <div class="card-body mx-3 my-3">
                             <div class="chart-area">
@@ -129,9 +144,9 @@
 
                 </div>
                 <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient Satisfaction</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-violet">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
                         </div>
                         <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">
@@ -144,9 +159,9 @@
 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Patient's BMI Overview</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-purp">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's BMI Overview</h6>
                         </div>
                         <div class="card-body mx-3 my-3 d-flex justify-content-center">
                             <div class="chart-area">
@@ -157,9 +172,9 @@
 
                 </div>
                 <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Chart Sample</h6>
+                    <div class="card shadow mb-4 h-100 chart-body-blue">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-blue">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Chart Sample</h6>
                         </div>
                         <div class="card-body">
                         </div>
@@ -300,15 +315,16 @@
                 label: 'Age Range',
                 data: cData,
                 backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
+                    "#cc001b",
+                    "#100002",
+                    "#a30015",
+                    "#390007",
+                    "#9b0014",
+                    "#410008",
+                    "#72000f",
+                    "#6a000e",
+                    "#a30015",
+                    "#100002"
                 ]
             }]
         },
@@ -372,15 +388,11 @@
                 label: 'Satisfaction',
                 data: [59, 20, 42, 16, 4],
                 backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
+                    "#CB2B92",
+                    "#FC3F93",
+                    "#FE77FE",
+                    "#8c0d49",
+                    "#FF1696"
                 ]
             }]
         },
@@ -390,9 +402,8 @@
             },
             responsive: true,
         }
-        
-    })
 
+    })
 </script>
 
 
