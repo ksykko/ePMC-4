@@ -31,7 +31,7 @@ class Login_mobile extends RestController
         //login as admin
         if (isset($result)){
             if ($result->role == "Admin") {
-                $response = array("role" => $result->role, //index[0]                                
+                $response[] = array("role" => $result->role, //index[0]                                
                                     'admin_id' => $result->user_id, 
                                     'full_name' => $result->first_name . ' ' .  $result->last_name,
                                     'specialization' => $result->specialization,
