@@ -128,6 +128,10 @@
 
 
     first_name.onblur = function() {
+        if (first_name.value != '' && last_name.value != '') {
+            checkName();
+        }
+
         if (first_name.value == '') {
             $('#firstName_error').show();
             $('#firstName_error').html('First name is required');
@@ -146,6 +150,10 @@
     }
 
     middle_name.onblur = function() {
+        if (first_name.value != '' && last_name.value != '') {
+            checkName();
+        }
+        
         if (middle_name.value == '') {
             $('#middle_name').removeClass('invalid');
             $('#middle_name').addClass('warning');
@@ -1127,38 +1135,6 @@
             input_valid = true;
         }
     }
-    
-
-    ext_mob.onblur = function() {
-        if (ext_mob.value == '') {
-            $('#ext_mob_error').show();
-            $('#ext_mob_error').html('Mobile number is required');
-            $('#ext_mob').removeClass('valid');
-            $('#ext_mob').addClass('invalid');
-            //$('#first_name').focus();
-
-            input_valid = false;
-        } else if (isNaN(ext_mob.value)) {
-            $('#ext_mob').removeClass('warning');
-            $('#ext_mob').addClass('invalid');
-
-            // add error message
-            $('#ext_mob_error').show();
-            $('#ext_mob_error').html('Invalid cellphone number');
-            input_valid = false;
-
-        } else {
-            $('#ext_mob_error').hide();
-
-            $('#ext_mob').removeClass('warning');
-            $('#ext_mob').removeClass('invalid');
-            $('#ext_mob').addClass('valid');
-            input_valid = true;
-        }
-    }
-
-
-    
         
 
     function validateImport() {
