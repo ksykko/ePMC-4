@@ -76,7 +76,8 @@ class Admin extends CI_Controller {
     public function ageRange_chart()
     {
         // get age range data from database
-        $query = $this->Admin_model->get_age_range();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_age_range();
 
         // create array to store age range data
         $age_range = [
@@ -144,7 +145,8 @@ class Admin extends CI_Controller {
     public function gender_chart()
     {
         // get no. gender data from database
-        $query = $this->Admin_model->get_gender_data();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_gender_data();
         //$this->dd($query);
 
         // var_dump($query);

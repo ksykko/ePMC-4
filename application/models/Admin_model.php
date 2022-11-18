@@ -436,47 +436,6 @@ class Admin_model extends CI_Model
     
     // END OF patient_lab_reports table
 
-    // START OF age range chart
-    public function get_age_range()
-    {
-        // get age from patient_record table
-        $this->db->select('age');
-        $this->db->from('patient_record');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-    // END OF age range chart
-
-    // START OF bmi data chart
-    public function get_bmi_data()
-    {
-        // get height and weight from patient_details table
-        $this->db->select('height, weight');
-        $this->db->from('patient_details');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-
-    // END OF bmi data chart
-
-    // START OF gender data chart
-    public function get_gender_data()
-    {
-        // get gender from patient_records table
-        $this->db->select('sex');
-        $this->db->from('patient_record');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-
-
-    // END OF gender data chart
 
     // Start of Recent Activity 
     public function add_activity($info)
@@ -516,44 +475,5 @@ class Admin_model extends CI_Model
         return false;
         
     }
-
-    // START OF ApexCharts
-    public function get_stockprod() 
-    {
-        $this->db->select('prod_name')->from('inventory');
-        $query = $this->db->get();
-
-        return $query->result();
-    }
-
-    public function get_stockIn() 
-    {
-        $this->db->select('stock_in')->from('inventory');
-        $query = $this->db->get();
-
-        return $query->result();
-    }
-
-    public function get_stockOut() 
-    {
-        $this->db->select('stock_out')->from('inventory');
-        $query = $this->db->get();
-
-        return $query->result();
-    }
-
-    public function daily_patientrec()
-    {
-        // count added patients in a day
-        $this->db->select('COUNT(*) AS daily_patientrec');
-        $this->db->from('patient_record');
-        $this->db->where('date_created', date('Y-m-d'));
-        $query = $this->db->get();
-
-        return $query->row();
-    }
-
-    // END OF ApexCharts
-
 
 }
