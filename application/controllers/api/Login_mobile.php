@@ -31,29 +31,51 @@ class Login_mobile extends RestController
         //login as admin
         if (isset($result)){
             if ($result->role == "Admin") {
-                $response = array("role" => $result->role, //index[0]                                
+                $response[] = array("role" => $result->role, //index[0]                                
                                     'admin_id' => $result->user_id, 
                                     'full_name' => $result->first_name . ' ' .  $result->last_name,
                                     'specialization' => $result->specialization,
                                     'email' => $result->email,
+                                    'username'=>$result->username,
                                     'pass' => $result->password,
                                     'bday' => $result->birth_date,
+                                    'contact_no'=>$result->contact_no,
                                     'gender' => $result->gender,
-                                    'avatar' => $result->avatar
+                                    'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar
                 );
             }
             else if ($result->role == "Doctor") {
-                $response = array("role" => $result->role,  
+                $response[] = array("role" => $result->role,  
+                                    'doctor_id' => $result->user_id, 
+                                    'full_name' => $result->first_name . ' ' .  $result->last_name,
+                                    'specialization' => $result->specialization,
+                                    'email' => $result->email,
+                                    'username'=>$result->username,
+                                    'pass' => $result->password,
+                                    'bday' => $result->birth_date,
+                                    'contact_no'=>$result->contact_no,
+                                    'gender' => $result->gender,
+                                    'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar
                 );
             } 
             else if ($result->role == "patient") {
-                $response = array("role" => $result->role,  
+                $response[] = array("role" => $result->role, 
+                // 'admin_id' => $result->user_id, 
+                //                     'full_name' => $result->first_name . ' ' .  $result->last_name,
+                //                     'specialization' => $result->specialization,
+                //                     'email' => $result->email,
+                //                     'username'=>$result->username,
+                //                     'pass' => $result->password,
+                //                     'bday' => $result->birth_date,
+                //                     'contact_no'=>$result->contact_no,
+                //                     'gender' => $result->gender,
+                //                     'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar 
                 );
             }
         }
          //invalid credentials
         else {
-            $response = array('role' => 'Invalid');
+            $response[] = array('role' => 'Invalid');
         }
 
         echo json_encode($response);
