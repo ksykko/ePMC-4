@@ -27,8 +27,12 @@ class Admin_reports extends CI_Controller
             $data['stock_in'] = $this->get_stockIn();
             $data['stock_out'] = $this->get_stockOut();
 
+            // insertions / deletions chart
+            $data['recent_days'] = $this->recent_days();
+            $data['recent_data'] = $this->recent_data();
+            $data['recent_deleted'] = $this->recent_deleted();
 
-            //$data['daily_added'] = $this->daily_added_patients();
+            $data['monthly_added'] = $this->monthly_added();
 
 
             $this->load->view('include-admin/dashboard-header', $data);
@@ -43,7 +47,8 @@ class Admin_reports extends CI_Controller
     // ApexCharts
     public function get_stocks()
     {
-        $stock_products = $this->Admin_model->get_stockprod();
+        $this->load->model('Charts_model');
+        $stock_products = $this->Charts_model->get_stockprod();
         //$this->dd($stock_products);
 
         // store stock products in array
@@ -60,7 +65,8 @@ class Admin_reports extends CI_Controller
 
     public function get_stockIn() 
     {
-        $stock_in = $this->Admin_model->get_stockIn();
+        $this->load->model('Charts_model');
+        $stock_in = $this->Charts_model->get_stockIn();
 
         // store stock_in in array
         $stock_in_arr = array();
@@ -73,7 +79,8 @@ class Admin_reports extends CI_Controller
 
     public function get_stockOut()
     {
-        $stock_out = $this->Admin_model->get_stockOut();
+        $this->load->model('Charts_model');
+        $stock_out = $this->Charts_model->get_stockOut();
 
         // store stock_out in array
         $stock_out_arr = array();
@@ -84,10 +91,49 @@ class Admin_reports extends CI_Controller
         return json_encode($stock_out_arr);
     }
 
-    public function daily_added_patients()
+    public function recent_days()
     {
-        $num = $this->Admin_model->daily_patientrec();
-        $this->dd($num);
+        $this->load->model('Charts_model');
+
+        // make array of past 7 days from today eg. Mon, Tue, ..
+        $days = array();
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = date('D', strtotime("-$i days"));
+        }    
+        // reverse array
+        $days = array_reverse($days);
+        return json_encode($days);
+    }
+
+    public function recent_data()
+    {
+        $this->load->model('Charts_model');
+        $data = $this->Charts_model->recent_added();
+
+        return json_encode($data);
+    }
+
+    public function recent_deleted()
+    {
+        $this->load->model('Charts_model');
+        $data = $this->Charts_model->recent_deleted();
+
+        return json_encode($data);
+    }
+
+    public function monthly_added()
+    {
+        $this->load->model('Charts_model');
+        $data = $this->Charts_model->monthly_added();
+
+        // make months array
+        $months = array();
+        for ($i = 0; $i < 12; $i++) {
+            $months[] = date('M', strtotime("-$i months"));
+        }
+       // $this->dd($months);
+
+        return json_encode($data);
     }
 
     public function dd($data)

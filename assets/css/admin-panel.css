@@ -1235,3 +1235,11 @@ hr {
 .chart-body-yellow {
     background-color: #FFF8D2;
 }
+
+.chart-header-darkblue {
+    background-color: #023E8A;
+}
+
+.chart-body-darkblue {
+    background-color: #90E0EF;
+}
