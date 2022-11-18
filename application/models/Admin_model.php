@@ -302,6 +302,15 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_details', ['patient_id' => $id])->row();
     }
 
+    public function get_patient_record_details()
+    {
+        $this->db->select('');
+        $this->db->from('patient_record');
+        $this->db->join('patient_details', 'patient_details.patient_id = patient_record.patient_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
     public function update_patient_details($id, $info)
     {

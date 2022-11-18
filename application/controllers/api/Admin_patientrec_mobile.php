@@ -37,5 +37,10 @@ class Admin_patientrec_mobile extends RestController
         }
         echo json_encode($response);
     }
+
+    public function ptinfo_post(){
+        $data=json_decode(file_get_contents('php://input'));
+        
+    }
 }
 ?>
