@@ -146,26 +146,26 @@ class Admin_inventory extends CI_Controller {
     {   
         $data['product'] = $this->Admin_model->get_inventory_row($id);
 
-        $this->form_validation->set_rules('prod_name', 'Product name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        $this->form_validation->set_rules('v_prod_name', 'Product name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter your %s.'
         ));
 
-        $this->form_validation->set_rules('prod_dosage', 'Product Dosage', 'required', array(
+        $this->form_validation->set_rules('v_prod_dosage', 'Product Dosage', 'required', array(
             'required' => 'Please enter your %s.'
         ));
 
-        $this->form_validation->set_rules('prod_desc', 'Product Description', 'required', array(
+        $this->form_validation->set_rules('v_prod_desc', 'Product Description', 'required', array(
             'required' => 'Please enter your %s.'
         ));
 
         $this->form_validation->set_rules('quantity', 'Quantity');
 
-        $this->form_validation->set_rules('stock_in', 'Stock In', 'required|numeric', array(
+        $this->form_validation->set_rules('v_stock_in', 'Stock In', 'required|numeric', array(
             'required' => 'Please enter your %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('stock_out', 'Stock Out', 'required|numeric', array(
+        $this->form_validation->set_rules('v_stock_out', 'Stock Out', 'required|numeric', array(
             'required' => 'Please enter your %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
@@ -173,8 +173,6 @@ class Admin_inventory extends CI_Controller {
         if ($this->form_validation->run() == FALSE)
         {
             $modal_no = $this->input->post('modal_no');
-
-
             $this->session->set_flashdata('edit_failed', $modal_no);
             $this->index();
         }
@@ -185,11 +183,11 @@ class Admin_inventory extends CI_Controller {
             if (isset($updateProduct))
             {
                 $info = array(
-                    'prod_name' => $this->input->post('prod_name'),
-                    'prod_dosage' => $this->input->post('prod_dosage'),
-                    'prod_desc' => $this->input->post('prod_desc'),
-                    'stock_in' => $this->input->post('stock_in'),
-                    'stock_out' => $this->input->post('stock_out')
+                    'prod_name' => $this->input->post('v_prod_name'),
+                    'prod_dosage' => $this->input->post('v_prod_dosage'),
+                    'prod_desc' => $this->input->post('v_prod_desc'),
+                    'stock_in' => $this->input->post('v_stock_in'),
+                    'stock_out' => $this->input->post('v_stock_out')
                 );
             }
 

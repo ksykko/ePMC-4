@@ -166,42 +166,43 @@ class Admin_useracc extends CI_Controller {
 
         // $this->form_validation->set_rules('user_id', 'User id');
 
-        $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        $this->form_validation->set_rules('edt_first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        $this->form_validation->set_rules('edt_last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('username', 'Username', 'required|regex_match[/^([a-z ])+$/i]', array(
+        $this->form_validation->set_rules('edt_username', 'Username', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('role', 'Role', 'required', array(
+        $this->form_validation->set_rules('edt_role', 'Role', 'required', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('specialization', 'Specialization');
+        $this->form_validation->set_rules('edt_specialization', 'Specialization');
 
-        $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
+        $this->form_validation->set_rules('edt_birth_date', 'Birthdate', 'required', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
+        $this->form_validation->set_rules('edt_contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
             'required' => 'Please enter user\'s %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
 
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
+        $this->form_validation->set_rules('edt_email', 'Email', 'required|valid_email', array(
             'required' => 'Please enter user\'s %s.',
             'valid_email' => 'Please enter a valid %s.'
         ));
        
         if ($this->form_validation->run() == FALSE)
         {
+            $modal_no = $this->input->post('modal_no');
+            $this->session->set_flashdata('edit_failed', $modal_no);
             $this->index();
-            echo 'error';
         }
         else
         {   
@@ -209,15 +210,15 @@ class Admin_useracc extends CI_Controller {
             if (isset($editUser))
             {
                 $info = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'username' => $this->input->post('username'),
-                    'role' => $this->input->post('role'),
-                    'specialization' => $this->input->post('specialization'),
-                    'birth_date' => $this->input->post('birth_date'),
-                    'gender' => $this->input->post('gender'),
-                    'contact_no' => $this->input->post('contact_no'),
-                    'email' => $this->input->post('email')
+                    'first_name' => $this->input->post('edt_first_name'),
+                    'last_name' => $this->input->post('edt_last_name'),
+                    'username' => $this->input->post('edt_username'),
+                    'role' => $this->input->post('edt_role'),
+                    'specialization' => $this->input->post('edt_specialization'),
+                    'birth_date' => $this->input->post('edt_birth_date'),
+                    'gender' => $this->input->post('edt_gender'),
+                    'contact_no' => $this->input->post('edt_contact_no'),
+                    'email' => $this->input->post('edt_email')
                 );
             }
 
