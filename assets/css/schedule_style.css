@@ -26,12 +26,23 @@
     border: none;
 }
 
+
+/* if btn-days is active */
+
+.btn-days.active {
+    background: #0F6BAE;
+    color: #fff;
+}
+
 .btn-days:hover {
-    background: #2f66b8 !important;
+    /* light color */
+    background: #C6C6C6 !important;
     color: #D8D8D8;
 }
 
+
 /* di nagana color pagclick ng days */
+
 .bg-click:checked {
     background: #b82626 !important;
     color: #D8D8D8;
@@ -87,8 +98,6 @@
     border-radius: 15px;
 }
 
-
-
 .header-sched {
     display: flex;
 }
@@ -141,9 +150,8 @@
     padding: 10px 10px 10px 10px;
 }
 
-
 .right-sched {
-    flex:2;
+    flex: 2;
     border: 1px #C6C6C6 solid;
 }
 
@@ -156,9 +164,11 @@
     width: 200px;
 }
 
+
 /* .week-table tbody tr td {
     overflow-y: scroll;
 } */
+
 
 /* .week-table tbody tr td::-webkit-scrollbar {
     display: none;
@@ -187,4 +197,19 @@
 .sched-card p {
     font-size: 15px;
     margin-top: -5px;
+}
+
+table.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+
+table.table-fit thead th,
+table.table-fit tfoot th {
+    width: auto !important;
+}
+
+table.table-fit tbody td,
+table.table-fit tfoot td {
+    width: auto !important;
 }
