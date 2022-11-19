@@ -80,25 +80,39 @@
                                 <hr size="5" />
 
                                 <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
-                                <div class="row mt-4 mb-2">
+                                <!-- <div class="row mt-4 mb-2">
                                     <div class="col"><label class="col-form-label">First name:</label></div>
                                     <div class="col">
                                         <div class="input-error">
                                             <div class="input-group">
-                                                <!-- first_name -->
-                                                <input class="form-control" type="text" id="first_name" name="first_name" value="<?= set_value('first_name'); ?>" placeholder="Juan" />
+                                                <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= set_value('first_name'); ?>" placeholder="Juan" />
                                             </div>
                                             <small class="text-danger"><?= form_error('first_name') ?></small>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="row row-cols-1 row-cols-sm-2 mb-2">
+                                            <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
+                                                <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                                <span id="fullName_result"></span>
+                                                <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                            </div>
+                                            <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
+                                                <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                                <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                            </div>
+                                            <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
+                                                <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                                <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                            </div>
+                                        </div>
                                 <div class="row mt-4 mb-2">
                                     <div class="col"><label class="col-form-label">Middle name:</label></div>
                                     <div class="col">
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- middle_name -->
-                                                <input class="form-control" type="text" id="middle_name" name="middle_name" value="<?= set_value('middle_name'); ?>" placeholder="Martinez" />
+                                                <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= set_value('middle_name'); ?>" placeholder="Martinez" />
                                             </div>
                                             <small class="text-danger"><?= form_error('middle_name') ?></small>
                                         </div>
@@ -110,7 +124,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- last_name -->
-                                                <input class="form-control" type="text" id="last_name" name="last_name" value="<?= set_value('last_name'); ?>" placeholder="Dela Cruz" />
+                                                <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= set_value('last_name'); ?>" placeholder="Dela Cruz" />
                                             </div>
                                             <small class="text-danger"><?= form_error('last_name') ?></small>
                                         </div>
@@ -122,7 +136,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- username -->
-                                                <input class="form-control" type="text" id="username" name="username" value="<?= set_value('username'); ?>" placeholder="jmdelacruz"/>
+                                                <input class="form-control form-control-sm" type="text" id="username" name="username" value="<?= set_value('username'); ?>" placeholder="jmdelacruz"/>
                                             </div>
                                             <small class="text-danger"><?= form_error('username') ?></small>
                                         </div>
@@ -134,7 +148,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- password -->
-                                                <input class="form-control" type="password" id="password" name="password" value="<?= set_value('password'); ?>" placeholder="•••••••" />
+                                                <input class="form-control form-control-sm" type="password" id="password" name="password" value="<?= set_value('password'); ?>" placeholder="•••••••" />
                                             </div>
                                             <small class="text-danger"><?= form_error('password') ?></small>
                                         </div>
@@ -146,7 +160,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- password -->
-                                                <input class="form-control" type="password" id="conf_password" name="conf_password" value="<?= set_value('conf_password'); ?>" placeholder="•••••••" />
+                                                <input class="form-control form-control-sm" type="password" id="conf_password" name="conf_password" value="<?= set_value('conf_password'); ?>" placeholder="•••••••" />
                                             </div>
                                             <small class="text-danger"><?= form_error('conf_password') ?></small>
                                         </div>
@@ -158,7 +172,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- role -->
-                                                <select class="form-select" id="role" name="role" onchange='toggleDropdown();'>
+                                                <select class="form-select form-select-sm" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                                     <option value="select" selected>select...</option>
                                                     <option value="Admin">Admin</option>
                                                     <option value="Doctor">Doctor</option>
@@ -175,7 +189,7 @@
                                     <div class="input-error">
                                             <div class="input-group">
                                                 <!-- specialization -->
-                                                <select class="form-select" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
+                                                <select class="form-select form-select-sm" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
                                                     <option value=" " selected>select...</option>
                                                     <option value="internal medicine">Internal Medicine</option>
                                                     <option value="family medicine">Family Medicine</option>
@@ -193,7 +207,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- TODO: -->
-                                                <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
+                                                <input class="form-control form-control-sm" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
                                             </div>
                                             <small class="text-danger"><?= form_error('birth_date') ?></small>
                                         </div>
@@ -205,7 +219,7 @@
                                         <div class="input-error">
                                             <div class="input-group">
                                                 <!-- TODO: -->
-                                                <select class="form-select" id="gender" name="gender" value="<?= set_value('gender'); ?>">
+                                                <select class="form-select form-select-sm" id="gender" name="gender" value="<?= set_value('gender'); ?>">
                                                     <option value="select" selected>select...</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -513,205 +527,4 @@
         }
     }
 
-
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
-
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-
-            document.getElementById("nextBtn").innerHTML = "Submit";
-
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("regForm").submit();
-
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, j, input_valid = true,
-            select_valid = true;
-
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        z = x[currentTab].getElementsByTagName("select");
-
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == ''){
-                y[i].className += " invalid";
-                input_valid = false;
-            } else {
-                y[i].className += " form-control form-control-sm valid"; 
-            }
-        }
-
-        // A loop that checks every select field in the current tab:
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " invalid";
-                // and set the current valid status to false
-                select_valid = false;
-            } else
-                z[j].className = "form-select form-select-sm valid";
-                
-        }
-
-
-        // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-
-        console.log(select_valid);
-        // return the valid status
-        return input_valid && select_valid;
-    }
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
-</script>
-
-<script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-
-            const first_name = document.getElementById('first_name')
-            const middle_name = document.getElementById('middle_name')
-            const last_name = document.getElementById('last_name')
-            const username = document.getElementById('username')
-            const password = document.getElementById('password')
-            const conf_password = document.getElementById('conf_password')
-            const role = document.getElementById('role')
-            const specialization = document.getElementById('specialization')
-            const birth_date = document.getElementById('birth_date')
-            const gender = document.getElementById('gender')
-            const contact_no = document.getElementById('contact_no')
-            const email = document.getElementById('email')
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const setError = (element, message) => {
-                const inputControl = element.parentElement;
-                const errorDisplay = inputControl.querySelector('.error');
-
-                errorDisplay.innerText = message;
-                inputControl.classList.add('invalid');
-                inputControl.classList.remove('success')
-            }
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to 
-            const setSuccess = element => {
-                const inputControl = element.parentElement;
-                const errorDisplay = inputControl.querySelector('.error');
-
-                errorDisplay.innerText = '';
-                inputControl.classList.add('success');
-                inputControl.classList.remove('error');
-            };
-
-            const isValidEmail = email => {
-                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(String(email).toLowerCase());
-            }
-
-
-            // fetch all the forms we want to apply custom style
-            var inputs = document.getElementsByClassName('form-control')
-
-            // loop over each input and watch blur event
-            var validation = Array.prototype.filter.call(inputs, function(input) {
-
-                input.addEventListener('blur', function(event) {
-                    // reset
-                    input.classList.remove('is-invalid')
-                    input.classList.remove('is-valid')
-
-                    // if (input.checkValidity() === false) {
-                    //     input.classList.add('is-invalid')
-                    // } else {
-                    //     input.classList.add('is-valid')
-                    // }
-
-                    // const first_nameValue = first_name.value.trim();
-                    // const middle_nameValue = middle_name.value.trim();
-                    // const last_nameValue = last_name.value.trim();
-                    // const ageValue = age.value.trim();
-                    // const birthdateValue = birthdate.value.trim();
-                    // const sexValue = sex.value.trim();
-                    // const occupationValue = occupation.value.trim();
-                    // const addressValue = address.value.trim();
-                    // const cell_noValue = cell_no.value.trim();
-                    // const tel_noValue = tel_no.value.trim();
-                    // const emailValue = email.value.trim();
-                    // const ec_nameValue = ec_name.value.trim();
-                    // const relationshipValue = relationship.value.trim();
-                    // const ec_contact_noValue = ec_contact_no.value.trim();
-
-                    if (first_name.value === '') {
-                        setError(first_name, 'First name cannot be blank');
-                    } else {
-                        setSuccess(first_name);
-                    }
-
-                }, false);
-            });
-        }, false);
-    })()
-</script>
-
-<script>
-    var forms = document.querySelectorAll('.needs-validation');
-
-    Array.prototype.slice.call(forms).forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation();
-            }
-
-            form.classList.add('was-validated');
-        }, false);
-    });
 </script>

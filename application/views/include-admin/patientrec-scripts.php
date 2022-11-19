@@ -128,6 +128,10 @@
 
 
     first_name.onblur = function() {
+        if (first_name.value != '' && last_name.value != '') {
+            checkName();
+        }
+
         if (first_name.value == '') {
             $('#firstName_error').show();
             $('#firstName_error').html('First name is required');
@@ -146,6 +150,10 @@
     }
 
     middle_name.onblur = function() {
+        if (first_name.value != '' && last_name.value != '') {
+            checkName();
+        }
+        
         if (middle_name.value == '') {
             $('#middle_name').removeClass('invalid');
             $('#middle_name').addClass('warning');

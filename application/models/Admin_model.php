@@ -302,6 +302,15 @@ class Admin_model extends CI_Model
         return $this->db->get_where('patient_details', ['patient_id' => $id])->row();
     }
 
+    public function get_patient_record_details()
+    {
+        $this->db->select('');
+        $this->db->from('patient_record');
+        $this->db->join('patient_details', 'patient_details.patient_id = patient_record.patient_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
     public function update_patient_details($id, $info)
     {
@@ -436,47 +445,6 @@ class Admin_model extends CI_Model
     
     // END OF patient_lab_reports table
 
-    // START OF age range chart
-    public function get_age_range()
-    {
-        // get age from patient_record table
-        $this->db->select('age');
-        $this->db->from('patient_record');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-    // END OF age range chart
-
-    // START OF bmi data chart
-    public function get_bmi_data()
-    {
-        // get height and weight from patient_details table
-        $this->db->select('height, weight');
-        $this->db->from('patient_details');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-
-    // END OF bmi data chart
-
-    // START OF gender data chart
-    public function get_gender_data()
-    {
-        // get gender from patient_records table
-        $this->db->select('sex');
-        $this->db->from('patient_record');
-        $query = $this->db->get();
-        $result = $query->result();
-
-        return $result;
-    }
-
-
-    // END OF gender data chart
 
     // Start of Recent Activity 
     public function add_activity($info)
@@ -516,6 +484,5 @@ class Admin_model extends CI_Model
         return false;
         
     }
-
 
 }
