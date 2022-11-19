@@ -28,30 +28,30 @@
                 <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                         <strong>Fail!</strong> You have failed in adding a new product.</span>
-                        <small class="text-danger"><?= form_error('prod_name') ?></small>
-                        <small class="text-danger"><?= form_error('prod_dosage') ?></small>
-                        <small class="text-danger"><?= form_error('stock_in') ?></small>
-                        <small class="text-danger"><?= form_error('stock_out') ?></small>
-                        <small class="text-danger"><?= form_error('prod_desc') ?></small>
+                    <small class="text-danger"><?= form_error('prod_name') ?></small>
+                    <small class="text-danger"><?= form_error('prod_dosage') ?></small>
+                    <small class="text-danger"><?= form_error('stock_in') ?></small>
+                    <small class="text-danger"><?= form_error('stock_out') ?></small>
+                    <small class="text-danger"><?= form_error('prod_desc') ?></small>
 
                 </div>
             </div>
-        </div>  
+        </div>
     <?php elseif ($this->session->flashdata('message') == 'edit_failed') : ?>
         <div class="row">
             <div class="col d-flex justify-content-center">
                 <div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
                     <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
                         <strong>Fail!</strong> You have failed in editing the product.</span>
-                        <small class="text-danger"><?= form_error('prod_name') ?></small>
-                        <small class="text-danger"><?= form_error('prod_dosage') ?></small>
-                        <small class="text-danger"><?= form_error('stock_in') ?></small>
-                        <small class="text-danger"><?= form_error('stock_out') ?></small>
-                        <small class="text-danger"><?= form_error('prod_desc') ?></small>
+                    <small class="text-danger"><?= form_error('prod_name') ?></small>
+                    <small class="text-danger"><?= form_error('prod_dosage') ?></small>
+                    <small class="text-danger"><?= form_error('stock_in') ?></small>
+                    <small class="text-danger"><?= form_error('stock_out') ?></small>
+                    <small class="text-danger"><?= form_error('prod_desc') ?></small>
 
                 </div>
             </div>
-        </div>  
+        </div>
     <?php elseif ($this->session->flashdata('message') == 'edit_prod_success') : ?>
         <div class="row">
             <div class="col d-flex justify-content-center">
@@ -60,15 +60,15 @@
                         <strong>Success!</strong> You successfully updated a product.</span>
                 </div>
             </div>
-        </div>    
+        </div>
     <?php endif; ?>
     <div class="d-flex mb-3">
         <div>
             <h1 class="d-none d-sm-inline-block patientrec-label">Inventory</h3>
         </div>
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
-            <button id="btn-add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#product-modal" type="button">
-                <i class="icon ion-android-add-circle ms-1"></i>
+            <button id="btn-add-product" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#product-modal" type="button">
+                <i class="icon ion-android-add-circle ms-xl-1"></i>
                 <span class="d-none d-xl-inline-block">Add a Product</span>
             </button>
             <?= form_open_multipart('Admin_inventory/add_product_validation'); ?>
@@ -100,7 +100,7 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="prod_dosage" name="prod_dosage" value="<?= set_value('prod_dosage'); ?>" placeholder="40"/>
+                                            <input class="form-control" type="text" id="prod_dosage" name="prod_dosage" value="<?= set_value('prod_dosage'); ?>" placeholder="40" />
                                             <span class="input-group-text" id="basic-addon2">mg</span>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="stock_in" name="stock_in" value="<?= set_value('stock_in'); ?>" placeholder="0"/>
+                                            <input class="form-control" type="text" id="stock_in" name="stock_in" value="<?= set_value('stock_in'); ?>" placeholder="0" />
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="stock_out" name="stock_out" value="<?= set_value('stock_out'); ?>" placeholder="0"/>
+                                            <input class="form-control" type="text" id="stock_out" name="stock_out" value="<?= set_value('stock_out'); ?>" placeholder="0" />
                                         </div>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal" >Close</button><button class="btn btn-primary btn-modal"  type="submit" name="addProduct" style="background: #3269bf;">Save</button></div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" name="addProduct" style="background: #3269bf;">Save</button></div>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
                                             <div class="modal-body">
                                                 <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this product?</p>
                                             </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger" href="<?= base_url('Admin_inventory/delete_product/') . $product->item_id ?>" type="button">Confirm</a></div>
+                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_inventory/delete_product/') . $product->item_id ?>" type="button">Confirm</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in) + ($product->stock_out) ?>" disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,7 +272,7 @@
                         <?= form_close(); ?>
 
                         <!-- Edit product modal -->
-                        <?php $updateProductInfoPath = 'Admin_inventory/update_product/'. $product->item_id; ?>
+                        <?php $updateProductInfoPath = 'Admin_inventory/update_product/' . $product->item_id; ?>
                         <?= form_open_multipart($updateProductInfoPath, array('id' => 'updateProduct')); ?>
                         <div id="product-edit-modal-<?= $product->item_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -293,7 +293,7 @@
                                                         <!-- full_name -->
                                                         <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" />
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -305,7 +305,7 @@
                                                         <!-- TODO: -->
                                                         <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" />
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -315,7 +315,7 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in)+($product->stock_out) ?>" disabled />
+                                                        <input class="form-control quantity" type="text" id="quantity" name="quantity" value="<?= ($product->stock_in) + ($product->stock_out) ?>" disabled />
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +328,7 @@
                                                         <!-- TODO: -->
                                                         <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" />
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -340,7 +340,7 @@
                                                         <!-- TODO: -->
                                                         <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" />
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -352,14 +352,14 @@
                                                         <!-- TODO: -->
                                                         <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"><?= $product->prod_desc ?></textarea>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
                                         <br><br><br>
                                         <input type="hidden" name="item_id" class="item_id">
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" id="updateProduct" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                     </div>
+                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" id="updateProduct" name="updateProduct" type="submit" style="background: #3269bf;">Save</button></div>
                                 </div>
                             </div>
                         </div>
