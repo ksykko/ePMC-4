@@ -174,9 +174,9 @@
                                                 <!-- role -->
                                                 <select class="form-select form-select-sm" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                                     <option value="select" selected>select...</option>
-                                                    <option value="admin">Admin</option>
-                                                    <option value="doctor">Doctor</option>
-                                                    <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="Doctor">Doctor</option>
+                                                    <option value="Pharmacy Assistant">Pharmacy Assistant</option>
                                                 </select>
                                             </div>
                                             <small class="text-danger"><?= form_error('role') ?></small>
@@ -376,19 +376,13 @@
                                                     <div class="input-group">
                                                         <!-- role -->
                                                         
-                                                        <select class="form-select" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
-                                                            <option value="<?= ucfirst($user->role) ?>" selected><?= ucfirst($user->role) ?></option>
-                                                            <?php if (ucfirst($user->role) == 'Admin') : ?>
-                                                                    <option value="doctor">Doctor</option>
-                                                                    <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                            <?php elseif (ucfirst($user->role) == 'Doctor') : ?>
-                                                                    <option value="admin">Admin</option>
-                                                                    <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                            <?php elseif (ucfirst($user->role) == 'Pharmacy Assistant') : ?>
-                                                                <option value="admin">Admin</option>
-                                                                <option value="doctor">Doctor</option>
-                                                            <?php endif; ?>
+                                                        <select class="form-select" id="role_edit" name="role" onchange='toggleDropdownEdit(this);'>
+                                                            <option value="0" selected disabled>Select Role</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Doctor">Doctor</option>
+                                                            <option value="Pharmacy Assistant">Pharmacy Assistant</option>
                                                         </select>
+
                                                     </div>
                                                     <small class="text-danger"><?= form_error('role') ?></small>
                                                 </div>
@@ -397,14 +391,14 @@
                                                                 
                                         <?php if ($user->role == 'Doctor' || $user->role == 'doctor') : ?>
                                             
-                                        <div class="row mb-2" id="specialization_div">
+                                        <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Specialization:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- specialization -->
                                                         <select class="form-select" id="specialization" name="specialization">
-                                                            <option value="<?= ucfirst($user->specialization) ?>" selected><?= ucfirst($user->specialization) ?></option>
+                                                            <option value="<?= $user->specialization ?>" selected><?= $user->specialization ?></option>
 
                                                             <?php if ($user->specialization == 'Internal Medicine') : ?>
                                                                 <option value="Family Medicine">Family Medicine</option>
@@ -430,15 +424,33 @@
                                                                 <option value="Orthopedics">Orthopedics</option>
                                                             <?php endif; ?>
                                                         </select>
+
                                                     </div>
                                                     <small class="text-danger"><?= form_error('specialization') ?></small>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <?php else : ?>    
+                                        <div class="row mb-2" id="specialization_div_edit" style="display: none;">
+                                            <div class="col"><label class="col-form-label">Specialization:</label></div>
+                                            <div class="col">
+                                            <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- specialization -->
+                                                        <select class="form-select" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
+                                                            <option value=" " selected>select...</option>
+                                                            <option value="Internal Medicine">Internal Medicine</option>
+                                                            <option value="Family Medicine">Family Medicine</option>
+                                                            <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                                            <option value="Orthopedics">Orthopedics</option>
+                                                        </select>
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('specialization') ?></small>
+                                                </div>
+                                            </div>
+                                        </div>                       
                                         <?php endif; ?>
-
-
 
                                         <div class="row mb-2">
                                             <div class="col-3"><label class="col-form-label">Birthdate:</label></div>
@@ -495,23 +507,24 @@
 <script>
 
     function toggleDropdown(){
-    let value = document.querySelector('select').value;
-
-      if (value == "doctor" || value == "Doctor") {
-        document.getElementById("specialization_div").style.display = "flex !important";
-      } else {
-        document.getElementById("specialization_div").style.display = "none";
-     }
+        let value = document.querySelector('select').value;
+        if (value == "doctor" || value == "Doctor" || value == "physician" || value == "Physician") {
+            document.getElementById("specialization_div").style.display = "flex";
+        } else {
+            document.getElementById("specialization_div").style.display = "none";
+        }
     }
 
-    function toggleDropdownEdit(){
-    let value = document.querySelector('select').value;
+    // var select_box = document.getElementById("widthpixselpercentage");
+    // var y = select_box.options[select_box.selectedIndex].value;
 
-      if (value == "doctor" || value == "Doctor") {
-        document.getElementById("specialization_div").style.display = "flex !important";
-      } else {
-        document.getElementById("specialization_div").style.display = "none";
-     }
+    function toggleDropdownEdit(role_edit){
+        alert(role_edit.value);
+        if (role_edit.value == "doctor" || role_edit.value == "Doctor" ) {
+            document.getElementById("specialization_div_edit").style.display = "flex";
+        } else {    
+            document.getElementById("specialization_div_edit").style.display = "none";
+        }
     }
 
 </script>
