@@ -172,12 +172,15 @@ class Admin_inventory extends CI_Controller {
        
         if ($this->form_validation->run() == FALSE)
         {
-            $this->session->set_flashdata('message', 'edit_failed');
+            $modal_no = $this->input->post('modal_no');
+
+
+            $this->session->set_flashdata('edit_failed', $modal_no);
             $this->index();
         }
         else
         {   
-           
+
             $updateProduct = $this->input->post('updateProduct');
             if (isset($updateProduct))
             {
