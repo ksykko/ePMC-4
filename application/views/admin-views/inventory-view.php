@@ -97,8 +97,11 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="prod_dosage" name="prod_dosage" value="" placeholder="40" />
-                                            <span class="input-group-text" id="basic-addon2">mg</span>
+                                            <?php if (form_error('prod_dosage')) : ?>
+                                                <input class="form-control" type="text" id="prod_dosage" name="prod_dosage" value="" placeholder="40" /><span class="input-group-text" id="basic-addon2">mg</span>
+                                            <?php else : ?>
+                                                <input class="form-control" type="text" id="prod_dosage" name="prod_dosage" value="<?= set_value('prod_dosage'); ?>" placeholder="40" /><span class="input-group-text" id="basic-addon2">mg</span>
+                                            <?php endif; ?>
                                         </div>
                                         <small class="text-danger"><?= form_error('prod_dosage') ?></small>
                                     </div>
@@ -111,7 +114,11 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="stock_in" name="stock_in" value="<?= set_value('stock_in'); ?>" placeholder="0" />
+                                            <?php if (form_error('stock_in')) : ?>
+                                                <input class="form-control" type="text" id="stock_in" name="stock_in" placeholder="0" />
+                                            <?php else : ?>
+                                                <input class="form-control" type="text" id="stock_in" name="stock_in" value="<?= set_value('stock_in'); ?>" placeholder="0" />
+                                            <?php endif; ?>
                                         </div>
                                         <small class="text-danger"><?= form_error('stock_in') ?></small>
                                     </div>
@@ -124,7 +131,11 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- TODO: -->
-                                            <input class="form-control" type="text" id="stock_out" name="stock_out" value="<?= set_value('stock_out'); ?>" placeholder="0" />
+                                            <?php if (form_error('stock_in')) : ?>
+                                                <input class="form-control" type="text" id="stock_out" name="stock_out" placeholder="0" />
+                                            <?php else : ?>
+                                                <input class="form-control" type="text" id="stock_out" name="stock_out" value="<?= set_value('stock_out'); ?>" placeholder="0" />
+                                            <?php endif; ?>
                                         </div>
                                         <small class="text-danger"><?= form_error('stock_out') ?></small>
                                     </div>
@@ -172,7 +183,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Delete a Product</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h4 class="modal-title modal-title ms-3 fw-bolder">Delete a Product</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this product?</p>
@@ -292,9 +303,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- full_name -->
-                                                        <input class="form-control prod_name" type="text" id="prod_name" name="prod_name" value="<?= $product->prod_name ?>" />
+                                                        <input class="form-control prod_name" type="text" id="v_prod_name" name="v_prod_name" value="<?= $product->prod_name ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('prod_name') ?></small>
+                                                    <small class="text-danger"><?= form_error('v_prod_name') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -304,9 +315,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" />
+                                                        <input class="form-control prod_dosage" type="text" id="v_prod_dosage" name="v_prod_dosage" value="<?= $product->prod_dosage ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('prod_dosage') ?></small>
+                                                    <small class="text-danger"><?= form_error('v_prod_dosage') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,9 +338,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control stock_in" type="text" id="stock_in" name="stock_in" value="<?= $product->stock_in ?>" />
+                                                        <input class="form-control stock_in" type="text" id="v_stock_in" name="v_stock_in" value="<?= $product->stock_in ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('stock_in') ?></small>
+                                                    <small class="text-danger"><?= form_error('v_stock_in') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -339,9 +350,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control stock_out" type="text" id="stock_out" name="stock_out" value="<?= $product->stock_out ?>" />
+                                                        <input class="form-control stock_out" type="text" id="v_stock_out" name="v_stock_out" value="<?= $product->stock_out ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('stock_out') ?></small>
+                                                    <small class="text-danger"><?= form_error('v_stock_out') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -351,9 +362,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <textarea class="form-control prod_desc" type="text" id="prod_desc" rows="4" name="prod_desc"><?= $product->prod_desc ?></textarea>
+                                                        <textarea class="form-control prod_desc" type="text" id="v_prod_desc" rows="4" name="v_prod_desc"><?= $product->prod_desc ?></textarea>
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('prod_desc') ?></small>
+                                                    <small class="text-danger"><?= form_error('v_prod_desc') ?></small>
                                                 </div>
                                             </div>
                                         </div>
