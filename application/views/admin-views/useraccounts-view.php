@@ -60,7 +60,7 @@
         <?php endif; ?>
     </div>
 
-    
+
     <div class="d-flex mb-3">
         <div>
             <h1 class="d-none d-sm-block patientrec-label">User Accounts</h1>
@@ -205,12 +205,12 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Delete User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h4 class="modal-title ms-3 fw-bolder">Delete User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this user?</p>
                                             </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-danger" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>" type="button">Confirm</a></div>
+                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>" type="button">Confirm</a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -224,11 +224,10 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h4 class="modal-title ms-3 fw-bolder">Edit User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body mx-5">
-                                        <h5 class="heading-modal fw-semibold">Edit User</h5>
                                         <hr size="5" />
                                         <!-- <div class="alert alert-warning" role="alert"><span><strong>Alert</strong> text.</span></div> -->
                                         <!-- <div class="row mb-2">
@@ -242,16 +241,16 @@
                                                 </div>
                                             </div>
                                         </div> -->
-
+                                        <input type="hidden" name="modal_no" value="<?= $user->user_id ?>">
                                         <div class="row mt-4 mb-2">
                                             <div class="col-3"><label class="col-form-label">First name:</label></div>
                                             <div class="col-9">
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- full_name -->
-                                                        <input class="form-control first_name" type="text" id="first_name" name="first_name" value="<?= $user->first_name ?>" />
+                                                        <input class="form-control first_name" type="text" id="edt_first_name" name="edt_first_name" value="<?= $user->first_name ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('first_name') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_first_name') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -262,9 +261,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control prod_dosage" type="text" id="last_name" name="last_name" value="<?= $user->last_name ?>" />
+                                                        <input class="form-control prod_dosage" type="text" id="edt_last_name" name="edt_last_name" value="<?= $user->last_name ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('last_name') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_last_name') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -275,9 +274,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control prod_dosage" type="text" id="username" name="username" value="<?= $user->username ?>" />
+                                                        <input class="form-control prod_dosage" type="text" id="edt_username" name="edt_username" value="<?= $user->username ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('username') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_username') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -289,7 +288,7 @@
                                                     <div class="input-group">
                                                         <!-- role -->
 
-                                                        <select class="form-select" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
+                                                        <select class="form-select" id="edt_role" name="edt_role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                                             <option value="<?= ucfirst($user->role) ?>" selected><?= ucfirst($user->role) ?></option>
                                                             <?php if (ucfirst($user->role) == 'Admin') : ?>
                                                                 <option value="doctor">Doctor</option>
@@ -303,7 +302,7 @@
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('role') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_role') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,7 +315,7 @@
                                                     <div class="input-error">
                                                         <div class="input-group">
                                                             <!-- specialization -->
-                                                            <select class="form-select" id="specialization" name="specialization">
+                                                            <select class="form-select" id="edt_specialization" name="edt_specialization">
                                                                 <option value="<?= ucfirst($user->specialization) ?>" selected><?= ucfirst($user->specialization) ?></option>
 
                                                                 <?php if ($user->specialization == 'Internal Medicine') : ?>
@@ -344,7 +343,7 @@
                                                                 <?php endif; ?>
                                                             </select>
                                                         </div>
-                                                        <small class="text-danger"><?= form_error('specialization') ?></small>
+                                                        <small class="text-danger"><?= form_error('edt_specialization') ?></small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -359,9 +358,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control" type="date" id="birth_date" name="birth_date" value="<?= $user->birth_date ?>" />
+                                                        <input class="form-control" type="date" id="edt_birth_date" name="edt_birth_date" value="<?= $user->birth_date ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('birth_date') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_birth_date') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -371,9 +370,9 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control stock_out" type="text" id="contact_no" name="contact_no" value="<?= $user->contact_no ?>" />
+                                                        <input class="form-control stock_out" type="text" id="edt_contact_no" name="edt_contact_no" value="<?= $user->contact_no ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('contact_no') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_contact_no') ?></small>
                                                 </div>
                                             </div>
                                         </div>
@@ -383,13 +382,12 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control" type="email" id="email" name="email" value="<?= $user->email ?>" />
+                                                        <input class="form-control" type="edt_email" id="email" name="edt_email" value="<?= $user->email ?>" />
                                                     </div>
-                                                    <small class="text-danger"><?= form_error('email') ?></small>
+                                                    <small class="text-danger"><?= form_error('edt_email') ?></small>
                                                 </div>
                                             </div>
                                         </div>
-                                        <br><br><br>
                                         <input type="hidden" name="item_id" class="item_id">
                                     </div>
                                     <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" id="editUser" name="editUser" type="submit" style="background: #3269bf;">Save</button></div>

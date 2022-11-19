@@ -8,10 +8,26 @@
     const toastTrigger = document.getElementById('liveToastTrigger')
     const toastLiveExample = document.getElementById('liveToast')
 
-    var $succToast = "<?= $this->session->flashdata('message') ?>";
+    var succToast = "<?= $this->session->flashdata('message') ?>";
+    var editFailed = "<?= $this->session->flashdata('edit_failed') ?>";
+    const modal_no = "user-edit-modal-" + editFailed;
+    console.log(modal_no);
 
     if (toastTrigger) {
-        if ($succToast) {
+        if (succToast || editFailed) {
+
+
+            if (succToast == 'add_failed') {
+                $(document).ready(function() {
+                    $("#modal-1").modal('show');
+                });
+            }
+            if (editFailed) {
+                $(document).ready(function() {
+                    $("#" + modal_no).modal('show');
+                });
+            }
+
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show()
 
