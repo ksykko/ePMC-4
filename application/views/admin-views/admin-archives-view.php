@@ -3,7 +3,7 @@
         <div>
             <h1 class="d-none d-lg-inline-block patientrec-label">Archives</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4"><a href="<?= ($user_role == 'Doctor') ? base_url('Doctor_patientrec/index') : base_url('Admin_patientrec/index') ?>" class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button"><i class="fas fa-arrow-left"></i><strong>Back</strong></a></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4"><a href="<?= ($user_role == 'Doctor') ? base_url('Doctor_patientrec/index') : base_url('Admin_patientrec/index') ?>" class="btn px-3 me-4 btn-primary dbl-btn btn-default-blue" type="button"><i class="fas me-2 fa-arrow-left"></i><strong>Back</strong></a></div>
     </div>
 
     <div class="row">
@@ -25,7 +25,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <table id="example" class="table table-hover">
+                    <table id="example" class="table table-hover" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th class="align-middle">ID</th>
