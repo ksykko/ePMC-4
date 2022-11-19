@@ -75,6 +75,8 @@ class Login extends CI_Controller
                         'role' => $result->role,
                         'avatar' => $result->avatar,
                         'specialization' => $result->specialization,
+                        'gender' => $result->gender,
+                        'birth_date' => $result->birth_date,
                         'logged_in' => TRUE
                     );
 
@@ -89,6 +91,10 @@ class Login extends CI_Controller
                         'specialization' => $result->specialization,
                         'email' => $result->email,
                         'role' => $result->role,
+                        'avatar' => $result->avatar,
+                        'gender' => $result->gender,
+                        'birth_date' => $result->birth_date,
+                        'contact_no' => $result->contact_no,
                         'logged_in' => TRUE
                     );
 
