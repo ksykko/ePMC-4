@@ -18,11 +18,17 @@
 
             //Set column definition initialisation properties.
             "columnDefs": [
-                { "targets": [ 6 ], "orderable": false }, //set not orderable
+                { "targets": [ 6 ], "className": "align-middle" ,"orderable": false }, //set not orderable
                 { "className": "inv-td-desc" , targets: [0,1,2,3,4,5,6] },
                 { "className": "w-25", "targets": [2] },
                 { "className": "text-center", targets: [3,4,5,6] },
                 { "className": "justify-content-xxl-end align-items-xxl-center", "targets": [6] },
+                {
+                    "targets": [2], // font size: 0.8rem
+                    "render": function ( data, type, row, meta ) {
+                        return data.replace(/<p>/g, '<p style="font-size: 5px">');
+                    }
+                },
                 { "targets": [4], 
                     render :function(data,type,row){
                         if (data <= 10) {
