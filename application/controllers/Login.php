@@ -82,7 +82,7 @@ class Login extends CI_Controller
                     redirect('Doctors');
                 }
                 
-                else {
+                elseif ($result->role == 'Admin' || $result->role == 'admin') {
                     $sess_data = array(
                         'id' => $result->admin_id,
                         'full_name' => $result->full_name,
@@ -102,9 +102,9 @@ class Login extends CI_Controller
                 redirect('Login/signin');
             }
 
-            // $error = 'Invalid email or password.';
-            // $this->session->set_flashdata('error', $error);
-            // redirect('Login/signin');
+            $error = 'Invalid email or password.';
+            $this->session->set_flashdata('error', $error);
+            redirect('Login/signin');
         }
     }
 

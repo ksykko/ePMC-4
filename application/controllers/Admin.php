@@ -28,6 +28,8 @@ class Admin extends CI_Controller {
             $data['chart_data'] = $this->ageRange_chart();
             $data['gender_data'] = $this->gender_chart();
 
+            //$this->dd($this->session->userdata());
+
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('admin-views/admin-dashboard-reports-view', $data);
@@ -74,7 +76,8 @@ class Admin extends CI_Controller {
     public function ageRange_chart()
     {
         // get age range data from database
-        $query = $this->Admin_model->get_age_range();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_age_range();
 
         // create array to store age range data
         $age_range = [
@@ -142,7 +145,9 @@ class Admin extends CI_Controller {
     public function gender_chart()
     {
         // get no. gender data from database
-        $query = $this->Admin_model->get_gender_data();
+        $this->load->model('Charts_model');
+        $query = $this->Charts_model->get_gender_data();
+        //$this->dd($query);
 
         // var_dump($query);
         // die();
@@ -172,6 +177,13 @@ class Admin extends CI_Controller {
     public function weekly_added_patients()
     {
         
+    }
+
+    public function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
     }
 }
 
