@@ -58,7 +58,7 @@ class Admin_archives extends CI_Controller
             $row[] = $last_accessed;
             $row[] = '
                 <td class="text-center" colspan="1"> 
-                    <button class="btn btn-sm btn-info mx-2" type="button" data-bs-toggle="modal" data-bs-target="#restore-patient-' . $patient->patient_id . '"><i class="fas fa-undo-alt"></i>Restore</button>
+                    <button class="btn btn-sm btn-info mx-2" type="button" data-bs-toggle="modal" data-bs-target="#restore-patient-' . $patient->patient_id . '"><i class="fas me-xl-2 fa-undo-alt"></i><span class="d-none d-xl-inline-block">Restore</span></button>
                 </td>
             ';
             $data[] = $row;
