@@ -77,24 +77,12 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('middle_name', 'Middle name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter user\'s %s.'
-        ));
-
         $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
         $this->form_validation->set_rules('username', 'Username', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('password', 'Password', 'min_length[8]|max_length[12]', array(
-            'min_length' => 'The %s field must be at least %s characters in length.',
-            'max_length' => 'The %s field must be at most %s characters in length.'
-        ));
-        $this->form_validation->set_rules('conf_password', 'Confirm password', 'matches[password]', array(
-            'matches' => 'The %s field does not match the %s field.'
         ));
 
         $this->form_validation->set_rules('role', 'Role', 'required', array(
@@ -107,11 +95,11 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('gender', 'Gender', 'required', array(
+        $this->form_validation->set_rules('sex', 'Gender', 'required', array(
             'required' => 'Please enter user\'s %s.'
         ));
 
-        $this->form_validation->set_rules('contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
+        $this->form_validation->set_rules('cell_no', 'Contact #', 'required|numeric|min_length[11]', array(
             'required' => 'Please enter user\'s %s.',
             'numeric' => 'Please enter a valid %s.'
         ));
@@ -137,17 +125,19 @@ class Admin_useracc extends CI_Controller {
                     'middle_name' => $this->input->post('middle_name'),
                     'last_name' => $this->input->post('last_name'),
                     'username' => $this->input->post('username'),
-                    'password' => $this->input->post('password'),
+                    'password' => $this->input->post('birth_date'),
                     'role' => $this->input->post('role'),
                     'specialization' => $this->input->post('specialization'),
                     'birth_date' => $this->input->post('birth_date'),
-                    'gender' => $this->input->post('gender'),
-                    'contact_no' => $this->input->post('contact_no'),
+                    'gender' => $this->input->post('sex'),
+                    'contact_no' => $this->input->post('cell_no'),
                     'email' => $this->input->post('email'),
                     'avatar' => 'default-avatar.png',
                     'date_created' => date('Y-m-d H:i:s')
                 );
             // }
+
+            //$this->dd($info);
             
             $activity = array(
                 'activity' => 'A new user has been added in the user accounts',
@@ -272,6 +262,13 @@ class Admin_useracc extends CI_Controller {
         $this->session->set_flashdata('message', 'dlt_user_success');
         $this->Admin_model->delete_useracc($id);
         redirect('Admin_useracc/index');
+    }
+
+    public function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
     }
 }
 ?>
