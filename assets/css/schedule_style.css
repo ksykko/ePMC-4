@@ -213,3 +213,8 @@ table.table-fit tbody td,
 table.table-fit tfoot td {
     width: auto !important;
 }
+
+.doctor-rounded-corners {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}

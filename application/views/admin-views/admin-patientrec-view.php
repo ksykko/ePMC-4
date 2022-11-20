@@ -198,8 +198,26 @@
                 </div>
             </div>
         </div>
-        <?php if ($this->session->flashdata('success-import')) : ?>
-            <?php $ext_data = $this->session->flashdata('success-import') ?>
+        <?php if ($this->session->flashdata('success-import') || $this->session->flashdata('v_patient_exists')) : ?>
+            <?php 
+                $ext_data = $this->session->flashdata('success-import');
+                
+                if ($this->session->flashdata('v_patient_exists') == true){
+                    $ext_data = array(
+                        'Name' => '',
+                        'Age' => '',
+                        'Birthday' => '',
+                        'Sex' => '',
+                        'Occupation' => '',
+                        'Address' => '',
+                        'Mobile No.' => '',
+                        'Tel. No.' => '',
+                        'Weight' => '',
+                        'Height' => ''
+                    );
+                }
+                
+            ?>
             <?= form_open('Admin_patientrec/verify_import', array('id' => 'importForm')); ?>
             <div id="modal-verify" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-xl" role="document">
@@ -209,80 +227,33 @@
                         </div>
                         <div class="modal-body">
                             <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mx-3">
-                                <div class="col d-flex justify-content-center align-items-center mb-3 mb-sm-3"><img class="img-fluid" src="<?= base_url('/assets/img/patientrec-imports/') . $ext_data['File'] ?>" /></div>
-                                <!-- <div class="col">
-                                    <div class="row mb-3 mt-3">
-                                        <div class="col"><label class="form-label">Name:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="name" value="<?= $ext_data['Name:'] ?>" /></div>
-                                        </div>
-                                        <div class="col"><label class="form-label">Mobile No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="mobile_no" value="<?= $ext_data['Mobile No.:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col"><label class="form-label">Address:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="address" value="<?= $ext_data['Address:'] ?>" /></div>
-                                        </div>
-                                        <div class="col"><label class="form-label">Tel No.:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="tel_no" value="<?= $ext_data['Tel. No.:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col"><label class="form-label">Birthday:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="birthday" value="<?= $ext_data['Birthday:'] ?>" /></div>
-                                        </div>
-                                        <div class="col"><label class="form-label">Age:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="age" value="<?= $ext_data['Age:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col"><label class="form-label">Sex:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="sex" value="<?= $ext_data['Sex:'] ?>" /></div>
-                                        </div>
-                                        <div class="col"><label class="form-label">Civil Status:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="civil_status" value="<?= $ext_data['Civil Status:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col"><label class="form-label">Weight:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="weight" value="<?= $ext_data['Weight:'] ?>" /></div>
-                                        </div>
-                                        <div class="col"><label class="form-label">Height:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="height" value="<?= $ext_data['Height:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col col-6"><label class="form-label">Occupation:</label>
-                                            <div class="input-group"><input class="form-control" type="text" name="occupation" value="<?= $ext_data['Occupation:'] ?>" /></div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <input type='hidden' name='file' value='<?= $ext_data['File'] ?>'>
+                                <input type='hidden' name='file' value='<?= (set_value('file')) ? set_value('file') : $ext_data['File'] ?>'>
+                                <div class="col d-flex justify-content-center align-items-center mb-3 mb-sm-3"><img class="img-fluid" src="<?= (set_value('file')) ? base_url('/assets/img/patientrec-imports/') . set_value('file') : base_url('/assets/img/patientrec-imports/') . $ext_data['File']  ?>" /></div>
                                 <div class="col">
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Name</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_name" name="name" value="<?= $ext_data['Name'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_name" name="name" value="<?= (set_value('name')) ? set_value('name') : $ext_data['Name'] ?>" /></div>
                                             <span id="extName_result"></span>
                                             <label id="ext_name_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col pe-1"><label class="form-label">Age</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_age" name="age" value="<?= $ext_data['Age'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_age" name="age" value="<?= (set_value('age')) ? set_value('age') : ($ext_data['Age']) ?>" /></div>
                                             <label id="ext_age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-1"><label class="form-label">Birth date</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="date" id="ext_birthdate" name="birthday" value="<?= $ext_data['Birthday'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="date" id="ext_birthdate" name="birthday" value="<?= (set_value('birthday')) ? set_value('birthday') : $ext_data['Birthday'] ?>" /></div>
                                             <label id="ext_birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row row-cols-1 row-cols-sm-3 mb-3 gy-3 gy-md-0">
                                         <div class="col pe-sm-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="ext_sex" name="sex">
-                                                <?php if ($ext_data['Sex'] == 'Male') : ?>
+                                                <?php if ($ext_data['Sex'] == 'Male' || set_value('sex')) : ?>
                                                     <option value="" disabled>select ...</option>
                                                     <option value="Male" selected>Male</option>
                                                     <option value="Female">Female</option>
-                                                <?php elseif ($ext_data['Sex'] == 'Female') : ?>
+                                                <?php elseif ($ext_data['Sex'] == 'Female' || set_value('sex')) : ?>
                                                     <option value="" disabled>select ...</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female" selected>Female</option>
@@ -294,42 +265,80 @@
                                             </select>
                                         </div>
                                         <div class="col col-auto px-sm-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="ext_cs" name="civil_status">
-                                                <option value="" selected>select ...</option>
-                                                <option value="Single">Single</option>
-                                                <option value="Married">Married</option>
-                                                <option value="Divorced">Divorced</option>
-                                                <option value="Separated">Separated</option>
-                                                <option value="Widowed">Widowed</option>
+                                                <?php if ($ext_data['Civil Status'] == 'Single' || set_value('civil_status')) : ?>
+                                                    <option value="" disabled>select ...</option>
+                                                    <option value="Single" selected>Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                <?php elseif ($ext_data['Civil Status'] == 'Married' || set_value('civil_status')) : ?>
+                                                    <option value="" disabled>select ...</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married" selected>Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                <?php elseif ($ext_data['Civil Status'] == 'Widowed' || set_value('civil_status')) : ?>
+                                                    <option value="" disabled>select ...</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed" selected>Widowed</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                <?php elseif ($ext_data['Civil Status'] == 'Separated' || set_value('civil_status')) : ?>
+                                                    <option value="" disabled>select ...</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                    <option value="Separated" selected>Separated</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                <?php elseif ($ext_data['Civil Status'] == 'Divorced' || set_value('civil_status')) : ?>
+                                                    <option value="" disabled>select ...</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Divorced" selected>Divorced</option>
+                                                <?php else : ?>
+                                                    <option value="" selected>select ...</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                    <option value="Separated">Separated</option>
+                                                    <option value="Widowed">Widowed</option>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                         <div class="col ps-sm-1"><label class="form-label">Occupation</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_occ" name="occupation" value="<?= $ext_data['Occupation'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_occ" name="occupation" value="<?= (set_value('occupation')) ? set_value('occupation') : $ext_data['Occupation'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Address</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_address" name="address" value="<?= $ext_data['Address'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_address" name="address" value="<?= (set_value('address')) ? set_value('address') :  $ext_data['Address'] ?>" /></div>
                                         </div>
                                     </div>
                                     <div class="row row-cols-1 row-cols-sm-2 mb-3 gy-3 gy-md-0">
                                         <div class="col pe-sm-1"><label class="form-label">Mobile No.</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_mob" name="mobile_no" value="<?= $ext_data['Mobile No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_mob" name="mobile_no" value="<?= (set_value('mobile_no')) ? set_value('mobile_no') : $ext_data['Mobile No.'] ?>" /></div>
                                             <label id="ext_mob_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-sm-1"><label class="form-label">Tel No.</label>
-                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_tel" name="tel_no" value="<?= $ext_data['Tel. No.'] ?>" /></div>
+                                            <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_tel" name="tel_no" value="<?= (set_value('tel_no')) ? set_value('tel_no') : $ext_data['Tel. No.'] ?>" /></div>
                                             <label id="ext_tel_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col pe-1"><label class="form-label">Weight</label>
-                                            <div class="input-group input-weight"><input class="form-control form-control-sm" type="text" id="ext_weight" name="weight" value="<?= $ext_data['Weight'] ?>" />
+                                            <div class="input-group input-weight"><input class="form-control form-control-sm" type="text" id="ext_weight" name="weight" value="<?= (set_value('weight')) ? set_value('weight') : $ext_data['Weight'] ?>" />
                                                 <span class="input-group-text span-text">kg</span>
                                             </div>
                                             <label id="ext_weight_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col ps-1"><label class="form-label">Height</label>
-                                            <div class="input-group input-height"><input class="form-control form-control-sm" type="text" id="ext_height" name="height" value="<?= $ext_data['Height'] ?>" />
+                                            <div class="input-group input-height">
+                                                <input class="form-control form-control-sm" type="text" id="ext_height" name="height" value="<?= (set_value('height')) ? set_value('height') :  $ext_data['Height'] ?>" />
                                                 <span class="input-group-text span-text">cm</span>
                                             </div>
                                             <label id="ext_height_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -398,7 +407,17 @@
                                     <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
                                 <div class="toast-body bg-opacity-50">
-                                    <span>Invalid input.</span>
+                                    <span>Patient record already exists.</span>
+                                </div>
+                            </div>
+                        <?php elseif ($this->session->flashdata('v_patient_exists') == true) : ?>
+                            <div id="liveToast" class="toast border-0 toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-error">
+                                    <strong class="me-auto">Error!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>Patient record already exists.</span>
                                 </div>
                             </div>
                         <?php endif; ?>

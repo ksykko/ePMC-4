@@ -19,16 +19,51 @@
 
 <div class="container-fluid mt-5">
     <div class="row mb-3">
-        <div class="col-lg-3">
-            <div class="card mb-4 profile-card h-100">
-                <div class="card-body text-center shadow profile-card">
-                    <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
-                    <label for="avatar">Hello, <br>
-                        <?= $user_name ?>
-                    </label><br>
-                    <label for="avatar" class="role">
-                        <?= $user_role ?>
-                    </label><br>
+        <div class="col-12 col-lg-3">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="card mb-4 profile-card">
+                        <div class="card-body text-center shadow profile-card">
+                            <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
+                            <label for="avatar">Hello, <br>
+                                <?= $user_name ?>
+                            </label><br>
+                            <label for="avatar" class="role">
+                                <?= $user_role ?>
+                            </label><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header py-3 ch-patientrec">
+                            <h6 class="m-0 fw-bold ms-2 fs-5 ch-heading">Personal Information</h6>
+                        </div>
+                        <div class="card-body text-center shadow">
+                            <div class="mx-3">
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $birth_date ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $sex ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Contact No.:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="contact_no" value="<?= $contact_no ?>" readonly /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- <div class="card shadow mb-4">
@@ -116,13 +151,23 @@
 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100 chart-body-red">
+                    <!-- <div class="card shadow mb-4 h-100 chart-body-red">
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
                             <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's Age Range Overview</h6>
                         </div>
                         <div class="card-body mx-3 my-3">
                             <div class="chart-area">
                                 <canvas id="sampleChart"></canvas>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="card shadow mb-4 h-100 chart-body-purp">
+                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
+                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
+                        </div>
+                        <div class="card-body mx-3 my-3">
+                            <div class="chart-area">
+                                <canvas id="sampleChart4"></canvas>
                             </div>
                         </div>
                     </div>
@@ -140,7 +185,7 @@
                     </div>
                 </div>
             </div>
-
+<!-- 
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-7 col-xl-8">
                     <div class="card shadow mb-4 h-100 chart-body-purp">
@@ -166,12 +211,13 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
-            </div>
-            
+            </div> -->
+
             <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
                 <div class="col-lg-12 col-xl-12">
-                    <div class="card shadow mb-4 h-100">
+                    <div class="card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                             <h6 class="fw-bold fs-5 m-0 ch-heading">Recent Activity</h6>
                         </div>
@@ -188,19 +234,19 @@
                             </table>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
-            
 
-        </div>                
 
         </div>
 
-        
-
     </div>
-    
-    <!-- <div class="card shadow mb-4">
+
+
+
+</div>
+
+<!-- <div class="card shadow mb-4">
         <div class="card-header py-3 ch-patientrec">
         </div>
         <div class="card-body mx-3">
@@ -254,66 +300,66 @@
 </div> -->
 
 <script>
-    var cData = JSON.parse('<?= $chart_data; ?>');
-    console.log(cData);
+    // var cData = JSON.parse('<?= $chart_data; ?>');
+    // console.log(cData);
 
-    let sampleChart = document.getElementById('sampleChart').getContext('2d');
+    // let sampleChart = document.getElementById('sampleChart').getContext('2d');
 
-    let ageRangeChart = new Chart(sampleChart, {
-        type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-        data: {
-            labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'],
-            datasets: [{
-                label: 'Age Range',
-                data: cData,
-                backgroundColor: [
-                    "#cc001b",
-                    "#100002",
-                    "#a30015",
-                    "#390007",
-                    "#9b0014",
-                    "#410008",
-                    "#72000f",
-                    "#6a000e",
-                    "#a30015",
-                    "#100002"
-                ]
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            responsive: true,
-            scales: {
-                y: {
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 1,
-                        min: 0,
-                        max: 100,
-                        color: '#333333',
+    // let ageRangeChart = new Chart(sampleChart, {
+    //     type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+    //     data: {
+    //         labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'],
+    //         datasets: [{
+    //             label: 'Age Range',
+    //             data: cData,
+    //             backgroundColor: [
+    //                 "#cc001b",
+    //                 "#100002",
+    //                 "#a30015",
+    //                 "#390007",
+    //                 "#9b0014",
+    //                 "#410008",
+    //                 "#72000f",
+    //                 "#6a000e",
+    //                 "#a30015",
+    //                 "#100002"
+    //             ]
+    //         }]
+    //     },
+    //     options: {
+    //         legend: {
+    //             display: false
+    //         },
+    //         responsive: true,
+    //         scales: {
+    //             y: {
+    //                 display: true,
+    //                 ticks: {
+    //                     beginAtZero: true,
+    //                     stepSize: 1,
+    //                     min: 0,
+    //                     max: 100,
+    //                     color: '#333333',
 
-                    },
-                    grid: {
-                        color: "#FF5A5A",
-                        borderDash: [3, 4],
-                    }
-                },
-                x: {
-                    display: true,
-                    grid: {
-                        color: "#FF5A5A",
-                        borderDash: [3, 4],
-                    },
-                    ticks: {
-                        color: '#333333'
-                    }
-                }
-            }
-        }
-    });
+    //                 },
+    //                 grid: {
+    //                     color: "#FF5A5A",
+    //                     borderDash: [3, 4],
+    //                 }
+    //             },
+    //             x: {
+    //                 display: true,
+    //                 grid: {
+    //                     color: "#FF5A5A",
+    //                     borderDash: [3, 4],
+    //                 },
+    //                 ticks: {
+    //                     color: '#333333'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
 
     let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
     let satisfactionChart = new Chart(sampleChart2, {
@@ -338,35 +384,35 @@
             },
             responsive: true,
         }
-        
+
     })
 
-    var genderData = JSON.parse('<?= $gender_data; ?>');
-    console.log(genderData);
+    // var genderData = JSON.parse('<?= $gender_data; ?>');
+    // console.log(genderData);
 
-    let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
-    let genderChart = new Chart(sampleChart3, {
-        type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-        data: {
-            labels: ['Male', 'Female'],
-            datasets: [{
-                label: 'Sex',
-                data: [genderData['male'], genderData['female']],
-                backgroundColor: [
-                    "#7C57E4",
-                    "#115f9a"
-                ]
-            }]
-        },
-        options: {
-            legend: {
-                display: true
-            },
-            responsive: true,
-            segmentShowStroke: false,
+    // let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
+    // let genderChart = new Chart(sampleChart3, {
+    //     type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+    //     data: {
+    //         labels: ['Male', 'Female'],
+    //         datasets: [{
+    //             label: 'Sex',
+    //             data: [genderData['male'], genderData['female']],
+    //             backgroundColor: [
+    //                 "#7C57E4",
+    //                 "#115f9a"
+    //             ]
+    //         }]
+    //     },
+    //     options: {
+    //         legend: {
+    //             display: true
+    //         },
+    //         responsive: true,
+    //         segmentShowStroke: false,
 
-        }
-    })
+    //     }
+    // })
 
     let sampleChart4 = document.getElementById('sampleChart4').getContext('2d');
     let userActChart = new Chart(sampleChart4, {

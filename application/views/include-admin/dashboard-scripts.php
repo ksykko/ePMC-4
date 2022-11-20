@@ -31,7 +31,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#recent_activity_table').DataTable({
-            "dom": 'frtip',
+            // remove search box and show entries with pagination
+            "dom": "tip",
             "pageLength": 5,
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.

@@ -514,6 +514,8 @@
             relationship = $('#relationship').val(),
             ec_contact = $('#ec_contact_no').val();
 
+        // store all iuput results in an array
+        var validation = [];
 
         // name validation
         if (first_name == '') {
@@ -524,7 +526,7 @@
             $('#firstName_error').show();
             $('#firstName_error').html('First name is required');
 
-            input_valid = false;
+            validation['first_name'] = false;
         } else {
             // remove error message
             $('#firstName_error').hide();
@@ -533,7 +535,7 @@
             $('#first_name').removeClass('invalid');
             $('#first_name').addClass('valid');
 
-            input_valid = true;
+            validation['first_name'] = true;
         }
 
         if (middle_name == '') {
@@ -543,6 +545,7 @@
             $('#middleName_error').hide();
             $('#middleName_error').html('');
 
+            validation['middle_name'] = true;
         } else {
             // remove error message
             $('#middleName_error').hide();
@@ -551,6 +554,8 @@
             $('#middle_name').removeClass('warning');;
             $('#middle_name').removeClass('invalid');
             $('#middle_name').addClass('valid');
+
+            validation['middle_name'] = true;
         }
 
         if (last_name == '') {
@@ -560,7 +565,7 @@
             $('#lastName_error').show();
             $('#lastName_error').html('Last name is required');
 
-            input_valid = false;
+            validation['last_name'] = false;
         } else {
             // remove error message
             $('#lastName_error').hide();
@@ -569,7 +574,7 @@
             $('#last_name').removeClass('invalid');
             $('#last_name').addClass('valid');
 
-            input_valid = true;
+            validation['last_name'] = true;
         }
 
         // check if input is existing
@@ -585,7 +590,7 @@
             $('#age_error').show();
             $('#age_error').html('Invalid age');
 
-            input_valid = false;
+            validation['age'] = false;
 
             // only accept numbers
         } else if (isNaN(age)) {
@@ -595,7 +600,8 @@
             // add error message
             $('#age_error').show();
             $('#age_error').html('Invalid age');
-            input_valid = false;
+
+            validation['age'] = false;
 
             // if empty
         } else if (age == '') {
@@ -604,6 +610,8 @@
 
             $('#age_error').hide();
             $('#age_error').html('');
+
+            validation['age'] = true;
         } else {
             // clear error message
             $('#age_error').hide();
@@ -612,6 +620,8 @@
             $('#age').removeClass('warning');
             $('#age').removeClass('invalid');
             $('#age').addClass('valid');
+
+            validation['age'] = true;
         }
 
 
@@ -648,8 +658,8 @@
 
                 $('#birth_date').removeClass('warning');
                 $('#birth_date').addClass('invalid');
-                input_valid = false;
 
+                validation['birthdate'] = false;
             } else {
                 // clear error message
                 $('#birthdate_error').hide();
@@ -658,6 +668,8 @@
                 $('#birth_date').removeClass('warning');
                 $('#birth_date').removeClass('invalid');
                 $('#birth_date').addClass('valid');
+
+                validation['birthdate'] = true;
             }
 
         } else {
@@ -667,6 +679,8 @@
 
             $('#birth_date').removeClass('warning');
             $('#birth_date').addClass('valid');
+
+            validation['birthdate'] = true;
         }
 
 
@@ -674,9 +688,13 @@
         if (sex == null) {
             $('#sex').removeClass('invalid');
             $('#sex').addClass('warning');
+
+            validation['sex'] = true;
         } else {
             $('#sex').removeClass('warning');
             $('#sex').addClass('valid');
+
+            validation['sex'] = true;
         }
 
 
@@ -684,9 +702,13 @@
         if (civil_status == '' || civil_status == null) {
             $('#civil_status').removeClass('invalid');
             $('#civil_status').addClass('warning');
+
+            validation['civil_status'] = true;
         } else {
             $('#civil_status').removeClass('warning');
             $('#civil_status').addClass('valid');
+
+            validation['civil_status'] = true;
         }
 
 
@@ -694,18 +716,26 @@
         if (occupation == '') {
             $('#occupation').removeClass('invalid');
             $('#occupation').addClass('warning');
+
+            validation['occupation'] = true;
         } else {
             $('#occupation').removeClass('warning');
             $('#occupation').addClass('valid');
+
+            validation['occupation'] = true;
         }
 
         // address validation
         if (address == '') {
             $('#address').removeClass('invalid');
             $('#address').addClass('warning');
+
+            validation['address'] = true;
         } else {
             $('#address').removeClass('warning');
             $('#address').addClass('valid');
+
+            validation['address'] = true;
         }
 
 
@@ -719,6 +749,8 @@
                 $('#cell_no_error').hide();
                 $('#cell_no_error').html('');
 
+                validation['cell_no'] = true;
+
             } else if (cell_no.length != 11 || isNaN(cell_no)) {
                 $('#cell_no').removeClass('warning');
                 $('#cell_no').addClass('invalid');
@@ -727,7 +759,7 @@
                 $('#cell_no_error').show();
                 $('#cell_no_error').html('Invalid cellphone number');
 
-                input_valid = false;
+                validation['cell_no'] = false;
 
             } else {
                 $('#cell_no_error').hide();
@@ -735,6 +767,8 @@
                 $('#cell_no').removeClass('warning');
                 $('#cell_no').removeClass('invalid');
                 $('#cell_no').addClass('valid');
+
+                validation['cell_no'] = true;
             }
 
 
@@ -746,6 +780,8 @@
                 $('#tel_no_error').hide();
                 $('#tel_no_error').html('');
 
+                validation['tel_no'] = true;
+
             } else if (isNaN(tel_no)) {
                 $('#tel_no').removeClass('warning');
                 $('#tel_no').addClass('invalid');
@@ -754,7 +790,7 @@
                 $('#tel_no_error').show();
                 $('#tel_no_error').html('Invalid telephone number');
 
-                input_valid = false;
+                validation['tel_no'] = false;
 
             } else {
                 $('#tel_no_error').hide();
@@ -762,6 +798,8 @@
                 $('#tel_no').removeClass('warning');
                 $('#tel_no').removeClass('invalid');
                 $('#tel_no').addClass('valid');
+
+                validation['tel_no'] = true;
             }
 
             var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -774,6 +812,8 @@
                 $('#email_error').hide();
                 $('#email_error').html('');
 
+                validation['email'] = true;
+
             } else if (!email.match(email_regex)) {
                 $('#email').removeClass('warning');
                 $('#email').addClass('invalid');
@@ -782,7 +822,7 @@
                 $('#email_error').show();
                 $('#email_error').html('Invalid email');
 
-                input_valid = false;
+                validation['email'] = false;
 
             } else {
                 $('#email_error').hide();
@@ -790,6 +830,8 @@
                 $('#email').removeClass('warning');
                 $('#email').removeClass('invalid');
                 $('#email').addClass('valid');
+
+                validation['email'] = true;
             }
         }
 
@@ -802,15 +844,17 @@
                 $('#ec_contact_error').hide();
                 $('#ec_contact_error').html('');
 
+                validation['ec_contact_no'] = true;
+
             } else if (isNaN(ec_contact)) {
                 $('#ec_contact_no').removeClass('warning');
                 $('#ec_contact_no').addClass('invalid');
 
                 // add error message
                 $('#ec_contact_error').show();
-                $('#ec_contact_error').html('Invalid cellphone number2');
+                $('#ec_contact_error').html('Invalid cellphone number');
 
-                input_valid = false;
+                validation['ec_contact_no'] = false;
 
             } else {
                 $('#ec_contact_error').hide();
@@ -818,21 +862,26 @@
                 $('#ec_contact_no').removeClass('warning');
                 $('#ec_contact_no').removeClass('invalid');
                 $('#ec_contact_no').addClass('valid');
+
+                validation['ec_contact_no'] = true;
             }
         }
 
 
+        const areTrue = Object.values(validation).every(
+            value => value === true
+        );
 
 
         //input_valid = false; // remove this
         // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid) {
+        if (areTrue == true) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
 
         //console.log(select_valid);
         // return the valid status
-        return input_valid;
+        return areTrue;
     }
 
 
@@ -1141,13 +1190,15 @@
 
         impcheckName();
 
+        var validation = [];
+
         if (name == '') {
             $('#ext_name').addClass('invalid');
 
             $('#ext_name_error').show();
             $('#ext_name_error').html('Name is required');
 
-            input_valid = false;
+            validation['name'] = false;
         } else {
             $('#ext_name_error').hide();
             $('#ext_name').html('');
@@ -1165,7 +1216,7 @@
             $('#ext_age_error').show();
             $('#ext_age_error').html('Invalid age');
 
-            input_valid = false;
+            validation['age'] = false;
 
         } else if (age == '') {
             $('#ext_age').removeClass('valid');
@@ -1175,14 +1226,16 @@
             $('#ext_age_error').hide();
             $('#ext_age_error').html('');
 
-            input_valid = true;
+            validation['age'] = true;
+
         } else {
             $('#ext_age_error').hide();
 
             $('#ext_age').removeClass('warning');
             $('#ext_age').removeClass('invalid');
             $('#ext_age').addClass('valid');
-            input_valid = true;
+
+            validation['age'] = true;
         }
 
 
@@ -1193,7 +1246,7 @@
             $('#ext_birthdate_error').hide();
             $('#ext_birthdate_error').html('');
 
-            input_valid = true;
+            validation['birthdate'] = true;
 
         } else if (age != '') {
             var birthdate_year = birthdate.split('-')[0];
@@ -1215,14 +1268,16 @@
                 $('#ext_birthdate_error').show();
                 $('#ext_birthdate_error').html('Birthdate does not match age');
 
-                input_valid = false;
+                validation['birthdate'] = false;
+
             } else {
                 $('#ext_birthdate_error').hide();
 
                 $('#ext_birthdate').removeClass('warning');
                 $('#ext_birthdate').removeClass('invalid');
                 $('#ext_birthdate').addClass('valid');
-                input_valid = true;
+
+                validation['birthdate'] = true;
             }
         } else {
             $('#ext_birthdate_error').hide();
@@ -1230,7 +1285,8 @@
             $('#ext_birthdate').removeClass('warning');
             $('#ext_birthdate').removeClass('invalid');
             $('#ext_birthdate').addClass('valid');
-            input_valid = true;
+
+            validation['birthdate'] = true;
         }
 
 
@@ -1287,14 +1343,16 @@
             $('#ext_mob_error').show();
             $('#ext_mob_error').html('Invalid cellphone number');
 
-            input_valid = false;
+            validation['mob'] = false;
+
         } else {
             $('#ext_mob_error').hide();
 
             $('#ext_mob').removeClass('warning');
             $('#ext_mob').removeClass('invalid');
             $('#ext_mob').addClass('valid');
-            input_valid = true;
+
+            validation['mob'] = true;
         }
 
 
@@ -1311,7 +1369,8 @@
             $('#ext_tel').removeClass('warning');
             $('#ext_tel').removeClass('invalid');
             $('#ext_tel').addClass('valid');
-            input_valid = true;
+
+            validation['tel'] = true;
         }
 
 
@@ -1329,14 +1388,16 @@
             $('#ext_weight_error').show();
             $('#ext_weight_error').html('Invalid weight');
 
-            input_valid = false;
+            validation['weight'] = false;
+
         } else {
             $('#ext_weight_error').hide();
 
             $('#ext_weight').removeClass('warning');
             $('#ext_weight').removeClass('invalid');
             $('#ext_weight').addClass('valid');
-            input_valid = true;
+
+            validation['weight'] = true;
         }
 
         if (height == '') {
@@ -1353,25 +1414,30 @@
             $('#ext_height_error').show();
             $('#ext_height_error').html('Invalid height');
 
-            input_valid = false;
+            validation['height'] = false;
         } else {
             $('#ext_height_error').hide();
 
             $('#ext_height').removeClass('warning');
             $('#ext_height').removeClass('invalid');
             $('#ext_height').addClass('valid');
-            input_valid = true;
+
+            validation['height'] = true;
         }
 
 
+        const areTrue = Object.values(validation).every(
+            value => value === true
+        );
 
 
-        // if input_valid is true submit the form
-        if (input_valid == true) {
-            // add type=submit to the button
+        //input_valid = false; // remove this
+        // If all the fields are valid, return true. Otherwise, return false:
+        if (areTrue == true) {
             $('#save_import').attr('type', 'submit');
             $('#importForm').submit();
         }
+
     }
 
 
@@ -1469,9 +1535,10 @@
     var $err_diag = "<?= $this->session->flashdata('error-diagnosis') ?>"
     var $err_doc = "<?= $this->session->flashdata('error-doc') ?>"
     var $err_exists = "<?= $this->session->flashdata('patient_exists') ?>"
+    var $v_err_exists = "<?= $this->session->flashdata('v_patient_exists') ?>"
 
     if (toastTrigger) {
-        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc || $err_exists) {
+        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc || $err_exists || $v_err_exists) {
 
 
             if ($err_info == "input-error") {
@@ -1488,6 +1555,11 @@
             if ($err_exists) {
                 $(document).ready(function() {
                     $("#modal-1").modal('show');
+                });
+            }
+            if ($v_err_exists == true) {
+                $(document).ready(function() {
+                    $("#modal-verify").modal('show');
                 });
             }
 

@@ -4,6 +4,37 @@
 <script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
 
+<script>
+    const toastTrigger = document.getElementById('liveToastTrigger')
+    const toastLiveExample = document.getElementById('liveToast')
+
+    var succToast = "<?= $this->session->flashdata('message') ?>";
+    var editFailed = "<?= $this->session->flashdata('edit_failed') ?>";
+    const modal_no = "product-edit-modal-" + editFailed;
+    console.log(modal_no);
+
+    if (toastTrigger) {
+        if (succToast || editFailed) {
+            
+           
+            if (succToast == 'add_failed') {
+                $(document).ready(function() {
+                    $("#product-modal").modal('show');
+                });
+            }
+            if (editFailed) {
+                $(document).ready(function() {
+                    $("#"+modal_no).modal('show');
+                });
+            }
+
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
+
+        }
+    }
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('#inventory-table').DataTable({
@@ -17,32 +48,48 @@
             },
 
             //Set column definition initialisation properties.
-            "columnDefs": [
-                { "targets": [ 6 ], "className": "align-middle" ,"orderable": false }, //set not orderable
-                { "className": "inv-td-desc" , targets: [0,1,2,3,4,5,6] },
-                { "className": "w-25", "targets": [2] },
-                { "className": "text-center", targets: [3,4,5,6] },
-                { "className": "justify-content-xxl-end align-items-xxl-center", "targets": [6] },
+            "columnDefs": [{
+                    "targets": [6],
+                    "className": "align-middle",
+                    "orderable": false
+                }, //set not orderable
+                {
+                    "className": "inv-td-desc",
+                    targets: [0, 1, 2, 3, 4, 5, 6]
+                },
+                {
+                    "className": "w-25",
+                    "targets": [2]
+                },
+                {
+                    "className": "text-center",
+                    targets: [3, 4, 5, 6]
+                },
+                {
+                    "className": "justify-content-xxl-end align-items-xxl-center",
+                    "targets": [6]
+                },
                 {
                     "targets": [2], // font size: 0.8rem
-                    "render": function ( data, type, row, meta ) {
+                    "render": function(data, type, row, meta) {
                         return data.replace(/<p>/g, '<p style="font-size: 5px">');
                     }
                 },
-                { "targets": [4], 
-                    render :function(data,type,row){
+                {
+                    "targets": [4],
+                    render: function(data, type, row) {
                         if (data <= 10) {
-                            return '<span class="badge bg-danger w-25 align-align-middle" style="width:max-content;">'+data+'</span><br><strong style="color: #dc3545;"><i class="typcn typcn-warning text-danger me-1"></i> Low on Stocks</strong>';
+                            return '<span class="badge bg-danger w-25 align-align-middle" style="width:max-content;">' + data + '</span><br><strong style="color: #dc3545;"><i class="typcn typcn-warning text-danger me-1"></i> Low on Stocks</strong>';
                         } else if (data <= 20) {
-                            return '<span class="badge bg-warning w-25 align-middle" style="width:max-content;">'+data+'</span>';
+                            return '<span class="badge bg-warning w-25 align-middle" style="width:max-content;">' + data + '</span>';
                         } else {
-                            return '<span class="badge bg-success w-25 align-middle" style="width:max-content;">'+data+'</span>';
+                            return '<span class="badge bg-success w-25 align-middle" style="width:max-content;">' + data + '</span>';
                         }
                     }
                 }
             ]
         });
-        
+
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -55,4 +102,5 @@
 
 
 </body>
+
 </html>

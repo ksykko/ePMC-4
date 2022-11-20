@@ -40,7 +40,7 @@
 									<div class="input-error">
 										<div class="input-group">
 											<!-- <input type="text" class="form-control" name="doctor_name" id="doctor_name" placeholder="Enter Doctor Name"> -->
-											<select class="form-control form-select-sm" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
+											<select class="form-control" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
 												<option value="select" disabled selected>select..</option>
 												<?php foreach ($doctorname as $doctor) : ?>
 													<option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
@@ -56,7 +56,7 @@
 								<div class="col">
 									<div class="input-error">
 										<div class="input-group">
-											<input type="text" class="form-control form-select-sm" name="specialization" id="specialization" placeholder="Enter Specialization">
+											<input type="text" class="form-control" name="specialization" id="specialization" placeholder="Enter Specialization">
 										</div>
 
 									</div>
@@ -68,7 +68,8 @@
 								<div class="col">
 									<div class="input-error">
 										<div class="input-group">
-											<input type="time" class="form-control form-control-sm" name="start_time" id="start_time">
+											<!-- set time to 7:00 am -->
+											<input type="time" class="form-control" name="start_time" id="start_time" value="08:00">
 										</div>
 
 									</div>
@@ -80,7 +81,7 @@
 								<div class="col">
 									<div class="input-error">
 										<div class="input-group">
-											<input type="time" class="form-control form-control-sm" name="end_time" id="end_time">
+											<input type="time" class="form-control" name="end_time" id="end_time" value="18:00">
 										</div>
 
 									</div>
@@ -193,7 +194,7 @@
 							<table class="table table-fit">
 								<thead>
 									<tr>
-										<th class="align-middle border-end border-2">
+										<th class="align-middle border-end border-top border-2 doctor-rounded-corners rounded">
 											<h2>Doctors</h2>
 										</th>
 										<th class="align-middle border-end border-1 text-center">

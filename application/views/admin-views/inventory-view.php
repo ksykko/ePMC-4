@@ -202,7 +202,7 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name"></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h4 class="modal-title ms-3 fw-bolder">View Product</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body mx-5">
@@ -276,8 +276,9 @@
                                             </div>
                                         </div>
                                         <br><br><br>
-                                        <div class="modal-footer"></div>
                                     </div>
+                                    <div class="modal-footer"></div>
+                                    <br><br>
                                 </div>
                             </div>
                         </div>
@@ -290,7 +291,7 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder" id="title-prod-name-edit"></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h4 class="modal-title ms-3 fw-bolder">Edit Product</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <input type="hidden" name="modal_no" value="<?= $product->item_id ?>">
                                     <div class="modal-body mx-5">
