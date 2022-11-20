@@ -19,12 +19,13 @@
 
 <div class="container-fluid mt-5">
     <div class="row mb-3">
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-3">
             <div class="row mb-3">
                 <div class="col">
                     <div class="card mb-4 profile-card">
                         <div class="card-body text-center shadow profile-card mt-5">
-                            <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br>
+                            <!-- <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $avatar ?>"><br><br> -->
+                            <img style="width: 200px;" class="img-fluid rounded-circle" name="avatar" src="<?= base_url('/assets/img/avatars/avatardoc.png')?>"><br><br>
                             <label for="avatar">Hello, <br>
                                 <?= 'Dr. ' . $full_name ?>
                             </label><br>
@@ -37,10 +38,62 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="card mb-4 chart-body-red">
-                        <div class=" py-3 ch-patientrec">
+                    <div class="card mb-4">
+                        <div class="card-header py-3 ch-patientrec">
+                            <h6 class="m-0 fw-bold ms-2 fs-5 ch-heading">Personal Information</h6>
                         </div>
-                        <div class="card-body mx-3">
+                        <div class="card-body text-center shadow">
+                            <div class="mx-3">
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $birth_date ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $sex ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Contact No.:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="contact_no" value="<?= $contact_no ?>" readonly /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-4">
+                        <div class="card-header py-3 ch-patientrec">
+                            <h6 class="m-0 fw-bold ms-2 fs-5 ch-heading">Personal Information</h6>
+                        </div>
+                        <div class="card-body text-center shadow">
+                            <div class="mx-3">
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $birth_date ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $sex ?>" readonly /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 mb-2">
+                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Contact No.:</label></div>
+                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
+                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="contact_no" value="<?= $contact_no ?>" readonly /></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

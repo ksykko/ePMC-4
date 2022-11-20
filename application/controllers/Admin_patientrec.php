@@ -397,7 +397,6 @@ class Admin_patientrec extends CI_Controller
         // concatenate first_name, middle_name, last_name
         $full_name = $this->input->post('first_name') . ' ' . $this->input->post('middle_name') . ' ' . $this->input->post('last_name');
 
-
         $check_existing = $this->Admin_model->patient_exists($full_name);
         $check_arc_existing = $this->Admin_model->arc_patient_exists($full_name);
 
@@ -520,7 +519,7 @@ class Admin_patientrec extends CI_Controller
             $image_path = 'assets/img/patientrec-imports/' . $import;
             $image_content = file_get_contents($image_path);
         }
-        //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
+        $image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
 
         $textractClient = new TextractClient([
             'version' => 'latest',
@@ -634,6 +633,19 @@ class Admin_patientrec extends CI_Controller
             $sex = 'Female';
         }
 
+        $civil_status = strtolower($ext_data['Civil Status:']);
+        if ($civil_status == 'Single' || $civil_status == 'single') {
+            $civil_status = 'Single';
+        } elseif ($civil_status == 'Married' || $civil_status == 'married') {
+            $civil_status = 'Married';
+        } elseif ($civil_status == 'Widowed' || $civil_status == 'widowed') {
+            $civil_status = 'Widowed';
+        } elseif ($civil_status == 'Separated' || $civil_status == 'separated') {
+            $civil_status = 'Separated';
+        } elseif ($civil_status == 'Divorced' || $civil_status == 'divorced') {
+            $civil_status = 'Divorced';
+        }
+
         $address = ucwords(strtolower($ext_data['Address:']));
 
         // convert lbs to kg
@@ -657,7 +669,7 @@ class Admin_patientrec extends CI_Controller
             'Birthday' => $birth_date,
             'Age' => $ext_data['Age:'],
             'Sex' => $sex,
-            'Civil Status' => $ext_data['Civil Status:'],
+            'Civil Status' => $civil_status,
             'Weight' => $weight,
             'Height' => $ext_data['Height:'],
             'Occupation' => $occupation,
@@ -670,90 +682,93 @@ class Admin_patientrec extends CI_Controller
 
     public function verify_import()
     {
+        $full_name = $this->input->post('name');
 
-        // if ($this->form_validation->run() == FALSE) {
-        //     $this->session->set_flashdata('error-import', validation_errors());
-        //     $this->dd(validation_errors());
-        //     redirect('Admin_patientrec');
-        // } else {
-        //$submit = $this->input->post('save_verified');
-
-        //if (isset($submit)) {
-
-        $info = array(
-            'first_name' => $this->input->post('name'),
-            'cell_no' => $this->input->post('mobile_no'),
-            'address' => $this->input->post('address'),
-            'tel_no' => $this->input->post('tel_no'),
-            'birth_date' => $this->input->post('birthday'),
-            'age' => $this->input->post('age'),
-            'sex' => $this->input->post('sex'),
-            'civil_status' => $this->input->post('civil_status'),
-            'occupation' => $this->input->post('occupation'),
-            'password' => $this->input->post('birthday'),
-            'type' => 'import',
-            'role' => 'patient',
-            'avatar' => 'default-avatar.png',
-            'activation_code' => random_string('alnum', 16),
-            'status' => '0',
-            'date_created' => date('Y-m-d H:i:s')
-        );
-        //}
-
-        $insert_id = $this->Admin_model->add_patient($info);
-
-        // create custom patient id based on name initials
-        $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
-
-        // if birthdate is empty, set password to default value 0000-00-00
-        if ($info['birth_date'] == '') {
-            $info['password'] = '0000-00-00';
-        }
-
-        $this->Admin_model->update_patient($insert_id, $info);
+        $check_existing = $this->Admin_model->patient_exists($full_name);
+        $check_arc_existing = $this->Admin_model->arc_patient_exists($full_name);
 
 
-        $patientDetails = array(
-            'patient_id' => $insert_id,
-            'height' => $this->input->post('height'),
-            'weight' => $this->input->post('weight'),
-        );
-
-        // Create a folder for the patient and move the file to the folder
-        $this->create_folder($insert_id);
-
-        $file = $this->input->post('file');
-
-        $new_file = $this->copy_file($file, $insert_id);
-
-        $documents = array(
-            'patient_id' => $insert_id,
-            'doc_name' => 'Imported File',
-            'document' => $new_file,
-        );
-
-        $setId = array(
-            'patient_id' => $insert_id,
-        );
-
-        $activity = array(
-            'activity' => 'A new patient record has been imported in the patient records',
-            'module' => 'Patient Records',
-            'date_created' => date('Y-m-d H:i:s')
-        );
-
-        $this->Admin_model->add_activity($activity);
-
-        $this->session->set_flashdata('message', 'import-success');
-        $this->Admin_model->add_patient_details($patientDetails);
-        $this->Admin_model->add_patient_diagnosis($setId);
-        $this->Admin_model->add_patient_lab_reports($documents);
-        $this->Admin_model->add_patient_treatment_plan($setId);
-
-        if ($this->session->userdata('role') == 'Admin') {
-            redirect('Admin_patientrec');
+        if ($check_existing == true || $check_arc_existing == true) {
+            //$this->dd('existing');
+            $this->session->set_flashdata('v_patient_exists', true);
+            $this->index();
         } else {
-            redirect('Doctor_patientrec');
+            $info = array(
+                'first_name' => $full_name,
+                'cell_no' => $this->input->post('mobile_no'),
+                'address' => $this->input->post('address'),
+                'tel_no' => $this->input->post('tel_no'),
+                'birth_date' => $this->input->post('birthday'),
+                'age' => $this->input->post('age'),
+                'sex' => $this->input->post('sex'),
+                'civil_status' => $this->input->post('civil_status'),
+                'occupation' => $this->input->post('occupation'),
+                'password' => $this->input->post('birthday'),
+                'type' => 'import',
+                'role' => 'patient',
+                'avatar' => 'default-avatar.png',
+                'activation_code' => random_string('alnum', 16),
+                'status' => '0',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+            //}
+
+            $insert_id = $this->Admin_model->add_patient($info);
+
+            // create custom patient id based on name initials
+            $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
+
+            // if birthdate is empty, set password to default value 0000-00-00
+            if ($info['birth_date'] == '') {
+                $info['password'] = '0000-00-00';
+            }
+
+            $this->Admin_model->update_patient($insert_id, $info);
+
+
+            $patientDetails = array(
+                'patient_id' => $insert_id,
+                'height' => $this->input->post('height'),
+                'weight' => $this->input->post('weight'),
+            );
+
+            // Create a folder for the patient and move the file to the folder
+            $this->create_folder($insert_id);
+
+            $file = $this->input->post('file');
+
+            $new_file = $this->copy_file($file, $insert_id);
+
+            $documents = array(
+                'patient_id' => $insert_id,
+                'doc_name' => 'Imported File',
+                'document' => $new_file,
+            );
+
+            $setId = array(
+                'patient_id' => $insert_id,
+            );
+
+            $activity = array(
+                'activity' => 'A new patient record has been imported in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
+
+            $this->session->set_flashdata('message', 'import-success');
+            
+            $this->Admin_model->add_patient_details($patientDetails);
+            $this->Admin_model->add_patient_diagnosis($setId);
+            $this->Admin_model->add_patient_lab_reports($documents);
+            $this->Admin_model->add_patient_treatment_plan($setId);
+
+            if ($this->session->userdata('role') == 'Admin') {
+                redirect('Admin_patientrec');
+            } else {
+                redirect('Doctor_patientrec');
+            }
         }
     }
 
