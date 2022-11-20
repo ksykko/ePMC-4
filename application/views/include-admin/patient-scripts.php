@@ -80,30 +80,6 @@
         if ($('#contact_error').val() == '') {
             $('#contact_error').hide();
         }
-        if ($('#ext_name_error').val() == '') {
-            $('#ext_name_error').hide();
-        }
-        if ($('#ext_age_error').val() == '') {
-            $('#ext_age_error').hide();
-        }
-        if ($('#ext_birthdate_error').val() == '') {
-            $('#ext_birthdate_error').hide();
-        }
-        if ($('#ext_mob_error').val() == '') {
-            $('#ext_mob_error').hide();
-        }
-        if ($('#ext_tel_error').val() == '') {
-            $('#ext_tel_error').hide();
-        }
-        if ($('#ext_weight_error').val() == '') {
-            $('#ext_weight_error').hide();
-        }
-        if ($('#ext_height_error').val() == '') {
-            $('#ext_height_error').hide();
-        }
-
-
-
     });
 
 

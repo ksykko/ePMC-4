@@ -20,36 +20,84 @@
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                     <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
                                         <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                        <span id="fullName_result"></span>
+                                        <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
                                         <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
+                                        <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
                                         <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
+                                        <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Age</label>
                                         <input class="form-control form-control-sm" type="text" id="age" name="age" /><small class="text-danger"><?= form_error('age') ?></small>
-                                        <!-- <div class="invalid-tooltip" style="display: block;">Please enter valid age.</div> -->
+                                        <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group px-1"><label class="form-label">Birth date</label>
                                         <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
-                                            <option value="select" selected disabled>select ...</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
+                                            <?php if (set_value('sex') == 'Male') : ?>
+                                                <option value="" disabled>select ...</option>
+                                                <option value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                            <?php else : ?>
+                                                <option value="" selected disabled>select ...</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            <?php endif; ?>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
-                                            <option value="select" selected disabled>select ...</option>
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Separated">Separated</option>
-                                            <option value="Widowed">Widowed</option>
+                                            <?php if (set_value('civil_status') == 'Single') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single" selected>Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Married') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married" selected>Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Divorced') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced" selected>Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Separated') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated" selected>Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Widowed') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed" selected>Widowed</option>
+                                            <?php else : ?>
+                                                <option value="" selected disabled>select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php endif; ?>
                                         </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /><small class="text-danger"><?= form_error('occupation') ?></small></div>
                                 </div>
@@ -64,11 +112,16 @@
                                 <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small></div>
+                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" /><small class="text-danger"><?= form_error('cell_no') ?></small>
+                                        <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" /><small class="text-danger"><?= form_error('tel_no') ?></small>
+                                        <label id="tel_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" /><small class="text-danger"><?= form_error('email') ?></small>
+                                        <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +146,7 @@
                                 <div class="row mb-2">
                                     <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No</label>
                                         <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" /><small class="text-danger"><?= form_error('ec_contact_no') ?></small>
+                                        <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                             </div>
