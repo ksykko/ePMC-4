@@ -1230,7 +1230,7 @@
                 $('#ext_birthdate').addClass('invalid');
 
                 $('#ext_birthdate_error').show();
-                $('#ext_birthdate_error').html('Invalid birthdate');
+                $('#ext_birthdate_error').html('Birthdate does not match age');
 
                 input_valid = false;
             } else {
@@ -1497,12 +1497,21 @@
             },
 
             //Set column definition initialisation properties.
-            "columnDefs": [{
-                "targets": [3], //first column / numbering column
-                "orderable": false, //set not orderable
-                "className": "text-center",
-                "targets": [3],
-            }]
+            "columnDefs": [
+                {
+                    "targets": [3], //first column / numbering column
+                    "orderable": false, //set not orderable
+                    "className": "text-center",
+                    "targets": [3],
+                },
+                {
+                    // "targets": [1],
+                    // render: function(data, type, row) {
+                    //     // if data is null || '', remo0b
+                    // },
+                }
+            ]
+            
         });
     });
 </script>

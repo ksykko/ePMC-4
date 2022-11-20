@@ -119,8 +119,14 @@ class Admin_model extends CI_Model
     }
 
     public function add_patient($info)
-    { // add patient record
-        $this->db->insert('patient_record', $info); 
+    {   // add patient record
+        // add mysqli_real_escape_string to prevent sql injection
+        $connection = $this->db->conn_id;
+        $info['first_name'] = mysqli_real_escape_string($connection, $info['first_name']);
+
+        //$this->dd($info['first_name']);
+
+        $this->db->insert('patient_record', $info);
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
@@ -193,7 +199,6 @@ class Admin_model extends CI_Model
         $currentDate = "'" . date('Y-m-d') . "'";
         $sql = "SELECT * FROM `patient_record` WHERE DATE(date_created) = $currentDate;";
         return $this->db->query($sql)->num_rows();
-        
     }
 
 
@@ -442,7 +447,7 @@ class Admin_model extends CI_Model
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result_array();
     }
-    
+
     // END OF patient_lab_reports table
 
 
@@ -469,20 +474,82 @@ class Admin_model extends CI_Model
     // End of Recent Activity 
 
     // check if patient exists
-    public function is_patient_exists($name)
+    public function patient_exists($name)
     {
         $this->db->select('CONCAT(first_name, " ", middle_name, " ", last_name) AS full_name');
         $this->db->from('patient_record');
         $query = $this->db->get();
 
-       // loop through the result and check if the name exists
+        // loop through the result and check if the name exists
+        foreach ($query->result() as $row) {
+            if ($row->full_name == $name) {
+                //$this->dd(true);
+                return true;
+            }
+        }
+
+        $this->db->select('CONCAT(first_name, " ", last_name) AS full_name');
+        $this->db->from('patient_record');
+        $query = $this->db->get();
+
         foreach ($query->result() as $row) {
             if ($row->full_name == $name) {
                 return true;
             }
         }
+
+        $this->db->select('first_name');
+        $this->db->from('patient_record');
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+            if ($row->first_name == $name) {
+                return true;
+            }
+        }
+
         return false;
-        
     }
 
+    public function arc_patient_exists($name)
+    {
+        $this->db->select('CONCAT(first_name, " ", middle_name, " ", last_name) AS full_name');
+        $this->db->from('arc_patient_record',);
+        $query = $this->db->get();
+
+        // loop through the result and check if the name exists
+        foreach ($query->result() as $row) {
+            if ($row->full_name == $name) {
+                return true;
+            }
+        }
+
+        $this->db->select('CONCAT(first_name, " ", last_name) AS full_name');
+        $this->db->from('arc_patient_record');
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+            if ($row->full_name == $name) {
+                return true;
+            }
+        }
+
+        $this->db->select('first_name');
+        $this->db->from('arc_patient_record');
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+            if ($row->first_name == $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
+    }
 }

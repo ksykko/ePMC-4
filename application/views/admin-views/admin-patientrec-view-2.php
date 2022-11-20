@@ -3,7 +3,7 @@
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 btn-save-patient me-4 btn-success dbl-btn w-auto" type="button" data-bs-toggle="modal" data-bs-target="#prompt-modal"><i class="fas fa-save"></i><strong class="d-none d-lg-inline-block"><span style="color: var(--bs-btn-hover-color);">Save</span></strong></button>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 btn-save-patient me-4 btn-success dbl-btn w-auto" type="button" data-bs-toggle="modal" data-bs-target="#prompt-modal"><i class="fas fa-save me-lg-1"></i><strong class="d-none d-lg-inline-block"><span style="color: var(--bs-btn-hover-color);">Save</span></strong></button>
             <div id="prompt-modal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <?php if ($user_role == 'Admin') : ?>
-            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
+            <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit me-lg-1"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
                 <div id="mdl-personal-info" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                     <div class="modal-dialog modal-lg" role="document">
                         <?php if ($patient->type == 'import') : ?>
@@ -537,7 +537,7 @@
                 </div>
             </div>
         <?php endif; ?>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left me-lg-1"></i><strong class="d-none d-lg-inline-block">Back</strong></button></div>
     </div>
     <div>
         <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
