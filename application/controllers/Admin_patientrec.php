@@ -62,7 +62,7 @@ class Admin_patientrec extends CI_Controller
             $row[] = $patient->type;
             $row[] = '
                 <td class="text-center" colspan="1"> 
-                    <a class="btn btn-sm btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
+                    <a class="btn btn-sm btn-light" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
                     <button class="btn btn-sm btn-link shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $patient->patient_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
@@ -197,10 +197,19 @@ class Admin_patientrec extends CI_Controller
     {
         $this->load->model('Admin_model');
 
-        //var_dump($_POST['full_name']);
+        if ($this->Admin_model->patient_exists($_POST['full_name'])) {
+            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Patient already exists</label>';
 
-        if ($this->Admin_model->is_patient_exists($_POST['full_name'])) {
-            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Record already exists</label>';
+            // add invalid class to input
+            echo '<script>
+            $(document).ready(function(){
+                $("#first_name").addClass("invalid");
+                $("#middle_name").addClass("invalid");
+                $("#last_name").addClass("invalid");
+            });
+            </script>';
+        } else if ($this->Admin_model->arc_patient_exists($_POST['full_name'])) {
+            echo '<label id="checkExist" class="text-danger font-monospace" style="font-size:13px">Patient already exists in <a href="' . base_url('Admin_archives') . '" class="text-danger"><u>archives</u></a></label>';
 
             // add invalid class to input
             echo '<script>
@@ -211,20 +220,31 @@ class Admin_patientrec extends CI_Controller
             });
             </script>';
         }
-        // } else {
-        //     echo '<label class="text-success font-monospace" style="font-size:13px"><svg class="ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
-        //     <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-        //     <path d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM371.8 211.8C382.7 200.9 382.7 183.1 371.8 172.2C360.9 161.3 343.1 161.3 332.2 172.2L224 280.4L179.8 236.2C168.9 225.3 151.1 225.3 140.2 236.2C129.3 247.1 129.3 264.9 140.2 275.8L204.2 339.8C215.1 350.7 232.9 350.7 243.8 339.8L371.8 211.8z"></path>
-        //     </svg> Record available</label>';
+    }
 
-        //     echo '<script>
-        //     $(document).ready(function(){
-        //         $("#first_name").addClass("valid");
-        //         $("#middle_name").addClass("valid");
-        //         $("#last_name").addClass("valid");
-        //     });
-        //     </script>';
-        // }
+    public function import_check()
+    {
+        $this->load->model('Admin_model');
+
+        if ($this->Admin_model->patient_exists($_POST['ext_name'])) {
+            echo '<label id="impcheckExist" class="text-danger font-monospace" style="font-size:13px">Patient already exists</label>';
+
+            // add invalid class to input
+            echo '<script>
+            $(document).ready(function(){
+                $("#ext_name").addClass("invalid");
+            });
+            </script>';
+        } else if ($this->Admin_model->arc_patient_exists($_POST['ext_name'])) {
+            echo '<label id="impcheckExist" class="text-danger font-monospace" style="font-size:13px">Patient already exists in <a href="' . base_url('Admin_archives') . '" class="text-danger"><u>archives</u></a></label>';
+
+            // add invalid class to input
+            echo '<script>
+            $(document).ready(function(){
+                $("#ext_name").addClass("invalid");
+            });
+            </script>';
+        }
     }
 
     public function edit_patient($id)
@@ -345,14 +365,13 @@ class Admin_patientrec extends CI_Controller
     {
         $data['user_role'] = $this->session->userdata('role');
 
-        if ($data['user_role'] == 'Admin'){
+        if ($data['user_role'] == 'Admin') {
             $data['title'] = 'Admin - Patient Records | ePMC';
-        }
-        else {
+        } else {
             $data['title'] = 'Doctor - Patient Records | ePMC';
         }
 
-        
+
         $data['patient'] = $this->Admin_model->get_patient_row($id);
         $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
         $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
@@ -374,153 +393,93 @@ class Admin_patientrec extends CI_Controller
 
     public function add_patient_validation()
     {
-        // $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
 
-        // $this->form_validation->set_rules('middle_name', 'Middle name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('age', 'Age', 'required|numeric|is_natural_no_zero', array(
-        //     'required' => 'Please enter patient\'s %s.',
-        //     'numeric' => 'Please enter a valid %s.'
-        // ));
-
-        // $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('sex', 'Sex', 'required', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('occupation', 'Occupation', 'required', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('address', 'Address', 'required', array(
-        //     'required' => 'Please enter an %s.'
-        // ));
-
-        // $this->form_validation->set_rules('cell_no', 'Cellphone #', 'required|numeric|min_length[11]', array(
-        //     'required' => 'Please enter patient\'s %s.',
-        //     'numeric' => 'Please enter a valid %s.'
-        // ));
-
-        // $this->form_validation->set_rules('tel_no', 'Telephone #', 'required|numeric|min_length[7]', array(
-        //     'required' => 'Please enter patient\'s %s.',
-        //     'numeric' => 'Please enter a valid %s.'
-        // ));
-
-        // $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
-        //     'required' => 'Please enter patient\'s %s.',
-        //     'valid_email' => 'Please enter a valid %s.'
-        // ));
-
-        // $this->form_validation->set_rules('ec_name', 'Emergency contact name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter an %s.'
-        // ));
-
-        // $this->form_validation->set_rules('relationship', 'Emergency contact relationship', 'required', array(
-        //     'required' => 'Please enter patient\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('ec_contact_no', 'Emergency contact #', 'required|numeric|min_length[11]', array(
-        //     'required' => 'Please enter an %s.',
-        //     'numeric' => 'Please enter a valid %s.'
-        // ));
+        // concatenate first_name, middle_name, last_name
+        $full_name = $this->input->post('first_name') . ' ' . $this->input->post('middle_name') . ' ' . $this->input->post('last_name');
 
 
-        // if ($this->form_validation->run() == FALSE) {
+        $check_existing = $this->Admin_model->patient_exists($full_name);
+        $check_arc_existing = $this->Admin_model->arc_patient_exists($full_name);
 
-        //     $this->index();
-        //     // echo "
-        //     // <script>
-        //     //     $(window).load(function(){
-        //     //         $('#modal-1').modal('show');
-        //     //     });
-        //     // </script>
-        //     // ";
-        // } else {
-        //$addPatient = $this->input->post('addPatient');
 
-        $info = array(
-            'first_name' => $this->input->post('first_name'),
-            'middle_name' => $this->input->post('middle_name'),
-            'last_name' => $this->input->post('last_name'),
-            'age' => $this->input->post('age'),
-            'birth_date' => $this->input->post('birth_date'),
-            'sex' => $this->input->post('sex'),
-            'civil_status' => $this->input->post('civil_status'),
-            'occupation' => $this->input->post('occupation'),
-            'address' => $this->input->post('address'),
-            'cell_no' => $this->input->post('cell_no'),
-            'tel_no' => $this->input->post('tel_no'),
-            'email' => $this->input->post('email'),
-            'ec_name' => $this->input->post('ec_name'),
-            'relationship' => $this->input->post('relationship'),
-            'ec_contact_no' => $this->input->post('ec_contact_no'),
-            'password' => $this->input->post('birth_date'),
-            'type' => 'added',
-            'role' => 'patient',
-            'avatar' => 'default-avatar.png',
-            'last_checkup' => date('Y-m-d H:i:s'),
-            'activation_code' => random_string('alnum', 16),
-            'status' => '0',
-            'date_created' => date('Y-m-d H:i:s')
-        );
-
-        $insert_id = $this->Admin_model->add_patient($info);
-
-        // create custom patient id based on name initials
-        $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
-
-        // if birthdate is empty, set password to default value 0000-00-00
-        if ($info['birth_date'] == '') {
-            $info['password'] = '0000-00-00';
-        }
-
-        // update patient
-        $update = $this->Admin_model->update_patient($insert_id, $info);
-        //$this->dd($update);
-
-        $this->create_folder($insert_id);
-
-        $patientDetails = array(
-            'patient_id' => $insert_id,
-            'height' => '0',
-            'weight' => '0',
-        );
-
-        $setId = array(
-            'patient_id' => $insert_id
-        );
-
-        $activity = array(
-            'activity' => 'A new patient record has been added in the patient records',
-            'module' => 'Patient Records',
-            'date_created' => date('Y-m-d H:i:s')
-        );
-
-        $this->Admin_model->add_activity($activity);
-
-        $this->session->set_flashdata('message', 'success');
-        $this->Admin_model->add_patient_details($patientDetails);
-        $this->Admin_model->add_patient_diagnosis($setId);
-        $this->Admin_model->add_patient_lab_reports($setId);
-        $this->Admin_model->add_patient_treatment_plan($setId);
-
-        if ($this->session->userdata('role') == 'Admin') {
-            redirect('Admin_patientrec');
+        if ($check_existing == true || $check_arc_existing == true) {
+            //$this->dd('existing');
+            $this->session->set_flashdata('patient_exists', 'Patient already exists.');
+            $this->index();
         } else {
-            redirect('Doctor_patientrec');
+            //$this->dd('success');
+            $info = array(
+                'first_name' => $this->input->post('first_name'),
+                'middle_name' => $this->input->post('middle_name'),
+                'last_name' => $this->input->post('last_name'),
+                'age' => $this->input->post('age'),
+                'birth_date' => $this->input->post('birth_date'),
+                'sex' => $this->input->post('sex'),
+                'civil_status' => $this->input->post('civil_status'),
+                'occupation' => $this->input->post('occupation'),
+                'address' => $this->input->post('address'),
+                'cell_no' => $this->input->post('cell_no'),
+                'tel_no' => $this->input->post('tel_no'),
+                'email' => $this->input->post('email'),
+                'ec_name' => $this->input->post('ec_name'),
+                'relationship' => $this->input->post('relationship'),
+                'ec_contact_no' => $this->input->post('ec_contact_no'),
+                'password' => $this->input->post('birth_date'),
+                'type' => 'added',
+                'role' => 'patient',
+                'avatar' => 'default-avatar.png',
+                'last_checkup' => date('Y-m-d H:i:s'),
+                'activation_code' => random_string('alnum', 16),
+                'status' => '0',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $insert_id = $this->Admin_model->add_patient($info);
+
+            // create custom patient id based on name initials
+            $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+
+            // if birthdate is empty, set password to default value 0000-00-00
+            if ($info['birth_date'] == '') {
+                $info['password'] = '0000-00-00';
+            }
+
+            // update patient
+            $update = $this->Admin_model->update_patient($insert_id, $info);
+            //$this->dd($update);
+
+            $this->create_folder($insert_id);
+
+            $patientDetails = array(
+                'patient_id' => $insert_id,
+                'height' => '0',
+                'weight' => '0',
+            );
+
+            $setId = array(
+                'patient_id' => $insert_id
+            );
+
+            $activity = array(
+                'activity' => 'A new patient record has been added in the patient records',
+                'module' => 'Patient Records',
+                'date_created' => date('Y-m-d H:i:s')
+            );
+
+            $this->Admin_model->add_activity($activity);
+
+            $this->session->set_flashdata('message', 'success');
+            $this->Admin_model->add_patient_details($patientDetails);
+            $this->Admin_model->add_patient_diagnosis($setId);
+            $this->Admin_model->add_patient_lab_reports($setId);
+            $this->Admin_model->add_patient_treatment_plan($setId);
+
+            if ($this->session->userdata('role') == 'Admin') {
+                redirect('Admin_patientrec');
+            } else {
+                redirect('Doctor_patientrec');
+            }
         }
-        //}
     }
 
     public function create_patient_id($first_name, $middle_name, $last_name, $insert_id)

@@ -39,55 +39,93 @@
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Age</label>
-                                        <input class="form-control form-control-sm" type="text" id="age" name="age" /><small class="text-danger"><?= form_error('age') ?></small>
+                                        <input class="form-control form-control-sm" type="text" id="age" name="age" value="<?= set_value('age') ?>" /><small class="text-danger"><?= form_error('age') ?></small>
                                         <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                     <div class="col form-group px-1"><label class="form-label">Birth date</label>
-                                        <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" /><small class="text-danger"><?= form_error('birth_date') ?></small>
+                                        <input class="form-control form-control-sm" id="birth_date" name="birth_date" type="date" value="<?= set_value('birth_date') ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
                                         <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm" id="sex" name="sex">
-                                            <option value="" selected disabled>select ...</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
+                                            <?php if (set_value('sex') == 'Male') : ?>
+                                                <option value="" disabled>select ...</option>
+                                                <option value="Male" selected>Male</option>
+                                                <option value="Female">Female</option>
+                                            <?php else : ?>
+                                                <option value="" selected disabled>select ...</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            <?php endif; ?>
                                         </select><small class="text-danger"><?= form_error('sex') ?></small></div>
                                     <div class="col form-group px-1"><label class="form-label">Civil Status</label><select class="form-select form-select-sm" id="civil_status" name="civil_status">
-                                            <option value="" selected>select ...</option>
-                                            <option value="Single">Single</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Separated">Separated</option>
-                                            <option value="Widowed">Widowed</option>
+                                            <?php if (set_value('civil_status') == 'Single') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single" selected>Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Married') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married" selected>Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Divorced') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced" selected>Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Separated') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated" selected>Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php elseif (set_value('civil_status') == 'Widowed') : ?>
+                                                <option value="">select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed" selected>Widowed</option>
+                                            <?php else : ?>
+                                                <option value="" selected disabled>select ...</option>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                                <option value="Separated">Separated</option>
+                                                <option value="Widowed">Widowed</option>
+                                            <?php endif; ?>
                                         </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
-                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" /></div>
+                                    <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm" type="text" id="occupation" name="occupation" value="<?= set_value('occupation') ?>" /></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Address</label>
-                                        <input class="form-control form-control-sm" type="text" id="address" name="address" />
+                                        <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= set_value('address') ?>" />
                                     </div>
                                 </div>
-                                <!-- <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Full Name</label>
-                                        <input class="form-control form-control-sm combine" type="text" id="full_name" name="full_name" value="" />
-                                    </div>
-                                </div> -->
                             </div>
 
                             <div class="tab">
                                 <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" />
+                                    <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" value="<?= set_value('cell_no') ?>" />
                                         <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
-                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" />
+                                    <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm" type="tel" id="tel_no" name="tel_no" value="<?= set_value('tel_no') ?>" />
                                         <label id="tel_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" />
+                                    <div class="col form-group px-1"><label class="form-label">Email</label><input class="form-control form-control-sm" type="email" id="email" name="email" placeholder="name@example.com" value="<?= set_value('email') ?>" />
                                         <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
@@ -97,7 +135,7 @@
                                 <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" /></div>
+                                    <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= set_value('ec_name') ?>" /></div>
                                     <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm" id="relationship" name="relationship">
                                             <option value="" selected disabled>select ...</option>
                                             <option value="Father">Father</option>
@@ -112,7 +150,7 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No.</label>
-                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" />
+                                        <input class="form-control form-control-sm" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= set_value('ec_contact_no') ?>" />
                                         <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
@@ -224,6 +262,7 @@
                                     <div class="row mb-3">
                                         <div class="col"><label class="form-label">Name</label>
                                             <div class="input-group"><input class="form-control form-control-sm" type="text" id="ext_name" name="name" value="<?= $ext_data['Name'] ?>" /></div>
+                                            <span id="extName_result"></span>
                                             <label id="ext_name_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
@@ -350,6 +389,16 @@
                                 </div>
                                 <div class="toast-body bg-opacity-50">
                                     <span><?= $this->session->flashdata('error-import'); ?></span>
+                                </div>
+                            </div>
+                        <?php elseif ($this->session->flashdata('patient_exists')) : ?>
+                            <div id="liveToast" class="toast border-0 toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header toast-error">
+                                    <strong class="me-auto">Error!</strong>
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body bg-opacity-50">
+                                    <span>Invalid input.</span>
                                 </div>
                             </div>
                         <?php endif; ?>

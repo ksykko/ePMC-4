@@ -101,9 +101,6 @@
         if ($('#ext_height_error').val() == '') {
             $('#ext_height_error').hide();
         }
-
-
-        
     });
 
 
@@ -153,7 +150,7 @@
         if (first_name.value != '' && last_name.value != '') {
             checkName();
         }
-        
+
         if (middle_name.value == '') {
             $('#middle_name').removeClass('invalid');
             $('#middle_name').addClass('warning');
@@ -575,20 +572,8 @@
             input_valid = true;
         }
 
-
-        checkName().then((data) => {
-            if (data != 'false') {
-                return 'putangina';
-            }
-
-        });
-
-        //if record already exists input_valid = false
-        if (checkName() == 'true') {
-            input_valid = false;
-            alert('Patient already exists!');
-        }
-
+        // check if input is existing
+        checkName();
 
         // age validation
         // if age has error add invalid class
@@ -696,7 +681,7 @@
 
 
         // civil status validation
-        if (civil_status == '') {
+        if (civil_status == '' || civil_status == null) {
             $('#civil_status').removeClass('invalid');
             $('#civil_status').addClass('warning');
         } else {
@@ -864,8 +849,12 @@
         ext_weight = document.getElementById('ext_weight'),
         ext_height = document.getElementById('ext_height');
 
-    
+
+
+
     ext_name.onblur = function() {
+        impcheckName();
+
         if (ext_name.value == '') {
             $('#ext_name_error').show();
             $('#ext_name_error').html('Name is required');
@@ -965,8 +954,7 @@
                 $('#ext_birthdate').addClass('valid');
                 input_valid = true;
             }
-        }
-        else {
+        } else {
             $('#ext_birthdate_error').hide();
 
             $('#ext_birthdate').removeClass('warning');
@@ -1135,7 +1123,7 @@
             input_valid = true;
         }
     }
-        
+
 
     function validateImport() {
         var input_valid = true,
@@ -1151,6 +1139,7 @@
             weight = $('#ext_weight').val(),
             height = $('#ext_height').val();
 
+        impcheckName();
 
         if (name == '') {
             $('#ext_name').addClass('invalid');
@@ -1166,7 +1155,7 @@
             $('#ext_name').removeClass('invalid');
             $('#ext_name').addClass('valid');
         }
-        
+
 
         if (age < 0 || age > 120) {
             $('#ext_age').removeClass('warning');
@@ -1224,7 +1213,7 @@
                 $('#ext_birthdate').addClass('invalid');
 
                 $('#ext_birthdate_error').show();
-                $('#ext_birthdate_error').html('Invalid birthdate');
+                $('#ext_birthdate_error').html('Birthdate does not match age');
 
                 input_valid = false;
             } else {
@@ -1307,7 +1296,7 @@
             $('#ext_mob').addClass('valid');
             input_valid = true;
         }
-       
+
 
         if (tel == '') {
             $('#ext_tel').removeClass('valid');
@@ -1373,7 +1362,7 @@
             $('#ext_height').addClass('valid');
             input_valid = true;
         }
-        
+
 
 
 
@@ -1387,32 +1376,63 @@
 
 
     async function checkName() {
+
+        var url = '<?= site_url('Admin_patientrec/check_name') ?>';
+        let result;
         var first_name = $('#first_name').val();
         var middle_name = $('#middle_name').val();
         var last_name = $('#last_name').val();
         var full_name = first_name + ' ' + middle_name + ' ' + last_name;
-        var url = '<?= site_url('Admin_patientrec/check_name') ?>';
 
-        let result;
+        if (full_name != '') {
 
-        try {
-            if (full_name != '') {
-                result = await $.ajax({
-                    url: url,
-                    method: 'POST',
-                    data: {
-                        full_name: full_name
-                    },
-                    success: function(data) {
-                        $('#fullName_result').html(data);
-                    }
-                });
-                return result;
+            try {
+                if (full_name != '') {
+                    result = await $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: {
+                            full_name: full_name
+                        },
+                        success: function(data) {
+                            $('#fullName_result').html(data);
+                        }
+                    });
+                    return result;
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
 
+    }
+
+    async function impcheckName() {
+        let result;
+        var imp_url = '<?= site_url('Admin_patientrec/import_check') ?>';
+        var ext_name = $('#ext_name').val();
+
+
+        if (ext_name != '') {
+
+            try {
+                if (ext_name != '') {
+                    result = await $.ajax({
+                        url: imp_url,
+                        method: 'POST',
+                        data: {
+                            ext_name: ext_name
+                        },
+                        success: function(data) {
+                            $('#extName_result').html(data);
+                        }
+                    });
+                    return result;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
 
     function fixStepIndicator(n) {
@@ -1448,11 +1468,11 @@
     var $err_info = "<?= $this->session->flashdata('error') ?>"
     var $err_diag = "<?= $this->session->flashdata('error-diagnosis') ?>"
     var $err_doc = "<?= $this->session->flashdata('error-doc') ?>"
+    var $err_exists = "<?= $this->session->flashdata('patient_exists') ?>"
 
     if (toastTrigger) {
-        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc) {
-            const toast = new bootstrap.Toast(toastLiveExample)
-            toast.show()
+        if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc || $err_exists) {
+
 
             if ($err_info == "input-error") {
                 $(document).ready(function() {
@@ -1465,6 +1485,14 @@
                     $("#mdl-add-treatment-plan").modal('show');
                 });
             }
+            if ($err_exists) {
+                $(document).ready(function() {
+                    $("#modal-1").modal('show');
+                });
+            }
+
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
         };
     }
 </script>
