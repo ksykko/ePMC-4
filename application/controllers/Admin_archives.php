@@ -18,9 +18,15 @@ class Admin_archives extends CI_Controller
 
             $id = $this->session->userdata('admin_id');
 
-            $data['title'] = 'Admin - Archives | ePMC';
-            $data['patient'] = $this->Admin_model->get_arc_patient_row($id);
             $data['user_role'] = $this->session->userdata('role');
+
+            if ($data['user_role'] == 'Admin') {
+                $data['title'] = 'Admin - Archived Records | ePMC';
+            } else {
+                $data['title'] = 'Doctor - Archived Records | ePMC';
+            }
+
+            $data['patient'] = $this->Admin_model->get_arc_patient_row($id);
             $data['user_specialization'] = $this->session->userdata('specialization');
             $data['patients'] = $this->Admin_model->get_arc_patient_table();
 
@@ -74,7 +80,7 @@ class Admin_archives extends CI_Controller
     }
 
     public function restore_patient($id)
-    {   
+    {
         $activity = array(
             'activity' => 'A patient has been restored from the archives',
             'module' => 'Archives',
