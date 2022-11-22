@@ -18,286 +18,269 @@
 </style> -->
 
 <div class="container-fluid mt-5">
-    <div class="row mb-3">
-        <div class="col-12 col-lg-3">
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="card mb-4 profile-card">
-                        <div class="card-body text-center shadow profile-card">
-                            <img style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
-                            <label for="avatar">Hello, <br>
-                                <?= $user_name ?>
-                            </label><br>
-                            <label for="avatar" class="role">
-                                <?= $user_role ?>
-                            </label><br>
-                        </div>
+    <!-- Start: first row -->
+    <div class="row gy-3 row-cols-1 row-cols-lg-4 mb-4 dshb-main">
+        <div class="col">
+            <div class="card dashboard-cards border-0 h-100">
+                <div class="card-body bw-dashboard">
+                    <div class="dash-inner-content">
+                        <i class="fas fa-notes-medical"></i>
+                        <label for="" class="number-label">
+                            <?= $patient_count ?>
+                        </label>
+                        <label for="" class="description-label">Total no. of Patient
+                            Records</label>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card mb-4">
-                        <div class="card-header py-3 ch-patientrec">
-                            <h6 class="m-0 fw-bold ms-2 fs-5 ch-heading">Personal Information</h6>
-                        </div>
-                        <div class="card-body text-center shadow">
-                            <div class="mx-3">
-                                <div class="row row-cols-1 mb-2">
-                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Birthdate:</label></div>
-                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="birth_date" value="<?= $birth_date ?>" readonly /></div>
-                                    </div>
-                                </div>
-                                <div class="row row-cols-1 mb-2">
-                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Sex:</label></div>
-                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="sex" value="<?= $sex ?>" readonly /></div>
-                                    </div>
-                                </div>
-                                <div class="row row-cols-1 mb-2">
-                                    <div class="col d-xxl-flex justify-content-xxl-start align-items-xxl-center" style="text-align: left;"><label class="col-form-label fs-6\">Contact No.:</label></div>
-                                    <div class="col d-flex d-xxl-flex align-items-center justify-content-xxl-center align-items-xxl-center">
-                                        <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" name="contact_no" value="<?= $contact_no ?>" readonly /></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="card shadow mb-4">
-                <div class="card-header py-3 ch-patientrec">
-                </div>
-                <div class="card-body mx-3">
-                </div>
-            </div>
-            <div class="card shadow">
-                <div class="card-header py-3 ch-patientrec">
-                </div>
-                <div class="card-body mx-3">
-
-                </div>
-            </div> -->
         </div>
-
-        <div class="col gy-3 gy-md-3 gy-lg-0">
-            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 dshb-main">
-                <div class="col">
-                    <div class="card dashboard-cards border-0 h-100">
-                        <div class="card-body bw-dashboard">
-                            <div class="dash-inner-content">
-                                <i class="fas fa-notes-medical"></i>
-                                <label for="" class="number-label">
-                                    <?= $patient_count ?>
-                                </label>
-                                <label for="" class="description-label">Total no. of Patient
-                                    Records</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card dashboard-cards border-0 h-100">
-                        <div class="card-body bw-dashboard">
-                            <div class="dash-inner-content">
-                                <i class="fas fa-archive"></i>
-                                <label for="" class="number-label">
-                                    <?php
-                                    $sum_stockin = 0;
-                                    $sum_stockout = 0;
-                                    foreach ($inventory_stocks as $product) {
-                                        $sum_stockin += $product->stock_in;
-                                        $sum_stockout += $product->stock_out;
-                                    }
-                                    echo $sum_stockin + $sum_stockout;
-                                    ?>
-                                </label>
-                                <label for="" class="description-label">Total no. of Inventory
-                                    Items</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card dashboard-cards border-0 h-100">
-                        <div class="card-body bw-dashboard">
-                            <div class="dash-inner-content">
-                                <i class="fas fa-user-alt"></i>
-                                <label for="" class="number-label">
-                                    <?= $users_count ?>
-                                </label>
-                                <label for="" class="description-label">Total no. of User
-                                    Accounts</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card dashboard-cards border-0 h">
-                        <div class="card-body bw-dashboard">
-                            <div class="dash-inner-content">
-                                <i class="fas fa-address-book"></i>
-                                <label for="" class="number-label">
-                                    <?= $new_patient_count ?>
-                                </label>
-                                <label for="" class="description-label">Total no. of New Patients
-                                    today</label>
-                            </div>
-                        </div>
+        <div class="col">
+            <div class="card dashboard-cards border-0 h-100">
+                <div class="card-body bw-dashboard">
+                    <div class="dash-inner-content">
+                        <i class="fas fa-archive"></i>
+                        <label for="" class="number-label">
+                            <?php
+                            $sum_stockin = 0;
+                            $sum_stockout = 0;
+                            foreach ($inventory_stocks as $product) {
+                                $sum_stockin += $product->stock_in;
+                                $sum_stockout += $product->stock_out;
+                            }
+                            echo $sum_stockin + $sum_stockout;
+                            ?>
+                        </label>
+                        <label for="" class="description-label">Total no. of Inventory
+                            Items</label>
                     </div>
                 </div>
             </div>
-
-            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
-                <div class="col-lg-7 col-xl-8">
-                    <!-- <div class="card shadow mb-4 h-100 chart-body-red">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
-                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's Age Range Overview</h6>
-                        </div>
-                        <div class="card-body mx-3 my-3">
-                            <div class="chart-area">
-                                <canvas id="sampleChart"></canvas>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="card shadow mb-4 h-100 chart-body-purp">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
-                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
-                        </div>
-                        <div class="card-body mx-3 my-3">
-                            <div class="chart-area">
-                                <canvas id="sampleChart4"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100 chart-body-violet">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
-                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-area">
-                                <canvas class="align-items-center" id="sampleChart2"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!-- 
-            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
-                <div class="col-lg-7 col-xl-8">
-                    <div class="card shadow mb-4 h-100 chart-body-purp">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
-                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
-                        </div>
-                        <div class="card-body mx-3 my-3">
-                            <div class="chart-area">
-                                <canvas id="sampleChart4"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-5 col-xl-4">
-                    <div class="card shadow mb-4 h-100 chart-body-blue">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-blue">
-                            <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patients' Sex Overview</h6>
-                        </div>
-                        <div class="card-body mx-3 my-3 d-flex justify-content-center">
-                            <div class="chart-area">
-                                <canvas class=" align-items-center" id="sampleChart3"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div> -->
-
-            <div class="row gy-3 gy-md-3 row-cols-1 row-cols-lg-4 mt-3">
-                <div class="col-lg-12 col-xl-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                            <h6 class="fw-bold fs-5 m-0 ch-heading">Recent Activity</h6>
-                        </div>
-                        <div class="card-body mx-3 ">
-                            <table id="recent_activity_table" class="table table-hover d-column w-100  ">
-                                <thead>
-                                    <tr>
-                                        <th class="inv-td">Activity</th>
-                                        <th class="inv-td">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
-
+        <div class="col">
+            <div class="card dashboard-cards border-0 h-100">
+                <div class="card-body bw-dashboard">
+                    <div class="dash-inner-content">
+                        <i class="fas fa-user-alt"></i>
+                        <label for="" class="number-label">
+                            <?= $users_count ?>
+                        </label>
+                        <label for="" class="description-label">Total no. of User
+                            Accounts</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card dashboard-cards border-0 h">
+                <div class="card-body bw-dashboard">
+                    <div class="dash-inner-content">
+                        <i class="fas fa-address-book"></i>
+                        <label for="" class="number-label">
+                            <?= $new_patient_count ?>
+                        </label>
+                        <label for="" class="description-label">Total no. of New Patients
+                            today</label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- End: first row -->
+    <!-- Start: second row -->
+    <div class="row gy-3 row-cols-1 row-cols-lg-3 mb-4">
+        <div class="col col-lg-3">
+            <div class="card shadow mb-4 profile-card">
+                <div class="card-body text-center shadow profile-card">
+                    <img class="mt-4" style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/avatars/avatar1.png') ?>"><br><br>
+                    <label for="avatar">Hello, <br>
+                        <?= $user->first_name . ' ' . $user->middle_name . ' ' . $user->last_name ?>
+                    </label><br>
+                    <label for="avatar" class="role">
+                        <?= $user->role ?>
+                    </label><br>
+                    <div class="btn-group mt-4" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Personal Information</button></div>
 
-
-
-</div>
-
-<!-- <div class="card shadow mb-4">
-        <div class="card-header py-3 ch-patientrec">
-        </div>
-        <div class="card-body mx-3">
-        </div>
-    </div> -->
-
-</div>
-
-<!-- <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-7 col-xl-8">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                    <h6 class="fw-bold fs-5 m-0 ch-heading">Age Range of Patients</h6>
-                </div>
-                <div class="card-body mx-5 my-5">
-                    <div class="chart-area">
-                        <canvas id="sampleChart"></canvas>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-5 col-xl-4">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary fw-bold m-0">Revenue Sources</h6>
-                    <div class="dropdown no-arrow"><button class="btn btn-link btn-sm dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
-                        <div class="dropdown-menu shadow dropdown-menu-end animated--fade-in">
-                            <p class="text-center dropdown-header">dropdown header:</p><a class="dropdown-item" href="#"> Action</a><a class="dropdown-item" href="#"> Another action</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"> Something else here</a>
-                        </div>
-                    </div>
+        <div class="col col-lg-6">
+            <div class="card shadow mb-4 chart-body-purp h-100">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
+                </div>
+                <div class="card-body mx-3 my-3">
+                    <div id="activity_chart"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col col-lg-3">
+            <div class="card shadow mb-4 h-100 chart-body-violet">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-area"><canvas height="360" width="334" style="display: block; height: 320px; width: 297px;"></canvas></div>
-                    <div class="text-center small mt-4"><span class="me-2"><i class="fas fa-circle text-primary"></i> Direct</span><span class="me-2"><i class="fas fa-circle text-success"></i> Social</span><span class="me-2"><i class="fas fa-circle text-info"></i> Refferal</span></div>
+                    <div class="chart-area">
+                        <!-- <canvas class="align-items-center" id="satis_chart"></canvas> -->
+                        <div id="satis_chart"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+    <!-- Edit Info modal -->
+    <div id="view-pers-info" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <?php $updateUserInfoPath = 'Admin/edit_useracc/' . $admin_id; ?>
+                <?= form_open($updateUserInfoPath, array('id' => 'edit_info')) ?>
+                <div class="modal-header">
+                    <h4 class="modal-title ms-3 fw-bolder text-body">Personal Information</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mx-5 px-lg-5">
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">First Name</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" id="first_name" name="first_name" readonly value="<?= $user->first_name ?>" /></div>
+                            <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Middle Name</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" id="middle_name" name="middle_name" readonly value="<?= $user->middle_name ?>" /></div>
+                            <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Surname</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" id="last_name" name="last_name" readonly value="<?= $user->last_name ?>" /></div>
+                            <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Username</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="text" id="username" name="username" readonly value="<?= $user->username ?>" /></div>
+                            <label id="username_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Birth date</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="date" id="birth_date" name="birth_date" readonly value="<?= $user->birth_date ?>" /></div>
+                            <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Contact No.</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="tel" id="cell_no" name="cell_no" readonly value="<?= $user->contact_no ?>" /></div>
+                            <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                        <div class="col col-lg-5"><label class="col-form-label text-body">Email</label></div>
+                        <div class="col col-lg-7">
+                            <div class="input-group"><input class="form-control form-control-sm input-personal-info" type="email" id="email" name="email" readonly value=" <?= $user->email ?> " /></div>
+                            <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                        </div>
+                    </div>
 
-<!-- <div class="box-wrapper bw-dashboard">
-
-    <label class="recent-act-label" for="" style="margin-left: 20px;"><br>Recent Activity<br></label>
-    <div class="dash-inner-content">
+                    <!-- <div class="row">
+                                            <div class="col d-flex justify-content-end">
+                                                <button class="btn btn-sm btn-dark w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info">
+                                                    <i class="fas fa-edit me-lg-1"></i><strong class="d-none d-lg-inline-block">Edit</strong>
+                                                </button>
+                                            </div>
+                                        </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-dark" type="button" style="width: 85.52px;" onclick="editInfo()"><strong>Edit</strong>
+                    </button><button class="btn btn-sm btn-default-blue btn-primary" onclick="validateForm()" type="button">Save</button>
+                </div>
+                <?= form_close(); ?>
+            </div>
+        </div>
     </div>
+    <!-- End: second row -->
+    <!-- Start: third row -->
+    <div class="row gy-3 row-cols-1 row-cols-lg-2 gy-xl-0 mb-2">
+        <div class="col col-lg-5">
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading">Staff per Department</h6>
+                </div>
+                <!-- <div class="card-body mx-3">
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1">
+                        <div class="col d-flex align-items-center col-lg-5 col-xl-5"><label class="col-form-label">Username</label></div>
+                        <div class="col d-flex align-items-center col-lg-7 col-xl-7">
+                            <div class="input-group"><input class="form-control form-control form-control-sm" type="text" /></div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1">
+                        <div class="col d-flex align-items-center col-lg-5 col-xl-5"><label class="col-form-label">Birth date</label></div>
+                        <div class="col d-flex align-items-center col-lg-7 col-xl-7">
+                            <div class="input-group"><input class="form-control form-control form-control-sm" type="text" /></div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1">
+                        <div class="col d-flex align-items-center col-lg-5 col-xl-5"><label class="col-form-label">Contact No.</label></div>
+                        <div class="col d-flex align-items-center col-lg-7 col-xl-7">
+                            <div class="input-group"><input class="form-control form-control form-control-sm" type="text" /></div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-lg-2 mb-1">
+                        <div class="col d-flex align-items-center col-lg-5 col-xl-5"><label class="col-form-label">Email</label></div>
+                        <div class="col d-flex align-items-center col-lg-7 col-xl-7">
+                            <div class="input-group"><input class="form-control form-control form-control-sm" type="text" /></div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="card-body mx-3">
+                    <div id="tree_chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-7">
+            <div class="card shadow mb-4" style="height: 450px;">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                    <h6 class="fw-bold fs-5 m-0 ch-heading">Recent Activity</h6>
+                </div>
+                <div class="card-body mx-3 ">
+                    <table id="recent_activity_table" class="table table-hover d-column w-100  ">
+                        <thead>
+                            <tr>
+                                <th class="col-md-9 align-middle">Activity</th>
+                                <th class="col-md-3 align-middle">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: third row -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
-</main>
-</div>
-</div> -->
+
+
 
 <script>
     // var cData = JSON.parse('<?= $chart_data; ?>');
@@ -361,31 +344,7 @@
     //     }
     // });
 
-    let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
-    let satisfactionChart = new Chart(sampleChart2, {
-        type: 'polarArea',
-        data: {
-            labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very Unsatisfied'],
-            datasets: [{
-                label: 'Satisfaction',
-                data: [59, 20, 42, 16, 4],
-                backgroundColor: [
-                    "#CB2B92",
-                    "#FC3F93",
-                    "#FE77FE",
-                    "#8c0d49",
-                    "#FF1696"
-                ]
-            }]
-        },
-        options: {
-            legend: {
-                display: true
-            },
-            responsive: true,
-        }
 
-    })
 
     // var genderData = JSON.parse('<?= $gender_data; ?>');
     // console.log(genderData);
@@ -413,63 +372,8 @@
 
     //     }
     // })
-
-    let sampleChart4 = document.getElementById('sampleChart4').getContext('2d');
-    let userActChart = new Chart(sampleChart4, {
-        type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'User Activity',
-                data: [12, 19, 3, 5, 2, 3, 1, 2, 3, 4, 5, 6],
-                backgroundColor: [
-                    "#115f9a",
-                    "#1984c5",
-                    "#22a7f0",
-                    "#48b5c4",
-                    "#76c68f",
-                    "#a6d75b",
-                    "#c9e52f",
-                    "#d0ee11",
-                    "#f4f100"
-                ]
-            }]
-        },
-        options: {
-            legend: {
-                display: false
-            },
-            responsive: true,
-            scales: {
-                y: {
-                    display: true,
-                    ticks: {
-                        beginAtZero: true,
-                        stepSize: 1,
-                        min: 0,
-                        max: 100,
-                        color: '#333333',
-
-                    },
-                    grid: {
-                        color: "#5D61C0",
-                        borderDash: [3, 4],
-                    }
-                },
-                x: {
-                    display: true,
-                    grid: {
-                        color: "#5D61C0",
-                        borderDash: [3, 4],
-                    },
-                    ticks: {
-                        color: '#333333'
-                    }
-                }
-            }
-        }
-    })
 </script>
+
 
 
 </body>
