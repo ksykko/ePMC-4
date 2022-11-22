@@ -3,7 +3,7 @@
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit me-lg-1"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
             <div id="mdl-personal-info" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-dialog modal-lg" role="document">
@@ -12,7 +12,7 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title ms-3 fw-bolder">Edit Patient's Personal Information</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <?php $updatePatientInfoPath = 'Admin_patientrec/edit_patient/' . $patient->patient_id; ?>
+                                <?php $updatePatientInfoPath = 'Patient_patientrec/edit_patient/' . $patient->patient_id; ?>
                                 <?= form_open($updatePatientInfoPath, array('id' => 'editPatient')); ?>
                                 <div class="modal-body mx-5">
 
@@ -256,7 +256,7 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title ms-3 fw-bolder">Edit Patient's Personal Information</h4><button id="closeFormModal" class="btn-close me-1 shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <?php $updatePatientInfoPath = 'Admin_patientrec/edit_patient/' . $patient->patient_id; ?>
+                                <?php $updatePatientInfoPath = 'Patient_patientrec/edit_patient/' . $patient->patient_id; ?>
                                 <?= form_open($updatePatientInfoPath, array('id' => 'editPatient')); ?>
                                 <div class="modal-body mx-5">
 
@@ -511,7 +511,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><a class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left"></i><strong class="d-none d-lg-inline-block">Back</strong></a>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><a class="btn px-3 me-4 btn-primary dbl-btn w-auto btn-default-blue" type="button" data-bs-target="#prompt-back-modal" data-bs-toggle="modal"><i class="fas fa-arrow-left me-lg-1"></i><strong class="d-none d-lg-inline-block">Back</strong></a>
             <div id="prompt-back-modal" class="modal fade" role="dialog" tabindex="-1">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -527,30 +527,69 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <?php if ($this->session->flashdata('message') == 'success-profilepic') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Your profile picture has been updated.</p>
+    <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+        <?php if ($this->session->flashdata('message') == 'success-profilepic') : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header toast-success">
+                    <strong class="me-auto">Success!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            <?php elseif ($this->session->flashdata('message') == 'success-edit-patient-PI') : ?>
-                <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Success!</strong> Your personal information has been updated.</p>
+                <div class="toast-body bg-opacity-50">
+                    <span>Your profile picture has been updated.</span>
                 </div>
-            <?php elseif ($this->session->flashdata('success-profilepic')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <p><strong>Error!</strong> Your profile picture has not been updated. <?= $this->session->flashdata('error') ?></p>
+            </div>
+        <?php elseif ($this->session->flashdata('message') == 'success-healthinfo') : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header toast-success">
+                    <strong class="me-auto">Success!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-            <?php elseif ($this->session->flashdata('error-upload')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
-                    <button class="btn-close shadow-none" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <?php echo '<p><strong>Error! </strong>' . $this->session->flashdata('error-upload') ?></p>
+                <div class="toast-body bg-opacity-50">
+                    <span>Your health information has been updated.</span>
                 </div>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php elseif ($this->session->flashdata('message') == 'success-edit-patient-PI') : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header toast-success">
+                    <strong class="me-auto">Success!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>Your personal information has been updated.</span>
+                </div>
+            </div>
+        <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-danger bg-opacity-100">
+                    <strong class="me-auto">Error!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>Your profile picture has not been updated. <?= $this->session->flashdata('error') ?></span>
+                </div>
+            </div>
+        <?php elseif ($this->session->flashdata('error') == 'error-upload') : ?>
+            <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-danger bg-opacity-100">
+                    <strong class="me-auto">Error!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <?php $errors = $this->session->flashdata('error') ?>
+                    <span><?= $errors ?></span>
+                </div>
+            </div>
+        <?php elseif ($this->session->flashdata('error-doc')) : ?>
+            <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-danger bg-opacity-100">
+                    <strong class="me-auto">Error!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>Invalid input/s.</span>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 
     <section>
@@ -780,7 +819,76 @@
         </div> -->
 
     </section>
+    <div class="row mb-4">
+        <div class="col">
+            <div id="accordion-1" class="accordion" role="tablist">
+                <div class="accordion-item">
+                    <div>
+                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Documents</button></h2>
+                    </div>
+                    <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-1">
+                        <div class="accordion-body mx-3">
+                            <div class="row">
+                                <?php foreach ($documents as $document) : ?>
+                                    <?php if ($document->doc_name == NULL || $document->document == NULL) : continue ?>
+                                    <?php else : ?>
+                                        <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
+                                            <div class="card shadow">
+                                                <img class="card-img-top w-100 d-block" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" height="150px" />
+                                                <div class="card-body">
+                                                    <h5><?= $document->doc_name ?></h5>
+                                                    <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
+                                                        <h6>file_name</h6>
+                                                        <h6>size: </h6>
+                                                    </div>
+                                                    <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
+                                                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                                                <path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"></path>
+                                                            </svg>
+                                                            <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                                            <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path>
+                                                            </svg>
+                                                        </button><a class="btn btn-light fw-semibold" type="button" href="<?= base_url('Admin_patientrec/download_document/') . $document->patient_id . '/' . $document->id ?>"><span class="d-none d-xxl-inline-block">Download</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                                                <path d="M480 352h-133.5l-45.25 45.25C289.2 409.3 273.1 416 256 416s-33.16-6.656-45.25-18.75L165.5 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32v-96C512 366.3 497.7 352 480 352zM432 456c-13.2 0-24-10.8-24-24c0-13.2 10.8-24 24-24s24 10.8 24 24C456 445.2 445.2 456 432 456zM233.4 374.6C239.6 380.9 247.8 384 256 384s16.38-3.125 22.62-9.375l128-128c12.49-12.5 12.49-32.75 0-45.25c-12.5-12.5-32.76-12.5-45.25 0L288 274.8V32c0-17.67-14.33-32-32-32C238.3 0 224 14.33 224 32v242.8L150.6 201.4c-12.49-12.5-32.75-12.5-45.25 0c-12.49 12.5-12.49 32.75 0 45.25L233.4 374.6z"></path>
+                                                            </svg></a></div>
+                                                </div>
+                                            </div>
+                                            <div id="view-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder"><?= $document->doc_name ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body d-xl-flex justify-content-xl-center align-items-xl-center"><img class="img-fluid" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" /></div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="delete-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Delete a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this document?</p>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_document/') . $document->patient_id . '/' . $document->id ?>" type="button">Confirm</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">

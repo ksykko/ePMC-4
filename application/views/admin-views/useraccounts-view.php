@@ -110,24 +110,37 @@
                                     <div class="col form-group px-1"><label class="form-label">Role</label>
                                         <select class="form-select form-select-sm" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                             <option value="" selected>select...</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="doctor">Doctor</option>
-                                            <option value="pharmacy assistant">Pharmacy Assistant</option>
+                                            <option value="Admin">Admin</option>
+                                            <option value="Doctor">Doctor</option>
+                                            <!-- <option value="pharmacy assistant">Pharmacy Assistant</option> -->
                                         </select>
                                         <label id="role_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
-                                <!-- add row here if doctor -->
+                                <!-- Add row here if doctor -->
                                 <div class="row mb-2" id="specialization_div" style="display: none;">
                                     <div class="col form-group px-1"><label class="form-label">Specialization</label>
                                         <select class="form-select form-select-sm" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
                                             <option value="" selected>select...</option>
-                                            <option value="internal medicine">Internal Medicine</option>
-                                            <option value="family medicine">Family Medicine</option>
-                                            <option value="obstetrics and gynecology">Obstetrics and Gynecology</option>
-                                            <option value="orthopedics">Orthopedics</option>
+                                            <option value="Internal Medicine">Internal Medicine</option>
+                                            <option value="Family Medicine">Family Medicine</option>
+                                            <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                                            <option value="Orthopedics">Orthopedics</option>
                                         </select>
                                         <label id="spec_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <!-- Add row here if admin -->
+                                <div class="row mb-2" id="admin_div" style="display: none;">
+                                    <div class="col form-group px-1"><label class="form-label">Position</label>
+                                        <select class="form-select form-select-sm" id="admin_spec" name="specialization">
+                                            <option value="" selected>select...</option>
+                                            <option value="General Manager">General Manager</option>
+                                            <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                                            <option value="Secretary">Secretary</option>
+                                            <option value="Nurse">Nurse</option>
+                                        </select>
+                                        <label id="admin_spec_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
@@ -408,20 +421,33 @@
         let value = document.querySelector('select').value;
         if (value == "doctor" || value == "Doctor" || value == "physician" || value == "Physician") {
             document.getElementById("specialization_div").style.display = "flex";
-        } else {
+            document.getElementById("admin_div").style.display = "none";
+
+            // set admin to null
+            $('#admin_spec').val(null);
+        }
+        else if (value == "admin" || value == "Admin") {
+            document.getElementById("admin_div").style.display = "flex";
             document.getElementById("specialization_div").style.display = "none";
+
+            // set specialization to null
+            $('#specialization').val(null);
+        } 
+        else {
+            document.getElementById("specialization_div").style.display = "none";
+            document.getElementById("admin_div").style.display = "none";
         }
     }
 
     // var select_box = document.getElementById("widthpixselpercentage");
     // var y = select_box.options[select_box.selectedIndex].value;
 
-    function toggleDropdownEdit(role_edit) {
-        alert(role_edit.value);
-        if (role_edit.value == "doctor" || role_edit.value == "Doctor") {
-            document.getElementById("specialization_div_edit").style.display = "flex";
-        } else {
-            document.getElementById("specialization_div_edit").style.display = "none";
-        }
-    }
+    // function toggleDropdownEdit(role_edit) {
+    //     alert(role_edit.value);
+    //     if (role_edit.value == "doctor" || role_edit.value == "Doctor") {
+    //         document.getElementById("specialization_div_edit").style.display = "flex";
+    //     } else {
+    //         document.getElementById("specialization_div_edit").style.display = "none";
+    //     }
+    // }
 </script>

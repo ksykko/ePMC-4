@@ -1,6 +1,8 @@
 <?php
-class Admin extends CI_Controller {
-    public function __construct() {
+class Admin extends CI_Controller
+{
+    public function __construct()
+    {
         parent::__construct();
 
         $this->load->helper(['url', 'form', 'html']);
@@ -9,21 +11,18 @@ class Admin extends CI_Controller {
         $this->load->library("pagination");
     }
 
-    public function index() 
-    {   
+    public function index()
+    {
         if ($this->session->userdata('logged_in')) { //if logged in
 
             $data['title'] = 'Admin | ePMC';
-            $id = $this->session->userdata('admin_id');
+            $id = $this->session->userdata('id');
+            $data ['user'] = $this->Admin_model->get_useracc_row($id);
 
+            $data['admin_id'] = $id;
             $data['user_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
-            $data['user_specialization'] = $this->session->userdata('specialization');
-            $data['contact_no'] = $this->session->userdata('contact_no');
-            $data['sex'] = $this->session->userdata('gender');
-            $data['email'] = $this->session->userdata('email');
-            $data['birth_date'] = $this->session->userdata('birth_date');
-
+            $data['specialization'] = $this->session->userdata('specialization');
 
 
             $data['product'] = $this->Admin_model->get_inventory_row($id);
@@ -42,8 +41,7 @@ class Admin extends CI_Controller {
             $this->load->view('admin-views/admin-dashboard-reports-view', $data);
             //$this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');
-        }
-        else {
+        } else {
             redirect('Login/signin');
         }
     }
@@ -57,18 +55,16 @@ class Admin extends CI_Controller {
 
 
         foreach ($activity->result() as $recent_act) {
-            
-                $dt = new DateTime($recent_act->date_created);
-                $date_created = $dt->format('m/d/y h:i A');
+
+            $dt = new DateTime($recent_act->date_created);
+            $date_created = $dt->format('m/d/y h:i A');
 
 
-                $row = array();
-                $row[] = $recent_act->activity;
-                $row[] = $date_created;
-                
-                $data[] = $row;    
-            
-            
+            $row = array();
+            $row[] = $recent_act->activity;
+            $row[] = $date_created;
+
+            $data[] = $row;
         }
 
         $output = array(
@@ -163,27 +159,107 @@ class Admin extends CI_Controller {
             'male' => 0,
             'female' => 0,
         ];
-        
+
         // loop through the data and store in array
-        foreach ($query as $row)
-        {
-            if ($row->sex == 'Male')
-            {
+        foreach ($query as $row) {
+            if ($row->sex == 'Male') {
                 $gender_data['male'] = $gender_data['male'] + 1;
-            }
-            else {
+            } else {
                 $gender_data['female'] = $gender_data['female'] + 1;
             }
-
         }
 
         return $gender_data['chart_data'] = json_encode($gender_data);
-
     }
 
     public function weekly_added_patients()
     {
-        
+    }
+
+    public function edit_useracc($id)
+    {
+        $data['user'] = $this->Admin_model->get_useracc_row($id);
+        //$this->dd($data);
+
+        // $this->form_validation->set_rules('user_id', 'User id');
+
+        // $this->form_validation->set_rules('edt_first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        //     'required' => 'Please enter user\'s %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
+        //     'required' => 'Please enter user\'s %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_username', 'Username', 'required|regex_match[/^([a-z ])+$/i]', array(
+        //     'required' => 'Please enter user\'s %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_role', 'Role', 'required', array(
+        //     'required' => 'Please enter user\'s %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_specialization', 'Specialization');
+
+        // $this->form_validation->set_rules('edt_birth_date', 'Birthdate', 'required', array(
+        //     'required' => 'Please enter user\'s %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
+        //     'required' => 'Please enter user\'s %s.',
+        //     'numeric' => 'Please enter a valid %s.'
+        // ));
+
+        // $this->form_validation->set_rules('edt_email', 'Email', 'required|valid_email', array(
+        //     'required' => 'Please enter user\'s %s.',
+        //     'valid_email' => 'Please enter a valid %s.'
+        // ));
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     $modal_no = $this->input->post('modal_no');
+        //     $this->session->set_flashdata('edit_failed', $modal_no);
+        //     $this->index();
+        // } else {
+        // $editUser = $this->input->post('editUser');
+        // if (isset($editUser)) {
+        $info = array(
+            'first_name' => $this->input->post('first_name'),
+            'middle_name' => $this->input->post('middle_name'),
+            'last_name' => $this->input->post('last_name'),
+            'username' => $this->input->post('username'),
+            'birth_date' => $this->input->post('birth_date'),
+            'contact_no' => $this->input->post('cell_no'),
+            'email' => $this->input->post('email')
+        );
+
+        //$this->dd($info);
+
+        $activity = array(
+            'activity' => 'A user\'s account has been updated in the user accounts',
+            'module' => 'User Accounts',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
+        $this->session->set_flashdata('message', 'edit_user_success');
+        $this->Admin_model->edit_useracc($id, $info);
+        redirect('Admin/index');
+
+        // $data['products'] = $this->Admin_model->get_inventory_row($id);
+        // $updateProduct = $this->input->post('updateProduct');
+        // if (isset($updateProduct)) {
+        //     $id = $this->input->post('item_id');
+        //     $info = array(
+        //         'prod_name' => $this->input->post('prod_name'),
+        //         'prod_dosage' => $this->input->post('prod_dosage'),
+        //         'prod_desc' => $this->input->post('prod_desc'),
+        //         'stock_in' => $this->input->post('stock_in'),
+        //         'stock_out' => $this->input->post('stock_out')
+        //     );
+        //     $this->session->set_flashdata('success', 'Product successfully updated.');
+        //     $this->Admin_model->update_product($id, $info);
+        //     redirect('Admin_inventory');        
+        // }
     }
 
     public function dd($data)
@@ -193,6 +269,3 @@ class Admin extends CI_Controller {
         echo "</pre>";
     }
 }
-
-
-?>
