@@ -76,6 +76,14 @@ class Charts_model extends CI_Model
 
         return $query->result();
     }
+    //for mobile
+    public function get_stock()
+    {
+        $this->db->select("prod_name,stock_in,stock_out");
+        $this->db->from('inventory');
+        $query = $this->db->get();
+        return $query->result();
+    }
     // END OF stock items chart
 
 
