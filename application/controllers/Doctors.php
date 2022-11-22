@@ -18,17 +18,11 @@ class Doctors extends CI_Controller {
 
             $data['title'] = 'Doctors Dashboard | ePMC';
             $id = $this->session->userdata('id');
+            $data['user'] = $this->Admin_model->get_useracc_row($id);
 
-            $data['full_name'] = $this->session->userdata('full_name');
+            $data['admin_id'] = $id;
             $data['user_role'] = $this->session->userdata('role');
-            $data['user_specialization'] = $this->session->userdata('specialization');
-            $data['avatar'] = $this->session->userdata('avatar');
             $data['specialization'] = $this->session->userdata('specialization');
-            $data['contact_no'] = $this->session->userdata('contact_no');
-            $data['sex'] = $this->session->userdata('gender');
-            $data['email'] = $this->session->userdata('email');
-            $data['birth_date'] = $this->session->userdata('birth_date');
-
 
             $data['product'] = $this->Admin_model->get_inventory_row($id);
             $data['inventory_stocks'] = $this->Admin_model->get_inventory_table_contents();
@@ -168,5 +162,84 @@ class Doctors extends CI_Controller {
         // var_dump($bmi_data);
         // die();
         return $bmi_data['chart_data'] = json_encode($bmi_data);
+    }
+
+    public function edit_useracc($id)
+    {
+        $data['user'] = $this->Admin_model->get_useracc_row($id);
+
+        $info = array(
+            'first_name' => $this->input->post('first_name'),
+            'middle_name' => $this->input->post('middle_name'),
+            'last_name' => $this->input->post('last_name'),
+            'username' => $this->input->post('username'),
+            'birth_date' => $this->input->post('birth_date'),
+            'contact_no' => $this->input->post('cell_no'),
+            'email' => $this->input->post('email')
+        );
+
+        //$this->dd($info);
+
+        $activity = array(
+            'activity' => 'A user\'s account has been updated in the user accounts',
+            'module' => 'User Accounts',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
+        $this->session->set_flashdata('message', 'edit-user-success');
+        $this->Admin_model->edit_useracc($id, $info);
+        redirect('Doctors/index');
+    }
+
+    public function update_photo($id)
+    {
+        $user = $this->Admin_model->get_useracc_row($id);
+
+        $img_config = array(
+            'upload_path' => './assets/img/profile-avatars/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'max_size' => 2048,
+            'max_width' => 2048,
+            'max_height' => 2048,
+            'file_name' => 'user-avatar-' . $id,
+            'file_ext_tolower' => TRUE,
+            'overwrite' => TRUE
+        );
+
+        $this->load->library('upload', $img_config);
+        $this->upload->initialize($img_config);
+        $fileExt = pathinfo($user->avatar, PATHINFO_EXTENSION);
+
+        if (!$this->upload->do_upload('avatar')) {
+            if ($user->avatar == 'default-avatar.png') {
+
+                $img_name = 'default-avatar.png';
+                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+                redirect('Doctors');
+            } else {
+                $img_name = $this->upload->data('file_name') . '.' . $fileExt;
+                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+                redirect('Doctors');
+            }
+        } else {
+            $img_name = $this->upload->data('file_name');
+        }
+
+        $avatar = array(
+            'avatar' => $img_name
+        );
+
+        $this->Admin_model->update_user_avatar($id, $avatar);
+
+        $this->session->set_flashdata('message', 'success-update-avatar');
+        redirect('Doctors');
+    }
+
+    public function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
     }
 }

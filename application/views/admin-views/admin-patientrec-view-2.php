@@ -562,6 +562,16 @@
                         <span>Patient's health information has been updated.</span>
                     </div>
                 </div>
+            <?php elseif ($this->session->flashdata('message') == 'success-doc') : ?>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>File uploaded.</span>
+                    </div>
+                </div>
             <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
                 <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header toast-success">
@@ -631,6 +641,17 @@
                     <div class="toast-body bg-opacity-50">
                         <?php $errors = $this->session->flashdata('error') ?>
                         <span>Invalid input/s.</span>
+                    </div>
+                </div>
+            <?php elseif ($this->session->flashdata('error') == 'error-doc' ) : ?>
+                <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header text-bg-danger bg-opacity-100">
+                        <strong class="me-auto">Error!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <?php $errors = $this->session->flashdata('error') ?>
+                        <span>File upload failed.</span>
                     </div>
                 </div>
             <?php elseif ($this->session->flashdata('error-doc')) : ?>
@@ -917,7 +938,7 @@
                                     </div>
                                 </div>
                                 <div id="print_prescription" class="card-body mx-3">
-                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $healthinfo->prescription ?></textarea></div>
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;"><?= $healthinfo->prescription ?></textarea></div>
                                 </div>
                             </div>
 
@@ -1025,7 +1046,16 @@
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </div>
-                                                        <img class="card-img-top w-100 d-block" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" height="150px" />
+                                                        <?php
+                                                            $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+                                                            if ($fileExt == 'pdf') {
+                                                                $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                            }
+                                                            else {
+                                                                $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                            }
+                                                        ?>
+                                                        <img class="card-img-top w-100 d-block" src="<?= $thumbnail ?>" height="150px" />
                                                         <div class="card-body">
                                                             <h5><?= $document->doc_name ?></h5>
                                                             <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">

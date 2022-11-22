@@ -4,6 +4,33 @@
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
 
 
+<script>
+    var bmiData = JSON.parse('<?= $bmi_data; ?>');
+
+    var options = {
+        series: [44, 55, 13, 43, 22],
+        chart: {
+            width: 380,
+            type: 'pie',
+        },
+        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#bmiChart"), options);
+    chart.render();
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
