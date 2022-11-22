@@ -26,13 +26,8 @@ class Admin_schedule_model extends CI_Model {
         return $this->db->delete('schedule', ['schedule_id' => $id]);
     }
 
-    public function update_schedule($id, $info) {
-        $data = array($info => 'NULL');
-        $this->db->where('schedule_id', $id);        
-        $this->db->update('schedule', $data);
-
-        $this->db->insert('schedule', $info);
-        // return $this->db->delete('schedule', ['schedule_id' => $id]);
+    public function update_schedule($id, $info) {     
+        return $this->db->update('schedule', $info, ['schedule_id' => $id]);
     }
 
     public function get_schedule_row($id)

@@ -45,7 +45,7 @@
 											<select class="form-control" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
 												<option value="select" disabled selected>select..</option>
 												<?php foreach ($doctorname as $doctor) : ?>
-													<option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id . '|' . $doctor->specialization?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
+													<option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id . '|' . $doctor->specialization?>"><?='Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
 												<?php endforeach; ?>
 											</select>
                                             
@@ -92,6 +92,7 @@
 							</div>
 							<!-- AVAILABILITY - DAYS OF THE WEEK -->
 							<div class="row mt-4 mb-2">
+							<div class="col"><label class="col-form-label">Select days:</label></div>
 								<div class="btn-group" data-toggle="buttons">
 									<!-- <label class="btn btn-secondary btn-days radius-left">
 										<input type="checkbox" class="hidden" name=" day1" id="day1" value="Sun" disabled> Sun
@@ -119,6 +120,7 @@
 
 							</div>
 							<!-- THEME COLOR -->
+							<div class="col"><label class="col-form-label">Choose color:</label></div>
 							<div class="row mt-4 mb-2">
 								<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 									<input type="radio" class="btn-check" name="color" id="color1" value="color1" autocomplete="off">
@@ -142,7 +144,6 @@
 									<input type="radio" class="btn-check" name="color" id="color7" value="color7" autocomplete="off">
 									<label class="btn btn-outline color7" for="color7"> </label>
 								</div>
-
 							</div>
 							<div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-sm btn-modal" type="submit" name="Save" style="background: #3269bf;">Save</button></div>
 						</div>
@@ -151,9 +152,11 @@
 			</div>
 			<?= form_close(); ?>
 
-			<!-- update schedule -->									
-			<?= form_open_multipart('Admin_schedule/update_schedule/'); ?>
-			<div id="schedule-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+			<!-- Popup Form - Update Sched -->
+			<?php foreach ($schedules as $schedule) : ?>
+			<?php $updateScheduleInfoPath = 'Admin_schedule/update_schedule/' . $schedule->schedule_id; ?>
+			<?= form_open_multipart($updateScheduleInfoPath, array('id' => 'updateSchedule')); ?>
+			<div id="schedule-edit-modal-<?= $schedule->schedule_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
 				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -170,25 +173,21 @@
 									<div class="input-error">
 										<div class="input-group">
 											<!-- <input type="text" class="form-control" name="doctor_name" id="doctor_name" placeholder="Enter Doctor Name"> -->
-											<select class="form-control" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
-												<option value="select" disabled selected>select..</option>
+											<select class="form-control" name="doctor_name" id="doctor_name" value="<?= set_value('doctor_name'); ?>">
+												<option value="<?= $schedule->doctor_name. '|' . $schedule->user_id . '|' . $schedule->specialization?>" selected ><?= $schedule->doctor_name; ?></option>
+
+												<?php foreach ($doctorname as $doctor) : ?>
+													<?php if($doctor->user_id != $schedule->user_id) : ?>
+														<option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id . '|' . $doctor->specialization?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
+													<?php endif; ?>
+													
+												<?php endforeach; ?>
 											</select>
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- SPECIALIZATION -->
-							<div class="row mt-4 mb-2">
-								<div class="col"><label class="col-form-label">Specialization:</label></div>
-								<div class="col">
-									<div class="input-error">
-										<div class="input-group">
-											<input type="text" class="form-control" name="specialization" id="specialization" placeholder="Enter Specialization">
-										</div>
-
-									</div>
-								</div>
-							</div>
 							<!-- START TIME -->
 							<div class="row mt-4 mb-2">
 								<div class="col"><label class="col-form-label">Start Time:</label></div>
@@ -196,7 +195,7 @@
 									<div class="input-error">
 										<div class="input-group">
 											<!-- set time to 7:00 am -->
-											<input type="time" class="form-control" name="start_time" id="start_time" value="08:00">
+											<input type="time" class="form-control" name="start_time" id="start_time" value="<?= $schedule->start_time; ?>">
 										</div>
 
 									</div>
@@ -208,42 +207,18 @@
 								<div class="col">
 									<div class="input-error">
 										<div class="input-group">
-											<input type="time" class="form-control" name="end_time" id="end_time" value="18:00">
+											<input type="time" class="form-control" name="end_time" id="end_time" value="<?= $schedule->end_time; ?>">
 										</div>
 
 									</div>
 								</div>
 							</div>
-							<!-- AVAILABILITY - DAYS OF THE WEEK -->
-							<div class="row mt-4 mb-2">
-								<div class="btn-group" data-toggle="buttons">
-									<!-- <label class="btn btn-secondary btn-days radius-left">
-										<input type="checkbox" class="hidden" name=" day1" id="day1" value="Sun" disabled> Sun
-									</label> -->
-									<label class="btn btn-secondary btn-days radius-left">
-										<input type="checkbox" class="hidden" name="day2" value="Mon"> Mon
-									</label>
-									<label class="btn btn-secondary btn-days">
-										<input type="checkbox" class="hidden" name="day3" value="Tue"> Tue
-									</label>
-									<label class="btn btn-secondary btn-days">
-										<input type="checkbox" class="hidden" name="day4" value="Wed"> Wed
-									</label>
-									<label class="btn btn-secondary btn-days">
-										<input type="checkbox" class="hidden" name="day5" value="Thurs"> Thurs
-									</label>
-									<label class="btn btn-secondary btn-days">
-										<input type="checkbox" class="hidden" name="day6" value="Fri"> Fri
-									</label>
-									<label class="btn btn-secondary btn-days radius-right">
-										<input type="checkbox" class="hidden" name="day7" value="Sat"> Sat
-									</label>
-								</div>
 
-							</div>
 							<!-- THEME COLOR -->
+							<div class="col"><label class="col-form-label">Choose color:</label></div>
 							<div class="row mt-4 mb-2">
 								<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
 									<input type="radio" class="btn-check" name="color" id="color1" value="color1" autocomplete="off">
 									<label class="btn btn-outline color1" for="color1"> </label>
 
@@ -265,14 +240,18 @@
 									<input type="radio" class="btn-check" name="color" id="color7" value="color7" autocomplete="off">
 									<label class="btn btn-outline color7" for="color7"> </label>
 								</div>
-
 							</div>
-							<div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-sm btn-modal" type="submit" name="Save" style="background: #3269bf;">Save</button></div>
+							<div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" id="updateSchedule" name="updateSchedule" type="submit" style="background: #3269bf;">Save</button></div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<?= form_close(); ?>
+			<?php endforeach; ?>										
+			
+
+			<!-- update schedule -->									
+			
 		</div>
 	</div>
 
@@ -300,6 +279,12 @@
 					<div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
 						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
 							<strong>Fail!</strong> You have failed in adding a new schedule.</span>
+							<small class="text-danger"><?= form_error('doctor_name') ?></small>
+							<small class="text-danger"><?= form_error('specialization') ?></small>
+							<small class="text-danger"><?= form_error('start_time') ?></small>
+							<small class="text-danger"><?= form_error('end_time') ?></small>
+							<small class="text-danger"><?= form_error('days[]') ?></small>
+							<small class="text-danger"><?= form_error('color') ?></small>
 					</div>
 				</div>
 			</div>
@@ -373,9 +358,6 @@
 												<p>All Day</p>
 											</div>
 										</td>
-                                        
-                                        
-
 
                                         <td class=" border-end border-1"> 
                                             <?php foreach($schedules as $schedule) : ?>
@@ -393,10 +375,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Mon') : ?>
-                                                    
                                                     <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class=" " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link " data-bs-toggle="modal" data-bs-target="#schedule-edit-modal-<?= $schedule->schedule_id;  ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -404,13 +385,11 @@
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
-                                                        
 
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
                                                         <p><?= date("h:i A", strtotime($schedule->start_time)) . ' to ' . date("h:i A", strtotime($schedule->end_time))?></p>
-                                                
                                                     </div>    
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
