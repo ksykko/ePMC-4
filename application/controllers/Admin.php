@@ -17,7 +17,7 @@ class Admin extends CI_Controller
 
             $data['title'] = 'Admin | ePMC';
             $id = $this->session->userdata('id');
-            $data ['user'] = $this->Admin_model->get_useracc_row($id);
+            $data['user'] = $this->Admin_model->get_useracc_row($id);
 
             $data['admin_id'] = $id;
             $data['user_name'] = $this->session->userdata('full_name');
@@ -179,49 +179,7 @@ class Admin extends CI_Controller
     public function edit_useracc($id)
     {
         $data['user'] = $this->Admin_model->get_useracc_row($id);
-        //$this->dd($data);
 
-        // $this->form_validation->set_rules('user_id', 'User id');
-
-        // $this->form_validation->set_rules('edt_first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter user\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter user\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_username', 'Username', 'required|regex_match[/^([a-z ])+$/i]', array(
-        //     'required' => 'Please enter user\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_role', 'Role', 'required', array(
-        //     'required' => 'Please enter user\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_specialization', 'Specialization');
-
-        // $this->form_validation->set_rules('edt_birth_date', 'Birthdate', 'required', array(
-        //     'required' => 'Please enter user\'s %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
-        //     'required' => 'Please enter user\'s %s.',
-        //     'numeric' => 'Please enter a valid %s.'
-        // ));
-
-        // $this->form_validation->set_rules('edt_email', 'Email', 'required|valid_email', array(
-        //     'required' => 'Please enter user\'s %s.',
-        //     'valid_email' => 'Please enter a valid %s.'
-        // ));
-
-        // if ($this->form_validation->run() == FALSE) {
-        //     $modal_no = $this->input->post('modal_no');
-        //     $this->session->set_flashdata('edit_failed', $modal_no);
-        //     $this->index();
-        // } else {
-        // $editUser = $this->input->post('editUser');
-        // if (isset($editUser)) {
         $info = array(
             'first_name' => $this->input->post('first_name'),
             'middle_name' => $this->input->post('middle_name'),
@@ -229,7 +187,8 @@ class Admin extends CI_Controller
             'username' => $this->input->post('username'),
             'birth_date' => $this->input->post('birth_date'),
             'contact_no' => $this->input->post('cell_no'),
-            'email' => $this->input->post('email')
+            'email' => $this->input->post('email'),
+            'password' => $this->input->post('password'),
         );
 
         //$this->dd($info);
@@ -241,25 +200,53 @@ class Admin extends CI_Controller
         );
 
         $this->Admin_model->add_activity($activity);
-        $this->session->set_flashdata('message', 'edit_user_success');
+        $this->session->set_flashdata('message', 'edit-user-success');
         $this->Admin_model->edit_useracc($id, $info);
         redirect('Admin/index');
+    }
 
-        // $data['products'] = $this->Admin_model->get_inventory_row($id);
-        // $updateProduct = $this->input->post('updateProduct');
-        // if (isset($updateProduct)) {
-        //     $id = $this->input->post('item_id');
-        //     $info = array(
-        //         'prod_name' => $this->input->post('prod_name'),
-        //         'prod_dosage' => $this->input->post('prod_dosage'),
-        //         'prod_desc' => $this->input->post('prod_desc'),
-        //         'stock_in' => $this->input->post('stock_in'),
-        //         'stock_out' => $this->input->post('stock_out')
-        //     );
-        //     $this->session->set_flashdata('success', 'Product successfully updated.');
-        //     $this->Admin_model->update_product($id, $info);
-        //     redirect('Admin_inventory');        
-        // }
+    public function update_photo($id)
+    {
+        $user = $this->Admin_model->get_useracc_row($id);
+
+        $img_config = array(
+            'upload_path' => './assets/img/profile-avatars/',
+            'allowed_types' => 'jpg|jpeg|png',
+            'max_size' => 2048,
+            'max_width' => 2048,
+            'max_height' => 2048,
+            'file_name' => 'user-avatar-' . $id,
+            'file_ext_tolower' => TRUE,
+            'overwrite' => TRUE
+        );
+
+        $this->load->library('upload', $img_config);
+        $this->upload->initialize($img_config);
+        $fileExt = pathinfo($user->avatar, PATHINFO_EXTENSION);
+
+        if (!$this->upload->do_upload('avatar')) {
+            if ($user->avatar == 'default-avatar.png') {
+
+                $img_name = 'default-avatar.png';
+                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+                redirect('Admin');
+            } else {
+                $img_name = $this->upload->data('file_name') . '.' . $fileExt;
+                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+                redirect('Admin');
+            }
+        } else {
+            $img_name = $this->upload->data('file_name');
+        }
+
+        $avatar = array(
+            'avatar' => $img_name
+        );
+
+        $this->Admin_model->update_user_avatar($id, $avatar);
+
+        $this->session->set_flashdata('message', 'success-update-avatar');
+        redirect('Admin');
     }
 
     public function dd($data)
