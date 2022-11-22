@@ -13,32 +13,31 @@ class Admin_schedule_model extends CI_Model {
         return $query->result();
     }
 
-    public function get_sunday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['sun' => 'Sun'])->result();
+    public function get_schedule_tbl($id) {
+        return $this->db->get_where('schedule', ['schedule_id' => $id]);
     }
 
-    public function get_monday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['mon' => 'Mon'])->result();
+    public function get_schedule_table()
+    {
+        return $this->db->get('schedule')->result();
     }
 
-    public function get_tuesday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['tue' => 'Tue'])->result();
+    public function delete_schedule($id) {
+        return $this->db->delete('schedule', ['schedule_id' => $id]);
     }
 
-    public function get_wednesday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['wed' => 'Wed'])->result();
+    public function update_schedule($id, $info) {
+        $data = array($info => 'NULL');
+        $this->db->where('schedule_id', $id);        
+        $this->db->update('schedule', $data);
+
+        $this->db->insert('schedule', $info);
+        // return $this->db->delete('schedule', ['schedule_id' => $id]);
     }
 
-    public function get_thursday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['thurs' => 'Thurs'])->result();
-    }
-
-    public function get_friday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['fri' => 'Fri'])->result();
-    }
-
-    public function get_saturday_sched() {
-        return $this->db->order_by('start_time', 'end_time')->get_where('schedule', ['sat' => 'Sat'])->result();
+    public function get_schedule_row($id)
+    {
+        return $this->db->get_where('schedule', ['schedule_id' => $id])->row();
     }
 }
 
