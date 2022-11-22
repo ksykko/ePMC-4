@@ -20,6 +20,7 @@ class Doctor_reports extends CI_Controller
             $data['title'] = 'Admin - Patient Records | ePMC';
 
             $data['user_role'] = $this->session->userdata('role');
+            $data['specialization'] = $this->session->userdata('specialization');
 
             // stock items chart
             $data['stock_products'] = $this->get_stocks();

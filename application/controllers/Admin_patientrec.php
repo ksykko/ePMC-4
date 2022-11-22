@@ -26,7 +26,7 @@ class Admin_patientrec extends CI_Controller
             $data['patient'] = $this->Admin_model->get_patient_row($id);
             $data['patients'] = $this->Admin_model->get_patient_table();
             $data['user_role'] = $this->session->userdata('role');
-            $data['user_specialization'] = $this->session->userdata('specialization');
+            $data['specialization'] = $this->session->userdata('specialization');
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
@@ -103,13 +103,16 @@ class Admin_patientrec extends CI_Controller
             $row[] = $diagnosis->p_recent_diagnosis;
             $row[] = $diagnosis->p_doctor;
             $row[] = '
-                <td class="text-center" colspan="1">
+                <div class="d-md-flex justify-content-md-center">
                     <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-diagnosis-' . $diagnosis->id . '">View</a>
-                    <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#edit-diagnosis-' . $diagnosis->id . '">Edit</button>
-                    <button class="btn btn-sm btn-link shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-diagnosis-' . $diagnosis->id . '"><i class="far fa-trash-alt"></i></button>
-                </td>
-            ';
 
+                </div>
+                <div class="d-md-flex justify-content-md-center">
+                    <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#edit-diagnosis-' . $diagnosis->id . '">Edit</button>
+                </div>
+                <button class="btn btn-sm btn-link shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-diagnosis-' . $diagnosis->id . '"><i class="far fa-trash-alt"></i></button>
+                
+            ';
             $data[] = $row;
         }
 
@@ -138,13 +141,15 @@ class Admin_patientrec extends CI_Controller
             $row[] = $treatment->p_diagnosis;
             $row[] = $treatment->p_treatment_plan;
             $row[] = '
-            <td class="text-center" colspan="1">
-                <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-treatment-' . $treatment->id . '">View</a>
-                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#edit-treatment-' . $treatment->id . '">Edit</button>
+                <div class="d-md-flex justify-content-md-center">
+                    <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-treatment-' . $treatment->id . '">View</a>
+                </div>
+                <div class="d-md-flex justify-content-md-center">
+                    <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#edit-treatment-' . $treatment->id . '">Edit</button>
+                </div>
                 <button class="btn btn-sm btn-link shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-treatment-' . $treatment->id . '"><i class="far fa-trash-alt"></i></button>
-            </td>
-        ';
 
+            ';
             $data[] = $row;
         }
 
@@ -384,6 +389,7 @@ class Admin_patientrec extends CI_Controller
         $data['doctors'] = $this->Doctors_model->get_all_doctors();
         //$this->dd($data['doctors']);
         $data['user_role'] = $this->session->userdata('role');
+        $data['specialization'] = $this->session->userdata('specialization');
 
         $this->load->view('include-admin/dashboard-header', $data);
         $this->load->view('include-admin/dashboard-navbar', $data);
@@ -525,8 +531,8 @@ class Admin_patientrec extends CI_Controller
             'version' => 'latest',
             'region' => 'ap-southeast-1',
             'credentials' => [
-                'key'    => 'AKIAWZWT4IZV267Q567H',
-                'secret' => '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'
+                'key'    => 'AKIAV2W63P7NKBUENKEV',
+                'secret' => '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',               
             ]
         ]);
 
@@ -758,7 +764,7 @@ class Admin_patientrec extends CI_Controller
             $this->Admin_model->add_activity($activity);
 
             $this->session->set_flashdata('message', 'import-success');
-            
+
             $this->Admin_model->add_patient_details($patientDetails);
             $this->Admin_model->add_patient_diagnosis($setId);
             $this->Admin_model->add_patient_lab_reports($documents);
@@ -1053,6 +1059,7 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+    // ! wala pa
     public function edit_diagnosis($id)
     {
     }
