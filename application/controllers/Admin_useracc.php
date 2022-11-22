@@ -19,7 +19,7 @@ class Admin_useracc extends CI_Controller {
             $data['user'] = $this->Admin_model->get_useracc_row($id);
             $data['users'] = $this->Admin_model->get_useracc_table();
             $data['user_role'] = $this->session->userdata('role');
-            $data['user_specialization'] = $this->session->userdata('specialization');
+            $data['specialization'] = $this->session->userdata('specialization');
             
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);

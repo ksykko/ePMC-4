@@ -49,6 +49,7 @@
                                         <div class="row mb-2">
                                             <div class="col form-group px-1"><label class="form-label">Name</label>
                                                 <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $patient->first_name ?>" /><small class="text-danger"><?= form_error('first_name') ?></small>
+                                                <label id="name_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
@@ -905,10 +906,17 @@
                         </div>
                         <?php if ($user_role == 'Doctor') : ?>
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 ch-patientrec">
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
+                                <div class="card-header py-3 ch-patientrec add-header">
+                                    <div class="d-flex">
+                                        <div class="me-auto">
+                                            <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body mx-3">
+                                <div id="print_prescription" class="card-body mx-3">
                                     <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $healthinfo->prescription ?></textarea></div>
                                 </div>
                             </div>
@@ -1184,7 +1192,7 @@
                                                                 <div class="row mt-4 mb-2">
                                                                     <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
                                                                     <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" disabled><?= $diagnosis->p_recent_diagnosis ?></textarea></div>
+                                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $diagnosis->p_recent_diagnosis ?></textarea></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row mt-4 mb-2">
@@ -1192,10 +1200,7 @@
                                                                     <div class="col">
                                                                         <div class="input-error">
                                                                             <div class="input-group">
-                                                                                <!-- role -->
-                                                                                <select class="form-select" id="p_doctor" name="p_doctor" disabled value="<?= set_value('p_doctor'); ?>">
-                                                                                    <option value="<?= $diagnosis->p_doctor ?>" disabled selected><?= $diagnosis->p_doctor ?></option>
-                                                                                </select>
+                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" />
                                                                             </div>
                                                                             <small class="text-danger"><?= form_error('role') ?></small>
                                                                         </div>
@@ -1354,117 +1359,14 @@
         </div>
     <?php endif; ?>
 </div>
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
+<script type="text/javascript">
+    function printPage() {
+        var id = document.getElementById('print_prescription').innerHTML;
+        var data = document.getElementById('prescription').innerHTML;
 
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-
-            document.getElementById("nextBtn").innerHTML = "Submit";
-
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("editPatient").submit();
-
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, j, input_valid = true,
-            select_valid = true;
-
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        z = x[currentTab].getElementsByTagName("select");
-
-        // A loop that checks every input field in the current tab:
-        // TODO: Add validation for input fields
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            // if (y[i].value == "") {
-            //     // add an "invalid" class to the field:
-            //     y[i].className += " invalid";
-            //     // and set the current valid status to false
-            //     input_valid = false;
-            // } else
-            y[i].className = "form-control form-control-sm valid";
-        }
-
-        // A loop that checks every select field in the current tab:
-        // TODO: Add validation for select fields
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            // if (z[j].value == "select") {
-            //     // add an "invalid" class to the field:
-            //     z[j].className += " invalid";
-            //     // and set the current valid status to false
-            //     select_valid = false;
-            // } else
-            z[j].className = "form-select form-select-sm valid";
-        }
-
-
-        // TODO: If input/select is blank display yellow border
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " warning";
-                // and set the current valid status to false
-                input_valid = true;
-            } else
-                y[i].className = "form-control form-control-sm valid";
-        }
-
-
-        // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-
-        console.log(select_valid);
-        // return the valid status
-        return input_valid && select_valid;
-    }
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
+        document.getElementById('print_prescription').innerHTML = data;
+        alert('Please click the print button on the top right corner of the page to print the prescription.');
+        //window.print();
+        print();
     }
 </script>
