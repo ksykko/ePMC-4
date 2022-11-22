@@ -27,7 +27,7 @@ class Admin_archives extends CI_Controller
             }
 
             $data['patient'] = $this->Admin_model->get_arc_patient_row($id);
-            $data['user_specialization'] = $this->session->userdata('specialization');
+            $data['specialization'] = $this->session->userdata('specialization');
             $data['patients'] = $this->Admin_model->get_arc_patient_table();
 
 
