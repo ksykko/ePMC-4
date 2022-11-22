@@ -118,6 +118,9 @@
         if ($('#spec_error').val() == '') {
             $('#spec_error').hide();
         }
+        if ($('#admin_spec_error').val() == '') {
+            $('#admin_spec_error').hide();
+        }
     });
 
 
@@ -130,6 +133,7 @@
         username = document.getElementById('username'),
         role = document.getElementById('role'),
         spec = document.getElementById('specialization'),
+        adminSpec = document.getElementById('admin_spec'),
         birthdate = document.getElementById('birth_date'),
         sex = document.getElementById('sex'),
         cell_no = document.getElementById('cell_no'),
@@ -236,6 +240,24 @@
 
             $('#specialization').removeClass('invalid');
             $('#specialization').addClass('valid');
+            input_valid = true;
+        }
+    }
+
+    adminSpec.onblur = function() {
+        if (adminSpec.value == '') {
+            $('#admin_spec_error').show();
+            $('#admin_spec_error').html('Position is required');
+            $('#admin_spec').removeClass('valid');
+            $('#admin_spec').addClass('invalid');
+            //$('#spec').focus();
+
+            input_valid = false;
+        } else {
+            $('#admin_spec_error').hide();
+
+            $('#admin_spec').removeClass('invalid');
+            $('#admin_spec').addClass('valid');
             input_valid = true;
         }
     }
@@ -360,6 +382,7 @@
             username = $('#username').val(),
             role = $('#role').val(),
             spec = $('#specialization').val(),
+            adminSpec = $('#admin_spec').val(),
             birthdate = $('#birth_date').val(),
             sex = $('#sex').val(),
             cell_no = $('#cell_no').val(),
@@ -474,6 +497,21 @@
 
                 validation['spec'] = true;
             }
+        } else if (role == 'admin' || role == 'Admin') {
+            if (adminSpec == '' || adminSpec == null) {
+                $('#admin_spec_error').show();
+                $('#admin_spec_error').html('Position is required');
+                $('#admin_spec').removeClass('valid');
+                $('#admin_spec').addClass('invalid');
+
+                validation['adminSpec'] = false;
+            } else {
+                $('#admin_spec_error').hide();
+                $('#admin_spec').removeClass('invalid');
+                $('#admin_spec').addClass('valid');
+
+                validation['adminSpec'] = true;
+            }
         } else {
             $('#role_error').hide();
             $('#role').removeClass('invalid');
@@ -481,6 +519,7 @@
 
             validation['role'] = true;
         }
+        
 
 
         if (sex == '' || sex == null) {
