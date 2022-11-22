@@ -175,7 +175,8 @@ class Doctors extends CI_Controller {
             'username' => $this->input->post('username'),
             'birth_date' => $this->input->post('birth_date'),
             'contact_no' => $this->input->post('cell_no'),
-            'email' => $this->input->post('email')
+            'email' => $this->input->post('email'),
+            'password' => $this->input->post('password'),
         );
 
         //$this->dd($info);

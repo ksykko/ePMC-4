@@ -938,7 +938,7 @@
                                     </div>
                                 </div>
                                 <div id="print_prescription" class="card-body mx-3">
-                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;"><?= $healthinfo->prescription ?></textarea></div>
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;" readonly><?= $healthinfo->prescription ?></textarea></div>
                                 </div>
                             </div>
 
