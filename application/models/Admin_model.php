@@ -54,6 +54,11 @@ class Admin_model extends CI_Model
         $this->db->update('patient_record', $avatar, ['patient_id' => $id]);
     }
 
+    public function update_user_avatar($id, $avatar)
+    { // update patient avatar based on patient_id ($id = primary key)
+        $this->db->update('user_accounts', $avatar, ['user_id' => $id]);
+    }
+
     public function delete_patient($id)
     { // delete patient based on patient_id ($id = primary key)
 
@@ -421,6 +426,14 @@ class Admin_model extends CI_Model
     public function get_patient_documents($id)
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result();
+    }
+
+    // count the number of rows with the same patient_id
+    public function get_patient_documents_count($id)
+    {
+        $this->db->where('patient_id', $id);
+        $this->db->from('patient_lab_reports');
+        return $this->db->count_all_results();
     }
 
     public function get_patient_document($id)

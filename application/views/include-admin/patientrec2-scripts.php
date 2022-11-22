@@ -1446,6 +1446,12 @@
                 });
             }
 
+            if ($err_doc) {
+                $(document).ready(function() {
+                    $("#mdl-add-document").modal('show');
+                });
+            }
+
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show()
         };

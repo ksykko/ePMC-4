@@ -10,7 +10,7 @@ class Admin_patientrec extends CI_Controller
         parent::__construct();
         require_once 'vendor/autoload.php';
 
-        $this->load->helper(['url', 'form', 'date', 'string']);
+        $this->load->helper(['url', 'form', 'date', 'string', 'html']);
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
@@ -867,7 +867,6 @@ class Admin_patientrec extends CI_Controller
             $this->session->set_flashdata('error', $errors);
             redirect('Admin_patientrec/view_patient/' . $id);
         } else {
-
             if (!$this->upload->do_upload('avatar')) {
                 if ($patient->avatar == 'default-avatar.png') {
                     $img_name = 'default-avatar.png';
@@ -916,7 +915,8 @@ class Admin_patientrec extends CI_Controller
 
     public  function add_document($id)
     {
-        $documents = $this->Admin_model->get_patient_documents_array($id);
+        $documents = $this->Admin_model->get_patient_documents_count($id);
+        $doc_name = $this->input->post('doc_name');
 
         $config = array(
             'upload_path' => './uploads/' . $id . '/',
@@ -924,7 +924,7 @@ class Admin_patientrec extends CI_Controller
             'max_size' => 2048,
             'max_width' => 2048,
             'max_height' => 2048,
-            'file_name' => 'patient-doc-' . $id,
+            'file_name' => $doc_name . '-' . $documents,
             'file_ext_tolower' => TRUE,
             'overwrite' => TRUE
         );
@@ -937,36 +937,24 @@ class Admin_patientrec extends CI_Controller
         ));
 
         if ($this->form_validation->run() == FALSE) {
-            $error = array(
-                'doc_errors' => validation_errors()
-            );
-
-            $this->session->set_flashdata('error-doc', 'error');
+            $this->session->set_flashdata('error', 'error-doc');
             redirect('Admin_patientrec/view_patient/' . $id);
         } else {
 
             if (!$this->upload->do_upload('doc_file')) {
 
                 $this->session->set_flashdata('error-doc');
+                $this->dd($this->upload->display_errors());
                 redirect('Admin_patientrec/view_patient/' . $id);
             } else {
-                $doc_name = $this->input->post('doc_name');
+
                 $doc_file = $this->upload->data('file_name');
 
                 $doc_data = array(
+                    'patient_id' => $id,
                     'doc_name' => $doc_name,
                     'document' => $doc_file
                 );
-
-                // if (empty($documents)) {
-                //     $this->Admin_model->add_patient_document($id, $doc_data);
-                //     $this->session->set_flashdata('message', 'success-doc');
-                //     redirect('Admin_patientrec/view_patient/' . $id);
-                // } else {
-                //     $this->Admin_model->update_patient_document($id, $doc_data);
-                //     $this->session->set_flashdata('message', 'success-doc');
-                //     redirect('Admin_patientrec/view_patient/' . $id);
-                // }
 
                 $activity = array(
                     'activity' => 'A patient document has been added in the patient records',
