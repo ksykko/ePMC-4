@@ -34,6 +34,7 @@ class Login extends CI_Controller
 
             $this->load->model('Login_model');
             $result = $this->Login_model->login($email, $pass);
+            //$this->dd($result);
 
             if (isset($result)) {
                 // if ($result->status == 0) {
@@ -114,41 +115,6 @@ class Login extends CI_Controller
                     redirect('Admin');
                 }
 
-                elseif ($result->role == 'Pharmacy Assistant' || $result->role == 'pharmacy assistant') {
-                    $sess_data = array(
-                        'id' => $result->admin_id,
-                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
-                        'specialization' => $result->specialization,
-                        'email' => $result->email,
-                        'role' => $result->role,
-                        'avatar' => $result->avatar,
-                        'gender' => $result->gender,
-                        'birth_date' => $result->birth_date,
-                        'contact_no' => $result->contact_no,
-                        'logged_in' => TRUE
-                    );
-
-                    $this->session->set_userdata($sess_data);
-                    redirect('PharmacyAssistant');
-                }
-
-                elseif ($result->role == 'Pharmacy Assistant' || $result->role == 'pharmacy assistant') {
-                    $sess_data = array(
-                        'id' => $result->user_id,
-                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
-                        'specialization' => $result->specialization,
-                        'email' => $result->email,
-                        'role' => $result->role,
-                        'avatar' => $result->avatar,
-                        'gender' => $result->gender,
-                        'birth_date' => $result->birth_date,
-                        'contact_no' => $result->contact_no,
-                        'logged_in' => TRUE
-                    );
-
-                    $this->session->set_userdata($sess_data);
-                    redirect('Admin');
-                }
             }
             else {
                 $error = 'Invalid email or password.';
@@ -160,6 +126,9 @@ class Login extends CI_Controller
             $this->session->set_flashdata('error', $error);
             redirect('Login/signin');
         }
+
+        
+
     }
 
     public function logout()
