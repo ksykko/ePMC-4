@@ -50,6 +50,12 @@
     }
 
     $(document).ready(function() {
+        if ($('#name_error').val() == '') {
+            $('#name_error').hide();
+        }
+        if ($('#firstName_error').val() == '') {
+            $('#firstName_error').hide();
+        }
         if ($('#firstName_error').val() == '') {
             $('#firstName_error').hide();
         }
@@ -1427,9 +1433,7 @@
 
     if (toastTrigger) {
         if ($active_toast || $err_toast || $err_img || $err_info || $err_diag || $err_doc) {
-            const toast = new bootstrap.Toast(toastLiveExample)
-            toast.show()
-
+            
             if ($err_info == "input-error") {
                 $(document).ready(function() {
                     $("#mdl-add-diagnosis").modal('show');
@@ -1441,6 +1445,9 @@
                     $("#mdl-add-treatment-plan").modal('show');
                 });
             }
+
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show()
         };
     }
 </script>

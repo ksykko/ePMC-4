@@ -35,7 +35,8 @@ class Patient_patientrec extends CI_Controller
             // $data['patients'] = $this->Admin_model->get_patient_table();
             $data['patient_id'] = $id;
             $data['user_role'] = $this->session->userdata('role');
-            $data['user_specialization'] = $this->session->userdata('specialization');
+            $data['documents'] = $this->Admin_model->get_patient_documents($id);
+
 
             $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);
             $this->load->view('include-admin/dashboard-header', $data);
@@ -79,111 +80,35 @@ class Patient_patientrec extends CI_Controller
     {
         $data['patient'] = $this->Admin_model->get_patient_row($id);
 
-        $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
+        $info = array(
+            'first_name' => $this->input->post('first_name'),
+            'middle_name' => $this->input->post('middle_name'),
+            'last_name' => $this->input->post('last_name'),
+            'age' => $this->input->post('age'),
+            'birth_date' => $this->input->post('birth_date'),
+            'sex' => $this->input->post('sex'),
+            'occupation' => $this->input->post('occupation'),
+            'address' => $this->input->post('address'),
+            'cell_no' => $this->input->post('cell_no'),
+            'tel_no' => $this->input->post('tel_no'),
+            'email' => $this->input->post('email'),
+            'ec_name' => $this->input->post('ec_name'),
+            'relationship' => $this->input->post('relationship'),
+            'ec_contact_no' => $this->input->post('ec_contact_no'),
+            'last_accessed' => date('Y-m-d H:i:s')
+        );
 
-        $this->form_validation->set_rules('middle_name', 'Middle name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
+        $activity = array(
+            'activity' => 'A patient record has been updated in the patient records',
+            'module' => 'Patient Records',
+            'date_created' => date('Y-m-d H:i:s')
+        );
 
-        $this->form_validation->set_rules('last_name', 'Last name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
+        $this->Admin_model->add_activity($activity);
 
-        $this->form_validation->set_rules('age', 'Age', 'required|numeric|is_natural_no_zero', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('birth_date', 'Birthdate', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('sex', 'Sex', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('occupation', 'Occupation', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('address', 'Address', 'required', array(
-            'required' => 'Please enter an %s.'
-        ));
-
-        $this->form_validation->set_rules('cell_no', 'Cellphone #', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('tel_no', 'Telephone #', 'required|numeric|min_length[7]', array(
-            'required' => 'Please enter patient\'s %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', array(
-            'required' => 'Please enter patient\'s %s.',
-            'valid_email' => 'Please enter a valid %s.'
-        ));
-
-        $this->form_validation->set_rules('ec_name', 'Emergency contact name', 'required|regex_match[/^([a-z ])+$/i]', array(
-            'required' => 'Please enter an %s.'
-        ));
-
-        $this->form_validation->set_rules('relationship', 'Emergency contact relationship', 'required', array(
-            'required' => 'Please enter patient\'s %s.'
-        ));
-
-        $this->form_validation->set_rules('ec_contact_no', 'Emergency contact #', 'required|numeric|min_length[11]', array(
-            'required' => 'Please enter an %s.',
-            'numeric' => 'Please enter a valid %s.'
-        ));
-
-
-        if ($this->form_validation->run() == FALSE) {
-
-            $this->index();
-            // echo "
-            // <script>
-            //     $(window).load(function(){
-            //         $('#modal-1').modal('show');
-            //     });
-            // </script>
-            // ";
-        } else {
-            //$addPatient = $this->input->post('addPatient');
-
-            $info = array(
-                'first_name' => $this->input->post('first_name'),
-                'middle_name' => $this->input->post('middle_name'),
-                'last_name' => $this->input->post('last_name'),
-                'age' => $this->input->post('age'),
-                'birth_date' => $this->input->post('birth_date'),
-                'sex' => $this->input->post('sex'),
-                'occupation' => $this->input->post('occupation'),
-                'address' => $this->input->post('address'),
-                'cell_no' => $this->input->post('cell_no'),
-                'tel_no' => $this->input->post('tel_no'),
-                'email' => $this->input->post('email'),
-                'ec_name' => $this->input->post('ec_name'),
-                'relationship' => $this->input->post('relationship'),
-                'ec_contact_no' => $this->input->post('ec_contact_no'),
-                'last_accessed' => date('Y-m-d H:i:s')
-            );
-
-            $activity = array(
-                'activity' => 'A patient record has been updated in the patient records',
-                'module' => 'Patient Records',
-                'date_created' => date('Y-m-d H:i:s')
-            );
-    
-            $this->Admin_model->add_activity($activity);
-
-            $this->session->set_flashdata('message', 'success-edit-patient-PI');
-            $this->Admin_model->edit_patient_PI($id, $info);
-            redirect('Patient_patientrec');
-        }
+        $this->session->set_flashdata('message', 'success-edit-patient-PI');
+        $this->Admin_model->edit_patient_PI($id, $info);
+        redirect('Patient_patientrec');
     }
 
 
@@ -215,7 +140,8 @@ class Patient_patientrec extends CI_Controller
             } else {
                 $img_name = $this->upload->data('file_name') . '.' . $fileExt;
                 //set flashdata validation error
-                $this->session->set_flashdata('error-upload', $this->upload->display_errors());
+
+                $this->session->set_flashdata('error', $this->upload->display_errors());
                 redirect('Patient_patientrec');
             }
         } else {
