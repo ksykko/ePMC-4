@@ -761,12 +761,20 @@
                             </div>
                         </div>
                         <div id="card-prescription" class="card shadow mb-4" style="height: 540px;">
-                            <div class="card-header py-3 ch-patientrec">
-                                <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
-                            </div>
-                            <div class="card-body mx-3">
-                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription" readonly><?= $patient_details->prescription ?></textarea></div>
-
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 ch-patientrec add-header">
+                                    <div class="d-flex">
+                                        <div class="me-auto">
+                                            <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="print_prescription" class="card-body mx-3">
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;"><?= $healthinfo->prescription ?></textarea></div>
+                                </div>
                             </div>
                         </div>
                         <div id="card-next-consultation" class="card shadow mb-4" style="height: 249px">
@@ -834,7 +842,15 @@
                                     <?php else : ?>
                                         <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
                                             <div class="card shadow">
-                                                <img class="card-img-top w-100 d-block" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" height="150px" />
+                                                <?php
+                                                $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+                                                if ($fileExt == 'pdf') {
+                                                    $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                } else {
+                                                    $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                }
+                                                ?>
+                                                <img class="card-img-top w-100 d-block" src="<?= $thumbnail ?>" height="150px" />
                                                 <div class="card-body">
                                                     <h5><?= $document->doc_name ?></h5>
                                                     <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
