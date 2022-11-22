@@ -17,7 +17,9 @@ class PharmacyAssistant extends CI_Controller
 
             $data['title'] = 'Pharmacy Assistant Dashboard | ePMC';
             $id = $this->session->userdata('id');
+            $data['user'] = $this->Admin_model->get_useracc_row($id);
 
+            $data['admin_id'] = $id;
             $data['full_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
             $data['avatar'] = $this->session->userdata('avatar');
@@ -46,35 +48,6 @@ class PharmacyAssistant extends CI_Controller
         }
     }
 
-    public function datatable()
-    {
-        // Datatables Variables
-        $draw = intval($this->input->get("draw"));
-        $activity = $this->Admin_model->get_activity_tbl();
-        $data = array();
-
-
-        foreach ($activity->result() as $recent_act) {
-
-            $dt = new DateTime($recent_act->date_created);
-            $date_created = $dt->format('m/d/y h:i A');
-
-
-            $row = array();
-            $row[] = $recent_act->activity;
-            $row[] = $date_created;
-
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $draw,
-            "recordsTotal" => $activity->num_rows(),
-            "recordsFiltered" => $activity->num_rows(),
-            "data" => $data
-        );
-        echo json_encode($output);
-    }
 
     public function get_stocks()
     {
