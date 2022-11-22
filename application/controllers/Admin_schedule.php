@@ -122,14 +122,11 @@ class Admin_schedule extends CI_Controller
 		}
 	}
 
-	public function update_schedule($id, $schedData)
+	public function update_schedule($id)
 	{
 		//Form Validation
 		$this->form_validation->set_rules('doctor_name', 'doctor', 'required', array(
 			'required' => 'Choose a %s.'
-		));
-		$this->form_validation->set_rules('specialization', 'specialization', 'required|regex_match[/^([a-z ])+$/i]', array(
-			'required' => 'Enter the %s of the doctor.'
 		));
 		$this->form_validation->set_rules('start_time', 'start time', 'required', array(
 			'required' => 'Choose the %s.'
@@ -141,25 +138,43 @@ class Admin_schedule extends CI_Controller
 		//     'required' => 'Choose at least one %s.'
 		// ));
 
+		// 'user_id' => $user_id,
+		// 			'doctor_name' => $doctor_name,
+		// 			'specialization' => $specialization,
+		// 			'start_time' => $this->input->post('start_time'),
+		// 			'end_time' => $this->input->post('end_time'),
+		// 			'theme' => $this->input->post('color')
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('message', 'add_failed');
 			$this->index();
 		} else {
-			$schedData = array(
-				'doctor_name' => $this->input->post('doctor_name'),
-				'specialization' => $this->input->post('specialization'),
-				'start_time' => $this->input->post('start_time'),
-				'end_time' => $this->input->post('end_time'),
-				'theme' => $this->input->post('color')
-			);
 
+			$updateSchedule = $this->input->post('updateSchedule');
+            if (isset($updateSchedule))
+            {
+				$result = $this->input->post('doctor_name')	;
+				$result_explode = explode('|', $result);
+				$doctor_name = $result_explode[0];
+				$user_id = $result_explode[1];
+				$specialization = $result_explode[2];
+				
+				$schedData = array(
+					'user_id' => $user_id,
+					'doctor_name' => $doctor_name,
+					'specialization' => $specialization,
+					'start_time' => $this->input->post('start_time'),
+					'end_time' => $this->input->post('end_time'),
+					'theme' => $this->input->post('color')
+				);
+			}
 			// if ('days[]' == 'Sun') {
 			// 	$schedData = array (
 			// 		'sun' => $this->input->post('day1')
 			// 	);
 			// }
 			$activity = array(
-				'activity' => 'A new schedule has been added in the schedules',
+				'activity' => 'A new schedule has been updated in the schedules',
 				'module' => 'Schedule',
 				'date_created' => date('Y-m-d H:i:s')
 			);
