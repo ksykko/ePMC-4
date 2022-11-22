@@ -42,7 +42,7 @@ class Login extends CI_Controller
                 //     redirect('Login/signin');
                 // }
 
-                if ($result->role == 'patient') {
+                if ($result->role == 'patient' || $result->role == 'Patient') {
                     $sess_data = array(
                         'id' => $result->patient_id,
                         'full_name' => $result->full_name,
@@ -66,7 +66,7 @@ class Login extends CI_Controller
                     redirect('Users');
                 }
 
-                elseif ($result->role == 'Doctor') {
+                elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -130,6 +130,24 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($sess_data);
                     redirect('PharmacyAssistant');
+                }
+
+                elseif ($result->role == 'Pharmacy Assistant' || $result->role == 'pharmacy assistant') {
+                    $sess_data = array(
+                        'id' => $result->user_id,
+                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
+                        'specialization' => $result->specialization,
+                        'email' => $result->email,
+                        'role' => $result->role,
+                        'avatar' => $result->avatar,
+                        'gender' => $result->gender,
+                        'birth_date' => $result->birth_date,
+                        'contact_no' => $result->contact_no,
+                        'logged_in' => TRUE
+                    );
+
+                    $this->session->set_userdata($sess_data);
+                    redirect('Admin');
                 }
             }
             else {
