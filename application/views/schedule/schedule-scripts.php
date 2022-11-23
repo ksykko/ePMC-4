@@ -19,7 +19,7 @@
 
             if (succToast == 'add_failed') {
                 $(document).ready(function() {
-                    $("#btn-add-product").modal('show');
+                    $("#schedule-modal").modal('show');
                 });
             }
             if (editFailed) {
