@@ -220,14 +220,14 @@
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Email</label></div>
                         <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" readonly value=" <?= $user->email ?> " /></div>
+                            <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" readonly value="<?= $user->email ?>" /></div>
                             <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Password</label></div>
                         <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value=" <?= $user->password ?> " /></div>
+                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value="<?= $user->password ?>" /></div>
                             <label id="password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
@@ -284,7 +284,7 @@
     </div>
 </div> -->
 <script>
-    var cData = JSON.parse('<?= $chart_data; ?>');
+    var cData = JSON.parse('<?= $age_range_data; ?>');
     console.log(cData);
 
     let sampleChart = document.getElementById('sampleChart').getContext('2d');
@@ -295,7 +295,7 @@
             labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'],
             datasets: [{
                 label: 'Age Range',
-                data: cData,
+                data: cData.total,
                 backgroundColor: [
                     "#cc001b",
                     "#100002",

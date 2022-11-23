@@ -120,7 +120,7 @@
                                 <!-- Add row here if doctor -->
                                 <div class="row mb-2" id="specialization_div" style="display: none;">
                                     <div class="col form-group px-1"><label class="form-label">Specialization</label>
-                                        <select class="form-select form-select-sm" id="specialization" name="specialization" value="<?= set_value('specialization'); ?>">
+                                        <select class="form-select form-select-sm" id="specialization" value="<?= set_value('specialization'); ?>">
                                             <option value="" selected>select...</option>
                                             <option value="Internal Medicine">Internal Medicine</option>
                                             <option value="Family Medicine">Family Medicine</option>
@@ -133,7 +133,7 @@
                                 <!-- Add row here if admin -->
                                 <div class="row mb-2" id="admin_div" style="display: none;">
                                     <div class="col form-group px-1"><label class="form-label">Position</label>
-                                        <select class="form-select form-select-sm" id="admin_spec" name="specialization">
+                                        <select class="form-select form-select-sm" id="admin_spec">
                                             <option value="" selected>select...</option>
                                             <option value="General Manager">General Manager</option>
                                             <option value="Pharmacy Assistant">Pharmacy Assistant</option>
@@ -300,20 +300,7 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- role -->
-
-                                                        <select class="form-select" id="edt_role" name="edt_role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
-                                                            <option value="<?= ucfirst($user->role) ?>" selected><?= ucfirst($user->role) ?></option>
-                                                            <?php if (ucfirst($user->role) == 'Admin') : ?>
-                                                                <option value="doctor">Doctor</option>
-                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                            <?php elseif (ucfirst($user->role) == 'Doctor') : ?>
-                                                                <option value="admin">Admin</option>
-                                                                <option value="pharmacy assistant">Pharmacy Assistant</option>
-                                                            <?php elseif (ucfirst($user->role) == 'Pharmacy Assistant') : ?>
-                                                                <option value="admin">Admin</option>
-                                                                <option value="doctor">Doctor</option>
-                                                            <?php endif; ?>
-                                                        </select>
+                                                        <input class="form-control" type="text" id="edt_role" name="edt_role" value="<?= ucfirst($user->role) ?>" readonly>
                                                     </div>
                                                     <small class="text-danger"><?= form_error('edt_role') ?></small>
                                                 </div>
@@ -348,7 +335,7 @@
                                                                     <option value="Family Medicine">Family Medicine</option>
                                                                     <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
                                                                 <?php else : ?>
-                                                                    <option value=" " selected>select...</option>
+                                                                    <option value="" selected disabled>select...</option>
                                                                     <option value="Internal Medicine">Internal Medicine</option>
                                                                     <option value="Family Medicine">Family Medicine</option>
                                                                     <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
@@ -360,7 +347,45 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        <?php else : ?>
+                                            <div class="row mb-2" id="admin_div">
+                                                <div class="col-3"><label class="col-form-label">Position:</label></div>
+                                                <div class="col-9 col-sm-9">
+                                                    <div class="input-error">
+                                                        <div class="input-group">
+                                                            <!-- specialization -->
+                                                            <select class="form-select" id="edt_admin_spec" name="edt_specialization">
+                                                                <option value="<?= ucfirst($user->specialization) ?>" selected><?= ucfirst($user->specialization) ?></option>
 
+                                                                <?php if ($user->specialization == 'General Manager') : ?>
+                                                                    <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                                                                    <option value="Secretary">Secretary</option>
+                                                                    <option value="Nurse">Nurse</option>
+                                                                <?php elseif ($user->specialization == 'Pharmacy Assistant') : ?>
+                                                                    <option value="General Manager">General Manager</option>
+                                                                    <option value="Secretary">Secretary</option>
+                                                                    <option value="Nurse">Nurse</option>
+                                                                <?php elseif ($user->specialization == 'Secretary') : ?>
+                                                                    <option value="General Manager">General Manager</option>
+                                                                    <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                                                                    <option value="Nurse">Nurse</option>
+                                                                <?php elseif ($user->specialization == 'Nurse') : ?>
+                                                                    <option value="General Manager">General Manager</option>
+                                                                    <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                                                                    <option value="Secretary">Secretary</option>
+                                                                <?php else : ?>
+                                                                    <option value="" selected disabled>select...</option>
+                                                                    <option value="General Manager">General Manager</option>
+                                                                    <option value="Pharmacy Assistant">Pharmacy Assistant</option>
+                                                                    <option value="Secretary">Secretary</option>
+                                                                    <option value="Nurse">Nurse</option>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                        </div>
+                                                        <small class="text-danger"><?= form_error('edt_admin_spec') ?></small>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php endif; ?>
 
 
@@ -419,21 +444,33 @@
 <script>
     function toggleDropdown() {
         let value = document.querySelector('select').value;
+        console.log(value);
+
         if (value == "doctor" || value == "Doctor" || value == "physician" || value == "Physician") {
             document.getElementById("specialization_div").style.display = "flex";
             document.getElementById("admin_div").style.display = "none";
 
             // set admin to null
             $('#admin_spec').val(null);
-        }
-        else if (value == "admin" || value == "Admin") {
+
+            // remove name attribute 
+            $('#admin_spec').removeAttr('name');
+
+            // add name attribute = specialization
+            $('#specialization').attr('name', 'specialization');
+        } else if (value == "admin" || value == "Admin") {
             document.getElementById("admin_div").style.display = "flex";
             document.getElementById("specialization_div").style.display = "none";
 
             // set specialization to null
             $('#specialization').val(null);
-        } 
-        else {
+
+            // remove name attribute
+            $('#specialization').removeAttr('name');
+
+            // add name attribute = specialization
+            $('#admin_spec').attr('name', 'specialization');
+        } else {
             document.getElementById("specialization_div").style.display = "none";
             document.getElementById("admin_div").style.display = "none";
         }

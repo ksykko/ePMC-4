@@ -1,5 +1,3 @@
-console.log(stock_products);
-
 var options = {
     series: [{
         name: 'Stock In',

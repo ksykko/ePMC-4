@@ -1244,3 +1244,23 @@ hr {
     background-color: #90e0ef;
 }
 
+
+/* * For printing prescription */
+
+@media screen {
+    .forscreen {
+        display: block;
+    }
+    .forprinting {
+        display: none;
+    }
+}
+
+@media print {
+    .forscreen {
+        display: none;
+    }
+    .forprinting {
+        display: block;
+    }
+}

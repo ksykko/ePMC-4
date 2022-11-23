@@ -255,6 +255,7 @@ class Admin_patientrec extends CI_Controller
     public function edit_patient($id)
     {
         $data['patient'] = $this->Admin_model->get_patient_row($id);
+        $patient = $this->Admin_model->get_patient_row($id);
 
         // $this->form_validation->set_rules('age', 'Age', 'required|numeric|is_natural_no_zero', array(
         //     'required' => 'Please enter patient\'s %s.',
@@ -338,6 +339,14 @@ class Admin_patientrec extends CI_Controller
             'last_accessed' => date('Y-m-d H:i:s')
         );
 
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Edited patient ' . $patient->un_patient_id . '\'s information';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
         $activity = array(
             'activity' => 'A patient record has been updated in the patient records',
             'module' => 'Patient Records',
@@ -354,11 +363,21 @@ class Admin_patientrec extends CI_Controller
 
     public function delete_patient($id)
     {
+        $patient = $this->Admin_model->get_patient_row($id);
+
         $activity = array(
             'activity' => 'A patient record has been deleted in the patient records',
             'module' => 'Patient Records',
             'date_created' => date('Y-m-d H:i:s')
         );
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Deleted patient ' . $patient->un_patient_id . ' in the patient records';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
         $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient($id);
@@ -368,33 +387,48 @@ class Admin_patientrec extends CI_Controller
 
     public function view_patient($id)
     {
-        $data['user_role'] = $this->session->userdata('role');
+        if ($this->session->userdata('logged_in')) {
 
-        if ($data['user_role'] == 'Admin') {
-            $data['title'] = 'Admin - Patient Records | ePMC';
+            $data['user_role'] = $this->session->userdata('role');
+
+            if ($data['user_role'] == 'Admin') {
+                $data['title'] = 'Admin - Patient Records | ePMC';
+            } else {
+                $data['title'] = 'Doctor - Patient Records | ePMC';
+            }
+
+            $patient = $this->Admin_model->get_patient_row($id);
+
+            $data['patient'] = $this->Admin_model->get_patient_row($id);
+            $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
+            $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
+            $data['treatments'] = $this->Admin_model->get_treatment_table();
+            // $data['patients'] = $this->Admin_model->get_patient_table();
+
+            $data['documents'] = $this->Admin_model->get_patient_documents($id);
+            //$this->dd($data['documents']);
+            $data['patient_id'] = $id;
+            $data['doctors'] = $this->Doctors_model->get_all_doctors();
+            //$this->dd($data['doctors']);
+            $data['user_role'] = $this->session->userdata('role');
+            $data['specialization'] = $this->session->userdata('specialization');
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Viewed patient ' . $patient->un_patient_id . '\'s records';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+            $this->load->view('include-admin/dashboard-header', $data);
+            $this->load->view('include-admin/dashboard-navbar', $data);
+            $this->load->view('admin-views/admin-patientrec-view-2', $data);
+            $this->load->view('include-admin/patientrec2-scripts');
         } else {
-            $data['title'] = 'Doctor - Patient Records | ePMC';
+            redirect('Login/signin');
         }
-
-
-        $data['patient'] = $this->Admin_model->get_patient_row($id);
-        $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
-        $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
-        $data['treatments'] = $this->Admin_model->get_treatment_table();
-        // $data['patients'] = $this->Admin_model->get_patient_table();
-
-        $data['documents'] = $this->Admin_model->get_patient_documents($id);
-        //$this->dd($data['documents']);
-        $data['patient_id'] = $id;
-        $data['doctors'] = $this->Doctors_model->get_all_doctors();
-        //$this->dd($data['doctors']);
-        $data['user_role'] = $this->session->userdata('role');
-        $data['specialization'] = $this->session->userdata('specialization');
-
-        $this->load->view('include-admin/dashboard-header', $data);
-        $this->load->view('include-admin/dashboard-navbar', $data);
-        $this->load->view('admin-views/admin-patientrec-view-2', $data);
-        $this->load->view('include-admin/patientrec2-scripts');
     }
 
     public function add_patient_validation()
@@ -465,6 +499,17 @@ class Admin_patientrec extends CI_Controller
                 'patient_id' => $insert_id
             );
 
+            $patient = $this->Admin_model->get_patient_row($insert_id);
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Added patient ' . $patient->un_patient_id . ' in the patient records';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
             $activity = array(
                 'activity' => 'A new patient record has been added in the patient records',
                 'module' => 'Patient Records',
@@ -525,14 +570,14 @@ class Admin_patientrec extends CI_Controller
             $image_path = 'assets/img/patientrec-imports/' . $import;
             $image_content = file_get_contents($image_path);
         }
-        $image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
+        //$image_content = file_get_contents('assets/img/patientrec-imports/patientrec-imports-1.jpg'); // TESTING
 
         $textractClient = new TextractClient([
             'version' => 'latest',
             'region' => 'ap-southeast-1',
             'credentials' => [
                 'key'    => 'AKIAV2W63P7NKBUENKEV',
-                'secret' => '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',               
+                'secret' => 'xwE4QKYg8a6wtsk+EowtDrrkinf8AMQChw/KUEj1',
             ]
         ]);
 
@@ -626,7 +671,7 @@ class Admin_patientrec extends CI_Controller
 
         // if birth_date is null then set to null
         if ($ext_data['Birthday:'] == '') {
-            $ext_data['Birthday:'] = null;
+            $birth_date = $ext_data['Birthday:'] = null;
         } else {
             $birth_date = date('Y-m-d', strtotime($ext_data['Birthday:']));
         }
@@ -682,7 +727,6 @@ class Admin_patientrec extends CI_Controller
             'File' => $ext_data['File'],
         ];
 
-        //$this->dd($formatted_data);W
         return $formatted_data;
     }
 
@@ -754,6 +798,16 @@ class Admin_patientrec extends CI_Controller
             $setId = array(
                 'patient_id' => $insert_id,
             );
+
+            $patient = $this->Admin_model->get_patient_row($insert_id);
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Imported patient ' . $patient->un_patient_id . ' record';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
             $activity = array(
                 'activity' => 'A new patient record has been imported in the patient records',
@@ -899,6 +953,16 @@ class Admin_patientrec extends CI_Controller
                 'symptoms' => $this->input->post('symptoms')
             );
 
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Updated patient ' . $patient->un_patient_id . '\'s health information';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
             $activity = array(
                 'activity' => 'A patient record has been updated in the patient records',
                 'module' => 'Patient Records',
@@ -956,6 +1020,17 @@ class Admin_patientrec extends CI_Controller
                     'document' => $doc_file
                 );
 
+                $patient = $this->Admin_model->get_patient_row($id);
+
+                // insert a row in user_activity table
+                $user_id = $this->session->userdata('id');
+                $user_type = $this->session->userdata('role');
+                $user_activity = 'Uploaded patient ' . $patient->un_patient_id . ' document';
+
+                $this->load->model('Login_model');
+                $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
                 $activity = array(
                     'activity' => 'A patient document has been added in the patient records',
                     'module' => 'Patient Records',
@@ -973,6 +1048,16 @@ class Admin_patientrec extends CI_Controller
 
     public function download_document($id, $doc_id)
     {
+        $patient = $this->Admin_model->get_patient_row($id);
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Downloaded a patient ' . $patient->un_patient_id . ' document';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
         $this->load->helper('download');
         $document = $this->Admin_model->get_patient_document($doc_id);
         //$this->dd($document);
@@ -982,6 +1067,16 @@ class Admin_patientrec extends CI_Controller
 
     public function delete_document($id, $doc_id)
     {
+        $patient = $this->Admin_model->get_patient_row($id);
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Deleted a patient ' . $patient->un_patient_id . ' document';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
         $activity = array(
             'activity' => 'A patient document has been deleted in the patient records',
             'module' => 'Patient Records',
@@ -1022,20 +1117,29 @@ class Admin_patientrec extends CI_Controller
             if ($patient == NULL) {
                 $this->Admin_model->add_patient_diagnosis($diagnosis);
                 $this->session->set_flashdata('message', 'success-diagnosis');
-                redirect('Admin_patientrec/view_patient/' . $id);
-            }
-
-            foreach ($patient as $row) {
-                if ($row['p_recent_diagnosis'] == NULL && $row['p_doctor'] == NULL) {
-                    $this->Admin_model->update_patient_diagnosis($id, $diagnosis);
-                    $this->session->set_flashdata('message', 'success-diagnosis');
-                    redirect('Admin_patientrec/view_patient/' . $id);
-                } else {
-                    $this->Admin_model->add_patient_diagnosis($diagnosis);
-                    $this->session->set_flashdata('message', 'success-diagnosis');
-                    redirect('Admin_patientrec/view_patient/' . $id);
+            } else {
+                foreach ($patient as $row) {
+                    if ($row['p_recent_diagnosis'] == NULL && $row['p_doctor'] == NULL) {
+                        $this->Admin_model->update_patient_diagnosis($id, $diagnosis);
+                        $this->session->set_flashdata('message', 'success-diagnosis');
+                        break;
+                    } else {
+                        $this->Admin_model->add_patient_diagnosis($diagnosis);
+                        $this->session->set_flashdata('message', 'success-diagnosis');
+                        break;
+                    }
                 }
             }
+
+            $patient = $this->Admin_model->get_patient_row($id);
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Added a patient ' . $patient->un_patient_id . ' diagnosis';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
             $activity = array(
                 'activity' => 'A patient diagnosis has been added in the patient records',
@@ -1044,6 +1148,8 @@ class Admin_patientrec extends CI_Controller
             );
 
             $this->Admin_model->add_activity($activity);
+
+            redirect('Admin_patientrec/view_patient/' . $id);
         }
     }
 
@@ -1059,6 +1165,16 @@ class Admin_patientrec extends CI_Controller
             'module' => 'Patient Records',
             'date_created' => date('Y-m-d H:i:s')
         );
+
+        $patient = $this->Admin_model->get_patient_row($patient_id);
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Deleted a patient ' . $patient->un_patient_id . ' diagnosis';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
         $this->Admin_model->add_activity($activity);
         $this->Admin_model->delete_patient_diagnosis($id);
@@ -1094,20 +1210,30 @@ class Admin_patientrec extends CI_Controller
             if ($patient == NULL) {
                 $this->Admin_model->add_patient_treatment_plan($treatment);
                 $this->session->set_flashdata('message', 'success-diagnosis');
-                redirect('Admin_patientrec/view_patient/' . $id);
-            }
-
-            foreach ($patient as $row) {
-                if ($row['p_diagnosis'] == NULL && $row['p_treatment_plan'] == NULL) {
-                    $this->Admin_model->update_patient_treatment_plan($id, $treatment);
-                    $this->session->set_flashdata('message', 'success-treatment');
-                    redirect('Admin_patientrec/view_patient/' . $id);
-                } else {
-                    $this->Admin_model->add_patient_treatment_plan($treatment);
-                    $this->session->set_flashdata('message', 'success-treatment');
-                    redirect('Admin_patientrec/view_patient/' . $id);
+            } else {
+                foreach ($patient as $row) {
+                    if ($row['p_diagnosis'] == NULL && $row['p_treatment_plan'] == NULL) {
+                        $this->Admin_model->update_patient_treatment_plan($id, $treatment);
+                        $this->session->set_flashdata('message', 'success-treatment');
+                        break;
+                    } else {
+                        $this->Admin_model->add_patient_treatment_plan($treatment);
+                        $this->session->set_flashdata('message', 'success-treatment');
+                        break;
+                    }
                 }
             }
+
+            $patient = $this->Admin_model->get_patient_row($id);
+
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Added a patient ' . $patient->un_patient_id . ' treatment plan';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
 
             $activity = array(
                 'activity' => 'A patient treatment plan has been added in the patient records',
@@ -1116,11 +1242,24 @@ class Admin_patientrec extends CI_Controller
             );
 
             $this->Admin_model->add_activity($activity);
+
+            redirect('Admin_patientrec/view_patient/' . $id);
         }
     }
 
     public function delete_treatment($patient_id, $id)
     {
+        $patient = $this->Admin_model->get_patient_row($patient_id);
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Deleted a patient ' . $patient->un_patient_id . ' treatment plan';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
         $activity = array(
             'activity' => 'A patient treatment plan has been deleted in the patient records',
             'module' => 'Patient Records',

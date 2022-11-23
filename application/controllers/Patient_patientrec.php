@@ -98,6 +98,15 @@ class Patient_patientrec extends CI_Controller
             'last_accessed' => date('Y-m-d H:i:s')
         );
 
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Updated profile';
+
+        $this->load->model('Login_model');
+        $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
+
         $activity = array(
             'activity' => 'A patient record has been updated in the patient records',
             'module' => 'Patient Records',
@@ -152,6 +161,14 @@ class Patient_patientrec extends CI_Controller
             'avatar' => $img_name
         );
 
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Updated profile picture';
+
+        $this->load->model('Login_model');
+        $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
         $activity = array(
             'activity' => 'A patient record profile pic has been updated in the patient records',
             'module' => 'Patient Records',
@@ -167,6 +184,14 @@ class Patient_patientrec extends CI_Controller
 
     public function logout()
     {
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Logged out';
+
+        $this->load->model('Login_model');
+        $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
+
         $this->session->sess_destroy();
         redirect('Login/signin');
     }

@@ -1,6 +1,6 @@
 <?php
 
-class Admin_reports extends CI_Controller 
+class Admin_reports extends CI_Controller
 {
     public function __construct()
     {
@@ -18,7 +18,7 @@ class Admin_reports extends CI_Controller
 
             $id = $this->session->userdata('admin_id');
 
-            $data['title'] = 'Admin - Patient Records | ePMC';
+            $data['title'] = 'Admin - Reports | ePMC';
 
             $data['user_role'] = $this->session->userdata('role');
             $data['specialization'] = $this->session->userdata('specialization');
@@ -39,7 +39,7 @@ class Admin_reports extends CI_Controller
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-reports', $data); //recent sample
-            $this->load->view('include-admin/report-scripts');
+            $this->load->view('include-admin/report-scripts', $data);
         } else {
             redirect('Login/signin');
         }
@@ -59,12 +59,11 @@ class Admin_reports extends CI_Controller
         }
 
         //$this->dd($stock_products_arr);
-        
+
         return json_encode($stock_products_arr);
-        
     }
 
-    public function get_stockIn() 
+    public function get_stockIn()
     {
         $this->load->model('Charts_model');
         $stock_in = $this->Charts_model->get_stockIn();
@@ -100,7 +99,7 @@ class Admin_reports extends CI_Controller
         $days = array();
         for ($i = 0; $i < 7; $i++) {
             $days[] = date('D', strtotime("-$i days"));
-        }    
+        }
         // reverse array
         $days = array_reverse($days);
         return json_encode($days);
@@ -132,7 +131,7 @@ class Admin_reports extends CI_Controller
         for ($i = 0; $i < 12; $i++) {
             $months[] = date('M', strtotime("-$i months"));
         }
-       // $this->dd($months);
+        // $this->dd($months);
 
         return json_encode($data);
     }
@@ -143,8 +142,4 @@ class Admin_reports extends CI_Controller
         die(var_dump($data));
         echo "</pre>";
     }
-
-    
 }
-
-?>
