@@ -117,7 +117,6 @@
 									</label>
 
 								</div>
-
 							</div>
 							<!-- THEME COLOR -->
 							<div class="col"><label class="col-form-label">Choose color:</label></div>
@@ -156,7 +155,7 @@
 			<?php foreach ($schedules as $schedule) : ?>
 			<?php $updateScheduleInfoPath = 'Admin_schedule/update_schedule/' . $schedule->schedule_id; ?>
 			<?= form_open_multipart($updateScheduleInfoPath, array('id' => 'updateSchedule')); ?>
-			<div id="schedule-edit-modal-<?= $schedule->schedule_id  ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+			<div id="schedule-edit-modal-<?=$schedule->schedule_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
 				<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -214,31 +213,32 @@
 								</div>
 							</div>
 
+							<input type="type" class="form-control" name="day" id="day" value="<?= $schedule->day; ?>" hidden>		
+
 							<!-- THEME COLOR -->
 							<div class="col"><label class="col-form-label">Choose color:</label></div>
 							<div class="row mt-4 mb-2">
 								<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color1_edit_<?= $schedule->schedule_id; ?>" value="color1" <?php if($schedule->theme == 'color1'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color1" for="color1_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color1" value="color1" autocomplete="off">
-									<label class="btn btn-outline color1" for="color1"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color2_edit_<?= $schedule->schedule_id; ?>" value="color2" <?php if($schedule->theme == 'color2'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color2" for="color2_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color2" value="color2" autocomplete="off">
-									<label class="btn btn-outline color2" for="color2"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color3_edit_<?= $schedule->schedule_id; ?>" value="color3" <?php if($schedule->theme == 'color3'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color3" for="color3_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color3" value="color3" autocomplete="off">
-									<label class="btn btn-outline color3" for="color3"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color4_edit_<?= $schedule->schedule_id; ?>" value="color4" <?php if($schedule->theme == 'color4'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color4" for="color4_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color4" value="color4" autocomplete="off">
-									<label class="btn btn-outline color4" for="color4"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color5_edit_<?= $schedule->schedule_id; ?>" value="color5" <?php if($schedule->theme == 'color5'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color5" for="color5_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color5" value="color5" autocomplete="off">
-									<label class="btn btn-outline color5" for="color5"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color6_edit_<?= $schedule->schedule_id; ?>" value="color6" <?php if($schedule->theme == 'color6'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color6" for="color6_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-									<input type="radio" class="btn-check" name="color" id="color6" value="color6" autocomplete="off">
-									<label class="btn btn-outline color6" for="color6"> </label>
-
-									<input type="radio" class="btn-check" name="color" id="color7" value="color7" autocomplete="off">
-									<label class="btn btn-outline color7" for="color7"> </label>
+									<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color7_edit_<?= $schedule->schedule_id; ?>" value="color7" <?php if($schedule->theme == 'color7'){ echo ' checked'; } ?> autocomplete="off">
+									<label class="btn btn-outline color7" for="color7_edit_<?= $schedule->schedule_id; ?>"> </label>
 								</div>
 							</div>
 							<div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" id="updateSchedule" name="updateSchedule" type="submit" style="background: #3269bf;">Save</button></div>
@@ -375,9 +375,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Mon') : ?>
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?= $schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class="btn btn-link " data-bs-toggle="modal" data-bs-target="#schedule-edit-modal-<?= $schedule->schedule_id;  ?>">
+															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -386,6 +386,7 @@
                                                             </a>    
                                                         </div>
 
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -412,9 +413,9 @@
                                                 </div>
                                                 <?php if($schedule->day == 'Tue') : ?>
                                                     
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -423,7 +424,7 @@
                                                             </a>    
                                                         </div>
                                                         
-
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -450,9 +451,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Wed') : ?>
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class=" " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -461,7 +462,7 @@
                                                             </a>    
                                                         </div>
                                                         
-
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -488,9 +489,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Thurs') : ?>
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class=" " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -499,7 +500,7 @@
                                                             </a>    
                                                         </div>
                                                         
-
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -526,9 +527,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Fri') : ?>
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class=" " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -537,7 +538,7 @@
                                                             </a>    
                                                         </div>
                                                         
-
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -550,7 +551,7 @@
 
                                         <td class=" border-end border-1"> 
                                             <?php foreach($schedules as $schedule) : ?>
-                                                <div id="delete-dialog-<?= $schedule->schedule_id?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div id="delete-dialog-<?= $schedule->schedule_id ?>" class="modal fade" role="dialog" tabindex="-1">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -564,9 +565,9 @@
                                                     </div>
                                                 </div>
                                                 <?php if($schedule->day == 'Sat') : ?>
-                                                    <div class="<?= 'sched-card' . ' ' .$schedule->theme ?>">
+                                                    <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-                                                            <a class=" " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-' . $schedule->schedule_id ?>">
+															<a class="btn btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
@@ -574,8 +575,8 @@
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
-                                                        
 
+														<?php $schedule->theme ?>
                                                         <h6><?= $schedule->doctor_name ?></h6>
                                                         <p><?= $schedule->specialization ?></p><br>
 
@@ -598,3 +599,4 @@
 		</div>
 	</div>
 </div>
+
