@@ -854,8 +854,8 @@
                                                 <div class="card-body">
                                                     <h5><?= $document->doc_name ?></h5>
                                                     <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
-                                                        <h6>file_name</h6>
-                                                        <h6>size: </h6>
+                                                        <small style="font-size: 8px;" >file_name</small>
+                                                        <small style="font-size: 8px;">size: </small>
                                                     </div>
                                                     <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                 <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->

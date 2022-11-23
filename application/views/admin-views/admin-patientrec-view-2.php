@@ -1,4 +1,4 @@
-<div class="container-fluid patientrec-container">
+<div class="container-fluid patientrec-container forscreen">
     <div class="d-flex mb-3">
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
@@ -572,6 +572,16 @@
                         <span>File uploaded.</span>
                     </div>
                 </div>
+            <?php elseif ($this->session->flashdata('message') == 'success-doc-delete') : ?>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Document deleted.</span>
+                    </div>
+                </div>
             <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
                 <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header toast-success">
@@ -643,7 +653,7 @@
                         <span>Invalid input/s.</span>
                     </div>
                 </div>
-            <?php elseif ($this->session->flashdata('error') == 'error-doc' ) : ?>
+            <?php elseif ($this->session->flashdata('error') == 'error-doc') : ?>
                 <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header text-bg-danger bg-opacity-100">
                         <strong class="me-auto">Error!</strong>
@@ -1047,20 +1057,19 @@
                                                             </button>
                                                         </div>
                                                         <?php
-                                                            $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
-                                                            if ($fileExt == 'pdf') {
-                                                                $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
-                                                            }
-                                                            else {
-                                                                $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
-                                                            }
+                                                        $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+                                                        if ($fileExt == 'pdf') {
+                                                            $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                        } else {
+                                                            $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                        }
                                                         ?>
                                                         <img class="card-img-top w-100 d-block" src="<?= $thumbnail ?>" height="150px" />
                                                         <div class="card-body">
                                                             <h5><?= $document->doc_name ?></h5>
                                                             <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
-                                                                <h6>file_name</h6>
-                                                                <h6>size: </h6>
+                                                                <small>file_name</small>
+                                                                <small>size: </small>
                                                             </div>
                                                             <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                         <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
@@ -1230,7 +1239,7 @@
                                                                     <div class="col">
                                                                         <div class="input-error">
                                                                             <div class="input-group">
-                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" />
+                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" readonly />
                                                                             </div>
                                                                             <small class="text-danger"><?= form_error('role') ?></small>
                                                                         </div>
@@ -1388,7 +1397,20 @@
             </div>
         </div>
     <?php endif; ?>
+    <button></button>    
 </div>
+<!-- <a href="javascript:PrintTextareaContent('prescription','print_prescription')">
+    Print Textarea Field Content
+</a> -->
+
+<div id="printing_div_id" class="forprinting" style="white-space:pre-line;"></div>
+<script type="text/javascript">
+    function PrintTextareaContent(textarea_field, printing_div) {
+        document.getElementById(printing_div).innerHTML = document.getElementById(textarea_field).value;
+        print();
+    }
+</script>
+
 <script type="text/javascript">
     function printPage() {
         var id = document.getElementById('print_prescription').innerHTML;
