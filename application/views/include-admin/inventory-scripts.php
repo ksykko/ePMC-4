@@ -79,11 +79,11 @@
                     "targets": [4],
                     render: function(data, type, row) {
                         if (data <= 10) {
-                            return '<span class="badge bg-danger w-25 align-align-middle" style="width:max-content;">' + data + '</span><br><strong style="color: #dc3545;"><i class="typcn typcn-warning text-danger me-1"></i> Low on Stocks</strong>';
+                            return '<span class="badge bg-danger align-align-middle" style="width:fit-content;">' + data + '</span><br><strong style="color: #dc3545;"><i class="typcn typcn-warning text-danger me-1"></i> Low on Stocks</strong>';
                         } else if (data <= 20) {
-                            return '<span class="badge bg-warning w-25 align-middle" style="width:max-content;">' + data + '</span>';
+                            return '<span class="badge bg-warning align-middle" style="width:fit-content;">' + data + '</span>';
                         } else {
-                            return '<span class="badge bg-success w-25 align-middle" style="width:max-content;">' + data + '</span>';
+                            return '<span class="badge bg-success align-middle" style="width:fit-content;">' + data + '</span>';
                         }
                     }
                 }
