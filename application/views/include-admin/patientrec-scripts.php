@@ -1612,8 +1612,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#diag_table').DataTable({
-            "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "processing": true,
             "order": [], //Initial no order.
             responsive: true,
             "ajax": {

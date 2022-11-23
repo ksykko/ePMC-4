@@ -893,8 +893,7 @@
     $(document).ready(function() {
         $('#patient-diagnosis-table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
+            "order": [],
             responsive: true,
             "ajax": {
                 url: "<?php echo site_url("Patient/datatable") ?>",
@@ -922,11 +921,78 @@
     $(document).ready(function() {
         $('#diag_table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
+            responsive: true,
+            "ajax": {
+                url: "<?php echo site_url("Patient_patientrec/diag_dt/") . $patient->patient_id  ?>",
+                type: 'POST'
+            },
+
+            //Set column definition initialisation properties.
+            "columnDefs": [{
+                    "targets": [3], //first column / numbering column
+                    "orderable": false, //set not orderable
+                    "className": "text-center",
+                    "targets": [3],
+                },
+                {
+                    // "targets": [1],
+                    // render: function(data, type, row) {
+                    //     // if data is null || '', remo0b
+                    // },
+                }
+            ]
+
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('#treatment_plan_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            "pageLength": 3,
+            "order": [], //Initial no order.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
+            responsive: true,
+            "ajax": {
+                url: "<?php echo site_url("Patient_patientrec/treatment_dt/") . $patient->patient_id  ?>",
+                type: 'POST'
+            },
+
+            //Set column definition initialisation properties.
+            "columnDefs": [{
+                    "targets": [3], //first column / numbering column
+                    "orderable": false, //set not orderable
+                    "className": "text-center",
+                    "targets": [2],
+                },
+                {
+                    // rowCallback: function(row, data, index) {
+                    //     if (data.$treatment->p_treatment_plan === null) {
+                    //         $(row).hide();
+                    //     }
+                    // }
+                    // hide row if treatment plan is null
+                    rowcallBack: function(row, data, index) {
+                        if (data[0] === null) {
+                            $(row).hide();
+                        }
+                    }
+                }
+            ]
+        });
+    });
+
+
+    $(document).ready(function() {
+        $('#consul_table').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
             "order": [], //Initial no order.
             responsive: true,
             "ajax": {
-                url: "<?php echo site_url("Patient_patientrec/diag_dt")  ?>",
+                url: "<?php echo site_url("Patient_patientrec/consul_dt")  ?>",
                 type: 'POST'
             },
 
