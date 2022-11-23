@@ -27,7 +27,6 @@
         <div class="row d-lg-flex justify-content-lg-center align-items-lg-center mb-4 mb-lg-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
                 <h2 class="fw-bold">Our Team</h2>
-                <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-4 d-md-flex d-lg-flex d-xxl-flex justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xxl-center row-cards">

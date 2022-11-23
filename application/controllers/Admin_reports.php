@@ -10,6 +10,7 @@ class Admin_reports extends CI_Controller
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
+        $this->load->model('Charts_model');
     }
 
     public function index()
@@ -34,6 +35,11 @@ class Admin_reports extends CI_Controller
             $data['recent_deleted'] = $this->recent_deleted();
 
             $data['monthly_added'] = $this->monthly_added();
+
+
+            $data['insertions'] = $this->add_dlt();
+
+            //$this->dd($data['insertions']);
 
 
             $this->load->view('include-admin/dashboard-header', $data);
@@ -131,11 +137,75 @@ class Admin_reports extends CI_Controller
         for ($i = 0; $i < 12; $i++) {
             $months[] = date('M', strtotime("-$i months"));
         }
-        // $this->dd($months);
 
         return json_encode($data);
     }
 
+
+    // * Insertions / Deletions Chart
+    public function add_dlt() 
+    {
+        $result = $this->Charts_model->get_user_activity();
+
+
+        $days_deletions = array(
+            date('D') => 0,
+            date('D', strtotime("-1 days")) => 0,
+            date('D', strtotime("-2 days")) => 0,
+            date('D', strtotime("-3 days")) => 0,
+            date('D', strtotime("-4 days")) => 0,
+            date('D', strtotime("-5 days")) => 0,
+            date('D', strtotime("-6 days")) => 0
+        );
+
+        $days = array(
+            date('D') => 0,
+            date('D', strtotime("-1 days")) => 0,
+            date('D', strtotime("-2 days")) => 0,
+            date('D', strtotime("-3 days")) => 0,
+            date('D', strtotime("-4 days")) => 0,
+            date('D', strtotime("-5 days")) => 0,
+            date('D', strtotime("-6 days")) => 0
+        );
+        
+
+        // loop through the result 
+        foreach ($result as $row) {
+            // if activity is add
+            $activity = $row->activity;
+
+            if (str_contains($activity, 'Added patient')) {
+                // get the day of the activity
+                $day = date('D', strtotime($row->date));
+                // add 1 to the day
+                $days[$day] += 1;
+            } 
+            elseif (str_contains($activity, 'Deleted patient')) {
+                // get the day of the activity
+                $day = date('D', strtotime($row->date));
+                // add 1 to the day
+                $days_deletions[$day] += 1;
+            }
+
+        }
+
+        $data = array(
+            'inserted' => array_values($days),
+            'deleted' => array_values($days_deletions)
+        );
+
+
+        //$this->dd($data);
+
+
+
+
+
+        //$this->dd($days);
+        return json_encode($data);
+    }
+
+    
     public function dd($data)
     {
         echo "<pre>";
