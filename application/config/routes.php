@@ -66,3 +66,6 @@ $route['adm_patientrec_total'] = 'api/Admin_patientrec_mobile/total';
 $route['adm_patientrec_patients'] = 'api/Admin_patientrec_mobile/patients';
 $route['adm_reports_stockin'] = 'api/Admin_reports_mobile/stockin';
 $route['adm_reports_stockout'] = 'api/Admin_reports_mobile/stockout';
+$route['adm_insert_patient'] = 'api/Admin_reports_mobile/ins_patient';
+$route['adm_delete_patient'] = 'api/Admin_reports_mobile/del_patient';
+$route['doc_reports_age_range'] = 'api/Admin_reports_mobile/age_range';
