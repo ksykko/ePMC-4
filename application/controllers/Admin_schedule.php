@@ -151,14 +151,15 @@ class Admin_schedule extends CI_Controller
 		// 			'theme' => $this->input->post('color')
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('message', 'add_failed');
+			$this->session->set_flashdata('message', 'update_failed');
 			$this->index();
 		} else {
 
 			$updateSchedule = $this->input->post('updateSchedule');
+
             if (isset($updateSchedule))
             {
-				$result = $this->input->post('doctor_name')	;
+				$result = $this->input->post('doctor_name');
 				$result_explode = explode('|', $result);
 				$doctor_name = $result_explode[0];
 				$user_id = $result_explode[1];
@@ -170,14 +171,11 @@ class Admin_schedule extends CI_Controller
 					'specialization' => $specialization,
 					'start_time' => $this->input->post('start_time'),
 					'end_time' => $this->input->post('end_time'),
-					'theme' => $this->input->post('color')
+					'day' => $this->input->post('day'),
+					'theme' => $this->input->post('color_edit_'.$id)
 				);
 			}
-			// if ('days[]' == 'Sun') {
-			// 	$schedData = array (
-			// 		'sun' => $this->input->post('day1')
-			// 	);
-			// }
+
 			$activity = array(
 				'activity' => 'A new schedule has been updated in the schedules',
 				'module' => 'Schedule',
@@ -187,11 +185,10 @@ class Admin_schedule extends CI_Controller
 			$this->Admin_model->add_activity($activity);
 
 
-			$this->session->set_flashdata('message', 'success');
+			$this->session->set_flashdata('message', 'update_success');
 			$this->schedModel->update_schedule($id,$schedData);
 			redirect('Admin_schedule');
 
-			// echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule') </script>";
 		}
 	}
 

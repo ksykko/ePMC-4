@@ -182,8 +182,9 @@
     text-align: left;
 }
 
-.btn-delete {
-    cursor: pointer;
+.btn-sched {
+    --bs-btn-padding-y: none !important;
+    --bs-btn-padding-x: none !important;
 }
 
 .closed {
