@@ -81,11 +81,21 @@ class Admin_archives extends CI_Controller
 
     public function restore_patient($id)
     {
+        $patient = $this->Admin_model->get_arc_patient_row($id);
+
         $activity = array(
             'activity' => 'A patient has been restored from the archives',
             'module' => 'Archives',
             'date_created' => date('Y-m-d H:i:s')
         );
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Restored patient ' . $patient->un_patient_id . ' from the archives';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
         $this->Admin_model->restore_patient($id);
         $this->Admin_model->add_activity($activity);

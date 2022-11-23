@@ -1,45 +1,46 @@
-    // * User Activity Chart
-    var options = {
-        series: [{
-            name: "Activities",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }],
-        chart: {
-            height: '300px',
-            type: 'line',
-            zoom: {
-                enabled: false
-            },
-            fontFamily: 'Poppins, sans-serif',
+var options = {
+    series: [{
+            name: 'Edit',
+            data: [31, 40, 28, 51, 42, 109, 100]
+        }, {
+            name: 'Insertions',
+            data: [11, 32, 45, 32, 34, 52, 41]
         },
-        dataLabels: {
-            enabled: false
+        {
+            name: 'Deletions',
+            data: [7, 12, 19, 3, 10, 5, 9]
         },
-        stroke: {
-            curve: 'straight'
+        {
+            name: 'Log ins',
+            data: [3, 5, 2, 8, 1, 5, 4]
         },
-        grid: {
-            row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                opacity: 0.5
-            },
-        },
-        xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shade: 'dark',
-                gradientToColors: ['#5d61c0'],
-                shadeIntensity: 1,
-                type: 'horizontal',
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100, 100, 100]
-            },
+        {
+            name: 'Log outs',
+            data: [1, 3, 4, 3, 3, 4, 4]
         }
-    };
+    ],
+    chart: {
+        height: 350,
+        width: '100%',
+        type: 'area',
+        fontFamily: 'Poppins, sans-serif'
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        curve: 'smooth'
+    },
+    xaxis: {
+        type: 'datetime',
+        categories: ["2022-11-23T00:00:00.000Z", "2022-11-23T01:30:00.000Z", "2022-11-23T02:30:00.000Z", "2022-11-23T03:30:00.000Z", "2022-11-23T04:30:00.000Z", "2022-11-23T05:30:00.000Z", "2022-11-23T06:30:00.000Z"]
+    },
+    tooltip: {
+        x: {
+            format: 'dd/MM/yy HH:mm'
+        },
+    },
+};
 
-    var chart = new ApexCharts(document.querySelector("#activity_chart"), options);
-    chart.render();
+var chart = new ApexCharts(document.querySelector("#activity_chart"), options);
+chart.render();

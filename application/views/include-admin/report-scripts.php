@@ -5,31 +5,26 @@
 
 
 <script>
+    var populationData = JSON.parse('<?= $population ?>');
     var bmiData = JSON.parse('<?= $bmi_data; ?>');
 
-    var options = {
-        series: [44, 55, 13, 43, 22],
-        chart: {
-            width: 380,
-            type: 'pie',
-        },
-        labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-    };
+    // reverse populationData.male 
+    var male_data = Object.values(populationData.male).reverse();
+    var female_data = Object.values(populationData.female).reverse();
+    console.log(reverse);
 
-    var chart = new ApexCharts(document.querySelector("#bmiChart"), options);
-    chart.render();
+    
+    var recent_days = JSON.parse('<?= $recent_days ?>');
+    var recent_data = JSON.parse('<?= $recent_data ?>');
+    var recent_deleted = JSON.parse('<?= $recent_deleted ?>');
+    
+
+
 </script>
+
+<!-- Charts -->
+<script src="<?= base_url('/assets/js/Charts/stocks_chart.js') ?>"></script>
+<script src="<?= base_url('/assets/js/Charts/Admin/treatment_chart.js') ?>"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

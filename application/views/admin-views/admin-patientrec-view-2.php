@@ -1,4 +1,4 @@
-<div class="container-fluid patientrec-container">
+<div class="container-fluid patientrec-container forscreen">
     <div class="d-flex mb-3">
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
@@ -8,7 +8,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header border-bottom-0"><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                        <div class="modal-body d-xxl-flex justify-content-xxl-center">
+                        <div class="modal-body mx-5">
                             <p><i class="typcn typcn-warning me-2"></i><span style="color: var(--bs-modal-color); background-color: var(--bs-modal-bg);">Are you sure you want to save changes?</span></p>
                         </div>
                         <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button id="saveHealthBtn" form="healthForm" value="Submit" class="btn btn-sm btn-success" type="submit">Save</button></div>
@@ -572,6 +572,16 @@
                         <span>File uploaded.</span>
                     </div>
                 </div>
+            <?php elseif ($this->session->flashdata('message') == 'success-doc-delete') : ?>
+                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header toast-success">
+                        <strong class="me-auto">Success!</strong>
+                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body bg-opacity-50">
+                        <span>Document deleted.</span>
+                    </div>
+                </div>
             <?php elseif ($this->session->flashdata('message') == 'success-diagnosis') : ?>
                 <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header toast-success">
@@ -643,7 +653,7 @@
                         <span>Invalid input/s.</span>
                     </div>
                 </div>
-            <?php elseif ($this->session->flashdata('error') == 'error-doc' ) : ?>
+            <?php elseif ($this->session->flashdata('error') == 'error-doc') : ?>
                 <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header text-bg-danger bg-opacity-100">
                         <strong class="me-auto">Error!</strong>
@@ -1047,21 +1057,17 @@
                                                             </button>
                                                         </div>
                                                         <?php
-                                                            $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
-                                                            if ($fileExt == 'pdf') {
-                                                                $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
-                                                            }
-                                                            else {
-                                                                $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
-                                                            }
+                                                        $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);                                                        
+               
+                                                        if ($fileExt == 'pdf') {
+                                                            $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                        } else {
+                                                            $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                        }
                                                         ?>
                                                         <img class="card-img-top w-100 d-block" src="<?= $thumbnail ?>" height="150px" />
                                                         <div class="card-body">
-                                                            <h5><?= $document->doc_name ?></h5>
-                                                            <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
-                                                                <h6>file_name</h6>
-                                                                <h6>size: </h6>
-                                                            </div>
+                                                            <h5><?= $document->doc_name ?></h5><br>
                                                             <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                         <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                                                         <path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"></path>
@@ -1092,7 +1098,7 @@
                                                                 <div class="modal-header">
                                                                     <h4 class="modal-title ms-3 fw-bolder">Delete a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
-                                                                <div class="modal-body">
+                                                                <div class="modal-body mx-3">
                                                                     <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this document?</p>
                                                                 </div>
                                                                 <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_document/') . $document->patient_id . '/' . $document->id ?>" type="button">Confirm</a></div>
@@ -1230,7 +1236,7 @@
                                                                     <div class="col">
                                                                         <div class="input-error">
                                                                             <div class="input-group">
-                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" />
+                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" readonly />
                                                                             </div>
                                                                             <small class="text-danger"><?= form_error('role') ?></small>
                                                                         </div>
@@ -1389,6 +1395,18 @@
         </div>
     <?php endif; ?>
 </div>
+<!-- <a href="javascript:PrintTextareaContent('prescription','print_prescription')">
+    Print Textarea Field Content
+</a> -->
+
+<!-- <div id="printing_div_id" class="forprinting" style="white-space:pre-line;"></div> -->
+<script type="text/javascript">
+    function PrintTextareaContent(textarea_field, printing_div) {
+        document.getElementById(printing_div).innerHTML = document.getElementById(textarea_field).value;
+        print();
+    }
+</script>
+
 <script type="text/javascript">
     function printPage() {
         var id = document.getElementById('print_prescription').innerHTML;

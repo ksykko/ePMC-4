@@ -8,6 +8,7 @@ class Login extends CI_Controller
 
         $this->load->helper(['url', 'form']);
         $this->load->library(['form_validation', 'session']);
+        $this->load->model('Login_model');
     }
 
     public function signin()
@@ -63,11 +64,12 @@ class Login extends CI_Controller
                         'logged_in' => TRUE
                     );
 
+                    // insert a row in user_activity table
+                    $this->Login_model->patient_activity($result->patient_id, $result->role, 'Logged in');
+
                     $this->session->set_userdata($sess_data);
                     redirect('Users');
-                }
-
-                elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
+                } elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -81,11 +83,12 @@ class Login extends CI_Controller
                         'logged_in' => TRUE
                     );
 
+                    // insert a row in user_activity table
+                    $this->Login_model->user_activity($result->user_id, $result->role, 'Logged in');
+
                     $this->session->set_userdata($sess_data);
                     redirect('Doctors');
-                }
-                
-                elseif ($result->role == 'Admin' || $result->role == 'admin') {
+                } elseif ($result->role == 'Admin' || $result->role == 'admin') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -104,7 +107,11 @@ class Login extends CI_Controller
                     );
 
                     $this->session->set_userdata($sess_data);
-                    //$this->dd($sess_data);
+                    //$this->dd($result->specialization);
+
+
+                    // insert a row in user_activity table
+                    $this->Login_model->user_activity($result->user_id, $result->role, 'Logged in');
 
                     if ($result->specialization == 'Pharmacy Assistant' || $result->specialization == 'pharmacy assistant') {
                         redirect('PharmacyAssistant');
@@ -114,9 +121,7 @@ class Login extends CI_Controller
 
                     redirect('Admin');
                 }
-
-            }
-            else {
+            } else {
                 $error = 'Invalid email or password.';
                 $this->session->set_flashdata('error', $error);
                 redirect('Login/signin');
@@ -126,13 +131,16 @@ class Login extends CI_Controller
             $this->session->set_flashdata('error', $error);
             redirect('Login/signin');
         }
-
-        
-
     }
 
     public function logout()
     {
+        if ($this->session->userdata('role') == 'patient' || $this->session->userdata('role') == 'Patient') {
+            $this->Login_model->patient_activity($this->session->userdata('id'), $this->session->userdata('role'), 'Logged out');
+        } else {
+            $this->Login_model->user_activity($this->session->userdata('id'), $this->session->userdata('role'), 'Logged out');
+        }
+
         $this->session->sess_destroy();
         redirect('Login/signin');
     }

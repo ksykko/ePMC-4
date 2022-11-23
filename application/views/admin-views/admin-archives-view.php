@@ -19,7 +19,7 @@
                                     <button type="button" class="btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                                 </div>
                                 <div class="toast-body bg-opacity-50">
-                                    <span>You successfully restore a patient record.</span>
+                                    <span>You successfully restored a patient record.</span>
                                 </div>
 
                             </div>

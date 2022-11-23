@@ -182,8 +182,9 @@
     text-align: left;
 }
 
-.btn-delete {
-    cursor: pointer;
+.btn-sched {
+    --bs-btn-padding-y: none !important;
+    --bs-btn-padding-x: none !important;
 }
 
 .closed {
@@ -228,8 +229,11 @@ table.table-fit tfoot td {
     /* overflow-x:auto !important; */
 }
 
+
+
 @media (min-width: 1366px){
     h6 {
         font-size: 19px !important;
     }
 }
+
