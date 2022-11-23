@@ -22,71 +22,6 @@ class Admin_reports_mobile extends RestController
         $this->load->model('Charts_model');
     }
 
-    //START of Insertion vs Deletion of Patients
-    public function ins_patient_get() {
-        //get recent day and the past 6 days
-        $days = array();
-        for ($i = 0; $i < 7; $i++) {
-            $days[] = date('D', strtotime("-$i days"));
-        }    
-        $days = array_reverse($days);
-
-        //value of insertion for the past 7 days
-        $added = $this->Charts_model->recent_added();
-
-
-        foreach(array_combine($days, $added) as $day => $add) {
-            $response[] = array(
-                'x' => $day,
-                'y' => $add
-            );
-        }
-        echo json_encode($response);
-    }
-
-    public function del_patient_get() {
-        //get recent day and the past 6 days
-        $days = array();
-        for ($i = 0; $i < 7; $i++) {
-            $days[] = date('D', strtotime("-$i days"));
-        }    
-        $days = array_reverse($days);
-        
-        //value of deletion(archived) for the past 7 days
-        $deleted = $this->Charts_model->recent_deleted();
-
-
-        foreach(array_combine($days, $deleted) as $day => $del) {
-            $response[] = array(
-                'x' => $day,
-                'y' => $del
-            );
-        }
-        echo json_encode($response);
-    }
-    //END of Insertion vs Deletion of Patients
-
-    
-    //START of stock items chart
-    public function stockin_get() {
-        $result=$this->Charts_model->get_stock();
-        foreach($result as $stockIn) {
-            $response[] = array('x'=>$stockIn->prod_name,
-                                'y'=>(int)$stockIn->stock_in,);
-        }
-        
-        echo json_encode($response);
-    }
-    public function stockout_get() {
-        $result=$this->Charts_model->get_stock();
-        foreach($result as $stockOut) {
-            $response[] = array('x'=>$stockOut->prod_name,
-                                'y'=>(int)$stockOut->stock_out,);
-        }
-        echo json_encode($response);
-    }
-    // END OF stock items chart
-
     //START of age range
     public function age_range_get() {
         // get age range data from database
@@ -165,5 +100,139 @@ class Admin_reports_mobile extends RestController
 
     }
     //END of age range
+
+    // START of bmi
+    public function bmi_get()
+    {
+        $result = $this->Charts_model->get_bmi_data();
+
+        // create array to store bmi data
+        $bmi_data = [
+            'underweight' => 0,
+            'normal' => 0,
+            'overweight' => 0,
+            'obese' => 0,
+        ];
+
+        // loop through the data and store in array
+        foreach ($result as $row) {
+
+            // convert height and weight datatype to float
+            $height = (float)$row->height;
+            $weight = (float)$row->weight;
+
+            // skips the patient if height or weight is 0
+            if ($height == 0 || $weight == 0 || $height == null || $weight == null) {
+                continue;
+            }
+            
+            // calculate bmi
+            $bmi = ($weight / $height / $height) * 10000;
+
+            // count the number of patients in each bmi category
+            if ($bmi < 18.5) {
+                $bmi_data['underweight'] = $bmi_data['underweight'] + 1;
+            }
+            if ($bmi >= 18.5 && $bmi <= 24.9) {
+                $bmi_data['normal'] = $bmi_data['normal'] + 1;
+            }
+            if ($bmi >= 25 && $bmi <= 29.9) {
+                $bmi_data['overweight'] = $bmi_data['overweight'] + 1;
+            }
+            if ($bmi >= 30) {
+                $bmi_data['obese'] = $bmi_data['obese'] + 1;
+            }
+        }
+
+        $xval = array_keys($bmi_data);
+        $yval = array_values($bmi_data);
+
+        foreach(array_combine($xval, $yval) as $x => $y) {
+            $response[] = array(
+                'x' => $x,
+                'y' => $y
+            );
+        }
+        
+        echo json_encode($response);
+    }
+    //END of bmi
+
+
+    //START of Overall Patient Satisfaction
+        //code here
+    //END of Overall Patient Satisfaction
+
+    //START of Insertion vs Deletion of Patients
+    public function ins_patient_get() {
+        //get recent day and the past 6 days
+        $days = array();
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = date('D', strtotime("-$i days"));
+        }    
+        $days = array_reverse($days);
+
+        //value of insertion for the past 7 days
+        $added = $this->Charts_model->recent_added();
+
+
+        foreach(array_combine($days, $added) as $day => $add) {
+            $response[] = array(
+                'x' => $day,
+                'y' => $add
+            );
+        }
+        echo json_encode($response);
+    }
+
+    public function del_patient_get() {
+        //get recent day and the past 6 days
+        $days = array();
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = date('D', strtotime("-$i days"));
+        }    
+        $days = array_reverse($days);
+        
+        //value of deletion(archived) for the past 7 days
+        $deleted = $this->Charts_model->recent_deleted();
+
+
+        foreach(array_combine($days, $deleted) as $day => $del) {
+            $response[] = array(
+                'x' => $day,
+                'y' => $del
+            );
+        }
+        echo json_encode($response);
+    }
+    //END of Insertion vs Deletion of Patients
+
+
+    //START of Doctor's Treatment Plan
+        //code here
+    //END of Doctor's Treatment Plan
+
+    
+    //START of Stock Items
+    public function stockin_get() {
+        $result=$this->Charts_model->get_stock();
+        foreach($result as $stockIn) {
+            $response[] = array('x'=>$stockIn->prod_name,
+                                'y'=>(int)$stockIn->stock_in,);
+        }
+        
+        echo json_encode($response);
+    }
+    public function stockout_get() {
+        $result=$this->Charts_model->get_stock();
+        foreach($result as $stockOut) {
+            $response[] = array('x'=>$stockOut->prod_name,
+                                'y'=>(int)$stockOut->stock_out,);
+        }
+        echo json_encode($response);
+    }
+    // END of Stock Items
+
+    
 }
 ?>
