@@ -1027,6 +1027,7 @@
             input_valid = true;
         }
     }
+    console.log(ext_sex.value);
 
     ext_cs.onblur = function() {
         if (ext_cs.value == '') {
@@ -1289,7 +1290,7 @@
             validation['birthdate'] = true;
         }
 
-
+        // ! Not functioning
         if (sex == null) {
             $('#ext_sex').removeClass('invalid');
             $('#ext_sex').addClass('warning');
@@ -1341,7 +1342,7 @@
             $('#ext_mob').addClass('invalid');
 
             $('#ext_mob_error').show();
-            $('#ext_mob_error').html('Invalid cellphone number');
+            $('#ext_mob_error').html('Invalid mobile number');
 
             validation['mob'] = false;
 
@@ -1611,8 +1612,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#diag_table').DataTable({
-            "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "processing": true,
             "order": [], //Initial no order.
             responsive: true,
             "ajax": {

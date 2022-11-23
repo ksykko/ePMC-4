@@ -26,6 +26,31 @@ class Login_model extends CI_Model
             return false;
         }
     }
+
+    public function user_activity($user_id, $user_type, $activity)
+    {
+
+        $data = array(
+            'user_id' => $user_id,
+            'user_type' => $user_type,
+            'activity' => $activity,
+            'date' => date('Y-m-d H:i:s'),
+        );
+
+        $this->db->insert('user_activity', $data);
+    }
+
+    public function patient_activity($user_id, $user_type, $activity)
+    {
+        $data = array(
+            'patient_id' => $user_id,
+            'user_type' => $user_type,
+            'activity' => $activity,
+            'date' => date('Y-m-d H:i:s')
+        );
+
+        $this->db->insert('patient_activity', $data);
+    }
 }
 
 ?>

@@ -761,12 +761,20 @@
                             </div>
                         </div>
                         <div id="card-prescription" class="card shadow mb-4" style="height: 540px;">
-                            <div class="card-header py-3 ch-patientrec">
-                                <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
-                            </div>
-                            <div class="card-body mx-3">
-                                <div class="mb-3"><textarea id="prescription" class="form-control text-area" name="prescription" readonly><?= $patient_details->prescription ?></textarea></div>
-
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 ch-patientrec add-header">
+                                    <div class="d-flex">
+                                        <div class="me-auto">
+                                            <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="print_prescription" class="card-body mx-3">
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;" readonly><?= $healthinfo->prescription ?></textarea></div>
+                                </div>
                             </div>
                         </div>
                         <div id="card-next-consultation" class="card shadow mb-4" style="height: 249px">
@@ -834,12 +842,18 @@
                                     <?php else : ?>
                                         <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
                                             <div class="card shadow">
-                                                <img class="card-img-top w-100 d-block" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" height="150px" />
+                                                <?php
+                                                $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+                                                if ($fileExt == 'pdf') {
+                                                    $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                } else {
+                                                    $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                }
+                                                ?>
+                                                <img class="card-img-top w-100 d-block thumbnail" src="<?= $thumbnail ?>" height="150px" />
                                                 <div class="card-body">
                                                     <h5><?= $document->doc_name ?></h5>
-                                                    <div class="d-xl-flex d-xxl-flex justify-content-xl-between justify-content-xxl-between">
-                                                        <h6>file_name</h6>
-                                                        <h6>size: </h6>
+                                                    <div class="d-flex justify-content-end"><br>
                                                     </div>
                                                     <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                 <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
@@ -892,12 +906,151 @@
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag">
+                    <div class="d-flex">
+                        <div class="me-auto">
+                            <h6 class="bd-highlight fw-bold fs-5 ch-heading">Diagnoses</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body mx-3 pt-4 pb-5">
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <table id="diag_table" class="table table-hover" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-middle">Date Created</th>
+                                            <th class="align-middle col-md-6">Diagnosis</th>
+                                            <th class="align-middle">Doctor</th>
+                                            <th class="text-center col-md-2 align-middle">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($diagnoses as $diagnosis) : ?>
+                                            <div id="view-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <?php
+                                                        $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+                                                        ?>
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Diagnosis <?= $diag_date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body mx-sm-5">
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $diagnosis->p_recent_diagnosis ?></textarea></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-error">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" readonly />
+                                                                        </div>
+                                                                        <small class="text-danger"><?= form_error('role') ?></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="delete-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Delete a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_diagnosis/') . $diagnosis->patient_id . '/' . $diagnosis->id ?>" type="button">Confirm</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
+                    <div class="d-flex">
+                        <div class="me-auto">
+                            <h6 class="bd-highlight fw-bold fs-5 ch-heading">Treatment Plan</h6>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body mx-3">
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <table id="treatment_plan_table" class="table table-hover" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-middle col-md-5">Diagnosis</th>
+                                            <th class="align-middle col-md-5">Treatment Plan</th>
+                                            <th class="align-middle col-md-2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($treatments as $treatment) : ?>
+                                            <div id="view-treatment-<?= $treatment->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body mx-sm-5">
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" disabled><?= $treatment->p_diagnosis ?></textarea></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" disabled><?= $treatment->p_treatment_plan ?></textarea></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
                 <div class="card-header py-3 ch-patientrec">
                     <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
                 </div>
                 <div class="card-body mx-3">
                     <div>
-                        <table id="diag_table" class="table table-hover" style="width: 100%">
+                        <table id="consul_table" class="table table-hover" style="width: 100%">
                             <thead>
                                 <tr>
                                     <th class="col-sm-6">Date and Time</th>

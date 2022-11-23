@@ -129,7 +129,7 @@
                         <?= $full_name ?>
                     </label><br>
                     <label for="avatar" class="role">
-                        <?= $specialization ?>
+                        <?= $user->specialization ?>
                     </label><br>
                     <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button></div>
                     <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" style="width: 151.84px;" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
@@ -223,7 +223,7 @@
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Password</label></div>
                         <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value=" <?= $user->password ?> " /></div>
+                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value="<?= $user->password ?>" /></div>
                             <label id="password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
@@ -261,17 +261,7 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 </div>

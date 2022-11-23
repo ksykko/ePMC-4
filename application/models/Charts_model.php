@@ -10,18 +10,18 @@ class Charts_model extends CI_Model
     }
 
 
-    // START OF age range chart
+    //  * START OF age range chart
     public function get_age_range()
     {
-        // get age from patient_record table
-        $this->db->select('age');
+        // get age and sex from patient_record table
+        $this->db->select('age, sex');
         $this->db->from('patient_record');
         $query = $this->db->get();
         $result = $query->result();
 
         return $result;
     }
-    // END OF age range chart
+    // * END OF age range chart
 
 
     // START OF bmi data chart
@@ -35,10 +35,10 @@ class Charts_model extends CI_Model
 
         return $result;
     }
-    // END OF bmi data chart
+    // * END OF bmi data chart
 
 
-    // START OF gender data chart
+    // * START OF gender data chart
     public function get_gender_data()
     {
         // get gender from patient_records table
@@ -49,10 +49,10 @@ class Charts_model extends CI_Model
 
         return $result;
     }
-    // END OF gender data chart
+    // * END OF gender data chart
 
 
-    // START OF stock items chart
+    // * START OF stock items chart
     public function get_stockprod()
     {
         $this->db->select('prod_name')->from('inventory');
@@ -76,7 +76,23 @@ class Charts_model extends CI_Model
 
         return $query->result();
     }
-    //for mobile
+    // * END OF stock items chart
+
+
+    // * START OF Staff per department chart
+    public function get_staff_count()
+    {
+        // fetch all rows from user_account table
+        $this->db->select('specialization');
+        $this->db->from('user_accounts');
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+    // * END OF Staff per department chart
+
+
+    // * for mobile
     public function get_stock()
     {
         $this->db->select("prod_name,stock_in,stock_out");
@@ -84,10 +100,10 @@ class Charts_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    // END OF stock items chart
+    // * END OF stock items chart
 
 
-    // START OF patient count chart
+    // * START OF patient count chart
     public function daily_patientrec()
     {
         // count number of patient_records per day for the past 7 days
@@ -136,6 +152,8 @@ class Charts_model extends CI_Model
 
         return $result;
     }
+
+
 
     public function recent_added()
     {
@@ -214,6 +232,20 @@ class Charts_model extends CI_Model
         return $result;
 
     }
+
+    public function get_user_activity()
+    {
+        // get result of user activity
+        $this->db->select('activity, DATE_FORMAT(date, "%a") AS date');
+        $this->db->from('user_activity');
+        $this->db->order_by('date', 'DESC');
+
+        $query = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
 
     public function dd($data)
     {

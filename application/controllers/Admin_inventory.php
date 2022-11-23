@@ -52,15 +52,13 @@ class Admin_inventory extends CI_Controller {
             $row[] = $product->stock_out;
             $row[] = 
             '
-            <div class="d-md-flex justify-content-md-center">
-                <button class="btn btn-light btn-sm mx-2 product-view-modal-btn" data-bs-toggle="modal" data-bs-target="#product-view-modal-'.$product->item_id.'" type="button" data-id=" '. $product->item_id .'" data-prod_name=" ' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">View</button>
-            </div>
-
+            
+            <button class="btn btn-light btn-sm mx-2 product-view-modal-btn" data-bs-toggle="modal" data-bs-target="#product-view-modal-'.$product->item_id.'" type="button" data-id=" '. $product->item_id .'" data-prod_name=" ' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">View</button>
+            
             <!-- Edit btn change all from view modal btn -->
-            <div class="d-md-flex justify-content-md-center">
-                <button class="btn btn-light btn-sm mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#product-edit-modal-'.$product->item_id.'" type="button" data-id="' . $product->item_id . '" data-prod_name="' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">Edit</button>
-            </div>
-
+            
+            <button class="btn btn-light btn-sm mx-2 product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#product-edit-modal-'.$product->item_id.'" type="button" data-id="' . $product->item_id . '" data-prod_name="' . $product->prod_name . '" data-prod_dosage="' . $product->prod_dosage . '" data-prod_desc="' . $product->prod_desc . '" data-quantity="' . ($product->stock_in) + ($product->stock_out) . '" data-stock_in="' . $product->stock_in . '" data-stock_out="' . $product->stock_out . '" data-prod_name_title="' . $product->prod_name . '">Edit</button>
+            
             <a class="btn btn-link btn-sm btn-delete" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $product->item_id . ' "><i class="far fa-trash-alt"></i></a>
             ';
             

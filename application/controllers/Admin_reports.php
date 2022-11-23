@@ -1,6 +1,6 @@
 <?php
 
-class Admin_reports extends CI_Controller 
+class Admin_reports extends CI_Controller
 {
     public function __construct()
     {
@@ -10,6 +10,7 @@ class Admin_reports extends CI_Controller
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
+        $this->load->model('Charts_model');
     }
 
     public function index()
@@ -18,7 +19,7 @@ class Admin_reports extends CI_Controller
 
             $id = $this->session->userdata('admin_id');
 
-            $data['title'] = 'Admin - Patient Records | ePMC';
+            $data['title'] = 'Admin - Reports | ePMC';
 
             $data['user_role'] = $this->session->userdata('role');
             $data['specialization'] = $this->session->userdata('specialization');
@@ -36,10 +37,15 @@ class Admin_reports extends CI_Controller
             $data['monthly_added'] = $this->monthly_added();
 
 
+            $data['insertions'] = $this->add_dlt();
+
+            //$this->dd($data['insertions']);
+
+
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data); // admin dashboard not yet done
             $this->load->view('admin-views/admin-reports', $data); //recent sample
-            $this->load->view('include-admin/report-scripts');
+            $this->load->view('include-admin/report-scripts', $data);
         } else {
             redirect('Login/signin');
         }
@@ -59,12 +65,11 @@ class Admin_reports extends CI_Controller
         }
 
         //$this->dd($stock_products_arr);
-        
+
         return json_encode($stock_products_arr);
-        
     }
 
-    public function get_stockIn() 
+    public function get_stockIn()
     {
         $this->load->model('Charts_model');
         $stock_in = $this->Charts_model->get_stockIn();
@@ -100,7 +105,7 @@ class Admin_reports extends CI_Controller
         $days = array();
         for ($i = 0; $i < 7; $i++) {
             $days[] = date('D', strtotime("-$i days"));
-        }    
+        }
         // reverse array
         $days = array_reverse($days);
         return json_encode($days);
@@ -132,19 +137,79 @@ class Admin_reports extends CI_Controller
         for ($i = 0; $i < 12; $i++) {
             $months[] = date('M', strtotime("-$i months"));
         }
-       // $this->dd($months);
 
         return json_encode($data);
     }
 
+
+    // * Insertions / Deletions Chart
+    public function add_dlt() 
+    {
+        $result = $this->Charts_model->get_user_activity();
+
+
+        $days_deletions = array(
+            date('D') => 0,
+            date('D', strtotime("-1 days")) => 0,
+            date('D', strtotime("-2 days")) => 0,
+            date('D', strtotime("-3 days")) => 0,
+            date('D', strtotime("-4 days")) => 0,
+            date('D', strtotime("-5 days")) => 0,
+            date('D', strtotime("-6 days")) => 0
+        );
+
+        $days = array(
+            date('D') => 0,
+            date('D', strtotime("-1 days")) => 0,
+            date('D', strtotime("-2 days")) => 0,
+            date('D', strtotime("-3 days")) => 0,
+            date('D', strtotime("-4 days")) => 0,
+            date('D', strtotime("-5 days")) => 0,
+            date('D', strtotime("-6 days")) => 0
+        );
+        
+
+        // loop through the result 
+        foreach ($result as $row) {
+            // if activity is add
+            $activity = $row->activity;
+
+            if (str_contains($activity, 'Added patient')) {
+                // get the day of the activity
+                $day = date('D', strtotime($row->date));
+                // add 1 to the day
+                $days[$day] += 1;
+            } 
+            elseif (str_contains($activity, 'Deleted patient')) {
+                // get the day of the activity
+                $day = date('D', strtotime($row->date));
+                // add 1 to the day
+                $days_deletions[$day] += 1;
+            }
+
+        }
+
+        $data = array(
+            'inserted' => array_values($days),
+            'deleted' => array_values($days_deletions)
+        );
+
+
+        //$this->dd($data);
+
+
+
+
+
+        //$this->dd($days);
+        return json_encode($data);
+    }
+
+    
     public function dd($data)
     {
         echo "<pre>";
         die(var_dump($data));
         echo "</pre>";
     }
-
-    
 }
-
-?>
