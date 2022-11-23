@@ -1501,8 +1501,8 @@
     $(document).ready(function() {
         $('#diag_table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
             responsive: true,
             "ajax": {
                 url: "<?php echo site_url("Admin_patientrec/diag_dt/") . $patient->patient_id  ?>",
@@ -1532,8 +1532,9 @@
     $(document).ready(function() {
         $('#treatment_plan_table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "pageLength": 3,
             "order": [], //Initial no order.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
             responsive: true,
             "ajax": {
                 url: "<?php echo site_url("Admin_patientrec/treatment_dt/") . $patient->patient_id  ?>",
@@ -1568,8 +1569,9 @@
     $(document).ready(function() {
         $('#consul_table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "pageLength": 5,
             "order": [], //Initial no order.
+            lengthMenu: [3, 5, 10, 20, 50, 100],
             responsive: true,
             "ajax": {
                 url: "<?php echo site_url("Admin_patientrec/consul_dt/") . $patient->patient_id  ?>",

@@ -10,7 +10,7 @@ class Patient_patientrec extends CI_Controller
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Patient_model');
         $this->load->model('Admin_model');
-        $this->load->library("pagination");
+        $this->load->model('Doctors_model');
     }
 
     public function index()
@@ -20,22 +20,19 @@ class Patient_patientrec extends CI_Controller
             $data['title'] = 'Patient | ePMC';
             $id = $this->session->userdata('id');
 
-            // $data['user_name'] = $this->session->userdata('full_name');
-            // $data['user_role'] = $this->session->userdata('role');
-            // $data['user_age'] = $this->session->userdata('age');
-            // $data['user_birthday'] = $this->session->userdata('birth_date');
-            // $data['user_sex'] = $this->session->userdata('sex');
-            // $data['user_occupation'] = $this->session->userdata('occupation');
-            // $data['user_contact_no'] = $this->session->userdata('cell_no');
-            // $data['user_address'] = $this->session->userdata('address');
-
-            $data['patient'] = $this->Patient_model->get_patient_row($id);
-            $data['healthinfo'] = $this->Patient_model->get_patient_details_row($id);
-            // $data['diagnoses'] = $this->Patient_model->get_patient_diagnosis_table();
+            $data['patient'] = $this->Admin_model->get_patient_row($id);
+            $data['healthinfo'] = $this->Admin_model->get_patient_details_row($id);
+            $data['diagnoses'] = $this->Admin_model->get_diagnosis_table();
+            $data['treatments'] = $this->Admin_model->get_treatment_table();
             // $data['patients'] = $this->Admin_model->get_patient_table();
-            $data['patient_id'] = $id;
-            $data['user_role'] = $this->session->userdata('role');
+
             $data['documents'] = $this->Admin_model->get_patient_documents($id);
+            //$this->dd($data['documents']);
+            $data['patient_id'] = $id;
+            $data['doctors'] = $this->Doctors_model->get_all_doctors();
+            //$this->dd($data['doctors']);
+            $data['user_role'] = $this->session->userdata('role');
+            $data['specialization'] = $this->session->userdata('specialization');
 
 
             $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);
@@ -48,7 +45,90 @@ class Patient_patientrec extends CI_Controller
         }
     }
 
-    public function diag_dt()
+
+
+    // * Diagnoses Datatable
+    public function diag_dt($id)
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+
+        $diagnoses = $this->Admin_model->get_diagnosis_tbl($id);
+
+        $data = array();
+
+        foreach ($diagnoses->result() as $diagnosis) {
+
+
+            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+            // format data to eg 01/01/2021 12:00 AM
+            $dt = new DateTime($diag_date);
+            $date_added = $dt->format('m/d/y h:i A');
+
+            $row = array();
+            $row[] = $date_added;
+            $row[] = $diagnosis->p_recent_diagnosis;
+            $row[] = $diagnosis->p_doctor;
+            $row[] = '
+                <div class="d-md-flex justify-content-md-center">
+                    <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-diagnosis-' . $diagnosis->id . '">View</a>
+
+                </div>                
+            ';
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $diagnoses->num_rows(),
+            "recordsFiltered" => $diagnoses->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
+
+
+    // * Treatment Plan Datatable
+    public function treatment_dt($id)
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $treatments = $this->Admin_model->get_treatment_tbl($id);
+        $data = array();
+
+        foreach ($treatments->result() as $treatment) {
+
+            $row = array();
+            $row[] = $treatment->p_diagnosis;
+            $row[] = $treatment->p_treatment_plan;
+            $row[] = '
+                <div class="d-md-flex justify-content-md-center">
+                    <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-treatment-' . $treatment->id . '">View</a>
+                </div>
+            ';
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $treatments->num_rows(),
+            "recordsFiltered" => $treatments->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
+
+
+    // * Consultation History Datatable
+    public function consul_dt()
     {
         // Datatables Variables
         $draw = intval($this->input->get("draw"));
