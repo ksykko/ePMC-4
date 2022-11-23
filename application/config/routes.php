@@ -64,6 +64,7 @@ $route['adm_dashboard_total'] = 'api/Admin_dashboard/total';
 $route['adm_dashboard_recent'] = 'api/Admin_dashboard/recent';
 $route['adm_patientrec_total'] = 'api/Admin_patientrec_mobile/total';
 $route['adm_patientrec_patients'] = 'api/Admin_patientrec_mobile/patients';
+$route['adm_patientrec_view'] = 'api/Admin_patientrec_mobile/admin_viewpatients';
 $route['adm_reports_stockin'] = 'api/Admin_reports_mobile/stockin';
 $route['adm_reports_stockout'] = 'api/Admin_reports_mobile/stockout';
 $route['adm_insert_patient'] = 'api/Admin_reports_mobile/ins_patient';
