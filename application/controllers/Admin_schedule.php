@@ -146,7 +146,7 @@ class Admin_schedule extends CI_Controller
 		// 			'theme' => $this->input->post('color')
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('message', 'add_failed');
+			$this->session->set_flashdata('message', 'update_failed');
 			$this->index();
 		} else {
 
@@ -180,7 +180,7 @@ class Admin_schedule extends CI_Controller
 			$this->Admin_model->add_activity($activity);
 
 
-			$this->session->set_flashdata('message', 'success');
+			$this->session->set_flashdata('message', 'update_success');
 			$this->schedModel->update_schedule($id,$schedData);
 			redirect('Admin_schedule');
 
