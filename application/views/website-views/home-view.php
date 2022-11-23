@@ -32,7 +32,7 @@
         <div class="row gy-4 row-cols-1 row-cols-md-4 d-md-flex d-lg-flex d-xxl-flex justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xxl-center row-cards">
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatardoc.png') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Docluis.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Dr. Luis Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Owner / Family Medicine</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -51,7 +51,7 @@
             </div>
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarcashier.png') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Msemelie.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Ms. Emelie Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Owner / General Manager</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -72,7 +72,7 @@
         <div class="row gy-4 row-cols-1 row-cols-md-4 d-lg-flex d-xxl-flex justify-content-lg-center align-items-lg-center justify-content-xxl-center align-items-xxl-center row-cards">
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatarfemaledoc.png') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Docjaymie.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Dr. Jaymie Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Obstetrics and Gynecology<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -91,7 +91,7 @@
             </div>
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/avatardoc2.png') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Docjass.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Dr. Jass Hussein<br /></h5>
                         <p class="text-muted card-text mb-2">Orthopedics<br /></p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -110,7 +110,7 @@
             </div>
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('assets/img/avatars/avatardoc3.png') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('assets/img/avatars/Docmiguel.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Dr. Miguel Pagtakhan<br /></h5>
                         <p class="text-muted card-text mb-2">Family Medicine</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -274,7 +274,7 @@
             </div>
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Ken.jpg') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Ken.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Sagala, Kendrick Andre A,</h5>
                         <p class="text-muted card-text mb-2">Technical Lead</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
@@ -293,7 +293,7 @@
             </div>
             <div class="col">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Rian.jpg') ?>" />
+                    <div class="card-body text-center d-flex flex-column align-items-center p-0"><img class="rounded-circle mb-3 fit-cover img-avatar" width="130" height="130" src="<?= base_url('/assets/img/avatars/Rian.png') ?>" />
                         <h5 class="fw-bold card-title mb-0">Sandoval, Mary Angel R.</h5>
                         <p class="text-muted card-text mb-2">QA Specialist</p>
                         <ul class="list-inline fs-6 text-muted w-100 mb-0">
