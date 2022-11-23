@@ -233,6 +233,20 @@ class Charts_model extends CI_Model
 
     }
 
+    public function get_user_activity()
+    {
+        // get result of user activity
+        $this->db->select('activity, DATE_FORMAT(date, "%a") AS date');
+        $this->db->from('user_activity');
+        $this->db->order_by('date', 'DESC');
+
+        $query = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+
     public function dd($data)
     {
         echo "<pre>";

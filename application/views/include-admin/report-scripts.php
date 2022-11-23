@@ -13,13 +13,10 @@
     var female_data = Object.values(populationData.female).reverse();
     console.log(reverse);
 
-    
+
     var recent_days = JSON.parse('<?= $recent_days ?>');
     var recent_data = JSON.parse('<?= $recent_data ?>');
     var recent_deleted = JSON.parse('<?= $recent_deleted ?>');
-    
-
-
 </script>
 
 <!-- Charts -->

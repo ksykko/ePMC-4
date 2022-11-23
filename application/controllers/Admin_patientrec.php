@@ -470,6 +470,9 @@ class Admin_patientrec extends CI_Controller
             $this->index();
         } else {
             //$this->dd('success');
+            // set date_created 1 day before the current date
+            //$date_created = date('Y-m-d H:i:s', strtotime('-4 day'));
+
             $info = array(
                 'first_name' => $this->input->post('first_name'),
                 'middle_name' => $this->input->post('middle_name'),
