@@ -153,16 +153,7 @@ class Charts_model extends CI_Model
         return $result;
     }
 
-    public function get_user_activity()
-    {
-        // get total number of user activity
-        $this->db->select('COUNT(*) AS count');
-        $this->db->from('user_activity');
-        $query = $this->db->get();
-        $result = $query->result();
 
-        return $result;
-    }
 
     public function recent_added()
     {

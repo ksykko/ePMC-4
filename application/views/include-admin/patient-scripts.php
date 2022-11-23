@@ -988,26 +988,15 @@
     $(document).ready(function() {
         $('#consul_table').DataTable({
             "processing": true, //Feature control the processing indicator.
-            lengthMenu: [3, 5, 10, 20, 50, 100],
+            "pageLength": 5,
             "order": [], //Initial no order.
+            lengthMenu: [5, 10, 20, 50, 100],
             responsive: true,
             "ajax": {
-                url: "<?php echo site_url("Patient_patientrec/consul_dt")  ?>",
+                url: "<?php echo site_url("Patient_patientrec/consul_dt/") . $patient->patient_id  ?>",
                 type: 'POST'
             },
 
-            //Set column definition initialisation properties.
-            "columnDefs": [
-                // { "targets": [ 6 ], "orderable": false }, //set not orderable
-                {
-                    "className": "inv-td",
-                    targets: []
-                },
-                {
-                    "className": "w-50",
-                    targets: [1]
-                }
-            ]
         });
     });
 </script>

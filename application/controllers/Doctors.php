@@ -1,6 +1,7 @@
-<?php 
+<?php
 
-class Doctors extends CI_Controller {
+class Doctors extends CI_Controller
+{
     public function __construct()
     {
         parent::__construct();
@@ -9,7 +10,6 @@ class Doctors extends CI_Controller {
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Doctors_model');
         $this->load->model('Admin_model');
-
     }
 
     public function index()
@@ -33,15 +33,14 @@ class Doctors extends CI_Controller {
             // Chart Data
             $data['age_range_data'] = $this->ageRange_chart_js(); // fetch age range data for chart
             $data['bmi_data'] = $this->bmi_chart_js(); // fetch bmi data for chart
-            
+
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('doctor-views/doctor-dashboard-view', $data);
             //$this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');
-        }
-        else {
+        } else {
             redirect('Login/signin');
         }
     }
@@ -101,8 +100,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 0 && $row->age <= 10) {
                 if ($row->sex == 'Male') {
                     $male_age_range['0-10']++;
-                }
-                else {
+                } else {
                     $female_age_range['0-10']++;
                 }
                 $age_range['0-10']++;
@@ -111,8 +109,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 11 && $row->age <= 20) {
                 if ($row->sex == 'Male') {
                     $male_age_range['11-20']++;
-                }
-                else {
+                } else {
                     $female_age_range['11-20']++;
                 }
                 $age_range['11-20']++;
@@ -121,8 +118,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 21 && $row->age <= 30) {
                 if ($row->sex == 'Male') {
                     $male_age_range['21-30']++;
-                }
-                else {
+                } else {
                     $female_age_range['21-30']++;
                 }
                 $age_range['21-30']++;
@@ -131,8 +127,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 31 && $row->age <= 40) {
                 if ($row->sex == 'Male') {
                     $male_age_range['31-40']++;
-                }
-                else {
+                } else {
                     $female_age_range['31-40']++;
                 }
                 $age_range['31-40']++;
@@ -141,8 +136,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 41 && $row->age <= 50) {
                 if ($row->sex == 'Male') {
                     $male_age_range['41-50']++;
-                }
-                else {
+                } else {
                     $female_age_range['41-50']++;
                 }
                 $age_range['41-50']++;
@@ -151,8 +145,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 51 && $row->age <= 60) {
                 if ($row->sex == 'Male') {
                     $male_age_range['51-60']++;
-                }
-                else {
+                } else {
                     $female_age_range['51-60']++;
                 }
                 $age_range['51-60']++;
@@ -161,8 +154,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 61 && $row->age <= 70) {
                 if ($row->sex == 'Male') {
                     $male_age_range['61-70']++;
-                }
-                else {
+                } else {
                     $female_age_range['61-70']++;
                 }
                 $age_range['61-70']++;
@@ -171,8 +163,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 71 && $row->age <= 80) {
                 if ($row->sex == 'Male') {
                     $male_age_range['71-80']++;
-                }
-                else {
+                } else {
                     $female_age_range['71-80']++;
                 }
                 $age_range['71-80']++;
@@ -181,8 +172,7 @@ class Doctors extends CI_Controller {
             if ($row->age >= 81 && $row->age <= 90) {
                 if ($row->sex == 'Male') {
                     $male_age_range['81-90']++;
-                }
-                else {
+                } else {
                     $female_age_range['81-90']++;
                 }
                 $age_range['81-90']++;
@@ -191,13 +181,11 @@ class Doctors extends CI_Controller {
             if ($row->age >= 91 && $row->age <= 100) {
                 if ($row->sex == 'Male') {
                     $male_age_range['91-100']++;
-                }
-                else {
+                } else {
                     $female_age_range['91-100']++;
                 }
                 $age_range['91-100']++;
             }
-
         }
 
         $data = [
@@ -208,7 +196,7 @@ class Doctors extends CI_Controller {
 
         //$this->dd($data);
 
-        
+
 
         // // loop through the data and store in array
         // foreach ($query as $row) {
@@ -259,7 +247,7 @@ class Doctors extends CI_Controller {
         return json_encode($data);
     }
 
-    public function bmi_chart_js() 
+    public function bmi_chart_js()
     {
         // fetch height and weight data from database
         $this->load->model('Charts_model');
@@ -284,7 +272,7 @@ class Doctors extends CI_Controller {
             if ($height == 0 || $weight == 0 || $height == null || $weight == null) {
                 continue;
             }
-            
+
             // calculate bmi
             $bmi = ($weight / $height / $height) * 10000;
 
@@ -325,6 +313,17 @@ class Doctors extends CI_Controller {
 
         //$this->dd($info);
 
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Edited personal information';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+
+
         $activity = array(
             'activity' => 'A user\'s account has been updated in the user accounts',
             'module' => 'User Accounts',
@@ -334,6 +333,13 @@ class Doctors extends CI_Controller {
         $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'edit-user-success');
         $this->Admin_model->edit_useracc($id, $info);
+
+        if ($this->session->userdata('specialization') == 'Pharmacy Assistant') {
+            redirect('PharmacyAssistant');
+        } else {
+            redirect('Doctors/index');
+        }
+
         redirect('Doctors/index');
     }
 
@@ -371,6 +377,17 @@ class Doctors extends CI_Controller {
             $img_name = $this->upload->data('file_name');
         }
 
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Updated profile picture';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+
+
         $avatar = array(
             'avatar' => $img_name
         );
@@ -378,6 +395,12 @@ class Doctors extends CI_Controller {
         $this->Admin_model->update_user_avatar($id, $avatar);
 
         $this->session->set_flashdata('message', 'success-update-avatar');
+
+        if ($this->session->userdata('specialization') == 'Pharmacy Assistant') {
+            redirect('PharmacyAssistant');
+        } else {
+            redirect('Doctors/index');
+        }
         redirect('Doctors');
     }
 

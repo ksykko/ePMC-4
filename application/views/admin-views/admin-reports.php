@@ -133,10 +133,9 @@
 
     // })
 
-
-
-
-
+    var stock_products = JSON.parse('<?= $stock_products ?>');
+    var stock_in = JSON.parse('<?= $stock_in ?>');
+    var stock_out = JSON.parse('<?= $stock_out ?>');
 
 
     var recent_days = JSON.parse('<?= $recent_days ?>');

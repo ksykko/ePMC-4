@@ -128,29 +128,37 @@ class Patient_patientrec extends CI_Controller
 
 
     // * Consultation History Datatable
-    public function consul_dt()
+    public function consul_dt($id)
     {
         // Datatables Variables
         $draw = intval($this->input->get("draw"));
-        $id = $this->session->userdata('id');
-        $diagnosis = $this->Patient_model->get_patient_diagnosis_tbl();
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+
+        $diagnoses = $this->Admin_model->get_diagnosis_tbl($id);
 
 
         $data = array();
-        foreach ($diagnosis->result() as $recent_diagnosis) {
-            if ($id == $recent_diagnosis->patient_id) {
-                $row = array();
-                $row[] = $recent_diagnosis->p_diag_date;
-                $row[] = $recent_diagnosis->p_doctor;
 
-                $data[] = $row;
-            }
+        foreach ($diagnoses->result() as $diagnosis) {
+
+
+            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+            $dt = new DateTime($diag_date);
+            $conul_date = $dt->format('m/d/y h:i A');
+
+            $row = array();
+            $row[] = $conul_date;
+            $row[] = $diagnosis->p_doctor;
+
+            $data[] = $row;
         }
 
         $output = array(
             "draw" => $draw,
-            "recordsTotal" => $diagnosis->num_rows(),
-            "recordsFiltered" => $diagnosis->num_rows(),
+            "recordsTotal" => $diagnoses->num_rows(),
+            "recordsFiltered" => $diagnoses->num_rows(),
             "data" => $data
         );
         echo json_encode($output);

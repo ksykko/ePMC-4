@@ -6,25 +6,6 @@
 
 
 <script type="text/javascript">
-    
-    $(document).ready(function() {
-        $('#recent_activity_table').DataTable({
-            // remove search box and show entries with pagination
-            "dom": "tip",
-            "pageLength": 5,
-            "processing": true, //Feature control the processing indicator.
-            //"serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-            "ajax": {
-                url: "<?php echo site_url("Admin/datatable") ?>",
-                type: 'POST'
-            },
-
-
-        });
-
-    });
-
     // * Toasts
     const toastTrigger = document.getElementById('liveToastTrigger')
     const toastLiveExample = document.getElementById('liveToast')
@@ -45,6 +26,26 @@
             toast.show()
         }
     }
+    
+    $(document).ready(function() {
+        $('#recent_activity_table').DataTable({
+            // remove search box and show entries with pagination
+            "dom": "tip",
+            "pageLength": 5,
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            "ajax": {
+                url: "<?php echo site_url("Admin/datatable") ?>",
+                type: 'POST'
+            },
+
+
+        });
+
+    });
+
+    
 
     var staff_data = JSON.parse('<?= $staff_data ?>');
     console.log(staff_data);

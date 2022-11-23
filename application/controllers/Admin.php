@@ -30,12 +30,12 @@ class Admin extends CI_Controller
             $data['users_count'] = $this->Admin_model->get_useracc_count();
             $data['patient_count'] = $this->Admin_model->get_patient_count();
             $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
+            
 
             $data['chart_data'] = $this->ageRange_chart();
             $data['gender_data'] = $this->gender_chart();
             $data['staff_data'] = $this->staff_chart();
 
-            //$this->dd($this->session->userdata());
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
@@ -172,12 +172,12 @@ class Admin extends CI_Controller
 
         return $gender_data['chart_data'] = json_encode($gender_data);
     }
-    
+
     public function staff_chart()
     {
         $this->load->model('Charts_model');
         $staff = $this->Charts_model->get_staff_count();
-        
+
 
         $staff_data = [
             'admin' => 0,
@@ -217,7 +217,8 @@ class Admin extends CI_Controller
         return json_encode($staff_data);
     }
 
-    public function user_activity() {
+    public function user_activity()
+    {
         $this->load->model('Charts_model');
         $user_activity = $this->Charts_model->get_user_activity();
         $user_activity_data = [
@@ -226,12 +227,41 @@ class Admin extends CI_Controller
         ];
 
         foreach ($user_activity as $row) {
-            if ($row->activity == 'login') {
+            if ($row->activity == 'Logged in') {
                 $user_activity_data['login'] = $user_activity_data['login'] + 1;
             } else {
                 $user_activity_data['logout'] = $user_activity_data['logout'] + 1;
             }
         }
+
+        // x-axis data for the chart
+        // 1hr time interval from 00:00 to 23:00
+        $time = [
+            '00:00',
+            '01:00',
+            '02:00',
+            '03:00',
+            '04:00',
+            '05:00',
+            '06:00',
+            '07:00',
+            '08:00',
+            '09:00',
+            '10:00',
+            '11:00',
+            '12:00',
+            '13:00',
+            '14:00',
+            '15:00',
+            '16:00',
+            '17:00',
+            '18:00',
+            '19:00',
+            '20:00',
+            '21:00',
+            '22:00',
+            '23:00',
+        ];
 
         return json_encode($user_activity_data);
     }
@@ -252,6 +282,15 @@ class Admin extends CI_Controller
         );
 
         //$this->dd($info);
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Edited personal information';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
 
         $activity = array(
             'activity' => 'A user\'s account has been updated in the user accounts',
@@ -298,6 +337,14 @@ class Admin extends CI_Controller
         } else {
             $img_name = $this->upload->data('file_name');
         }
+
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Updated profile picture';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
         $avatar = array(
             'avatar' => $img_name

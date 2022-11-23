@@ -1264,3 +1264,10 @@ hr {
         display: block;
     }
 }
+
+
+/* * Document thumbnail */
+
+.thumbnail {
+    object-fit: cover;
+}
