@@ -18,9 +18,56 @@ class Admin_reports_mobile extends RestController
 
         $this->load->helper(['url', 'form']);
         $this->load->library(['form_validation', 'session']);
+        $this->load->database();
         $this->load->model('Charts_model');
     }
+
+    //START of Insertion vs Deletion of Patients
+    public function ins_patient_get() {
+        //get recent day and the past 6 days
+        $days = array();
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = date('D', strtotime("-$i days"));
+        }    
+        $days = array_reverse($days);
+
+        //value of insertion for the past 7 days
+        $added = $this->Charts_model->recent_added();
+
+
+        foreach(array_combine($days, $added) as $day => $add) {
+            $response[] = array(
+                'x' => $day,
+                'y' => $add
+            );
+        }
+        echo json_encode($response);
+    }
+
+    public function del_patient_get() {
+        //get recent day and the past 6 days
+        $days = array();
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = date('D', strtotime("-$i days"));
+        }    
+        $days = array_reverse($days);
+        
+        //value of deletion(archived) for the past 7 days
+        $deleted = $this->Charts_model->recent_deleted();
+
+
+        foreach(array_combine($days, $deleted) as $day => $del) {
+            $response[] = array(
+                'x' => $day,
+                'y' => $del
+            );
+        }
+        echo json_encode($response);
+    }
+    //END of Insertion vs Deletion of Patients
+
     
+    //START of stock items chart
     public function stockin_get() {
         $result=$this->Charts_model->get_stock();
         foreach($result as $stockIn) {
@@ -40,10 +87,83 @@ class Admin_reports_mobile extends RestController
     }
     // END OF stock items chart
 
+    //START of age range
+    public function age_range_get() {
+        // get age range data from database
+        $query = $this->Charts_model->get_age_range();
 
-    public function ptinfo_post(){
-        $data=json_decode(file_get_contents('php://input'));
-        
+        // create array to store age range data
+        $age_range = [
+            '0-10' => 0,
+            '11-20' => 0,
+            '21-30' => 0,
+            '31-40' => 0,
+            '41-50' => 0,
+            '51-60' => 0,
+            '61-70' => 0,
+            '71-80' => 0,
+            '81-90' => 0,
+            '91-100' => 0,
+        ];
+
+        // loop through the data and store in array
+        foreach ($query as $row) {
+            //count the number of patients in each age range
+
+            // age range 0-10
+            if ($row->age >= 0 && $row->age <= 10) {
+                $age_range['0-10'] = $age_range['0-10'] + 1;
+            }
+            // age range 11-20
+            if ($row->age >= 11 && $row->age <= 20) {
+                $age_range['11-20'] = $age_range['11-20'] + 1;
+            }
+            // age range 21-30
+            if ($row->age >= 21 && $row->age <= 30) {
+                $age_range['21-30'] = $age_range['21-30'] + 1;
+            }
+            // age range 31-40
+            if ($row->age >= 31 && $row->age <= 40) {
+                $age_range['31-40'] = $age_range['31-40'] + 1;
+            }
+            // age range 41-50
+            if ($row->age >= 41 && $row->age <= 50) {
+                $age_range['41-50'] = $age_range['41-50'] + 1;
+            }
+            // age range 51-60
+            if ($row->age >= 51 && $row->age <= 60) {
+                $age_range['51-60'] = $age_range['51-60'] + 1;
+            }
+            // age range 61-70
+            if ($row->age >= 61 && $row->age <= 70) {
+                $age_range['61-70'] = $age_range['61-70'] + 1;
+            }
+            // age range 71-80
+            if ($row->age >= 71 && $row->age <= 80) {
+                $age_range['71-80'] = $age_range['71-80'] + 1;
+            }
+            // age range 81-90
+            if ($row->age >= 81 && $row->age <= 90) {
+                $age_range['81-90'] = $age_range['81-90'] + 1;
+            }
+            // age range 91-100
+            if ($row->age >= 91 && $row->age <= 100) {
+                $age_range['91-100'] = $age_range['91-100'] + 1;
+            }
+        }
+        $xval = array_keys($age_range);
+        $yval = array_values($age_range);
+
+        foreach(array_combine($xval, $yval) as $x => $y) {
+            $response[] = array(
+                'x' => $x,
+                'y' => $y
+            );
+        }
+
+        echo json_encode($response);
+
     }
+    //END of age range
 }
 ?>
