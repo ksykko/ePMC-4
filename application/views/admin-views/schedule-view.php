@@ -300,9 +300,9 @@
 		<?php elseif ($this->session->flashdata('message') == 'update_success') : ?>
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+					<div class="alert alert-success alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
 						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-							<strong>Fail!</strong> You have successfully updated a schedule.</span>
+							<strong>Success!</strong> You have successfully updated a schedule.</span>
 					</div>
 				</div>
 			</div>
