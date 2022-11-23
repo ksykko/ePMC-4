@@ -1,16 +1,19 @@
 <?php
 
-class Admin_useracc extends CI_Controller {
-    public function __construct() {
+class Admin_useracc extends CI_Controller
+{
+    public function __construct()
+    {
         parent::__construct();
-        
-        
+
+
         $this->load->helper('url', 'form', 'date', 'string');
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
     }
 
-    public function index() {
+    public function index()
+    {
         if ($this->session->userdata('logged_in')) { //if logged in
 
             $id = $this->session->userdata('admin_id');
@@ -20,7 +23,7 @@ class Admin_useracc extends CI_Controller {
             $data['users'] = $this->Admin_model->get_useracc_table();
             $data['user_role'] = $this->session->userdata('role');
             $data['specialization'] = $this->session->userdata('specialization');
-            
+
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/useraccounts-view', $data);
@@ -30,7 +33,8 @@ class Admin_useracc extends CI_Controller {
         }
     }
 
-    public function datatable() {
+    public function datatable()
+    {
         // Datatables Variables
         $draw = intval($this->input->get("draw"));
         $start = intval($this->input->get("start"));
@@ -54,14 +58,13 @@ class Admin_useracc extends CI_Controller {
             $row[] = '
                 <td class="text-center" colspan="1">
                 
-                <button class="btn btn-light btn-sm product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#user-edit-modal-'. $user->user_id .'" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_specialization="' . $user->specialization . '" data-user_birthdate="' . $user->birth_date. '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
+                <button class="btn btn-light btn-sm product-edit-modal-btn" data-bs-toggle="modal" data-bs-target="#user-edit-modal-' . $user->user_id . '" type="button" data-id="' . $user->user_id . '" data-user_firstname="' . $user->first_name . '" data-user_lastname="' . $user->last_name . '" data-user_username="' . $user->username . '" data-user_role="' . $user->role . '" data-user_specialization="' . $user->specialization . '" data-user_birthdate="' . $user->birth_date . '" data-user_contactno="' . $user->contact_no . '" data-user_email="' . $user->email . '">Edit</button>
                 <button class="btn btn-link btn-sm shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#delete-dialog-' . $user->user_id . ' "><i class="far fa-trash-alt"></i></button> 
                 </td>
             ';
             $data[] = $row;
-
         }
-        
+
         $output = array(
             "draw" => $draw,
             "recordsTotal" => $users->num_rows(),
@@ -72,7 +75,8 @@ class Admin_useracc extends CI_Controller {
         // exit();
     }
 
-    public function add_useracc_validation() {
+    public function add_useracc_validation()
+    {
         $this->form_validation->set_rules('first_name', 'First name', 'required|regex_match[/^([a-z ])+$/i]', array(
             'required' => 'Please enter user\'s %s.'
         ));
@@ -108,60 +112,51 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.',
             'valid_email' => 'Please enter a valid %s.'
         ));
-       
-        if ($this->form_validation->run() == FALSE)
-        {
+
+        if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('message', 'add_failed');
             $this->index();
-        }
-        else
-        {
+        } else {
             // $addUser = $this->input->post('addUser');
 
             // if (isset($addUser))
             // {
-                $info = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'middle_name' => $this->input->post('middle_name'),
-                    'last_name' => $this->input->post('last_name'),
-                    'username' => $this->input->post('username'),
-                    'password' => $this->input->post('birth_date'),
-                    'role' => $this->input->post('role'),
-                    'specialization' => $this->input->post('specialization'),
-                    'birth_date' => $this->input->post('birth_date'),
-                    'gender' => $this->input->post('sex'),
-                    'contact_no' => $this->input->post('cell_no'),
-                    'email' => $this->input->post('email'),
-                    'avatar' => 'default-avatar.png',
-                    'date_created' => date('Y-m-d H:i:s')
-                );
+            $info = array(
+                'first_name' => $this->input->post('first_name'),
+                'middle_name' => $this->input->post('middle_name'),
+                'last_name' => $this->input->post('last_name'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('birth_date'),
+                'role' => $this->input->post('role'),
+                'specialization' => $this->input->post('specialization'),
+                'birth_date' => $this->input->post('birth_date'),
+                'gender' => $this->input->post('sex'),
+                'contact_no' => $this->input->post('cell_no'),
+                'email' => $this->input->post('email'),
+                'avatar' => 'default-avatar.png',
+                'date_created' => date('Y-m-d H:i:s')
+            );
             // }
 
             //$this->dd($info);
-            
+
             $activity = array(
                 'activity' => 'A new user has been added in the user accounts',
                 'module' => 'User Accounts',
                 'date_created' => date('Y-m-d H:i:s')
             );
-    
+
             $this->Admin_model->add_activity($activity);
             $this->session->set_flashdata('message', 'success');
             $this->Admin_model->add_useracc($info);
 
 
             redirect('Admin_useracc');
-
-            // <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            //     <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-            //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            // </div>
         }
-
     }
 
     public function edit_useracc($id)
-    {   
+    {
         $data['user'] = $this->Admin_model->get_useracc_row($id);
 
         // $this->form_validation->set_rules('user_id', 'User id');
@@ -188,6 +183,12 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.'
         ));
 
+        $this->form_validation->set_rules('edt_admin_spec', 'Position');
+
+        $this->form_validation->set_rules('edt_birth_date', 'Birthdate', 'required', array(
+            'required' => 'Please enter user\'s %s.'
+        ));
+
         $this->form_validation->set_rules('edt_contact_no', 'Contact #', 'required|numeric|min_length[11]', array(
             'required' => 'Please enter user\'s %s.',
             'numeric' => 'Please enter a valid %s.'
@@ -197,18 +198,14 @@ class Admin_useracc extends CI_Controller {
             'required' => 'Please enter user\'s %s.',
             'valid_email' => 'Please enter a valid %s.'
         ));
-       
-        if ($this->form_validation->run() == FALSE)
-        {
+
+        if ($this->form_validation->run() == FALSE) {
             $modal_no = $this->input->post('modal_no');
             $this->session->set_flashdata('edit_failed', $modal_no);
             $this->index();
-        }
-        else
-        {   
+        } else {
             $editUser = $this->input->post('editUser');
-            if (isset($editUser))
-            {
+            if (isset($editUser)) {
                 $info = array(
                     'first_name' => $this->input->post('edt_first_name'),
                     'last_name' => $this->input->post('edt_last_name'),
@@ -231,8 +228,7 @@ class Admin_useracc extends CI_Controller {
             $this->Admin_model->add_activity($activity);
             $this->session->set_flashdata('message', 'edit_user_success');
             $this->Admin_model->edit_useracc($id, $info);
-            redirect('Admin_useracc/index');  
-
+            redirect('Admin_useracc/index');
         }
         // $data['products'] = $this->Admin_model->get_inventory_row($id);
         // $updateProduct = $this->input->post('updateProduct');
@@ -251,7 +247,8 @@ class Admin_useracc extends CI_Controller {
         // }
     }
 
-    public function delete_useracc($id) {
+    public function delete_useracc($id)
+    {
 
         $activity = array(
             'activity' => 'A user\'s account has been deleted in the user accounts',
@@ -272,4 +269,3 @@ class Admin_useracc extends CI_Controller {
         echo "</pre>";
     }
 }
-?>

@@ -33,6 +33,7 @@ class Admin extends CI_Controller
 
             $data['chart_data'] = $this->ageRange_chart();
             $data['gender_data'] = $this->gender_chart();
+            $data['staff_data'] = $this->staff_chart();
 
             //$this->dd($this->session->userdata());
 
@@ -40,7 +41,7 @@ class Admin extends CI_Controller
             $this->load->view('include-admin/dashboard-navbar');
             $this->load->view('admin-views/admin-dashboard-reports-view', $data);
             //$this->load->view('admin-views/admin-dashboard', $data);
-            $this->load->view('include-admin/dashboard-scripts');
+            $this->load->view('include-admin/dashboard-scripts', $data);
         } else {
             redirect('Login/signin');
         }
@@ -171,9 +172,68 @@ class Admin extends CI_Controller
 
         return $gender_data['chart_data'] = json_encode($gender_data);
     }
-
-    public function weekly_added_patients()
+    
+    public function staff_chart()
     {
+        $this->load->model('Charts_model');
+        $staff = $this->Charts_model->get_staff_count();
+        
+
+        $staff_data = [
+            'admin' => 0,
+            'genman' => 0,
+            'pharma' => 0,
+            'sec' => 0,
+            'nurse' => 0,
+            'intmed' => 0,
+            'fammed' => 0,
+            'obgyne' => 0,
+            'ortho' => 0,
+        ];
+
+        // loop through the data and store in array
+        foreach ($staff as $rows) {
+            if ($rows->specialization == '') {
+                $staff_data['admin'] = $staff_data['admin'] + 1;
+            } else if ($rows->specialization == 'General Manager') {
+                $staff_data['genman'] = $staff_data['genman'] + 1;
+            } else if ($rows->specialization == 'Pharmacy Assistant') {
+                $staff_data['pharma'] = $staff_data['pharma'] + 1;
+            } else if ($rows->specialization == 'Secretary') {
+                $staff_data['sec'] = $staff_data['sec'] + 1;
+            } else if ($rows->specialization == 'Nurse') {
+                $staff_data['nurse'] = $staff_data['nurse'] + 1;
+            } else if ($rows->specialization == 'Internal Medicine') {
+                $staff_data['intmed'] = $staff_data['intmed'] + 1;
+            } else if ($rows->specialization == 'Family Medicine') {
+                $staff_data['fammed'] = $staff_data['fammed'] + 1;
+            } else if ($rows->specialization == 'Obstetrics and Gynecology') {
+                $staff_data['obgyne'] = $staff_data['obgyne'] + 1;
+            } else if ($rows->specialization == 'Orthopedics') {
+                $staff_data['ortho'] = $staff_data['ortho'] + 1;
+            }
+        }
+
+        return json_encode($staff_data);
+    }
+
+    public function user_activity() {
+        $this->load->model('Charts_model');
+        $user_activity = $this->Charts_model->get_user_activity();
+        $user_activity_data = [
+            'login' => 0,
+            'logout' => 0,
+        ];
+
+        foreach ($user_activity as $row) {
+            if ($row->activity == 'login') {
+                $user_activity_data['login'] = $user_activity_data['login'] + 1;
+            } else {
+                $user_activity_data['logout'] = $user_activity_data['logout'] + 1;
+            }
+        }
+
+        return json_encode($user_activity_data);
     }
 
     public function edit_useracc($id)

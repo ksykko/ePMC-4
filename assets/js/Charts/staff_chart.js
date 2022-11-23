@@ -3,19 +3,19 @@ var options = {
             name: 'Admin',
             data: [{
                     x: 'General Manager',
-                    y: 2
+                    y: staff_data.genman
                 },
                 {
                     x: 'Pharmacy Assistant',
-                    y: 3
+                    y: staff_data.pharma
                 },
                 {
                     x: 'Secretary',
-                    y: 3
+                    y: staff_data.sec
                 },
                 {
                     x: 'Nurse',
-                    y: 3
+                    y: staff_data.nurse
                 }
             ]
         },
@@ -23,19 +23,19 @@ var options = {
             name: 'Doctor',
             data: [{
                     x: 'Internal Medicine',
-                    y: 2
+                    y: staff_data.intmed
                 },
                 {
                     x: 'Family Medicine',
-                    y: 2
+                    y: staff_data.fammed
                 },
                 {
                     x: 'Ob & Gyn',
-                    y: 1
+                    y: staff_data.obgyne
                 },
                 {
                     x: 'Orthopedic',
-                    y: 1
+                    y: staff_data.ortho
                 }
             ]
         }
