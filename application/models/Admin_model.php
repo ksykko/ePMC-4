@@ -74,8 +74,10 @@ class Admin_model extends CI_Model
             $this->db->insert('arc_patient_diagnosis', $row);
         }
 
-        //$this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
-        $this->db->insert('arc_patient_lab_reports', $this->get_patient_lab_reports_row($id));
+        $documents = $this->get_patient_documents($id);
+        foreach ($documents as $row) {
+            $this->db->insert('arc_patient_lab_reports', $row);
+        }
 
         $treatment = $this->get_patient_treatment_plan_result($id);
         foreach ($treatment as $row) {
@@ -109,7 +111,10 @@ class Admin_model extends CI_Model
         }
 
         //$this->db->insert('patient_diagnosis', $this->Admin_model->get_arc_patient_diagnosis_row($id));
-        $this->db->insert('patient_lab_reports', $this->Admin_model->get_arc_patient_lab_reports_row($id));
+        $documents = $this->get_arc_patient_documents($id);
+        foreach ($documents as $row) {
+            $this->db->insert('patient_lab_reports', $row);
+        }
 
         $treatment = $this->get_arc_patient_treatment_plan_result($id);
         foreach ($treatment as $row) {
@@ -285,6 +290,11 @@ class Admin_model extends CI_Model
     public function get_arc_patient_lab_reports_row($id)
     {
         return $this->db->get_where('arc_patient_lab_reports', ['patient_id' => $id])->row();
+    }
+
+    public function get_arc_patient_documents($id)
+    {
+        return $this->db->get_where('arc_patient_lab_reports', ['patient_id' => $id])->result();
     }
 
     public function get_arc_patient_treatment_plan_row($id)
