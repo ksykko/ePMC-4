@@ -29,7 +29,7 @@ class Login_mobile extends RestController
 
         $result = $this->Login_model->login($email,$pass);
         //login as admin
-        if (isset($result)){
+        if ($result){
             if ($result->role == "Admin") {
                 $response[] = array("role" => $result->role, //index[0]                                
                                     'admin_id' => $result->user_id, 
@@ -41,8 +41,9 @@ class Login_mobile extends RestController
                                     'bday' => $result->birth_date,
                                     'contact_no'=>$result->contact_no,
                                     'gender' => $result->gender,
-                                    'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar
+                                    'avatar' => 'http://e-pmc.com/assets/img/profile-avatars/'.$result->avatar
                 );
+                
             }
             else if ($result->role == "Doctor") {
                 $response[] = array("role" => $result->role,  
@@ -55,21 +56,19 @@ class Login_mobile extends RestController
                                     'bday' => $result->birth_date,
                                     'contact_no'=>$result->contact_no,
                                     'gender' => $result->gender,
-                                    'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar
+                                    'avatar' => 'http://e-pmc.com/assets/img/profile-avatars/'.$result->avatar
                 );
             } 
             else if ($result->role == "patient") {
                 $response[] = array("role" => $result->role, 
-                // 'admin_id' => $result->user_id, 
-                //                     'full_name' => $result->first_name . ' ' .  $result->last_name,
-                //                     'specialization' => $result->specialization,
-                //                     'email' => $result->email,
-                //                     'username'=>$result->username,
-                //                     'pass' => $result->password,
-                //                     'bday' => $result->birth_date,
-                //                     'contact_no'=>$result->contact_no,
-                //                     'gender' => $result->gender,
-                //                     'avatar' => 'http://192.168.2.115/epmc-4/assets/img/profile-avatars/'.$result->avatar 
+                                    'username' => $result->patient_id, 
+                                    'full_name' => $result->first_name . ' ' .  $result->last_name,
+                                    'email' => $result->email,
+                                    'pass' => $result->password,
+                                    'bday' => $result->birth_date,
+                                    'contact_no'=>$result->cell_no,
+                                    'gender' => $result->sex,
+                                    'avatar' => 'http://e-pmc.com/epmc-4/assets/img/profile-avatars/'.$result->avatar 
                 );
             }
         }
