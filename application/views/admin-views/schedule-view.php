@@ -262,13 +262,7 @@
 				<div class="col d-flex justify-content-center">
 					<div class="alert alert-success alert-dismissible mt-3 mx-5 mb-5 w-50" role="alert">
 						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
-							<strong>Success!</strong> You successfully added a new schedule.</span>
-						<small class="text-danger"><?= form_error('doctor_name') ?></small>
-						<small class="text-danger"><?= form_error('specialization') ?></small>
-						<small class="text-danger"><?= form_error('start_time') ?></small>
-						<small class="text-danger"><?= form_error('end_time') ?></small>
-						<small class="text-danger"><?= form_error('days[]') ?></small>
-						<small class="text-danger"><?= form_error('days[]') ?></small>
+							<strong>Success!</strong> You have successfully added a new schedule.</span>
 					</div>
 				</div>
 			</div>
@@ -285,6 +279,30 @@
 							<small class="text-danger"><?= form_error('end_time') ?></small>
 							<small class="text-danger"><?= form_error('days[]') ?></small>
 							<small class="text-danger"><?= form_error('color') ?></small>
+					</div>
+				</div>
+			</div>
+		<?php elseif ($this->session->flashdata('message') == 'update_failed') : ?>
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+							<strong>Fail!</strong> You have failed in updating a schedule.</span>
+							<small class="text-danger"><?= form_error('doctor_name') ?></small>
+							<small class="text-danger"><?= form_error('specialization') ?></small>
+							<small class="text-danger"><?= form_error('start_time') ?></small>
+							<small class="text-danger"><?= form_error('end_time') ?></small>
+							<small class="text-danger"><?= form_error('days[]') ?></small>
+							<small class="text-danger"><?= form_error('color') ?></small>
+					</div>
+				</div>
+			</div>
+		<?php elseif ($this->session->flashdata('message') == 'update_success') : ?>
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<div class="alert alert-danger alert-dismissible mt-3 mx-5 mb-3 w-50" role="alert">
+						<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button><span>
+							<strong>Fail!</strong> You have successfully updated a schedule.</span>
 					</div>
 				</div>
 			</div>
@@ -377,11 +395,11 @@
                                                 <?php if($schedule->day == 'Mon') : ?>
                                                     <div class="sched-card <?= $schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class="btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
@@ -415,11 +433,11 @@
                                                     
                                                     <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class="btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
@@ -453,11 +471,11 @@
                                                 <?php if($schedule->day == 'Wed') : ?>
                                                     <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class=" btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
@@ -491,11 +509,11 @@
                                                 <?php if($schedule->day == 'Thurs') : ?>
                                                     <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class=" btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
@@ -529,11 +547,11 @@
                                                 <?php if($schedule->day == 'Fri') : ?>
                                                     <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class=" btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class=" btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
@@ -567,11 +585,11 @@
                                                 <?php if($schedule->day == 'Sat') : ?>
                                                     <div class="sched-card <?=$schedule->theme ?>">
                                                         <div style="text-align: right;">
-															<a class="btn btn-link " data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
+															<a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#schedule-edit-modal-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-pen fa-lg" style="color:#457b9d;"></i>
                                                             </a>
                                                         
-                                                            <a class=" btn-delete" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
+                                                            <a class="btn btn-link btn-sched" data-bs-toggle="modal" data-bs-target="<?= '#delete-dialog-'. $schedule->schedule_id ?>">
                                                                 <i class="fas fa-times fa-lg" style="color:#bc4749;"></i>
                                                             </a>    
                                                         </div>
