@@ -80,7 +80,6 @@ class PharmacyAssistant extends CI_Controller
         return json_encode($stock_in_arr);
     }
 
-
     public function get_stockOut()
     {
         $this->load->model('Charts_model');

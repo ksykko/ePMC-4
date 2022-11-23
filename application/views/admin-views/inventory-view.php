@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="row mb-2">
-                                <div class="col-3"><label class="col-form-label">Product Description:</label></div>
+                                <div class="col-3"><label class="col-form-label">Generic Name:</label></div>
                                 <div class="col-9 col-sm-9">
                                     <div class="input-error">
                                         <div class="input-group">
@@ -169,8 +169,8 @@
                         <thead>
                             <tr>
                                 <th class="inv-td fw-bold">ID</th>
-                                <th class="inv-td fw-bold">Product Name</th>
-                                <th class="inv-td fw-bold">Description</th>
+                                <th class="inv-td fw-bold">Brand Name</th>
+                                <th class="inv-td fw-bold">Generic Name</th>
                                 <th class="inv-td fw-bold" style="text-align: center;">Quantity</th>
                                 <th class="inv-td fw-bold" style="text-align: center;">Stock In</th>
                                 <th class="inv-td fw-bold" style="text-align: center;">Stock Out</th>
@@ -226,7 +226,7 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" disabled />
+                                                        <input class="form-control prod_dosage" type="text" id="prod_dosage" name="prod_dosage" value="<?= $product->prod_dosage ?>" disabled /><span class="input-group-text" id="basic-addon2">mg</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -265,7 +265,7 @@
                                             </div>
                                         </div>
                                         <div class="row mb-2">
-                                            <div class="col-3"><label class="col-form-label">Product Description:</label></div>
+                                            <div class="col-3"><label class="col-form-label">Generic Name:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
                                                     <div class="input-group">
@@ -316,7 +316,7 @@
                                                 <div class="input-error">
                                                     <div class="input-group">
                                                         <!-- TODO: -->
-                                                        <input class="form-control prod_dosage" type="text" id="v_prod_dosage" name="v_prod_dosage" value="<?= $product->prod_dosage ?>" />
+                                                        <input class="form-control prod_dosage" type="text" id="v_prod_dosage" name="v_prod_dosage" value="<?= $product->prod_dosage ?>" /><span class="input-group-text" id="basic-addon2">mg</span>
                                                     </div>
                                                     <small class="text-danger"><?= form_error('v_prod_dosage') ?></small>
                                                 </div>
@@ -358,7 +358,7 @@
                                             </div>
                                         </div>
                                         <div class="row mb-2">
-                                            <div class="col-3"><label class="col-form-label">Product Description:</label></div>
+                                            <div class="col-3"><label class="col-form-label">Generic Name:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
                                                     <div class="input-group">

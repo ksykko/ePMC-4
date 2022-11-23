@@ -18,39 +18,41 @@ class Admin_schedule extends CI_Controller
 	//schedule page
 	public function index()
 	{
-		//Get doctors list from schedule table
-		$data['doctors'] = $this->schedModel->get_unique_docnames();
+		if ($this->session->userdata('logged_in')) {
+			//Get doctors list from schedule table
+			$data['doctors'] = $this->schedModel->get_unique_docnames();
 
 
-		$data['user_role'] = $this->session->userdata('role');
+			$data['user_role'] = $this->session->userdata('role');
 
-		if ($data['user_role'] == 'Admin') {
-			$data['title'] = 'Admin - Schedule | ePMC';
-		} 
-		elseif ($data['user_role'] == 'Doctor') {
-			$data['title'] = 'Doctor - Schedule | ePMC';
+			if ($data['user_role'] == 'Admin') {
+				$data['title'] = 'Admin - Schedule | ePMC';
+			} elseif ($data['user_role'] == 'Doctor') {
+				$data['title'] = 'Doctor - Schedule | ePMC';
+			} else {
+				$data['title'] = 'Patient - Schedule | ePMC';
+			}
+
+
+			//Get doctors list from user accounts
+			$data['specialization'] = $this->session->userdata('specialization');
+			$data['doctorname'] = $this->Doctors_model->get_all_doctors();
+
+			//Get Schedule Data
+			$id = $this->session->userdata('schedule_id');
+			$data['schedule'] = $this->schedModel->get_schedule_row($id);
+			$data['schedules'] = $this->schedModel->get_schedule_table();
+
+
+			// Display views
+			$this->load->view('include-admin/dashboard-header', $data);
+			$this->load->view('include-admin/dashboard-navbar', $data);
+			$this->load->view('admin-views/schedule-view', $data);
+			$this->load->view('include-admin/dashboard-scripts');
+			$this->load->view('schedule/schedule-scripts');
+		} else {
+			redirect('Login/signin');
 		}
-		else{
-			$data['title'] = 'Patient - Schedule | ePMC';
-		}
-
-
-		//Get doctors list from user accounts
-		$data['specialization'] = $this->session->userdata('specialization');
-		$data['doctorname'] = $this->Doctors_model->get_all_doctors();
-
-		//Get Schedule Data
-		$id = $this->session->userdata('schedule_id');
-		$data['schedule'] = $this->schedModel->get_schedule_row($id);
-		$data['schedules'] = $this->schedModel->get_schedule_table();
-
-
-		// Display views
-		$this->load->view('include-admin/dashboard-header', $data);
-		$this->load->view('include-admin/dashboard-navbar', $data);
-		$this->load->view('admin-views/schedule-view', $data);
-		$this->load->view('include-admin/dashboard-scripts');
-		$this->load->view('schedule/schedule-scripts');
 	}
 
 	public function addSchedule()
@@ -81,8 +83,8 @@ class Admin_schedule extends CI_Controller
 			// 	'days' => $this->input->post('days'),
 			// 	'theme' => $this->input->post('color')
 			// );
-			
-			$result = $this->input->post('doctor_name')	;
+
+			$result = $this->input->post('doctor_name');
 			$result_explode = explode('|', $result);
 			$doctor_name = $result_explode[0];
 			$user_id = $result_explode[1];
@@ -101,12 +103,22 @@ class Admin_schedule extends CI_Controller
 				);
 				$this->schedModel->insertSchedule($schedData);
 			}
-			
+
 			// if ('days[]' == 'Sun') {
 			// 	$schedData = array (
 			// 		'sun' => $this->input->post('day1')
 			// 	);
 			// }
+
+
+			// insert a row in user_activity table
+			$user_id = $this->session->userdata('id');
+			$user_type = $this->session->userdata('role');
+			$user_activity = 'Added a schedule';
+
+			$this->load->model('Login_model');
+			$this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
 
 			$activity = array(
 				'activity' => 'A new schedule has been added in the schedules',
@@ -146,33 +158,40 @@ class Admin_schedule extends CI_Controller
 		// 			'theme' => $this->input->post('color')
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('message', 'add_failed');
+			$this->session->set_flashdata('message', 'update_failed');
 			$this->index();
 		} else {
 
 			$updateSchedule = $this->input->post('updateSchedule');
-            if (isset($updateSchedule))
-            {
-				$result = $this->input->post('doctor_name')	;
+
+			if (isset($updateSchedule)) {
+				$result = $this->input->post('doctor_name');
 				$result_explode = explode('|', $result);
 				$doctor_name = $result_explode[0];
 				$user_id = $result_explode[1];
 				$specialization = $result_explode[2];
-				
+
 				$schedData = array(
 					'user_id' => $user_id,
 					'doctor_name' => $doctor_name,
 					'specialization' => $specialization,
 					'start_time' => $this->input->post('start_time'),
 					'end_time' => $this->input->post('end_time'),
-					'theme' => $this->input->post('color')
+					'day' => $this->input->post('day'),
+					'theme' => $this->input->post('color_edit_' . $id)
 				);
 			}
-			// if ('days[]' == 'Sun') {
-			// 	$schedData = array (
-			// 		'sun' => $this->input->post('day1')
-			// 	);
-			// }
+
+			// insert a row in user_activity table
+			$user_id = $this->session->userdata('id');
+			$user_type = $this->session->userdata('role');
+			$user_activity = 'Updated a schedule';
+
+			$this->load->model('Login_model');
+			$this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+
 			$activity = array(
 				'activity' => 'A new schedule has been updated in the schedules',
 				'module' => 'Schedule',
@@ -182,26 +201,32 @@ class Admin_schedule extends CI_Controller
 			$this->Admin_model->add_activity($activity);
 
 
-			$this->session->set_flashdata('message', 'success');
-			$this->schedModel->update_schedule($id,$schedData);
+			$this->session->set_flashdata('message', 'update_success');
+			$this->schedModel->update_schedule($id, $schedData);
 			redirect('Admin_schedule');
-
-			// echo "<script type='text/javascript'>alert('Schedule Added Succesfully!');window.location = ('Admin_schedule') </script>";
 		}
 	}
 
 	public function delete_schedule($id)
-    {   
+	{
 
-        $activity = array(
-            'activity' => 'A schedule has been deleted in the list',
-            'module' => 'Schedule',
-            'date_created' => date('Y-m-d H:i:s')
-        );
+		$activity = array(
+			'activity' => 'A schedule has been deleted in the list',
+			'module' => 'Schedule',
+			'date_created' => date('Y-m-d H:i:s')
+		);
 
-        $this->Admin_model->add_activity($activity);
-        $this->session->set_flashdata('message', 'dlt_success');
-        $this->schedModel->delete_schedule($id);
-        redirect('Admin_schedule/index');
-    }
+		// insert a row in user_activity table
+		$user_id = $this->session->userdata('id');
+		$user_type = $this->session->userdata('role');
+		$user_activity = 'Deleted a schedule';
+
+		$this->load->model('Login_model');
+		$this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+		$this->Admin_model->add_activity($activity);
+		$this->session->set_flashdata('message', 'dlt_success');
+		$this->schedModel->delete_schedule($id);
+		redirect('Admin_schedule/index');
+	}
 }
