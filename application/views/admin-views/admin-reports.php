@@ -91,21 +91,6 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-end fixed-bottom mb-3" style="transform: translate(43px) translateY(-100px);"><button class="btn btn-sm" type="button" style="transform: rotate(-90deg);" data-bs-target="#feedback-modal" data-bs-toggle="modal">Feedback</button></div>
-<div id="feedback-modal" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Title</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>The content of your modal.</p>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-        </div>
-    </div>
-</div>
-
 <script>
     // let Chart1 = document.getElementById('Chart1').getContext('2d');
     // let satisfactionChart = new Chart(Chart1, {
@@ -131,7 +116,11 @@
     //         responsive: true,
     //     }
 
-    // })
+    // })    
+
+
+    var insertions = JSON.parse('<?= $insertions; ?>');
+    console.log(insertions);
 
     var stock_products = JSON.parse('<?= $stock_products ?>');
     var stock_in = JSON.parse('<?= $stock_in ?>');
@@ -142,13 +131,15 @@
     var recent_data = JSON.parse('<?= $recent_data ?>');
     var recent_deleted = JSON.parse('<?= $recent_deleted ?>');
 
+    console.log(recent_days);
+
     var options = {
         series: [{
             name: 'Insertions',
-            data: recent_data
+            data: Object.values(insertions.inserted).reverse()
         }, {
             name: 'Deletions',
-            data: recent_deleted
+            data: Object.values(insertions.deleted).reverse()
         }],
         chart: {
             type: 'bar',

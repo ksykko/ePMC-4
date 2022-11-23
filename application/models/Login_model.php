@@ -29,11 +29,12 @@ class Login_model extends CI_Model
 
     public function user_activity($user_id, $user_type, $activity)
     {
+
         $data = array(
             'user_id' => $user_id,
             'user_type' => $user_type,
             'activity' => $activity,
-            'date' => date('Y-m-d H:i:s')
+            'date' => date('Y-m-d H:i:s'),
         );
 
         $this->db->insert('user_activity', $data);
