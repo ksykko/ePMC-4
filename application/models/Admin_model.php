@@ -17,7 +17,7 @@ class Admin_model extends CI_Model
     {
         return $this->db->get('patient_record')->result();
     }
-
+    
     // datatables
     public function get_patient_tbl()
     {
@@ -37,7 +37,7 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-
+    
     // get patient row based on patient_id ($id = primary key)
     public function get_patient_row($id)
     {
@@ -329,6 +329,17 @@ class Admin_model extends CI_Model
         $this->db->join('patient_details', 'patient_details.patient_id = patient_record.patient_id');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function get_patientrec_det($id)
+    {
+        $this->db->select('');
+        $this->db->from('patient_record');
+        $this->db->join('patient_details', 'patient_details.patient_id = patient_record.patient_id');
+        $this->db->where('patient_record.patient_id',$id);
+        $this->db->where('patient_details.patient_id',$id);
+        $query = $this->db->get();
+        return $query->row();
     }
 
 
