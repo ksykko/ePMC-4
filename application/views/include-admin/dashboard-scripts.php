@@ -5,9 +5,6 @@
 
 
 
-<script src="<?= base_url('/assets/js/Charts/user_activity_chart.js') ?>"></script>
-<script src="<?= base_url('/assets/js/Charts/satisfaction_chart.js') ?>"></script>
-<script src="<?= base_url('/assets/js/Charts/staff_chart.js') ?>"></script>
 <script type="text/javascript">
     
     $(document).ready(function() {
@@ -49,7 +46,13 @@
         }
     }
 
+    var staff_data = JSON.parse('<?= $staff_data ?>');
+    console.log(staff_data);
+
 </script>
+<script src="<?= base_url('/assets/js/Charts/user_activity_chart.js') ?>"></script>
+<script src="<?= base_url('/assets/js/Charts/satisfaction_chart.js') ?>"></script>
+<script src="<?= base_url('/assets/js/Charts/staff_chart.js') ?>"></script>
 <script src="<?= base_url('/assets/js/admin-dashboard.js') ?>"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
