@@ -140,6 +140,15 @@ class Admin_useracc extends CI_Controller
 
             //$this->dd($info);
 
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Added a new user account.';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
             $activity = array(
                 'activity' => 'A new user has been added in the user accounts',
                 'module' => 'User Accounts',
@@ -219,6 +228,14 @@ class Admin_useracc extends CI_Controller
                 );
             }
 
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Edited a user account.';
+
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
             $activity = array(
                 'activity' => 'A user\'s account has been updated in the user accounts',
                 'module' => 'User Accounts',
@@ -249,6 +266,14 @@ class Admin_useracc extends CI_Controller
 
     public function delete_useracc($id)
     {
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+        $user_activity = 'Deleted a user account.';
+
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
 
         $activity = array(
             'activity' => 'A user\'s account has been deleted in the user accounts',

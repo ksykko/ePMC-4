@@ -69,9 +69,7 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($sess_data);
                     redirect('Users');
-                }
-
-                elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
+                } elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -90,9 +88,7 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($sess_data);
                     redirect('Doctors');
-                }
-                
-                elseif ($result->role == 'Admin' || $result->role == 'admin') {
+                } elseif ($result->role == 'Admin' || $result->role == 'admin') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -111,6 +107,8 @@ class Login extends CI_Controller
                     );
 
                     $this->session->set_userdata($sess_data);
+                    //$this->dd($result->specialization);
+
 
                     // insert a row in user_activity table
                     $this->Login_model->user_activity($result->user_id, $result->role, 'Logged in');
@@ -123,9 +121,7 @@ class Login extends CI_Controller
 
                     redirect('Admin');
                 }
-
-            }
-            else {
+            } else {
                 $error = 'Invalid email or password.';
                 $this->session->set_flashdata('error', $error);
                 redirect('Login/signin');
@@ -135,9 +131,6 @@ class Login extends CI_Controller
             $this->session->set_flashdata('error', $error);
             redirect('Login/signin');
         }
-
-        
-
     }
 
     public function logout()

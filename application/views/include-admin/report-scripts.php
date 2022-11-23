@@ -18,9 +18,7 @@
     var recent_data = JSON.parse('<?= $recent_data ?>');
     var recent_deleted = JSON.parse('<?= $recent_deleted ?>');
     
-    var stock_products = JSON.parse('<?= $stock_products ?>');
-    var stock_in = JSON.parse('<?= $stock_in ?>');
-    var stock_out = JSON.parse('<?= $stock_out ?>');
+
 
 </script>
 

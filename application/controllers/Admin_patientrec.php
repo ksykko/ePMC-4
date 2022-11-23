@@ -37,6 +37,9 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+
+
+    // * Patient Record Datatable
     public function datatable()
     {
         // Datatables Variables
@@ -78,6 +81,9 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+
+
+    // * Diagnoses Datatable
     public function diag_dt($id)
     {
         // Datatables Variables
@@ -125,6 +131,9 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+
+
+    // * Treatment Plan Datatable
     public function treatment_dt($id)
     {
         // Datatables Variables
@@ -162,6 +171,9 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+
+
+    // * Consultation History Datatable
     public function consul_dt($id)
     {
         // Datatables Variables
@@ -198,6 +210,9 @@ class Admin_patientrec extends CI_Controller
         echo json_encode($output);
     }
 
+
+
+    // * AJAX Request to check if patient exists
     public function check_name()
     {
         $this->load->model('Admin_model');
@@ -252,6 +267,9 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+
+
+    // * Edit Patient Info
     public function edit_patient($id)
     {
         $data['patient'] = $this->Admin_model->get_patient_row($id);
@@ -361,6 +379,9 @@ class Admin_patientrec extends CI_Controller
         //}
     }
 
+
+
+    // * Delete Patient Record
     public function delete_patient($id)
     {
         $patient = $this->Admin_model->get_patient_row($id);
@@ -385,6 +406,8 @@ class Admin_patientrec extends CI_Controller
         redirect('Admin_patientrec/index');
     }
 
+
+    
     public function view_patient($id)
     {
         if ($this->session->userdata('logged_in')) {
