@@ -31,13 +31,13 @@ class Doctors extends CI_Controller {
             $data['new_patient_count'] = $this->Admin_model->get_nUser_count();
 
             // Chart Data
-            $data['chart_data'] = $this->ageRange_chart_js(); // fetch age range data for chart
+            $data['age_range_data'] = $this->ageRange_chart_js(); // fetch age range data for chart
             $data['bmi_data'] = $this->bmi_chart_js(); // fetch bmi data for chart
             
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar');
-            $this->load->view('admin-views/doctor-dashboard-view', $data);
+            $this->load->view('doctor-views/doctor-dashboard-view', $data);
             //$this->load->view('admin-views/admin-dashboard', $data);
             $this->load->view('include-admin/dashboard-scripts');
         }
@@ -51,6 +51,8 @@ class Doctors extends CI_Controller {
         // get age range data from database
         $this->load->model('Charts_model');
         $query = $this->Charts_model->get_age_range();
+
+        // $this->dd($query);
 
         // create array to store age range data
         $age_range = [
@@ -66,53 +68,195 @@ class Doctors extends CI_Controller {
             '91-100' => 0,
         ];
 
-        // loop through the data and store in array
-        foreach ($query as $row) {
-            //count the number of patients in each age range
+        $male_age_range = [
+            '0-10' => 0,
+            '11-20' => 0,
+            '21-30' => 0,
+            '31-40' => 0,
+            '41-50' => 0,
+            '51-60' => 0,
+            '61-70' => 0,
+            '71-80' => 0,
+            '81-90' => 0,
+            '91-100' => 0,
+        ];
 
-            // age range 0-10
+        $female_age_range = [
+            '0-10' => 0,
+            '11-20' => 0,
+            '21-30' => 0,
+            '31-40' => 0,
+            '41-50' => 0,
+            '51-60' => 0,
+            '61-70' => 0,
+            '71-80' => 0,
+            '81-90' => 0,
+            '91-100' => 0,
+        ];
+
+
+        // loop through age range data and separate male and female range
+        foreach ($query as $row) {
+
             if ($row->age >= 0 && $row->age <= 10) {
-                $age_range['0-10'] = $age_range['0-10'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['0-10']++;
+                }
+                else {
+                    $female_age_range['0-10']++;
+                }
+                $age_range['0-10']++;
             }
-            // age range 11-20
+
             if ($row->age >= 11 && $row->age <= 20) {
-                $age_range['11-20'] = $age_range['11-20'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['11-20']++;
+                }
+                else {
+                    $female_age_range['11-20']++;
+                }
+                $age_range['11-20']++;
             }
-            // age range 21-30
+
             if ($row->age >= 21 && $row->age <= 30) {
-                $age_range['21-30'] = $age_range['21-30'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['21-30']++;
+                }
+                else {
+                    $female_age_range['21-30']++;
+                }
+                $age_range['21-30']++;
             }
-            // age range 31-40
+
             if ($row->age >= 31 && $row->age <= 40) {
-                $age_range['31-40'] = $age_range['31-40'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['31-40']++;
+                }
+                else {
+                    $female_age_range['31-40']++;
+                }
+                $age_range['31-40']++;
             }
-            // age range 41-50
+
             if ($row->age >= 41 && $row->age <= 50) {
-                $age_range['41-50'] = $age_range['41-50'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['41-50']++;
+                }
+                else {
+                    $female_age_range['41-50']++;
+                }
+                $age_range['41-50']++;
             }
-            // age range 51-60
+
             if ($row->age >= 51 && $row->age <= 60) {
-                $age_range['51-60'] = $age_range['51-60'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['51-60']++;
+                }
+                else {
+                    $female_age_range['51-60']++;
+                }
+                $age_range['51-60']++;
             }
-            // age range 61-70
+
             if ($row->age >= 61 && $row->age <= 70) {
-                $age_range['61-70'] = $age_range['61-70'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['61-70']++;
+                }
+                else {
+                    $female_age_range['61-70']++;
+                }
+                $age_range['61-70']++;
             }
-            // age range 71-80
+
             if ($row->age >= 71 && $row->age <= 80) {
-                $age_range['71-80'] = $age_range['71-80'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['71-80']++;
+                }
+                else {
+                    $female_age_range['71-80']++;
+                }
+                $age_range['71-80']++;
             }
-            // age range 81-90
+
             if ($row->age >= 81 && $row->age <= 90) {
-                $age_range['81-90'] = $age_range['81-90'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['81-90']++;
+                }
+                else {
+                    $female_age_range['81-90']++;
+                }
+                $age_range['81-90']++;
             }
-            // age range 91-100
+
             if ($row->age >= 91 && $row->age <= 100) {
-                $age_range['91-100'] = $age_range['91-100'] + 1;
+                if ($row->sex == 'Male') {
+                    $male_age_range['91-100']++;
+                }
+                else {
+                    $female_age_range['91-100']++;
+                }
+                $age_range['91-100']++;
             }
+
         }
 
-        return $age_range['chart_data'] = json_encode($age_range);
+        $data = [
+            'male' => $male_age_range,
+            'female' => $female_age_range,
+            'total' => $age_range,
+        ];
+
+        //$this->dd($data);
+
+        
+
+        // // loop through the data and store in array
+        // foreach ($query as $row) {
+        //     //count the number of patients in each age range
+
+        //     // age range 0-10
+        //     if ($row->age >= 0 && $row->age <= 10) {
+        //         $age_range['0-10'] = $age_range['0-10'] + 1;
+        //     }
+        //     // age range 11-20
+        //     if ($row->age >= 11 && $row->age <= 20) {
+        //         $age_range['11-20'] = $age_range['11-20'] + 1;
+        //     }
+        //     // age range 21-30
+        //     if ($row->age >= 21 && $row->age <= 30) {
+        //         $age_range['21-30'] = $age_range['21-30'] + 1;
+        //     }
+        //     // age range 31-40
+        //     if ($row->age >= 31 && $row->age <= 40) {
+        //         $age_range['31-40'] = $age_range['31-40'] + 1;
+        //     }
+        //     // age range 41-50
+        //     if ($row->age >= 41 && $row->age <= 50) {
+        //         $age_range['41-50'] = $age_range['41-50'] + 1;
+        //     }
+        //     // age range 51-60
+        //     if ($row->age >= 51 && $row->age <= 60) {
+        //         $age_range['51-60'] = $age_range['51-60'] + 1;
+        //     }
+        //     // age range 61-70
+        //     if ($row->age >= 61 && $row->age <= 70) {
+        //         $age_range['61-70'] = $age_range['61-70'] + 1;
+        //     }
+        //     // age range 71-80
+        //     if ($row->age >= 71 && $row->age <= 80) {
+        //         $age_range['71-80'] = $age_range['71-80'] + 1;
+        //     }
+        //     // age range 81-90
+        //     if ($row->age >= 81 && $row->age <= 90) {
+        //         $age_range['81-90'] = $age_range['81-90'] + 1;
+        //     }
+        //     // age range 91-100
+        //     if ($row->age >= 91 && $row->age <= 100) {
+        //         $age_range['91-100'] = $age_range['91-100'] + 1;
+        //     }
+        // }
+
+        return json_encode($data);
     }
 
     public function bmi_chart_js() 
