@@ -229,8 +229,11 @@ table.table-fit tfoot td {
     /* overflow-x:auto !important; */
 }
 
+
+
 @media (min-width: 1366px){
     h6 {
         font-size: 19px !important;
     }
 }
+
