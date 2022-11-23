@@ -18,39 +18,44 @@ class Admin_schedule extends CI_Controller
 	//schedule page
 	public function index()
 	{
-		//Get doctors list from schedule table
-		$data['doctors'] = $this->schedModel->get_unique_docnames();
+		if ($this->session->userdata('logged_in')) {
+			//Get doctors list from schedule table
+			$data['doctors'] = $this->schedModel->get_unique_docnames();
 
 
-		$data['user_role'] = $this->session->userdata('role');
+			$data['user_role'] = $this->session->userdata('role');
 
-		if ($data['user_role'] == 'Admin') {
-			$data['title'] = 'Admin - Schedule | ePMC';
-		} 
-		elseif ($data['user_role'] == 'Doctor') {
-			$data['title'] = 'Doctor - Schedule | ePMC';
+			if ($data['user_role'] == 'Admin') {
+				$data['title'] = 'Admin - Schedule | ePMC';
+			} 
+			elseif ($data['user_role'] == 'Doctor') {
+				$data['title'] = 'Doctor - Schedule | ePMC';
+			}
+			else{
+				$data['title'] = 'Patient - Schedule | ePMC';
+			}
+
+
+			//Get doctors list from user accounts
+			$data['specialization'] = $this->session->userdata('specialization');
+			$data['doctorname'] = $this->Doctors_model->get_all_doctors();
+
+			//Get Schedule Data
+			$id = $this->session->userdata('schedule_id');
+			$data['schedule'] = $this->schedModel->get_schedule_row($id);
+			$data['schedules'] = $this->schedModel->get_schedule_table();
+
+
+			// Display views
+			$this->load->view('include-admin/dashboard-header', $data);
+			$this->load->view('include-admin/dashboard-navbar', $data);
+			$this->load->view('admin-views/schedule-view', $data);
+			$this->load->view('include-admin/dashboard-scripts');
+			$this->load->view('schedule/schedule-scripts');
+		
+		} else {
+			redirect('Login/signin');
 		}
-		else{
-			$data['title'] = 'Patient - Schedule | ePMC';
-		}
-
-
-		//Get doctors list from user accounts
-		$data['specialization'] = $this->session->userdata('specialization');
-		$data['doctorname'] = $this->Doctors_model->get_all_doctors();
-
-		//Get Schedule Data
-		$id = $this->session->userdata('schedule_id');
-		$data['schedule'] = $this->schedModel->get_schedule_row($id);
-		$data['schedules'] = $this->schedModel->get_schedule_table();
-
-
-		// Display views
-		$this->load->view('include-admin/dashboard-header', $data);
-		$this->load->view('include-admin/dashboard-navbar', $data);
-		$this->load->view('admin-views/schedule-view', $data);
-		$this->load->view('include-admin/dashboard-scripts');
-		$this->load->view('schedule/schedule-scripts');
 	}
 
 	public function addSchedule()

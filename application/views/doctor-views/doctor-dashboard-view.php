@@ -126,23 +126,26 @@
                 <div class="card-body text-center shadow profile-card">
                     <img class="mt-4 rounded-circle" style="width: 200px;" class="img-fluid" name="avatar" src="<?= base_url('/assets/img/profile-avatars/') . $user->avatar ?>"><br><br>
                     <label for="avatar">Hello, <br>
-                        <?= $full_name ?>
+                        <?= $user->first_name . ' ' . $user->middle_name . ' ' . $user->last_name ?>
                     </label><br>
                     <label for="avatar" class="role">
-                        <?= $specialization ?>
+                        <?= $user->role ?>
                     </label><br>
                     <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button></div>
                     <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" style="width: 151.84px;" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
+
                 </div>
             </div>
         </div>
         <div class="col col-lg-6">
-            <div class="card h-100 chart-body-red">
+            <div class="card shadow mb-4 h-100 chart-body-red">
                 <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
-                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Stock Items</h6>
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's Age Range Overview</h6>
                 </div>
-                <div class="card-body">
-                    <div id="stock_chart"></div>
+                <div class="card-body mx-3 my-3">
+                    <div class="chart-area">
+                        <canvas id="sampleChart"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -154,6 +157,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
+                        <!-- <canvas class="align-items-center" id="satis_chart"></canvas> -->
                         <div id="satis_chart"></div>
                     </div>
                 </div>
@@ -216,14 +220,14 @@
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Email</label></div>
                         <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" readonly value=" <?= $user->email ?> " /></div>
+                            <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" readonly value="<?= $user->email ?>" /></div>
                             <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Password</label></div>
                         <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value=" <?= $user->password ?> " /></div>
+                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value="<?= $user->password ?>" /></div>
                             <label id="password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
@@ -260,8 +264,129 @@
             </div>
         </div>
     </div>
-
     
-
-
 </div>
+
+
+
+
+
+
+<!-- // ! BMI CHART -->
+<!-- <div class="card shadow mb-4 h-100 chart-body-purp">
+    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
+        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient's BMI Overview</h6>
+    </div>
+    <div class="card-body mx-3 my-3 d-flex justify-content-center">
+        <div class="chart-area">
+            <canvas class=" align-items-center" id="sampleChart2"></canvas>
+        </div>
+    </div>
+</div> -->
+<script>
+    var cData = JSON.parse('<?= $age_range_data; ?>');
+    console.log(cData);
+
+    let sampleChart = document.getElementById('sampleChart').getContext('2d');
+
+    let ageRangeChart = new Chart(sampleChart, {
+        type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+        data: {
+            labels: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100'],
+            datasets: [{
+                label: 'Age Range',
+                data: cData.total,
+                backgroundColor: [
+                    "#cc001b",
+                    "#100002",
+                    "#a30015",
+                    "#390007",
+                    "#9b0014",
+                    "#410008",
+                    "#72000f",
+                    "#6a000e",
+                    "#a30015",
+                    "#100002"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            responsive: true,
+            scales: {
+                y: {
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1,
+                        min: 0,
+                        max: 100
+                    },
+
+                }
+            }
+        }
+    });
+
+    // var bmiData = JSON.parse('<?= $bmi_data; ?>');
+    // console.log(bmiData);
+    // let sampleChart2 = document.getElementById('sampleChart2').getContext('2d');
+    // let bmiChart = new Chart(sampleChart2, {
+    //     type: 'pie',
+    //     data: {
+    //         labels: ['Underweight, <18.5', 'Normal weight, 18.5–24.9', 'Overweight, 25–29.9', 'Obesity, BMI of 30 or greater'],
+    //         datasets: [{
+    //             label: 'BMI',
+    //             data: [bmiData['underweight'], bmiData['normal'], bmiData['overweight'], bmiData['obese']],
+    //             backgroundColor: [
+    //                 "#115f9a",
+    //                 "#1984c5",
+    //                 "#22a7f0",
+    //                 "#48b5c4",
+    //                 "#76c68f",
+    //                 "#a6d75b",
+    //                 "#c9e52f",
+    //                 "#d0ee11",
+    //                 "#f4f100"
+    //             ]
+    //         }]
+    //     },
+    //     options: {
+    //         legend: {
+    //             display: true
+    //         },
+    //         responsive: false,
+    //     }
+    // })
+
+    let sampleChart3 = document.getElementById('sampleChart3').getContext('2d');
+    let satisfactionChart = new Chart(sampleChart3, {
+        type: 'polarArea',
+        data: {
+            labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Unsatisfied', 'Very Unsatisfied'],
+            datasets: [{
+                label: 'Satisfaction',
+                data: [59, 20, 42, 16, 4],
+                backgroundColor: [
+                    "#CB2B92",
+                    "#FC3F93",
+                    "#FE77FE",
+                    "#8c0d49",
+                    "#FF1696"
+                ]
+            }]
+        },
+        options: {
+            legend: {
+                display: true
+            },
+            responsive: true,
+        }
+
+    })
+</script>
+
+
+</body>

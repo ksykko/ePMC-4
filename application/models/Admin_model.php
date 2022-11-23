@@ -74,8 +74,10 @@ class Admin_model extends CI_Model
             $this->db->insert('arc_patient_diagnosis', $row);
         }
 
-        //$this->db->insert('arc_patient_diagnosis', $this->get_patient_diagnosis_row($id));
-        $this->db->insert('arc_patient_lab_reports', $this->get_patient_lab_reports_row($id));
+        $documents = $this->get_patient_documents($id);
+        foreach ($documents as $row) {
+            $this->db->insert('arc_patient_lab_report', $row);
+        }
 
         $treatment = $this->get_patient_treatment_plan_result($id);
         foreach ($treatment as $row) {

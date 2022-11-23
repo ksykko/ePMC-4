@@ -8,6 +8,7 @@ class Login extends CI_Controller
 
         $this->load->helper(['url', 'form']);
         $this->load->library(['form_validation', 'session']);
+        $this->load->model('Login_model');
     }
 
     public function signin()
@@ -63,6 +64,9 @@ class Login extends CI_Controller
                         'logged_in' => TRUE
                     );
 
+                    // insert a row in user_activity table
+                    $this->Login_model->patient_activity($result->patient_id, $result->role, 'Logged in');
+
                     $this->session->set_userdata($sess_data);
                     redirect('Users');
                 }
@@ -80,6 +84,9 @@ class Login extends CI_Controller
                         'birth_date' => $result->birth_date,
                         'logged_in' => TRUE
                     );
+
+                    // insert a row in user_activity table
+                    $this->Login_model->user_activity($result->user_id, $result->role, 'Logged in');
 
                     $this->session->set_userdata($sess_data);
                     redirect('Doctors');
@@ -104,7 +111,9 @@ class Login extends CI_Controller
                     );
 
                     $this->session->set_userdata($sess_data);
-                    //$this->dd($sess_data);
+
+                    // insert a row in user_activity table
+                    $this->Login_model->user_activity($result->user_id, $result->role, 'Logged in');
 
                     if ($result->specialization == 'Pharmacy Assistant' || $result->specialization == 'pharmacy assistant') {
                         redirect('PharmacyAssistant');
@@ -133,6 +142,12 @@ class Login extends CI_Controller
 
     public function logout()
     {
+        if ($this->session->userdata('role') == 'patient' || $this->session->userdata('role') == 'Patient') {
+            $this->Login_model->patient_activity($this->session->userdata('id'), $this->session->userdata('role'), 'Logged out');
+        } else {
+            $this->Login_model->user_activity($this->session->userdata('id'), $this->session->userdata('role'), 'Logged out');
+        }
+
         $this->session->sess_destroy();
         redirect('Login/signin');
     }
