@@ -1,6 +1,13 @@
 <?php
 
 class Admin_schedule_model extends CI_Model {
+    public function __construct()
+    {
+        parent::__construct();
+
+        // initializes database connection
+        $this->load->database();
+    }
     public function insertSchedule($data) {
         return $this->db->insert('schedule', $data);
     }
@@ -33,6 +40,16 @@ class Admin_schedule_model extends CI_Model {
     public function get_schedule_row($id)
     {
         return $this->db->get_where('schedule', ['schedule_id' => $id])->row();
+    }
+
+    //FOR MOBILE
+    //get schedule data 
+    public function get_schedule()
+    {
+        $this->db->select('schedule_id, doctor_name, specialization, start_time, end_time, day');
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
     }
 }
 
