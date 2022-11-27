@@ -27,7 +27,7 @@ class Patient extends CI_Controller {
             $data['user_contact_no'] = $this->session->userdata('cell_no');
             $data['user_address'] = $this->session->userdata('address');
 
-            $data['feedback'] = $this->Patient_model->get_feedback_row($id);
+            // $data['feedback'] = $this->Patient_model->get_feedback_row($id);
             $data['patient'] = $this->Patient_model->get_patient_row($id);
             $data['patient_details'] = $this->Patient_model->get_patient_details_row($id);
 
