@@ -532,3 +532,28 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Site Admin Email
+|--------------------------------------------------------------------------
+|
+| This email address is used for sending emails from the site.
+|
+*/
+$config['admin_email'] = 'sagala.krch@gmail.com';
+
+/*
+|--------------------------------------------------------------------------
+| Site Admin Name
+|--------------------------------------------------------------------------
+|   
+| This name is used for sending emails from the site.
+|
+*/
+$config['bot_email'] = 'ePMC@gmail.com';
+
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+
+$config['email'] = 'pagtakhanmedicalclinic@gmail.com'; //Active Gmail - Turn on less secure app. Don't hack me pls
+$config['password'] = 'koyxhunegzvyilxz'; //Password
