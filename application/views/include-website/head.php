@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?= base_url('/assets/fonts/fontawesome-all.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/home-page.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/css/styles.css') ?>">
     <link rel="shortcut icon" href="<?= base_url('/assets/img/others/Logo.ico') ?>">
 
     <!-- Bootstrap CSS -->
