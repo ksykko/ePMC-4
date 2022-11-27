@@ -206,11 +206,10 @@
                     <table id="example" class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="align-middle">ID</th>
-                                <th class="col-md-4 align-middle">Name</th>
-                                <th class="col-md-3 align-middle">Date Added</th>
-                                <th class="col-md-1 align-middle text-center">Type</th>
-                                <th class="text-center col-md-3 align-middle">Action</th>
+                                <th class="col-md-6 text-left">Name</th>
+                                <th class="col-md-2 align-middle">Date Added</th>
+                                <th class="col-md-2 align-middle text-center">Type</th>
+                                <th class="text-center col-md-2 align-middle">Action</th>
                             </tr>
                         </thead>
                         <tbody>

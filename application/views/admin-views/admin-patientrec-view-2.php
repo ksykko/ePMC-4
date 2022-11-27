@@ -943,7 +943,7 @@
                                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                                         </div>
                                         <div>
-                                            <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button>
+                                            <!-- <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -984,7 +984,7 @@
                                 </div>
                                 <div class="card-body mx-3">
                                     <div>
-                                        <table id="consul_table" class="table table-hover" style="width: 100%">
+                                        <table id="consul_table" class="table table-hover" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th class="col-sm-6">Date and Time</th>
@@ -1047,7 +1047,14 @@
                                     </div>
                                     <div class="row">
                                         <?php foreach ($documents as $document) : ?>
-                                            <?php if ($document->doc_name == NULL || $document->document == NULL) : continue ?>
+                                            <?php if ($document->doc_name == NULL || $document->document == NULL) : ?>
+                                                <div class="col d-flex justify-content-center">
+                                                    <div class=" mb-1">
+                                                        <div class="py-3 ">
+                                                            <h6 class="m-0 fs-6">No documents yet</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             <?php else : ?>
                                                 <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
                                                     <div class="card shadow">
@@ -1057,8 +1064,8 @@
                                                             </button>
                                                         </div>
                                                         <?php
-                                                        $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);                                                        
-               
+                                                        $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+
                                                         if ($fileExt == 'pdf') {
                                                             $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
                                                         } else {
@@ -1219,7 +1226,7 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <?php
-                                                            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+                                                            //$diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
                                                             ?>
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title ms-3 fw-bolder">Diagnosis <?= $diag_date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
