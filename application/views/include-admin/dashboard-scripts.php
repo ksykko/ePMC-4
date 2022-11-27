@@ -6,27 +6,8 @@
 
 
 <script type="text/javascript">
-    // * Toasts
-    const toastTrigger = document.getElementById('liveToastTrigger')
-    const toastLiveExample = document.getElementById('liveToast')
     
-    var msgToast = "<?= $this->session->flashdata('message') ?>"
-    var errToast = "<?= $this->session->flashdata('error-upload') ?>"
 
-    if (toastTrigger) {
-        if (msgToast || errToast) {
-
-            if (errToast) {
-                $(document).ready(function() {
-                    $("#mdl-uploadpic").modal('show');
-                });
-            }
-
-            const toast = new bootstrap.Toast(toastLiveExample)
-            toast.show()
-        }
-    }
-    
     $(document).ready(function() {
         $('#recent_activity_table').DataTable({
             // remove search box and show entries with pagination
@@ -45,16 +26,15 @@
 
     });
 
-    
-
     var staff_data = JSON.parse('<?= $staff_data ?>');
     console.log(staff_data);
-
+    
 </script>
 <script src="<?= base_url('/assets/js/Charts/user_activity_chart.js') ?>"></script>
 <script src="<?= base_url('/assets/js/Charts/satisfaction_chart.js') ?>"></script>
 <script src="<?= base_url('/assets/js/Charts/staff_chart.js') ?>"></script>
 <script src="<?= base_url('/assets/js/admin-dashboard.js') ?>"></script>
+<script src="<?= base_url('/assets/js/validations/password.js') ?>"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
