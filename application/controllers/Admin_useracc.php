@@ -7,7 +7,7 @@ class Admin_useracc extends CI_Controller
         parent::__construct();
 
 
-        $this->load->helper('url', 'form', 'date', 'string');
+        $this->load->helper('url', 'form', 'date', 'string', 'html', 'security');
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
     }
@@ -28,6 +28,7 @@ class Admin_useracc extends CI_Controller
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/useraccounts-view', $data);
             $this->load->view('include-admin/useraccounts-scripts', $data);
+        
         } else {
             redirect('Login/signin');
         }
@@ -119,8 +120,17 @@ class Admin_useracc extends CI_Controller
         } else {
             // $addUser = $this->input->post('addUser');
 
-            // if (isset($addUser))
-            // {
+            $first_name = $this->security->xss_clean($this->input->post('first_name'));
+            $middle_name = $this->security->xss_clean($this->input->post('middle_name'));
+            $last_name = $this->security->xss_clean($this->input->post('last_name'));
+            $username = $this->security->xss_clean($this->input->post('username'));
+            $role = $this->security->xss_clean($this->input->post('role'));
+            $specialization = $this->security->xss_clean($this->input->post('specialization'));
+            $birth_date = $this->security->xss_clean($this->input->post('birth_date'));
+            $sex = $this->security->xss_clean($this->input->post('sex'));
+            $cell_no = $this->security->xss_clean($this->input->post('cell_no'));
+            $email = $this->security->xss_clean($this->input->post('email'));
+
             $info = array(
                 'first_name' => $this->input->post('first_name'),
                 'middle_name' => $this->input->post('middle_name'),
@@ -214,6 +224,7 @@ class Admin_useracc extends CI_Controller
             $this->index();
         } else {
             $editUser = $this->input->post('editUser');
+            
             if (isset($editUser)) {
                 $info = array(
                     'first_name' => $this->input->post('edt_first_name'),
@@ -224,7 +235,8 @@ class Admin_useracc extends CI_Controller
                     'birth_date' => $this->input->post('edt_birth_date'),
                     'gender' => $this->input->post('edt_gender'),
                     'contact_no' => $this->input->post('edt_contact_no'),
-                    'email' => $this->input->post('edt_email')
+                    'email' => $this->input->post('edt_email'),
+                    'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
                 );
             }
 
@@ -262,6 +274,36 @@ class Admin_useracc extends CI_Controller
         //     $this->Admin_model->update_product($id, $info);
         //     redirect('Admin_inventory');        
         // }
+    }
+
+    public function reset_password($id) 
+    {
+        $user = $this->Admin_model->get_useracc_row($id);
+
+        $info = array(
+            'password' => password_hash($user->birth_date, PASSWORD_DEFAULT)
+        );
+
+        $this->Admin_model->edit_useracc($id, $info);
+        
+        // insert a row in user_activity table
+        $user_id = $this->session->userdata('id');
+        $user_type = $this->session->userdata('role');
+
+        $user_activity = 'Reset a user\'s password.';
+        $this->load->model('Login_model');
+        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+        $activity = array(
+            'activity' => 'A user\'s password has been reset.',
+            'module' => 'User Accounts',
+            'date_created' => date('Y-m-d H:i:s')
+        );
+
+        $this->Admin_model->add_activity($activity);
+        $this->session->set_flashdata('message', 'reset-password-success');
+        redirect('Admin_useracc/index');
+
     }
 
     public function delete_useracc($id)

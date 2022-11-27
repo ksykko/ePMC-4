@@ -21,6 +21,7 @@ class Login extends CI_Controller
             $this->load->view('include-website/head', $data);
             $this->load->view('include-website/navbar');
             $this->load->view('website-views/login-view');
+            $this->load->view('include-website/footer');
             $this->load->view('include-website/scripts');
         }
     }
@@ -37,12 +38,13 @@ class Login extends CI_Controller
             $result = $this->Login_model->login($email, $pass);
             //$this->dd($result);
 
+
             if (isset($result)) {
-                // if ($result->status == 0) {
-                //     $error = 'Account is not activated yet. Please check your email for activation link.';
-                //     $this->session->set_flashdata('error', $error);
-                //     redirect('Login/signin');
-                // }
+                if ($result->status == '0') {
+                    $error = 'Account is not activated yet. Please check your email for activation link.';
+                    $this->session->set_flashdata('error', $error);
+                    redirect('Login/signin');
+                }
 
                 if ($result->role == 'patient' || $result->role == 'Patient') {
                     $sess_data = array(
@@ -69,7 +71,8 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($sess_data);
                     redirect('Users');
-                } elseif ($result->role == 'Doctor' || $result->role == 'doctor') {
+                }
+                if ($result->role == 'Doctor' || $result->role == 'doctor') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -88,7 +91,8 @@ class Login extends CI_Controller
 
                     $this->session->set_userdata($sess_data);
                     redirect('Doctors');
-                } elseif ($result->role == 'Admin' || $result->role == 'admin') {
+                }
+                if ($result->role == 'Admin' || $result->role == 'admin') {
                     $sess_data = array(
                         'id' => $result->user_id,
                         'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
@@ -121,13 +125,9 @@ class Login extends CI_Controller
 
                     redirect('Admin');
                 }
-            } else {
-                $error = 'Invalid email or password.';
-                $this->session->set_flashdata('error', $error);
-                redirect('Login/signin');
             }
 
-            $error = 'Invalid email or password.';
+            $error = 'Invalid username or password';
             $this->session->set_flashdata('error', $error);
             redirect('Login/signin');
         }
