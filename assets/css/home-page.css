@@ -24,25 +24,6 @@ body {
     min-height: -webkit-fill-available;
 }
 
-section#contact {
-    margin-top: 1500px;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-section#home {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-section#home-banner {
-    background: url('/banner-epmcblue.png') no-repeat center center fixed;
-    background-size: cover;
-}
-
 p.home-desc {
     margin-top: 30px;
 }
@@ -266,7 +247,8 @@ header nav ul li a {
     -webkit-transform: translateY(-120%) !important;
 } */
 
-ul.menu-left {
+
+/* ul.menu-left {
     display: block;
     max-height: 0;
     overflow: hidden;
@@ -334,31 +316,19 @@ ul.menu-left.collapse {
     margin-top: 4px;
     background-color: #000;
     transition: all 0.25s;
-}
+} */
 
-.signature {
-    position: fixed;
-    font-weight: 100;
-    bottom: 10px;
-    color: #000;
-    left: 0;
-    letter-spacing: 4px;
-    font-size: 10px;
-    width: 100vw;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
-.img-fluid {
+#
+/* .img-fluid {
     max-width: 100%;
-    height: auto
-}
+    height: auto;
+} */
 
 
 /* banner */
 
-.h1-first {
+
+/* .h1-first {
     font-size: 21px;
     text-align: left;
     font-family: Nunito, sans-serif;
@@ -391,6 +361,42 @@ a.btn-login {
 
 .img-avatar {
     margin-top: 20px;
+} */
+
+
+/* * NEW */
+
+#home-banner {
+    background-size: cover;
+    margin-bottom: 100px;
+}
+
+navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: top 0.3s;
+}
+
+#home,
+#about,
+#developers,
+#contact-us {
+    margin-bottom: 100px;
+}
+
+.signature {
+    position: fixed;
+    font-weight: 100;
+    bottom: 10px;
+    color: #000;
+    left: 0;
+    letter-spacing: 4px;
+    font-size: 10px;
+    width: 100vw;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
 
@@ -410,3 +416,113 @@ a.btn-login {
 
 
 /* END OF login-view.php CSS */
+
+
+/* * register-view.php CSS */
+
+textarea.valid,
+select.valid,
+input.valid {
+    border-color: #00b779;
+    padding-right: calc(1.6em + 1.2rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2300b779' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.4em + 0.3rem) center;
+    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem);
+}
+
+textarea.valid:focus,
+select.valid:focus,
+input.valid:focus {
+    border-color: #00b779;
+    box-shadow: 0 0 0 0.25rem rgba(0, 183, 121, 0.25);
+}
+
+textarea.invalid,
+select.invalid,
+input.invalid {
+    border-color: #dc3545;
+    padding-right: calc(1.6em + 1.2rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.4em + 0.3rem) center;
+    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem);
+}
+
+textarea.invalid:focus,
+select.invalid:focus,
+input.invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+textarea.warning,
+select.warning,
+input.warning {
+    border-color: #f6c23e;
+    padding-right: calc(1.6em + 1.2rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23f6c23e'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23f6c23e' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.4em + 0.3rem) center;
+    background-size: calc(0.8em + 0.6rem) calc(0.8em + 0.6rem);
+}
+
+textarea.warning:focus,
+select.warning:focus,
+input.warning:focus {
+    border-color: #f6c23e;
+    box-shadow: 0 0 0 0.25rem rgba(246, 194, 62, 0.25);
+}
+
+.form-group.required .form-label:after {
+    content: " *";
+    color: red;
+}
+
+.editTab,
+.tab {
+    display: none;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#prevEditBtn,
+#prevBtn {
+    background-color: #bbbbbb;
+}
+
+
+/* Make circles that indicate the steps of the form: */
+
+.editStep,
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.editStep.active,
+.step.active {
+    opacity: 1;
+}
+
+
+/* Mark the steps that are finished and valid: */
+
+.editStep.finish,
+.step.finish {
+    background-color: #356cbe;
+}
+
+#nextEditBtn,
+#nextBtn,
+#continueBtn {
+    background-color: #3269bf;
+}
