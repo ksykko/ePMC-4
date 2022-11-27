@@ -1587,21 +1587,28 @@
 
             //Set column definition initialisation properties.
             "columnDefs": [{
-                    "targets": [4], //first column / numbering column
+                    "targets": [3], //first column / numbering column
                     "orderable": false, //set not orderable
                     "className": "text-center",
-                    "targets": [4]
+                    "targets": [3]
                 },
                 {
-                    "targets": [3],
+                    "targets": [1,2,3],
+                    "className": "align-middle"
+                },
+                {
+                    "targets": [2],
                     render: function(data, type, row) {
                         if (data == 'added') {
                             return '<span class="badge bg-success">Added</span>';
-                        } else {
+                        } else if (data == 'imported') {
                             return '<span class="badge bg-warning">Imported</span>';
                         }
+                        else {
+                            return '<span class="badge bg-danger">Registered</span>';
+                        }
                     },
-                    "targets": [3],
+                    "targets": [2],
                     "className": "text-center"
                 }
             ]
