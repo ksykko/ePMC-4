@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+$route['my-calendar'] = "Admin_schedule_scratch";
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -77,3 +77,4 @@ $route['adm_Wedsched'] = 'api/Admin_schedule/wed_schedData';
 $route['adm_Thursched'] = 'api/Admin_schedule/thu_schedData';
 $route['adm_Frisched'] = 'api/Admin_schedule/fri_schedData';
 $route['adm_Satsched'] = 'api/Admin_schedule/sat_schedData';
+$route['register_mobile'] = 'api/Register_mobile/register';
