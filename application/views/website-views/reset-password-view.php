@@ -21,7 +21,7 @@
                                     </div>
                                 <?php elseif ($this->session->flashdata('message') == 'verify-first') : ?>
                                     <div class="alert alert-info" role="alert">
-                                        <span><strong>You have successfully signed up!</strong><br>Please check your email for verification.</span>
+                                        <small><strong>You have successfully signed up!</strong><br>Please check your email for verification.</small>
                                     </div>
                                 <?php endif; ?>
                                 <?= form_open('Login/validate_password/' . $id . '/' . $role ); ?>

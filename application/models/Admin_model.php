@@ -30,6 +30,11 @@ class Admin_model extends CI_Model
         return $this->db->get('user_activity');
     }
 
+    public function get_patient_audit()
+    {
+        return $this->db->get('patient_activity');
+    }
+
     // get total number of patients
     public function get_patient_count()
     {

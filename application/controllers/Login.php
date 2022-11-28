@@ -89,8 +89,7 @@ class Login extends CI_Controller
                     $message .= '<p>ePMC Team</p>';
                     $message .= '</body></html>';
 
-                    $this->dd($message);
-
+                    
                     $this->email->message($message);
 
                     if ($this->email->send()) {
@@ -124,13 +123,12 @@ class Login extends CI_Controller
 
                 } else {
 
-                    $encode = base64_encode($result->role);
 
                     $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
                     $message .= '<h1>Reset Password</h1>';
                     $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
                     $message .= '<p>Click the link below to reset your password.</p>';
-                    $message .= '<p><a href="' . base_url('Login/reset_password_form/') . $encode . '">Reset Password</a></p>';
+                    $message .= '<p><a href="' . base_url('Login/reset_password_form/') . $result->user_id . '/' . $result->role . '">Reset Password</a></p>';
                     $message .= '<p>Thank you!</p>';
                     $message .= '<p>ePMC Team</p>';
                     $message .= '</body></html>';
