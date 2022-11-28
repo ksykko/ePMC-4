@@ -28,7 +28,6 @@ class Admin_useracc extends CI_Controller
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/useraccounts-view', $data);
             $this->load->view('include-admin/useraccounts-scripts', $data);
-        
         } else {
             redirect('Login/signin');
         }
@@ -50,8 +49,12 @@ class Admin_useracc extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $user->first_name . ' ' . $user->last_name;
-            $row[] = $user->username;
+            $row[] = '
+            
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $user->avatar . '" /> ' . $user->first_name . ' ' . $user->last_name . '
+
+            
+            ';
             $row[] = ucfirst($user->role);
             $row[] = $user->birth_date;
             $row[] = $user->contact_no;
@@ -120,17 +123,6 @@ class Admin_useracc extends CI_Controller
         } else {
             // $addUser = $this->input->post('addUser');
 
-            $first_name = $this->security->xss_clean($this->input->post('first_name'));
-            $middle_name = $this->security->xss_clean($this->input->post('middle_name'));
-            $last_name = $this->security->xss_clean($this->input->post('last_name'));
-            $username = $this->security->xss_clean($this->input->post('username'));
-            $role = $this->security->xss_clean($this->input->post('role'));
-            $specialization = $this->security->xss_clean($this->input->post('specialization'));
-            $birth_date = $this->security->xss_clean($this->input->post('birth_date'));
-            $sex = $this->security->xss_clean($this->input->post('sex'));
-            $cell_no = $this->security->xss_clean($this->input->post('cell_no'));
-            $email = $this->security->xss_clean($this->input->post('email'));
-
             $info = array(
                 'first_name' => $this->input->post('first_name'),
                 'middle_name' => $this->input->post('middle_name'),
@@ -146,31 +138,34 @@ class Admin_useracc extends CI_Controller
                 'avatar' => 'default-avatar.png',
                 'date_created' => date('Y-m-d H:i:s')
             );
-            // }
 
-            //$this->dd($info);
+            if ($this->security->xss_clean($info)) {
 
-            // insert a row in user_activity table
-            $user_id = $this->session->userdata('id');
-            $user_type = $this->session->userdata('role');
-            $user_activity = 'Added a new user account.';
+                // insert a row in user_activity table
+                $user_id = $this->session->userdata('id');
+                $user_type = $this->session->userdata('role');
+                $user_activity = 'Added a new user account.';
 
-            $this->load->model('Login_model');
-            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
-
-
-            $activity = array(
-                'activity' => 'A new user has been added in the user accounts',
-                'module' => 'User Accounts',
-                'date_created' => date('Y-m-d H:i:s')
-            );
-
-            $this->Admin_model->add_activity($activity);
-            $this->session->set_flashdata('message', 'success');
-            $this->Admin_model->add_useracc($info);
+                $this->load->model('Login_model');
+                $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
 
-            redirect('Admin_useracc');
+                $activity = array(
+                    'activity' => 'A new user has been added in the user accounts',
+                    'module' => 'User Accounts',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+
+                $this->Admin_model->add_activity($activity);
+                $this->session->set_flashdata('message', 'success');
+                $this->Admin_model->add_useracc($info);
+
+
+                redirect('Admin_useracc');
+            } else {
+                $this->session->set_flashdata('message', 'add_failed');
+                $this->index();
+            }
         }
     }
 
@@ -224,7 +219,7 @@ class Admin_useracc extends CI_Controller
             $this->index();
         } else {
             $editUser = $this->input->post('editUser');
-            
+
             if (isset($editUser)) {
                 $info = array(
                     'first_name' => $this->input->post('edt_first_name'),
@@ -276,7 +271,7 @@ class Admin_useracc extends CI_Controller
         // }
     }
 
-    public function reset_password($id) 
+    public function reset_password($id)
     {
         $user = $this->Admin_model->get_useracc_row($id);
 
@@ -285,7 +280,7 @@ class Admin_useracc extends CI_Controller
         );
 
         $this->Admin_model->edit_useracc($id, $info);
-        
+
         // insert a row in user_activity table
         $user_id = $this->session->userdata('id');
         $user_type = $this->session->userdata('role');
@@ -303,7 +298,6 @@ class Admin_useracc extends CI_Controller
         $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'reset-password-success');
         redirect('Admin_useracc/index');
-
     }
 
     public function delete_useracc($id)

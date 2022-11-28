@@ -622,7 +622,8 @@ class Admin_patientrec extends CI_Controller
                 } else {
                     redirect('Doctor_patientrec');
                 }
-            } else {
+            } 
+            else {
 
                 $this->dd('xss clean failed');
             }

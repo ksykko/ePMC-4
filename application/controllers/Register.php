@@ -47,146 +47,132 @@ class Register extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             // error
             $this->session->set_flashdata('error', validation_errors());
-            $this->dd(validation_errors());
+            //$this->dd(validation_errors());
             redirect('Register');
         } else {
 
-            // apply xss_clean
-            $first_name = $this->security->xss_clean($this->input->post('first_name'));
-            $middle_name = $this->security->xss_clean($this->input->post('middle_name'));
-            $last_name = $this->security->xss_clean($this->input->post('last_name'));
-            $age = $this->security->xss_clean($this->input->post('age'));
-            $birth_date = $this->security->xss_clean($this->input->post('birth_date'));
-            $occupation = $this->security->xss_clean($this->input->post('occupation'));
-            $address = $this->security->xss_clean($this->input->post('address'));
-            $cell_no = $this->security->xss_clean($this->input->post('cell_no'));
-            $tel_no = $this->security->xss_clean($this->input->post('tel_no'));
-            $email = $this->security->xss_clean($this->input->post('email'));
-            $ec_name = $this->security->xss_clean($this->input->post('ec_name'));
-            $relationship = $this->security->xss_clean($this->input->post('relationship'));
-            $ec_contact_no = $this->security->xss_clean($this->input->post('ec_contact_no'));
-            $password = $this->security->xss_clean($this->input->post('password'));
             $this->security->xss_clean($this->input->post('conf_password'));
 
-
             $info = array(
-                'first_name' => $first_name,
-                'middle_name' => $middle_name,
-                'last_name' => $last_name,
-                'age' => $age,
-                'birth_date' => $birth_date,
+                'first_name' => $this->input->post('first_name'),
+                'middle_name' => $this->input->post('middle_name'),
+                'last_name' => $this->input->post('last_name'),
+                'age' => $this->input->post('age'),
+                'birth_date' => $this->input->post('birth_date'),
                 'sex' => $this->input->post('sex'),
                 'civil_status' => $this->input->post('civil_status'),
-                'occupation' => $occupation,
-                'address' => $address,
-                'cell_no' => $cell_no,
-                'tel_no' => $tel_no,
-                'email' => $email,
-                'ec_name' => $ec_name,
-                'relationship' => $relationship,
-                'ec_contact_no' => $ec_contact_no,
-                'password' => password_hash($password, PASSWORD_DEFAULT),
-                'type' => 'unverified',
+                'occupation' => $this->input->post('occupation'),
+                'address' => $this->input->post('address'),
+                'cell_no' => $this->input->post('cell_no'),
+                'tel_no' => $this->input->post('tel_no'),
+                'email' => $this->input->post('email'),
+                'ec_name' => $this->input->post('ec_name'),
+                'relationship' => $this->input->post('relationship'),
+                'ec_contact_no' => $this->input->post('ec_contact_no'),
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'type' => 'registered',
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
-                'last_checkup' => date('Y-m-d H:i:s'),
                 'activation_code' => random_string('alnum', 16),
                 'status' => '0',
-                'date_created' => date('Y-m-d H:i:s')
+                'date_created' => date('Y-m-d H:i:s'),
+                'last_accessed' => date('Y-m-d H:i:s')
             );
 
             //$this->dd($info);
 
-            $insert_id = $this->Admin_model->add_patient($info);
+            if ($this->security->xss_clean($info)) {
 
-            // create custom patient id based on name initials
-            $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+                $insert_id = $this->Admin_model->add_patient($info);
 
-            // if birthdate is empty, set password to default value 0000-00-00
-            if ($info['birth_date'] == '') {
-                $info['password'] = '0000-00-00';
+                // create custom patient id based on name initials
+                $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+
+
+                $this->Admin_model->update_patient($insert_id, $info);
+
+                $this->create_folder($insert_id);
+
+                $patientDetails = array(
+                    'patient_id' => $insert_id,
+                    'height' => '0',
+                    'weight' => '0',
+                );
+
+                $setId = array(
+                    'patient_id' => $insert_id
+                );
+
+
+                $this->load->library('email');
+                $config_email = array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => $this->config->item('email'), //Active gmail
+                    'smtp_pass' => $this->config->item('password'), //Password
+                    'mailtype' => 'html',
+                    'starttls' => TRUE,
+                    'newline' => "\r\n",
+                    'charset' => $this->config->item('charset'),
+                    'wordwrap' => TRUE
+                );
+                $this->email->initialize($config_email);
+
+
+                $this->email->set_mailtype('html');
+                $this->email->from($this->config->item('bot_email'), 'ePMC');
+                $this->email->to($info['email']);
+                $this->email->subject('ePMC Email Verification');
+
+                $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
+
+                $message .= '<p> Dear ' . $info['first_name'] . ' ' . $info['middle_name'] . ' ' . $info['last_name'] . ',</p>';
+                $message .= '<p>Thank you for registering to ePMC. Please click the link below to verify your email address.</p>';
+                $message .= '<p><strong><a href="' . base_url('Register/verify_email/' . $info['activation_code']) . '">Verify Email</a></strong></p>';
+                $message .= '<p>Thank you!</p>';
+                $message .= '<p>ePMC Team</p>';
+                $message .= '</body></html>';
+
+                $this->email->message($message);
+
+                if (!$this->email->send()) {
+                    show_error($this->email->print_debugger());
+                }
+
+
+                // insert a row in patient_activity table
+
+                $patient = $this->Admin_model->get_patient_row($insert_id);
+                $user_id = $patient->patient_id;
+                $user_type = $patient->role;
+                $user_activity = $patient->un_patient_id . ' has registered.';
+
+                $this->load->model('Login_model');
+                $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
+                $activity = array(
+                    'activity' => 'A new patient has registered.',
+                    'module' => 'Patient Records',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+
+                $this->Admin_model->add_activity($activity);
+
+                $this->session->set_flashdata('message', 'verify-first');
+                $this->Admin_model->add_patient_details($patientDetails);
+                $this->Admin_model->add_patient_diagnosis($setId);
+                $this->Admin_model->add_patient_lab_reports($setId);
+                $this->Admin_model->add_patient_treatment_plan($setId);
+
+                //$this->dd($info);
+
+                redirect('Login/signin');
             }
-
-            $this->Admin_model->update_patient($insert_id, $info);
-
-            $this->create_folder($insert_id);
-
-            $patientDetails = array(
-                'patient_id' => $insert_id,
-                'height' => '0',
-                'weight' => '0',
-            );
-
-            $setId = array(
-                'patient_id' => $insert_id
-            );
-
-
-            $this->load->library('email');
-            $config_email = array(
-                'protocol' => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_port' => 465,
-                'smtp_user' => $this->config->item('email'), //Active gmail
-                'smtp_pass' => $this->config->item('password'), //Password
-                'mailtype' => 'html',
-                'starttls' => TRUE,
-                'newline' => "\r\n",
-                'charset' => $this->config->item('charset'),
-                'wordwrap' => TRUE
-            );
-            $this->email->initialize($config_email);
-
-
-            $this->email->set_mailtype('html');
-            $this->email->from($this->config->item('bot_email'), 'ePMC');
-            $this->email->to($email);
-            $this->email->subject('ePMC Email Verification');
-
-            $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
-
-            $message .= '<p> Dear ' . $info['first_name'] . ' ' . $info['middle_name'] . ' ' . $info['last_name'] . ',</p>';
-            $message .= '<p>Thank you for registering to ePMC. Please click the link below to verify your email address.</p>';
-            $message .= '<p><strong><a href="' . base_url('Register/verify_email/' . $info['activation_code']) . '">Verify Email</a></strong></p>';
-            $message .= '<p>Thank you!</p>';
-            $message .= '<p>ePMC Team</p>';
-            $message .= '</body></html>';
-
-            $this->email->message($message);
-
-            if (!$this->email->send()) {
-                show_error($this->email->print_debugger());
+            else {
+                $this->session->set_flashdata('message', 'error');
+                redirect('Login/signin');
             }
-
-
-
-            // /$patient = $this->Admin_model->get_patient_row($insert_id);
-
-            // // insert a row in user_activity table
-            // $user_id = $this->session->userdata('id');
-            // $user_type = $this->session->userdata('role');
-            // $user_activity = 'Added patient ' . $patient->un_patient_id . ' in the patient records';
-
-            // $this->load->model('Login_model');
-            // $this->Login_model->user_activity($user_id, $user_type, $user_activity);
-
-
-            // $activity = array(
-            //     'activity' => 'A new patient record has been added in the patient records',
-            //     'module' => 'Patient Records',
-            //     'date_created' => date('Y-m-d H:i:s')
-            // );
-
-            // $this->Admin_model->add_activity($activity);
-
-            $this->session->set_flashdata('message', 'verify-first');
-            $this->Admin_model->add_patient_details($patientDetails);
-            $this->Admin_model->add_patient_diagnosis($setId);
-            $this->Admin_model->add_patient_lab_reports($setId);
-            $this->Admin_model->add_patient_treatment_plan($setId);
-
-
-            redirect('Login/signin');
         }
     }
 
