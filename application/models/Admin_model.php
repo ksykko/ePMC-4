@@ -18,6 +18,13 @@ class Admin_model extends CI_Model
         return $this->db->get('patient_record')->result();
     }
 
+    // get emails in patient record - mobile
+    public function get_patient_email($email)
+    {
+        $query = $this->db->get_where('patient_record', ['email' => $email]);
+        return $query->row();;
+    }
+
     // datatables
     public function get_patient_tbl()
     {

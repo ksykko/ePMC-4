@@ -8,46 +8,65 @@ class Admin_schedule_model extends CI_Model {
         // initializes database connection
         $this->load->database();
     }
-    public function insertSchedule($data) {
-        return $this->db->insert('schedule', $data);
-    }
+    // public function insertSchedule($data) {
+    //     return $this->db->insert('new_schedule', $data);
+    // }
 
     public function get_unique_docnames() {
         $this->db->select('doctor_name');
         $this->db->distinct();
-        $this->db->from('schedule');
+        $this->db->from('new_schedule');
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function get_schedule_tbl($id) {
-        return $this->db->get_where('schedule', ['schedule_id' => $id]);
-    }
+    // public function get_schedule_tbl($id) {
+    //     return $this->db->get_where('new_schedule', ['schedule_id' => $id]);
+    // }
 
-    public function get_schedule_table()
-    {
-        return $this->db->get('schedule')->result();
-    }
+    // public function get_schedule_table()
+    // {
+    //     return $this->db->get('new_schedule')->result();
+    // }
 
-    public function delete_schedule($id) {
-        return $this->db->delete('schedule', ['schedule_id' => $id]);
-    }
+    // public function delete_schedule($id) {
+    //     return $this->db->delete('new_schedule', ['schedule_id' => $id]);
+    // }
 
-    public function update_schedule($id, $info) {     
-        return $this->db->update('schedule', $info, ['schedule_id' => $id]);
-    }
+    // public function update_schedule($id, $info) {     
+    //     return $this->db->update('new_schedule', $info, ['schedule_id' => $id]);
+    // }
 
-    public function get_schedule_row($id)
-    {
-        return $this->db->get_where('schedule', ['schedule_id' => $id])->row();
+    // public function get_schedule_row($id)
+    // {
+    //     return $this->db->get_where('new_schedule', ['schedule_id' => $id])->row();
+    // }
+
+    function fetch_all_event(){
+        $this->db->order_by('schedule_id');
+        return $this->db->get('new_schedule');
+    }
+    
+    function insert_event($data){
+        $this->db->insert('new_schedule', $data);
+    }
+    
+    function update_event($data, $id){
+        $this->db->where('schedule_id', $id);
+        $this->db->update('new_schedule', $data);
+    }
+    
+    function delete_event($id){
+        $this->db->where('schedule_id', $id);
+        $this->db->delete('new_schedule');
     }
 
     //FOR MOBILE
     //get schedule data 
     public function get_schedule()
     {
-        $this->db->select('schedule_id, doctor_name, specialization, start_time, end_time, day');
-        $this->db->from('schedule');
+        $this->db->select('schedule_id, doctor_name, specialization, start_date, end_date');
+        $this->db->from('new_schedule');
         $query = $this->db->get();
         return $query->result();
     }
