@@ -47,7 +47,8 @@ class Admin extends CI_Controller
         }
     }
 
-    public function audit_log() {
+    public function audit_log()
+    {
         if ($this->session->userdata('logged_in')) { //if logged in
 
             $data['title'] = 'Admin - Audit Log | ePMC';
@@ -90,7 +91,6 @@ class Admin extends CI_Controller
 
             $row = array();
 
-            $row[] = $no;
             $row[] = '
             
                 <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $user->avatar . '" /> ' . $user->first_name . ' ' . $user->last_name . '
@@ -101,7 +101,6 @@ class Admin extends CI_Controller
             $row[] = $date;
 
             $data[] = $row;
-
         }
 
         $output = array(
@@ -112,6 +111,49 @@ class Admin extends CI_Controller
         );
         echo json_encode($output);
     }
+
+    public function patient_audit_dt()
+    {
+        // Datatables Variables
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $activities = $this->Admin_model->get_patient_audit();
+
+        $data = array();
+        $no = 0;
+
+        foreach ($activities->result() as $activity) {
+
+            $user = $this->Admin_model->get_patient_row($activity->patient_id);
+            $no++;
+            $dt = new DateTime($activity->date);
+            $date = $dt->format('F j, Y g:i A');
+
+            $row = array();
+
+            $row[] = '
+            
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $user->avatar . '" /> ' . $user->un_patient_id . '
+            
+            ';
+            $row[] = ucfirst($activity->user_type);
+            $row[] = $activity->activity;
+            $row[] = $date;
+
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $draw,
+            "recordsTotal" => $activities->num_rows(),
+            "recordsFiltered" => $activities->num_rows(),
+            "data" => $data
+        );
+        echo json_encode($output);
+    }
+
 
     public function datatable()
     {
@@ -142,6 +184,7 @@ class Admin extends CI_Controller
         );
         echo json_encode($output);
     }
+
 
     public function ageRange_chart()
     {
