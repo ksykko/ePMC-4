@@ -62,6 +62,9 @@ class Patient_patientrec extends CI_Controller
 
         foreach ($diagnoses->result() as $diagnosis) {
 
+            if ($diagnosis->p_diag_date == null || $diagnosis->p_diag_date == '0000-00-00 00:00:00') {
+                continue;
+            }
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
             // format data to eg 01/01/2021 12:00 AM
@@ -105,6 +108,10 @@ class Patient_patientrec extends CI_Controller
 
         foreach ($treatments->result() as $treatment) {
 
+            if ($treatment->p_diagnosis == '' || $treatment->p_diagnosis == null) {
+                continue;
+            }
+
             $row = array();
             $row[] = $treatment->p_diagnosis;
             $row[] = $treatment->p_treatment_plan;
@@ -143,6 +150,9 @@ class Patient_patientrec extends CI_Controller
 
         foreach ($diagnoses->result() as $diagnosis) {
 
+            if ($diagnosis->p_diag_date == null || $diagnosis->p_diag_date == '0000-00-00 00:00:00') {
+                continue;
+            }
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
             $dt = new DateTime($diag_date);
@@ -163,6 +173,8 @@ class Patient_patientrec extends CI_Controller
         );
         echo json_encode($output);
     }
+
+
 
     public function edit_patient($id)
     {
@@ -209,7 +221,6 @@ class Patient_patientrec extends CI_Controller
     }
 
 
-    // PATIENT RECORD VIEW INDIVIDUAL
 
     public function update_profilepic($id)
     {
@@ -268,6 +279,52 @@ class Patient_patientrec extends CI_Controller
         $this->Admin_model->update_avatar($id, $avatar);
         $this->session->set_flashdata('message', 'success-profilepic');
         redirect('Patient_patientrec');
+    }
+
+
+    public function change_password($id)
+    {
+
+        $this->form_validation->set_rules('password', 'Old Password', 'required|trim|callback_check_old_pass');
+        $this->form_validation->set_rules('new_password', 'New Password', 'required|trim|min_length[8]');
+        $this->form_validation->set_rules('conf_password', 'Confirm Password', 'required|matches[new_password]');
+
+        if ($this->form_validation->run() == FALSE) {
+            
+            $this->session->set_flashdata('error', 'error-change-pass');
+            redirect('Patient_patientrec');
+
+        } else {
+
+            $new_password = $this->security->xss_clean($this->input->post('new_password'));
+
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+            
+            $data['password'] = $hashed_password;
+
+            //$this->dd($data);
+
+            $this->Admin_model->update_patient($id, $data);
+
+            $this->session->set_flashdata('message', 'success-change-pass');
+            redirect('Patient_patientrec');
+            
+        }
+    }
+
+    public function check_old_pass($old_pass)
+    {
+        $id = $this->session->userdata('id');
+        $patient = $this->Admin_model->get_patient_row($id);
+
+        //$this->dd($patient->password);
+
+        if (password_verify($old_pass, $patient->password)) {
+            return TRUE;
+        } else {
+            $this->form_validation->set_message('check_old_pass', 'The {field} is incorrect');
+            return FALSE;
+        }
     }
 
     public function logout()

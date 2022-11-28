@@ -1,5 +1,5 @@
-<div class="container" style="margin-bottom: 37px;">
-    <div class="row justify-content-center" style="margin-top: 70px;">
+<div class="container">
+    <div class="row justify-content-center" style="margin-top: 60px;">
         <div class="col-md-9 col-lg-12 col-xl-10">
             <div class="card shadow-lg o-hidden border-0 my-5">
                 <div class="card-body p-0 card-body-login">
@@ -13,24 +13,17 @@
                                     <h4 class="fw-bolder text-dark mb-4">LOGIN</h4>
                                 </div>
                                 <?= form_open('Login/validate'); ?>
-                                    <?php if ($this->session->has_userdata('error')) : ?>
-                                        <div class="alert alert-danger">
-                                            <?= $this->session->userdata('error'); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php
-                                    if ($this->session->flashdata('message')) {
-                                        if ($this->session->flashdata('message') == 'success') {
-                                            echo '<div class="alert alert-success" role="alert"><span><strong>Success!</strong> You have successfully signed up.</span></div>';
-                                        } else {
-                                            echo '<div class="alert alert-danger">';
-                                            echo $this->session->flashdata('message');
-                                            echo '</div>';
-                                        }
-                                    }
-                                    ?>
+                                <?php if ($this->session->flashdata('error')) : ?>
+                                    <div class="alert alert-danger">
+                                        <?= $this->session->flashdata('error'); ?>
+                                    </div>
+                                <?php elseif ($this->session->flashdata('message') == 'verify-first') : ?>
+                                    <div class="alert alert-info" role="alert">
+                                        <span><strong>You have successfully signed up!</strong><br>Please check your email for verification.</span>
+                                    </div>
+                                <?php endif; ?>
                                 <form class="user">
-                                    <div class="mb-3"><input class="form-control form-control-user" type="text" id="email" name="email" placeholder="Enter Phone No. or Email"></div>
+                                    <div class="mb-3"><input class="form-control form-control-user" type="text" id="text" name="email" placeholder="Enter Patient ID or Email"></div>
                                     <div class="mb-3"><input class="form-control form-control-user" type="password" id="password" name="password" placeholder="Password"></div>
                                     <div class="mb-3">
                                         <div class="custom-control custom-checkbox small"></div>
@@ -39,7 +32,7 @@
                                 </form>
                                 <?= form_close(); ?>
                                 <div class="text-center"></div>
-                                <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small" href="">Don't Have an Account? Visit PMC Now!</a></div>
+                                <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small" href="<?= base_url('Register/') ?>">Don't Have an Account? Register Here.</a></div>
                             </div>
                         </div>
                     </div>
@@ -48,4 +41,3 @@
         </div>
     </div>
 </div>
-<p class="signature ">Copyright © ePMC 2022</p>

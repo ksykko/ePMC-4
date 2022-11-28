@@ -1015,7 +1015,7 @@
     }
 
     ext_sex.onblur = function() {
-        if (ext_sex.value == '') {
+        if (ext_sex.value == '' || ext_address.value == null) {
             $('#ext_sex').removeClass('valid');
             $('#ext_sex').addClass('warning');
 
@@ -1576,7 +1576,7 @@
         $('#example').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
+            order: [[1, 'asc']],
             responsive: true,
 
             // if user is doctor, change url to doctor's datatable
@@ -1592,13 +1592,20 @@
                     "className": "text-center",
                     "targets": [4]
                 },
+                {   
+                    "targets": [0,1,2,3,4],
+                    "className": "align-middle"
+                },
                 {
                     "targets": [3],
                     render: function(data, type, row) {
                         if (data == 'added') {
                             return '<span class="badge bg-success">Added</span>';
-                        } else {
+                        } else if (data == 'import') {
                             return '<span class="badge bg-warning">Imported</span>';
+                        }
+                        else {
+                            return '<span class="badge bg-danger">Registered</span>';
                         }
                     },
                     "targets": [3],

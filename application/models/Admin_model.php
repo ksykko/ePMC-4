@@ -17,11 +17,17 @@ class Admin_model extends CI_Model
     {
         return $this->db->get('patient_record')->result();
     }
-    
+
     // datatables
     public function get_patient_tbl()
     {
         return $this->db->get('patient_record');
+    }
+
+    // * Audit Log datatable
+    public function get_audit_log()
+    {
+        return $this->db->get('user_activity');
     }
 
     // get total number of patients
@@ -37,7 +43,7 @@ class Admin_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
     // get patient row based on patient_id ($id = primary key)
     public function get_patient_row($id)
     {
@@ -130,15 +136,28 @@ class Admin_model extends CI_Model
 
     public function add_patient($info)
     {   // add patient record
-        // add mysqli_real_escape_string to prevent sql injection
-        $connection = $this->db->conn_id;
-        $info['first_name'] = mysqli_real_escape_string($connection, $info['first_name']);
-
-        //$this->dd($info['first_name']);
 
         $this->db->insert('patient_record', $info);
         $insert_id = $this->db->insert_id();
         return $insert_id;
+    }
+
+    public function get_email_code($activation_code) 
+    {
+        $query = $this->db->get_where('patient_record', ['activation_code' => $activation_code]);
+        $result = $query->row();
+        return $result;
+    }
+
+    public function activate($id)
+    {
+        $this->db->where('patient_id', $id);
+        $this->db->update('patient_record', ['status' => 1]);
+
+        $data['title'] = 'Account Verification';
+        $this->load->view('include-website/head', $data);
+        $this->load->view('include-website/navbar');
+        $this->load->view('website-views/verify-view');
     }
 
     public function edit_patient_PI($id, $info)
@@ -336,8 +355,8 @@ class Admin_model extends CI_Model
         $this->db->select('');
         $this->db->from('patient_record');
         $this->db->join('patient_details', 'patient_details.patient_id = patient_record.patient_id');
-        $this->db->where('patient_record.patient_id',$id);
-        $this->db->where('patient_details.patient_id',$id);
+        $this->db->where('patient_record.patient_id', $id);
+        $this->db->where('patient_details.patient_id', $id);
         $query = $this->db->get();
         return $query->row();
     }
@@ -465,6 +484,11 @@ class Admin_model extends CI_Model
     public function get_patient_documents_arr($id)
     {
         return $this->db->get_where('patient_lab_reports', ['patient_id' => $id])->result_array();
+    }
+
+    public function update_patient_document($id, $info)
+    {
+        $this->db->update('patient_lab_reports', $info, ['patient_id' => $id]);
     }
 
     public function get_patient_lab_reports_row($id)
