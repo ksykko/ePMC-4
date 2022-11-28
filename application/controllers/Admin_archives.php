@@ -60,7 +60,11 @@ class Admin_archives extends CI_Controller
             // $editId = 'edit-patient-' . $patient->patient_id;
             $row = array();
             $row[] = $patient->un_patient_id;
-            $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
+            $row[] = '
+        
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> ' . $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name . '
+
+            ';
             $row[] = $last_accessed;
             $row[] = '
                 <td class="text-center" colspan="1"> 

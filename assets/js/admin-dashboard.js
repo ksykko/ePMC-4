@@ -498,3 +498,30 @@ $(document).ready(function() {
         $('#email_error').hide();
     }
 });
+
+// * Toasts
+const toastTrigger = document.getElementById('liveToastTrigger')
+const toastLiveExample = document.getElementById('liveToast')
+
+var msgToast = "<?= $this->session->flashdata('message') ?>"
+var errToast = "<?= $this->session->flashdata('error-upload') ?>"
+
+if (toastTrigger) {
+    if (msgToast || errToast) {
+
+        const toast = new bootstrap.Toast(toastLiveExample)
+        toast.show()
+    }
+}
+
+
+// open settings modal on load
+// $(document).ready(function() {
+//     $('#settings').modal('show');
+// });
+
+
+// submits form function
+function changePhoto() {
+    $('#changePhoto').submit();
+}

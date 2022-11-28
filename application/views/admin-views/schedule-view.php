@@ -156,7 +156,7 @@
 			<?php foreach ($schedules as $schedule) : ?>
 				<?php $updateScheduleInfoPath = 'Admin_schedule/update_schedule/' . $schedule->schedule_id; ?>
 				<?= form_open_multipart($updateScheduleInfoPath, array('id' => 'updateSchedule')); ?>
-				<div id="schedule-edit-modal-<?= $schedule->schedule_id ?>" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
+				<div id="schedule-edit-modal" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -343,7 +343,7 @@
 								<thead>
 									<tr>
 										<th class="align-middle border-end border-top border-2 doctor-rounded-corners rounded">
-											<h2>Doctors</h2>
+											<h3 class=" fw-bold">Doctors</h3>
 										</th>
 										<th class="align-middle border-end border-1 text-center">
 											<h5>Sunday</h5>

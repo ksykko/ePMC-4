@@ -48,19 +48,19 @@ class Doctor_patientrec extends CI_Controller
             $no++;
             $dt = new DateTime($patient->date_created);
             $date_added = $dt->format('Y-m-d');
-
             $row = array();
-      
+
+            $row[] = $patient->un_patient_id;
             $row[] = '
             
-                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> '. $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name .'
-        
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> ' . $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name . '
+
             ';
-            $row[] = '<td class="align-middle">'. $date_added .'</td>' ;
+            $row[] = $date_added;
             $row[] = $patient->type;
             $row[] = '
                 <td class="text-center" colspan="1"> 
-                    <a class="btn btn-sm btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
+                    <a class="btn btn-sm btn-light" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
                 </td>
             ';
             $data[] = $row;

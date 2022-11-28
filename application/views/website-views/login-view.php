@@ -23,7 +23,7 @@
                                     </div>
                                 <?php endif; ?>
                                 <form class="user">
-                                    <div class="mb-3"><input class="form-control form-control-user" type="text" id="email" name="email" placeholder="Enter Phone No. or Email"></div>
+                                    <div class="mb-3"><input class="form-control form-control-user" type="text" id="text" name="email" placeholder="Enter Patient ID or Email"></div>
                                     <div class="mb-3"><input class="form-control form-control-user" type="password" id="password" name="password" placeholder="Password"></div>
                                     <div class="mb-3">
                                         <div class="custom-control custom-checkbox small"></div>

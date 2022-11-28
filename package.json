@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "@google-cloud/vision": "^3.0.1",
+        "fullcalendar": "^5.11.3",
         "line-segmentation-algorithm-to-gcp-vision": "^1.0.2"
     }
 }

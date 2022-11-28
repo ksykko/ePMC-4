@@ -920,7 +920,7 @@
                                                 <img class="card-img-top w-100 d-block thumbnail" src="<?= $thumbnail ?>" height="150px" />
                                                 <div class="card-body">
                                                     <h5><?= $document->doc_name ?></h5>
-                                                    <div class="d-flex justify-content-end"><br>
+                                                    <div class="d-flex justify-content-end">
                                                     </div>
                                                     <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                 <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
@@ -1134,102 +1134,3 @@
         </div>
     </div>
 </div>
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
-
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-
-            document.getElementById("nextBtn").innerHTML = "Submit";
-
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("editPatient").submit();
-
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, j, input_valid = true,
-            select_valid = true;
-
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        z = x[currentTab].getElementsByTagName("select");
-
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                input_valid = false;
-            } else
-                y[i].className = "form-control form-control-sm valid";
-        }
-
-        // A loop that checks every select field in the current tab:
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " invalid";
-                // and set the current valid status to false
-                select_valid = false;
-            } else
-                z[j].className = "form-select form-select-sm valid";
-        }
-
-
-        // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-
-        console.log(select_valid);
-        // return the valid status
-        return input_valid && select_valid;
-    }
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
-</script>

@@ -28,9 +28,9 @@
                     <table id="example" class="table table-hover" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th class="align-middle">ID</th>
+                                <th class="align-middle">Patient ID</th>
                                 <th class="col-md-4 align-middle">Name</th>
-                                <th class="col-md-3 align-middle">Date Deleted</th>
+                                <th class="col-md-3 align-middle">Date & Time Deleted</th>
                                 <th class="text-center col-md-3 align-middle">Action</th>
                             </tr>
                         </thead>

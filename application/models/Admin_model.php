@@ -31,6 +31,12 @@ class Admin_model extends CI_Model
         return $this->db->get('patient_record');
     }
 
+    // * Audit Log datatable
+    public function get_audit_log()
+    {
+        return $this->db->get('user_activity');
+    }
+
     // get total number of patients
     public function get_patient_count()
     {
