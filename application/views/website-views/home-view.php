@@ -9,15 +9,32 @@
 
 <!-- EMPC -->
 <div class="container-fluid mt-5 mb-5">
-    <section id="home">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1 class="h1-third">ePMC Web and Mobile Application</h1>
-                    <p class="home-desc">Pagtakhan Medical Clinic now has a web and mobile application where patients can view their doctor’s schedule, patient’s general data, history of consultation, and lab reports. The website also has a chatbot where patient’s can ask about their concerns regarding the clinic.<br><br></p>
+
+    <section id="home" class="mx-5 mb-5 p-4" data-bs-spy="scroll" data-bs-smooth-scroll="true">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="display-6 fw-semibold text-dark">Pagtakhan Medical Clinic Web and Mobile Application</h1>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                <p class="text-dark">Pagtakhan Medical Clinic now has a web and mobile application where patients can view their doctor’s schedule, patient’s general data, history of consultation, and lab reports. The website also has a chatbot where patient’s can ask about their concerns regarding the clinic.</p>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <div class="col d-flex justify-content-center align-items-center"><button class="btn btn-primary w-50" style="background-color: #3269bf" type="button">Download our Mobile App<svg class="fs-4" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none">
+                                        <path d="M11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5V12.1578L16.2428 8.91501L17.657 10.3292L12.0001 15.9861L6.34326 10.3292L7.75748 8.91501L11 12.1575V5Z" fill="currentColor"></path>
+                                        <path d="M4 14H6V18H18V14H20V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V14Z" fill="currentColor"></path>
+                                    </svg></button></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6"><img class="img-fluid" src=" <?= base_url('/assets/img/others/Home.png') ?> "></div>
             </div>
+            <div class="col d-flex justify-content-center align-items-center"><img class="img-fluid" src="<?= base_url('/assets/img/others/Home.png') ?>" /></div>
         </div>
     </section>
 

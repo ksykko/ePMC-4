@@ -249,7 +249,7 @@
 
 
 
-<div class="d-flex justify-content-end fixed-bottom mb-3" style="transform: translate(30px) translateY(-100px);"><button class="btn btn-secondary" type="button" style="transform: rotate(-90deg);" data-bs-target="#feedback-modal" data-bs-toggle="modal">Feedback</button></div>
+<div class="d-flex justify-content-end fixed-bottom mb-3" style="transform: translate(40px) translateY(-100px);"><button class="btn btn-sm btn-dark" type="button" style="transform: rotate(-90deg);" data-bs-target="#feedback-modal" data-bs-toggle="modal">Feedback</button></div>
 <div id="feedback-modal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
 

@@ -43,13 +43,13 @@
                                 </form>
                                 <div class="row mt-3">
                                     <div class="col d-flex justify-content-end">
-                                        <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none">Forgot Password?</a>
+                                        <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none text-muted">Forgot Password?</a>
                                     </div>
                                 </div>
                                 <hr>
                                 <?= form_close(); ?>
                                 <div class="text-center"></div>
-                                <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small text-decoration-none" href="<?= base_url('Register/') ?>">Don't Have an Account? Register Here.</a></div>
+                                <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small text-decoration-none text-muted" href="<?= base_url('Register/') ?>">Don't Have an Account? Register Here.</a></div>
                             </div>
                         </div>
                     </div>

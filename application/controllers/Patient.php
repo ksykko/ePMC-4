@@ -4,7 +4,7 @@ class Patient extends CI_Controller {
         parent::__construct();
 
         $this->load->helper(['url', 'form']);
-        $this->load->library(['form_validation', 'session', 'pagination']);
+        $this->load->library(['form_validation', 'session', 'pagination', 'encryption']);
         $this->load->model('Patient_model');
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
@@ -53,9 +53,14 @@ class Patient extends CI_Controller {
         $data = array();
         foreach ($diagnosis->result() as $recent_diagnosis) {
             if ($id == $recent_diagnosis->patient_id) {
+
+                // format date to November 12, 2019 5:30 PM
+                $dt = new DateTime($recent_diagnosis->p_diag_date);
+                $date_added = $dt->format('F d, Y h:i A');
+
                 $row = array();
-                $row[] = $recent_diagnosis->p_diag_date;
-                $row[] = $recent_diagnosis->p_doctor;
+                $row[] = $date_added;
+                $row[] = 'Dr. ' . $this->encryption->decrypt($recent_diagnosis->p_doctor);
                 
                 $data[] = $row;    
             }

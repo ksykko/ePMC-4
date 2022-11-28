@@ -849,7 +849,7 @@
                                         $consul_next = date("l, M d Y", $date);
                                         $consul_time = date("g:i A", $date);
                                         ?>
-                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $consul_next ?>  <?= $consul_time ?>" readonly /></div>
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
                                     </div>
                                 </div>
                             </div>
@@ -999,16 +999,19 @@
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <?php
-                                                        //$diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+
+                                                        $date = date_create($diagnosis->p_diag_date);
+                                                        $date = date_format($date, 'F d, Y h:i A');
+
                                                         ?>
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title ms-3 fw-bolder">Diagnosis <?= $diag_date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h4 class="modal-title ms-3 fw-bolder">Diagnosis on <?= $date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body mx-sm-5">
                                                             <div class="row mt-4 mb-2">
                                                                 <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
                                                                 <div class="col">
-                                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $diagnosis->p_recent_diagnosis ?></textarea></div>
+                                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($diagnosis->p_recent_diagnosis) ?></textarea></div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-4 mb-2">
@@ -1016,7 +1019,7 @@
                                                                 <div class="col">
                                                                     <div class="input-error">
                                                                         <div class="input-group">
-                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" readonly />
+                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. '. $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
                                                                         </div>
                                                                         <small class="text-danger"><?= form_error('role') ?></small>
                                                                     </div>

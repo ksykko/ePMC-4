@@ -558,3 +558,10 @@ button:hover {
     background-color: #0abd90e1;
     color: white;
 }
+
+.footer-text {
+    letter-spacing: 4px;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+}

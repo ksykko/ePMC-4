@@ -406,27 +406,26 @@
     email.onblur = function() {
         if (email.value == '') {
             $('#email').removeClass('valid');
-            $('#email').addClass('warning');
+            $('#email').addClass('invalid');
 
-            $('#email_error').hide();
-            $('#email_error').html('');
+            $('#email_error').show();
+            $('#email_error').html('Email is required');
 
             input_valid = true;
 
         } else if (!email.value.match(email_regex)) {
-            $('#email').removeClass('warning');
+            $('#email').removeClass('valid');
             $('#email').addClass('invalid');
 
             // add error message
             $('#email_error').show();
             $('#email_error').html('Invalid email');
 
-            input_valid = false;
+            input_valid = true;
 
         } else {
             $('#email_error').hide();
 
-            $('#email').removeClass('warning');
             $('#email').removeClass('invalid');
             $('#email').addClass('valid');
             input_valid = true;
@@ -807,27 +806,27 @@
             // email validation
             if (email == '') {
                 $('#email').removeClass('valid');
-                $('#email').addClass('warning');
+                $('#email').addClass('invalid');
 
-                $('#email_error').hide();
-                $('#email_error').html('');
+                // add error message
+                $('#email_error').show();
+                $('#email_error').html('Email is required');
 
                 validation['email'] = true;
 
             } else if (!email.match(email_regex)) {
-                $('#email').removeClass('warning');
+                $('#email').removeClass('valid');
                 $('#email').addClass('invalid');
 
                 // add error message
                 $('#email_error').show();
                 $('#email_error').html('Invalid email');
 
-                validation['email'] = false;
+                validation['email'] = true;
 
             } else {
                 $('#email_error').hide();
 
-                $('#email').removeClass('warning');
                 $('#email').removeClass('invalid');
                 $('#email').addClass('valid');
 

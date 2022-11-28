@@ -7,7 +7,7 @@ class Patient_patientrec extends CI_Controller
         parent::__construct();
 
         $this->load->helper(['url', 'form', 'date', 'string']);
-        $this->load->library(['form_validation', 'session', 'pagination']);
+        $this->load->library(['form_validation', 'session', 'pagination', 'encryption']);
         $this->load->model('Patient_model');
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
@@ -73,8 +73,8 @@ class Patient_patientrec extends CI_Controller
 
             $row = array();
             $row[] = $date_added;
-            $row[] = $diagnosis->p_recent_diagnosis;
-            $row[] = $diagnosis->p_doctor;
+            $row[] = $this->encryption->decrypt($diagnosis->p_recent_diagnosis);
+            $row[] = 'Dr. ' . $this->encryption->decrypt($diagnosis->p_doctor);
             $row[] = '
                 <div class="d-md-flex justify-content-md-center">
                     <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-diagnosis-' . $diagnosis->id . '">View</a>
@@ -154,13 +154,12 @@ class Patient_patientrec extends CI_Controller
                 continue;
             }
 
-            $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
-            $dt = new DateTime($diag_date);
-            $conul_date = $dt->format('m/d/y h:i A');
+            $dt = new DateTime($diagnosis->p_diag_date);
+            $date_added = $dt->format('F d, Y h:i A');
 
             $row = array();
-            $row[] = $conul_date;
-            $row[] = $diagnosis->p_doctor;
+            $row[] = $date_added;
+            $row[] = 'Dr. ' . $this->encryption->decrypt($diagnosis->p_doctor);
 
             $data[] = $row;
         }
