@@ -18,15 +18,15 @@
                                 <?= form_open('Login/reset_password'); ?>
                                 <?php if ($this->session->flashdata('error')) : ?>
                                     <div class="alert alert-danger">
-                                        <?= $this->session->flashdata('error'); ?>
+                                        <small><?= $this->session->flashdata('error'); ?></small>
                                     </div>
                                 <?php elseif ($this->session->flashdata('message') == 'error') : ?>
                                     <div class="alert alert-danger">
-                                        <strong>Oops!</strong> Something went wrong. Please try again.
+                                        <small><strong>Oops!</strong> Something went wrong. Please try again.</small>
                                     </div>
                                 <?php elseif ($this->session->flashdata('success')) : ?>
                                     <div class="alert alert-info" role="alert">
-                                        <span><?= $this->session->flashdata('success') ?></span>
+                                        <small><?= $this->session->flashdata('success') ?></small>
                                     </div>
                                 <?php endif; ?>
                                 <form class="user">
