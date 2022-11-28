@@ -35,8 +35,8 @@
                         <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
                         </li>
-                        <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                            <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
+                        <li <?php if($this->uri->segment(1) == "Admin_schedule_scratch"){echo 'class="active"';}?> class="nav-item">
+                            <a class="nav-link" href="<?= site_url('Admin_schedule_scratch/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
                         </li>
                         <li <?php if($this->uri->segment(1) == "Admin_inventory"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_inventory/index') ?>"><i class="far fa-chart-bar"></i>Inventory</a>

@@ -229,6 +229,11 @@ table.table-fit tfoot td {
     /* overflow-x:auto !important; */
 }
 
+.fc-event-title {
+    color: #222;
+    font-weight: 600;
+}
+
 
 
 @media (min-width: 1366px){
