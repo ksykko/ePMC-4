@@ -2,8 +2,27 @@
     .modal {
         overflow-y: auto;
     }
+    .toast-error {
+    background-color: #f75663d5;
+    color: white;
+}
 </style>
-<div class="container-fluid" style="margin-top: 110px;">
+<div class="container-fluid" style="margin-top: 100px;">
+    <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
+        <?php if ($this->session->flashdata('error')) : ?>
+            <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-danger bg-opacity-100">
+                    <strong class="me-auto">Error!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span><?= $this->session->flashdata('error') ?></span>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+
     <div class="row d-flex justify-content-center">
         <div class="col-sm-9 col-md-7">
             <div class="card shadow-lg border-0">
@@ -34,7 +53,7 @@
                                                 <div class="col"><small class="text-dark"><br /><strong><span style="color: rgb(0, 0, 0); background-color: transparent;">Member Registration Activation Obligations</span></strong><br /><span style="color: rgb(0, 0, 0); background-color: transparent;">You hereby agree to give truthful, accurate, current, and complete information about yourself as prompted by the Registration Process in consideration of your usage of ePMC. The assumption behind using the system is that the user is the legitimate recipient and viewer of all information made available and accessible by the system.</span><br /><br /><br /></small></div>
                                             </div>
                                             <div class="row text-justify" style="margin-top: -50px;">
-                                                <div class="col"><small class="text-dark"><br /><strong><span style="color: rgb(0, 0, 0); background-color: transparent;">Personal Information and Privacy</span></strong><br /><span style="color: rgb(0, 0, 0); background-color: transparent;">The ePMC Data Privacy Policy applies to any personal and medical information you give to ePMC. By choosing to use the system, you are agreeing to the Policy&#39;s terms. You acknowledge that you are accountable for all actions that take place in your ePMC account and that you will notify us right away if your account is used without your permission. You can do this by sending us a message through this </span><span style="text-decoration: underline; color: rgb(0, 0, 0); background-color: transparent;">page</span><span style="color: rgb(0, 0, 0); background-color: transparent;">. As a result of any unauthorized access to and/or use of your account, or for any other reason, we disclaim all liability for any loss or damage you or any third party may sustain. </span><br /><br /><br /><br /><br /></small></div>
+                                                <div class="col"><small class="text-dark"><br /><strong><span style="color: rgb(0, 0, 0); background-color: transparent;">Personal Information and Privacy</span></strong><br /><span style="color: rgb(0, 0, 0); background-color: transparent;">The ePMC Data Privacy Policy applies to any personal and medical information you give to ePMC. By choosing to use the system, you are agreeing to the Policy&#39;s terms. You acknowledge that you are accountable for all actions that take place in your ePMC account and that you will notify us right away if your account is used without your permission. You can do this by sending us a message through this </span><a href="mailto:pagtakhanmedicalclinic@gmail.com">page</a><span style="color: rgb(0, 0, 0); background-color: transparent;">. As a result of any unauthorized access to and/or use of your account, or for any other reason, we disclaim all liability for any loss or damage you or any third party may sustain. </span><br /><br /><br /><br /><br /></small></div>
                                             </div>
                                             <div class="row text-justify" style="margin-top: -100px;margin-bottom: -50px;">
                                                 <div class="col"><small class="text-dark"><br /><strong><span style="color: rgb(0, 0, 0); background-color: transparent;">Limitation of Liability</span></strong><br /><span style="color: rgb(0, 0, 0); background-color: transparent;">You agree that ePMC shall in no event be liable for any consequential, incidental, indirect, special, punitive, or other loss or damages whatsoever arising out of or caused by your use of inability to use the system, even if ePMC has been advised of the possibility of such damages.</span><br /><br /><br /><br /></small></div>
@@ -52,11 +71,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="data-privacy" class="modal fade" role="dialog" tabindex="-1">
+                            <div id="data-privacy" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header border-0">
-                                            <h4 class="modal-title"></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title"></h4><button class="btn-close shadow-none" type="button" data-bs-toggle="modal" data-bs-target="#terms-conditions" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body mx-3">
                                             <div class="row">
@@ -131,8 +150,8 @@
                             </div>
                             <div class=" mx-md-4">
                                 <div class="tab mt-3">
-                                    <h5 class="fw-semibold">Personal Information</h5>
-                                    <div class="row row-cols-1 row-cols-sm-2">
+                                    <h5 class="fw-semibold mb-3">Personal Information</h5>
+                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                         <div class="col form-group required col-md-5 px-1"><label class="form-label">First Name</label>
                                             <input class="form-control form-control-sm rounded-pill rounded-pill" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
                                             <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -146,7 +165,7 @@
                                             <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2">
+                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
                                         <div class="col form-group required px-1"><label class="form-label">Age</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="age" name="age" value="<?= set_value('age') ?>" /><small class="text-danger"><?= form_error('age') ?></small>
                                             <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -156,7 +175,7 @@
                                             <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-2">
                                         <div class="col form-group required col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm rounded-pill text-dark" id="sex" name="sex">
                                                 <?php if (set_value('sex') == 'Male') : ?>
                                                     <option value="" disabled>select ...</option>
@@ -215,7 +234,7 @@
                                             </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                         <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm rounded-pill" type="text" id="occupation" name="occupation" value="<?= set_value('occupation') ?>" /></div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mb-2">
                                         <div class="col form-group px-1"><label class="form-label">Address</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="address" name="address" value="<?= set_value('address') ?>" />
                                         </div>
@@ -280,14 +299,14 @@
                                     </div>
                                 </div>
 
-                                <div class="modal-footer" style="overflow:auto;">
+                                <div class="modal-footer m-4" style="overflow:auto;">
                                     <div style="float:right;">
                                         <button class="btn btn-light rounded-pill btn-sm" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
                                         <button class="btn btn-primary rounded-pill btn-sm" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                     </div>
                                 </div>
                                 <!-- Circles which indicates the steps of the form: -->
-                                <div class="mb-4" style="text-align:center;">
+                                <div class="mb-2" style="text-align:center;">
                                     <span class="step"></span>
                                     <span class="step"></span>
                                     <span class="step"></span>

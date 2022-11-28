@@ -6,7 +6,7 @@ class Login extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->helper(['url', 'form']);
+        $this->load->helper(['url', 'form', 'security']);
         $this->load->library(['form_validation', 'session']);
         $this->load->model('Login_model');
     }
@@ -23,6 +23,268 @@ class Login extends CI_Controller
             $this->load->view('website-views/login-view');
             $this->load->view('include-website/footer');
             $this->load->view('include-website/scripts');
+        }
+    }
+
+    public function forgot_password()
+    {
+        $this->session->sess_destroy();
+        if ($this->session->userdata('logged_in')) { //if logged in
+            redirect('Users'); // directory if admin b ao user WALA PA
+        } else {
+            $data['title'] = 'Forgot Password | ePMC';
+            $this->load->view('include-website/head', $data);
+            $this->load->view('include-website/navbar');
+            $this->load->view('website-views/forgot-password-view');
+            $this->load->view('include-website/footer');
+            $this->load->view('include-website/scripts');
+        }
+    }
+
+    public function reset_password()
+    {
+        $submit = $this->input->post('continue');
+
+        if (isset($submit)) {
+
+            $email = $this->security->xss_clean($this->input->post('email'));
+
+            $this->load->model('Login_model');
+            $result = $this->Login_model->reset_password($email);
+
+
+            if (isset($result)) {
+
+                // send an email to the user
+                $this->load->library('email');
+                $config_email = array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => $this->config->item('email'), //Active gmail
+                    'smtp_pass' => $this->config->item('password'), //Password
+                    'mailtype' => 'html',
+                    'starttls' => TRUE,
+                    'newline' => "\r\n",
+                    'charset' => $this->config->item('charset'),
+                    'wordwrap' => TRUE
+                );
+                $this->email->initialize($config_email);
+
+
+                $this->email->set_mailtype('html');
+                $this->email->from($this->config->item('bot_email'), 'ePMC');
+                $this->email->to($result->email);
+                $this->email->subject('Reset Password');
+
+                if ($result->role == 'patient' || $result->role == 'Patient') {
+                    
+
+                    $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
+                    $message .= '<h1>Reset Password</h1>';
+                    $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
+                    $message .= '<p>Click the link below to reset your password.</p>';
+                    $message .= '<p><a href="' . base_url('Login/reset_password_form/') . $result->patient_id . '/' . $result->role . '">Reset Password</a></p>';
+                    $message .= '<p>Thank you!</p>';
+                    $message .= '<p>ePMC Team</p>';
+                    $message .= '</body></html>';
+
+                    $this->dd($message);
+
+                    $this->email->message($message);
+
+                    if ($this->email->send()) {
+
+                        // insert a row in patient_activity table
+                        //$this->dd('Email sent');
+                        $user_id = $result->patient_id;
+                        $user_type = $result->role;
+                        $user_activity = $result->un_patient_id . ' ' . $result->first_name . ' ' . $result->last_name . ' requested to reset password.';
+
+                        $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
+
+                        $activity = array(
+                            'activity' => 'A patient requested to reset password.',
+                            'module' => 'Reset Password',
+                            'date_created' => date('Y-m-d H:i:s')
+                        );
+
+                        $this->load->model('Admin_model');
+
+                        $this->Admin_model->add_activity($activity);
+                        
+                        
+                    } else {
+
+                        $this->session->set_flashdata('error-email', 'An error occured while sending the email. Please try again.');
+                        redirect('Login/forgot_password');
+
+                    }
+
+                } else {
+
+                    $encode = base64_encode($result->role);
+
+                    $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
+                    $message .= '<h1>Reset Password</h1>';
+                    $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
+                    $message .= '<p>Click the link below to reset your password.</p>';
+                    $message .= '<p><a href="' . base_url('Login/reset_password_form/') . $encode . '">Reset Password</a></p>';
+                    $message .= '<p>Thank you!</p>';
+                    $message .= '<p>ePMC Team</p>';
+                    $message .= '</body></html>';
+
+
+                    $this->email->message($message);
+
+                    if ($this->email->send()) {
+
+                        $user_id = $result->user_id;
+                        $user_type = $result->role;
+                        $user_activity = $user_type . ' ' . $result->first_name . ' ' . $result->last_name . ' requested to reset password.';
+
+                        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+                        $activity = array(
+                            'activity' => 'A user requested to reset password.',
+                            'module' => 'Reset Password',
+                            'date_created' => date('Y-m-d H:i:s')
+                        );
+
+                        $this->load->model('Admin_model');
+                        $this->Admin_model->add_activity($activity);
+                    } else {
+
+                        $this->session->set_flashdata('error-email', 'An error occured while sending the email. Please try again.');
+                        redirect('Login/forgot_password');
+                    }
+                }
+
+                $this->session->set_flashdata('success', 'An email has been sent to your email address. Please check your email to reset your password.');
+                redirect('Login/forgot_password');
+
+
+            } else {
+
+                $this->session->set_flashdata('error', 'Patient ID / Email address not found.');
+                redirect('Login/forgot_password');
+            }
+        }
+    }
+
+
+    public function reset_password_form($id, $role)
+    {
+        if ($role == 'patient' || $role == 'Patient') {
+
+            $this->load->model('Admin_model');
+            $user = $this->Admin_model->get_patient_row($id);
+            $data['id'] = $user->patient_id;
+            $data['role'] = $user->role;
+        }
+        else {
+
+            $this->load->model('Admin_model');
+            $user = $this->Admin_model->get_useracc_row($id);
+            $data['id'] = $user->user_id;
+            $data['role'] = $user->role;
+        }
+
+
+        $this->session->sess_destroy();
+        if ($this->session->userdata('logged_in')) { //if logged in
+            redirect('Users'); // directory if admin b ao user WALA PA
+        } else {
+            $data['title'] = 'Reset Password | ePMC';
+            $this->load->view('include-website/head', $data);
+            $this->load->view('include-website/navbar');
+            $this->load->view('website-views/reset-password-view', $data);
+            $this->load->view('include-website/footer');
+            $this->load->view('include-website/scripts');
+        }
+    }
+
+    public function validate_password($id, $role)
+    {
+        $this->load->model('Admin_model');
+        if ($role == 'patient' || $role == 'Patient') {
+
+            $user = $this->Admin_model->get_patient_row($id);
+        }
+        else {
+
+            $user = $this->Admin_model->get_useracc_row($id);
+        }
+
+
+        $submit = $this->input->post('continue');
+
+        if (isset($submit)) {
+
+            $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]', 
+                array(
+                    'required' => 'Please enter your new password.',
+                    'min_length' => 'Password must be at least 8 characters long.'
+                )
+            );
+            $this->form_validation->set_rules('conf_password', 'Confirm Password', 'trim|matches[password]');
+
+            if ($this->form_validation->run() == FALSE) {
+
+                $this->session->set_flashdata('error', validation_errors());
+                redirect('Login/reset_password_form/' . $id . '/' . $role);
+            } else {
+
+                $password = $this->security->xss_clean($this->input->post('password'));
+                $this->security->xss_clean($this->input->post('conf_password'));
+
+
+                $info['password'] = password_hash($password, PASSWORD_DEFAULT);
+
+
+                if ($role == 'patient' || $role == 'Patient') {
+
+                    $this->Admin_model->update_patient($id, $info);
+
+                    $user_id = $user->patient_id;
+                    $user_type = $user->role;
+                    $user_activity = $user->un_patient_id . ' ' . $user->first_name . ' ' . $user->last_name . ' reset password.';
+
+                    $this->Login_model->patient_activity($user_id, $user_type, $user_activity);
+
+                    $activity = array(
+                        'activity' => 'A patient reset password.',
+                        'module' => 'Reset Password',
+                        'date_created' => date('Y-m-d H:i:s')
+                    );
+
+                    $this->load->model('Admin_model');
+                    $this->Admin_model->add_activity($activity);
+                }
+                else {
+
+                    $this->Admin_model->edit_useracc($id, $info);
+
+                    $user_id = $user->user_id;
+                    $user_type = $user->role;
+                    $user_activity = $user->first_name . ' ' . $user->last_name . ' reset password.';
+
+                    $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+                    $activity = array(
+                        'activity' => 'A user reset password.',
+                        'module' => 'Reset Password',
+                        'date_created' => date('Y-m-d H:i:s')
+                    );
+
+                    $this->load->model('Admin_model');
+                    $this->Admin_model->add_activity($activity);
+                }
+
+                $this->session->set_flashdata('success', 'changed-password');
+                redirect('Login/signin');
+            }
         }
     }
 
