@@ -426,7 +426,7 @@
                 <table id="example" class="table table-hover" style="width: 100%">
                     <thead>
                         <tr>
-                            <th class="col-md-2 align-middle">ID</th>
+                            <th class="col-md-2 align-middle">Patient ID</th>
                             <th class="col-md-4 align-middle">Name</th>
                             <th class="col-md-2 align-middle">Date Added</th>
                             <th class="col-md-1 align-middle text-center">Type</th>

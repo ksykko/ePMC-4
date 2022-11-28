@@ -38,6 +38,16 @@
                 <span>You successfully updated your profile picture.</span>
             </div>
         </div>
+    <?php elseif ($this->session->flashdata('message') == 'success-change-pass') : ?>
+        <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header toast-success">
+                <strong class="me-auto">Success!</strong>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bg-opacity-50">
+                <span>Your password has been updated.</span>
+            </div>
+        </div>
     <?php elseif ($this->session->flashdata('error-upload')) : ?>
         <div id="liveToast" class="toast border-0 toast-error" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header toast-error">
@@ -46,6 +56,16 @@
             </div>
             <div class="toast-body bg-opacity-50">
                 <span><?= $this->session->flashdata('error-upload') ?></span>
+            </div>
+        </div>
+    <?php elseif ($this->session->flashdata('error') == 'error-change-pass') : ?>
+        <div id="liveToast" class="toast border-0 toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header toast-error">
+                <strong class="me-auto">Error!</strong>
+                <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bg-opacity-50">
+                <span>Old password is incorrect.</span>
             </div>
         </div>
     <?php endif; ?>
@@ -131,9 +151,16 @@
                     <label for="avatar" class="role">
                         <?= $user->role ?>
                     </label><br>
-                    <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button></div>
-                    <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" style="width: 151.84px;" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
-
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" style="width: 133.64px;" type="button" data-bs-toggle="modal" data-bs-target="#settings">Settings</button></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -163,12 +190,10 @@
         </div>
     </div>
     <!-- End: second row -->
-    <!-- Edit Info modal -->
+    <!-- View Profile -->
     <div id="view-pers-info" class="modal fade" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <?php $updateUserInfoPath = 'Admin/edit_useracc/' . $admin_id; ?>
-                <?= form_open($updateUserInfoPath, array('id' => 'edit_info')) ?>
                 <div class="modal-header">
                     <h4 class="modal-title ms-3 fw-bolder text-body">Personal Information</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -177,65 +202,45 @@
                         <div class="col col-lg-5"><label class="col-form-label text-body">First Name</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="text" id="first_name" name="first_name" readonly value="<?= $user->first_name ?>" /></div>
-                            <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Middle Name</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" readonly value="<?= $user->middle_name ?>" /></div>
-                            <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Surname</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="text" id="last_name" name="last_name" readonly value="<?= $user->last_name ?>" /></div>
-                            <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Username</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="text" id="username" name="username" readonly value="<?= $user->username ?>" /></div>
-                            <label id="username_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Birth date</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="date" id="birth_date" name="birth_date" readonly value="<?= $user->birth_date ?>" /></div>
-                            <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Contact No.</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" readonly value="<?= $user->contact_no ?>" /></div>
-                            <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
                     <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
                         <div class="col col-lg-5"><label class="col-form-label text-body">Email</label></div>
                         <div class="col col-lg-7">
                             <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" readonly value="<?= $user->email ?>" /></div>
-                            <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
-                        <div class="col col-lg-5"><label class="col-form-label text-body">Password</label></div>
-                        <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="password" name="password" readonly value="<?= $user->password ?>" /></div>
-                            <label id="password_error" class="text-danger font-monospace" style="font-size:13px"></label>
-                        </div>
-                    </div>
-                    <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
-                        <div class="col col-lg-5"><label class="col-form-label text-body">Confirm Password</label></div>
-                        <div class="col col-lg-7">
-                            <div class="input-group"><input class="form-control form-control-sm" type="password" id="confpass" name="confpass" readonly value="" /></div>
-                            <label id="confpass_error" class="text-danger font-monospace" style="font-size:13px"></label>
-                        </div>
-                    </div>
+
 
                     <!-- <div class="row">
                                             <div class="col d-flex justify-content-end">
@@ -246,30 +251,13 @@
                                         </div> -->
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-dark" type="button" style="width: 85.52px;" onclick="editInfo()"><strong>Edit</strong>
-                    </button><button class="btn btn-sm btn-default-blue btn-primary" onclick="validateForm()" type="button">Save</button>
+                    <br>
                 </div>
-                <?= form_close(); ?>
             </div>
         </div>
     </div>
     <!-- Upload photo modal -->
-    <div id="mdl-uploadpic" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <?php $updatePhotoPath = 'Admin/update_photo/' . $user->user_id; ?>
-                <?= form_open_multipart($updatePhotoPath) ?>
-                <div class="modal-header">
-                    <h4 class="modal-title ms-3 fw-bolder">Upload Profile Picture</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group"><input class="form-control form-control-sm" type="file" src="<?= base_url('/assets/img/profile-avatars/') . $user->avatar ?>" value="<?= base_url('/assets/img/profile-avatars/') . $user->avatar ?>" name="avatar" /></div>
-                </div>
-                <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-sm btn-default-blue" data-bs-dismiss="modal">Save</button></div>
-                <?= form_close(); ?>
-            </div>
-        </div>
-    </div>
+
     <!-- End: second row -->
     <!-- Start: third row -->
     <div class="row gy-3 row-cols-1 row-cols-lg-2 gy-xl-0 mb-2">
@@ -312,7 +300,7 @@
         <div class="col col-lg-7">
             <div class="card shadow mb-4" style="height: 450px;">
                 <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                    <h6 class="fw-bold fs-5 m-0 ch-heading">Recent Activity</h6>
+                    <h6 class="fw-bold fs-5 m-0 ch-heading me-auto">Recent Activity</h6><a href="<?= base_url('Admin/audit_log') ?>" class="btn btn-sm btn-info h-auto w-auto me-4" role="button"><i class="fas fa-list-ul me-2"></i><small>Audit Log</small></a>
                 </div>
                 <div class="card-body mx-3 ">
                     <table id="recent_activity_table" class="table table-hover d-column w-100  ">
@@ -330,7 +318,130 @@
         </div>
     </div>
     <!-- End: third row -->
-    
+
+
+    <!-- Settings modal -->
+    <div id="settings" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link text-dark active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Edit Profile</button>
+                                <button class="nav-link text-dark" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Change Photo</button>
+                                <button class="nav-link text-dark" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Change Password</button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="card-body mx-5">
+
+                        <div class="tab-content" id="nav-tabContent">
+                            <!-- Edit Profile -->
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <?php $updateUserInfoPath = 'Admin/edit_useracc/' . $admin_id; ?>
+                                <?= form_open($updateUserInfoPath, array('id' => 'edit_info')); ?>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">First Name</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $user->first_name ?>" /></div>
+                                        <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Middle Name</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" value="<?= $user->middle_name ?>" /></div>
+                                        <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Surname</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="text" id="last_name" name="last_name" value="<?= $user->last_name ?>" /></div>
+                                        <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Username</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="text" id="username" name="username" value="<?= $user->username ?>" /></div>
+                                        <label id="username_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Birth date</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="date" id="birth_date" name="birth_date" value="<?= $user->birth_date ?>" /></div>
+                                        <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Contact No.</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" value="<?= $user->contact_no ?>" /></div>
+                                        <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
+                                    <div class="col col-lg-5"><label class="col-form-label text-body">Email</label></div>
+                                    <div class="col col-lg-7">
+                                        <div class="input-group"><input class="form-control form-control-sm" type="email" id="email" name="email" value="<?= $user->email ?>" /></div>
+                                        <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div><br>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-default-blue btn-primary">Save</button>
+                                </div>
+                                <?= form_close(); ?>
+                            </div>
+                            <!-- Change Photo -->
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                <?php $updatePhotoPath = 'Admin/update_photo/' . $user->user_id; ?>
+                                <?= form_open_multipart($updatePhotoPath, array('id' => 'changePhoto')); ?>
+                                <div class="input-group"><input class="form-control form-control-sm" type="file" src="<?= base_url('/assets/img/profile-avatars/') . $user->avatar ?>" value="<?= base_url('/assets/img/profile-avatars/') . $user->avatar ?>" name="avatar" /></div><br>
+                                <div class="modal-footer">
+                                    <button name="change-photo" class="btn btn-sm btn-default-blue btn-primary" onclick="changePhoto()">Save</button>
+                                </div>
+                                <?= form_close(); ?>
+                            </div>
+                            <!-- Change Password -->
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                                <?php $updatePatientPath = 'Admin/change_password/' . $user->user_id; ?>
+                                <?= form_open_multipart($updatePatientPath, array('id' => 'changePass')); ?>
+                                <div class="row row-cols-1 row-cols-lg-2">
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Old Password</label></div>
+                                    <div class="col-lg-7">
+                                        <div class="input-group"><input id="password" class="form-control form-control-sm" type="password" name="password" /></div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2">
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">New Password</label></div>
+                                    <div class="col-lg-7">
+                                        <div class="input-group"><input id="new_password" class="form-control form-control-sm" type="password" name="new_password" /></div>
+                                        <label id="new_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-1 row-cols-lg-2 mb-5">
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Confirm Password</label></div>
+                                    <div class="col-lg-7">
+                                        <div class="input-group"><input id="conf_password" class="form-control form-control-sm" type="password" name="conf_password" /></div>
+                                        <label id="conf_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-sm btn-default-blue btn-primary">Save</button>
+                                </div>
+                                <?= form_close(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

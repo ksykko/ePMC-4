@@ -3,7 +3,45 @@
         <div>
             <h1 class="d-none d-sm-block patientrec-label">Patient Record</h1>
         </div>
-        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit me-lg-1"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-changepass"><i class="fas fa-user-lock me-lg-1"></i><strong class="d-none d-lg-inline-block">Change Password</strong></button>
+            <div id="mdl-changepass" class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog" role="document">
+                    <?php $updatePatientPath = 'Patient_patientrec/change_password/' . $patient->patient_id; ?>
+                    <?= form_open_multipart($updatePatientPath, array('id' => 'changePass')); ?>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title ms-3 fw-bolder">Change Password</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="row row-cols-1 row-cols-lg-2">
+                                <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Old Password</label></div>
+                                <div class="col-lg-7">
+                                    <div class="input-group"><input id="password" class="form-control form-control-sm" type="password" name="password" /></div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 row-cols-lg-2">
+                                <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">New Password</label></div>
+                                <div class="col-lg-7">
+                                    <div class="input-group"><input id="new_password" class="form-control form-control-sm" type="password" name="new_password" /></div>
+                                    <label id="new_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
+                                </div>
+                            </div>
+                            <div class="row row-cols-1 row-cols-lg-2">
+                                <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Confirm Password</label></div>
+                                <div class="col-lg-7">
+                                    <div class="input-group"><input id="conf_password" class="form-control form-control-sm" type="password" name="conf_password" /></div>
+                                    <label id="conf_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-sm btn-default-blue" data-bs-dismiss="modal" name="changePassword" onclick="changePassword()" type="submit">Save</button></div>
+                    </div>
+                    <?= form_close(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center"><button class="btn px-3 me-4 btn-dark btn-default w-auto" type="button" data-bs-toggle="modal" data-bs-target="#mdl-personal-info"><i class="fas fa-edit me-lg-1"></i><strong class="d-none d-lg-inline-block">Edit Personal Info</strong></button>
             <div id="mdl-personal-info" class="modal fade modal-dialog-scrollable" role="dialog" tabindex="-1">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-dialog modal-lg" role="document">
@@ -355,6 +393,7 @@
                                         <div class="row mb-2">
                                             <div class="col form-group px-1"><label class="form-label">Address</label>
                                                 <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= $patient->address ?>" />
+                                                <label id="address_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                             </div>
                                         </div>
                                         <!-- <div class="row mb-2">
@@ -518,7 +557,7 @@
                         <div class="modal-header border-bottom-0">
                             <h4 class="modal-title"></h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body d-xxl-flex justify-content-xxl-center">
+                        <div class="modal-body d-xxl-flex justify-content-xxl-center mx-5">
                             <p><i class="typcn typcn-warning me-2"></i>Any unsaved changes will not be saved.</p>
                         </div>
                         <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Cancel</button><a href="<?= base_url('Patient/') ?>" class="btn btn-sm btn-primary btn-default-blue" role="button">Confirm</a></div>
@@ -558,6 +597,16 @@
                     <span>Your personal information has been updated.</span>
                 </div>
             </div>
+        <?php elseif ($this->session->flashdata('message') == 'success-change-pass') : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header toast-success">
+                    <strong class="me-auto">Success!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>Your password has been updated.</span>
+                </div>
+            </div>
         <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
             <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header text-bg-danger bg-opacity-100">
@@ -577,6 +626,16 @@
                 <div class="toast-body bg-opacity-50">
                     <?php $errors = $this->session->flashdata('error') ?>
                     <span><?= $errors ?></span>
+                </div>
+            </div>
+        <?php elseif ($this->session->flashdata('error') == 'error-change-pass') : ?>
+            <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header text-bg-danger bg-opacity-100">
+                    <strong class="me-auto">Error!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>Old password is incorrect.</span>
                 </div>
             </div>
         <?php elseif ($this->session->flashdata('error-doc')) : ?>
@@ -601,7 +660,8 @@
                         <h6 class="m-0 fw-bold fs-5 ch-heading">Personal Information</h6>
                     </div>
                     <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="<?= base_url('/assets/img/profile-avatars/') . $patient->avatar ?>" width="160" height="160" />
-                        <div class="mb-3"><button class="btn btn-primary btn-sm btn-default-blue" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button>
+                        <div class="mb-3">
+                            <button class="btn btn-primary btn-sm btn-default-blue" type="button" data-bs-toggle="modal" data-bs-target="#mdl-uploadpic">Change Photo</button>
                             <div id="mdl-uploadpic" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog" role="document">
                                     <?php $updatePatientPath = 'Patient_patientrec/update_profilepic/' . $patient->patient_id; ?>
@@ -768,7 +828,7 @@
                                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
                                         </div>
                                         <div>
-                                            <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button>
+                                            <!-- <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -838,7 +898,14 @@
                         <div class="accordion-body mx-3">
                             <div class="row">
                                 <?php foreach ($documents as $document) : ?>
-                                    <?php if ($document->doc_name == NULL || $document->document == NULL) : continue ?>
+                                    <?php if ($document->doc_name == NULL || $document->document == NULL) : ?>
+                                        <div class="col d-flex justify-content-center">
+                                            <div class=" mb-1">
+                                                <div class="py-3 ">
+                                                    <h6 class="m-0 fs-6">No documents yet</h6>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <?php else : ?>
                                         <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
                                             <div class="card shadow">
@@ -853,7 +920,7 @@
                                                 <img class="card-img-top w-100 d-block thumbnail" src="<?= $thumbnail ?>" height="150px" />
                                                 <div class="card-body">
                                                     <h5><?= $document->doc_name ?></h5>
-                                                    <div class="d-flex justify-content-end"><br>
+                                                    <div class="d-flex justify-content-end">
                                                     </div>
                                                     <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                 <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
@@ -932,7 +999,7 @@
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <?php
-                                                        $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+                                                        //$diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
                                                         ?>
                                                         <div class="modal-header">
                                                             <h4 class="modal-title ms-3 fw-bolder">Diagnosis <?= $diag_date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1067,102 +1134,3 @@
         </div>
     </div>
 </div>
-<script>
-    var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the current tab
-
-    function showTab(n) {
-        // This function will display the specified tab of the form...
-        var x = document.getElementsByClassName("tab");
-        x[n].style.display = "block";
-        //... and fix the Previous/Next buttons:
-        if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
-        } else {
-            document.getElementById("prevBtn").style.display = "inline";
-        }
-        if (n == (x.length - 1)) {
-
-            document.getElementById("nextBtn").innerHTML = "Submit";
-
-        } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
-        }
-        //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-        // This function will figure out which tab to display
-        var x = document.getElementsByClassName("tab");
-        // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
-        // Hide the current tab:
-        x[currentTab].style.display = "none";
-        // Increase or decrease the current tab by 1:
-        currentTab = currentTab + n;
-        // if you have reached the end of the form...
-        if (currentTab >= x.length) {
-            // ... the form gets submitted:
-            document.getElementById("editPatient").submit();
-
-            return false;
-        }
-        // Otherwise, display the correct tab:
-        showTab(currentTab);
-    }
-
-    function validateForm() {
-        // This function deals with validation of the form fields
-        var x, y, i, j, input_valid = true,
-            select_valid = true;
-
-        x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByTagName("input");
-        z = x[currentTab].getElementsByTagName("select");
-
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If an input field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                input_valid = false;
-            } else
-                y[i].className = "form-control form-control-sm valid";
-        }
-
-        // A loop that checks every select field in the current tab:
-        for (j = 0; j < z.length; j++) {
-            // If a select field is empty...
-            if (z[j].value == "select") {
-                // add an "invalid" class to the field:
-                z[j].className += " invalid";
-                // and set the current valid status to false
-                select_valid = false;
-            } else
-                z[j].className = "form-select form-select-sm valid";
-        }
-
-
-        // If all the fields are valid, return true. Otherwise, return false:
-        if (input_valid && select_valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
-        }
-
-        console.log(select_valid);
-        // return the valid status
-        return input_valid && select_valid;
-    }
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
-</script>

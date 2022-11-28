@@ -1,28 +1,28 @@
-
-
 <style>
     @import url(https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400);
+
     body {
         overflow-y: scroll;
     }
 
-    .radio-emoji, .radio-star {
+    .radio-emoji,
+    .radio-star {
         position: absolute;
         left: -9999px;
     }
 
-    .radio-emoji + label {
-        font-size: 40px;  
-        border-radius: 4px; 
+    .radio-emoji+label {
+        font-size: 40px;
+        border-radius: 4px;
         opacity: 0.25;
     }
 
-    .radio-emoji + label:hover {
-    cursor: pointer;
-    /* background-color: #e0e0e0; */
+    .radio-emoji+label:hover {
+        cursor: pointer;
+        /* background-color: #e0e0e0; */
     }
 
-    .radio-emoji:checked + label {
+    .radio-emoji:checked+label {
         opacity: 1;
     }
 
@@ -31,7 +31,7 @@
     } */
 
     .container-satisfaction {
-    padding: 40px;
+        padding: 40px;
     }
 
     .col-label {
@@ -63,95 +63,95 @@
         border-radius: 1px;
     }
 
-    .cont{
-    width: 100%;
-    text-align: center;
-    color: #EEE;
-    overflow: hidden;
+    .cont {
+        width: 100%;
+        text-align: center;
+        color: #EEE;
+        overflow: hidden;
     }
 
-    hr{
-    margin: 20px;
-    border: none;
-    border-bottom: thin solid rgba(255,255,255,.1);
+    hr {
+        margin: 20px;
+        border: none;
+        border-bottom: thin solid rgba(255, 255, 255, .1);
     }
 
-    div.title{
-    font-size: 2em;
+    div.title {
+        font-size: 2em;
     }
 
-    h1 span{
-    font-weight: 300;
-    color: #Fd4;
+    h1 span {
+        font-weight: 300;
+        color: #Fd4;
     }
 
-    div.stars{
-    width: 270px;
-    display: inline-block;
+    div.stars {
+        width: 270px;
+        display: inline-block;
     }
 
-    input.star{
-    display: none;
+    input.star {
+        display: none;
     }
 
     label.star {
-    float: right;
-    padding: 10px;
-    font-size: 36px;
-    color: #444;
-    transition: all .2s;
+        float: right;
+        padding: 10px;
+        font-size: 36px;
+        color: #444;
+        transition: all .2s;
     }
 
-    input.star:checked ~ label.star:before {
-    content:'\f005';
-    color: #FD4;
-    transition: all .25s;
+    input.star:checked~label.star:before {
+        content: '\f005';
+        color: #FD4;
+        transition: all .25s;
     }
 
 
-    input.star-5:checked ~ label.star:before {
-    color:#FD4;
+    input.star-5:checked~label.star:before {
+        color: #FD4;
     }
 
-    input.star-1:checked ~ label.star:before {
-    color: #F62;
+    input.star-1:checked~label.star:before {
+        color: #F62;
     }
 
-    label.star:hover{
-    transform: rotate(-15deg) scale(1.3);
+    label.star:hover {
+        transform: rotate(-15deg) scale(1.3);
     }
 
-    label.star:before{
-    content:'\f006';
-    font-family: FontAwesome;
+    label.star:before {
+        content: '\f006';
+        font-family: FontAwesome;
     }
 
-    .rev-box{
-    overflow: hidden;
-    height: 0;
-    width: 100%;
-    transition: all .25s;
+    .rev-box {
+        overflow: hidden;
+        height: 0;
+        width: 100%;
+        transition: all .25s;
     }
 
-    textarea.review{
-    background: #222;
-    border: none;
-    width: 100%;
-    max-width: 100%;
-    height: 100px;
-    padding: 10px;
-    box-sizing: border-box;
-    color: #EEE;
+    textarea.review {
+        background: #222;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+        height: 100px;
+        padding: 10px;
+        box-sizing: border-box;
+        color: #EEE;
     }
 
-    label.review{
-    display: block;
-    transition:opacity .25s;
+    label.review {
+        display: block;
+        transition: opacity .25s;
     }
 
-    input.star:checked ~ .rev-box{
-    height: 125px;
-    overflow: visible;
+    input.star:checked~.rev-box {
+        height: 125px;
+        overflow: visible;
     }
 </style>
 
@@ -189,7 +189,7 @@
                         <small class="text-danger"><?= form_error('rating') ?></small>
                         <small class="text-danger"><?= form_error('rating_description') ?></small>
                     </span>
-                    
+
                 </div>
             </div>
         <?php endif; ?>
@@ -200,7 +200,9 @@
             <img class="img-fluid avatar" src="<?php echo base_url('/assets/img/profile-avatars/' . $patient->avatar); ?>" alt="avatar">
         </div>
         <div class="personal-info">
-            <div class="vline1"><?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?><br><hr></div>
+            <div class="vline1"><?= $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name ?><br>
+                <hr>
+            </div>
             <div class="left-info">
                 <strong>Age: </strong> <?= ($user_age) ? $user_age . ' years old' : 'N/A' ?><br>
                 <strong>Birthday: </strong> <?= ($user_birthday == '0000-00-00') ? 'N/A' : $user_birthday ?><br>
@@ -215,14 +217,15 @@
     </div>
 
     <div class="next-consultation shadow">
-        <strong>Next Consultation</strong><hr>
+        <strong>Next Consultation</strong>
+        <hr>
         <i class="fas fa-calendar-plus"></i>
-        <?php 
-            $date = strtotime($patient_details->consul_next);
-            $consul_next = date("l, M d Y", $date);
-            $consul_time = date("g:i A", $date);
+        <?php
+        $date = strtotime($patient_details->consul_next);
+        $consul_next = date("l, M d Y", $date);
+        $consul_time = date("g:i A", $date);
         ?>
-        <label for="" class="Date-label"><?= $consul_next?> <br> <?= $consul_time?></label>
+        <label for="" class="Date-label"><?= $consul_next ?> <br> <?= $consul_time ?></label>
     </div>
 
     <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Consultation History<br></label>
@@ -236,10 +239,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
-        </div>    
+        </div>
     </div>
 </div>
 
@@ -250,7 +253,7 @@
 <div id="feedback-modal" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
 
-        
+
         <div class="modal-content feed-modal">
             <div class="modal-header">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -262,132 +265,132 @@
                     </li>
                 </ul>
             </div>
-            <div class="modal-body p-0" >
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <?= form_open('Patient/add_feedback_validation'); ?>
-                    <div class="feedback-rating-scale container-satisfaction">
-                        <div class="row" style="text-align: center;">
-                            <h4><strong>How's our Service?</strong></h4>
-                        </div>
-                        <div class="row">
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <div class="column">
-                                    <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-1" value="Very Dissatisfied">
-                                    <label class=" label-emoji" for="emoji-1" title="Very Dissatisfied">😡</label>
-                                    <div class="column col-label"><label>Very Dissatisfied</label></div>
-                                </div>
-
-                                <div class="column">
-                                    <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-2" value="Dissatisfied">
-                                    <label class=" label-emoji" for="emoji-2" title="Dissatisfied">🙁</label>    
-                                    <div class="column col-label"><label>Dissatisfied</label></div> 
-                                </div>
-
-                                <div class="column">
-                                    <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-3" value="Neutral">
-                                    <label class=" label-emoji" for="emoji-3" title="Neutral">😐</label>    
-                                    <div class="column col-label"><label>Neutral</label></div>
-                                </div>
-                                
-                                <div class="column">
-                                    <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-4" value="Satisfied">
-                                    <label class=" label-emoji" for="emoji-4" title="Satisfied">🙂</label> 
-                                    <div class="column col-label"><label>Satisfied</label></div>
-                                </div>
-
-                                <div class="column">
-                                    <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-5" value="Very Satisfied" checked>
-                                    <label class=" label-emoji" for="emoji-5" title="Very Satisfied" >😍</label>    
-                                    <div class="column col-label"><label>Very Satisfied</label></div>    
-                                </div>
+            <div class="modal-body p-0">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <?= form_open('Patient/add_feedback_validation'); ?>
+                        <div class="feedback-rating-scale container-satisfaction">
+                            <div class="row" style="text-align: center;">
+                                <h4><strong>How's our Service?</strong></h4>
                             </div>
-                        </div><br>
+                            <div class="row">
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <div class="column">
+                                        <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-1" value="Very Dissatisfied">
+                                        <label class=" label-emoji" for="emoji-1" title="Very Dissatisfied">😡</label>
+                                        <div class="column col-label"><label>Very Dissatisfied</label></div>
+                                    </div>
 
-                        <input type="text" name="patient_id" id="patient_id" value="<?= $patient->patient_id ?> " hidden/>
-                        
-                        <div class="row">
-                            <?php 
-                            if(empty($feedback->patient_id)){
-                                $rating_desc = set_value('rating_description');     
-                            } else {
-                                $rating_desc = $feedback->rating_description;
-                            }
-                            
-                            ?>
-                            <textarea class="form-control feedback" type="text" id="rating_description" rows="2" name="rating_description" value="<?= $rating_desc ?>" placeholder="Tell us more about yourself"></textarea>
+                                    <div class="column">
+                                        <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-2" value="Dissatisfied">
+                                        <label class=" label-emoji" for="emoji-2" title="Dissatisfied">🙁</label>
+                                        <div class="column col-label"><label>Dissatisfied</label></div>
+                                    </div>
+
+                                    <div class="column">
+                                        <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-3" value="Neutral">
+                                        <label class=" label-emoji" for="emoji-3" title="Neutral">😐</label>
+                                        <div class="column col-label"><label>Neutral</label></div>
+                                    </div>
+
+                                    <div class="column">
+                                        <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-4" value="Satisfied">
+                                        <label class=" label-emoji" for="emoji-4" title="Satisfied">🙂</label>
+                                        <div class="column col-label"><label>Satisfied</label></div>
+                                    </div>
+
+                                    <div class="column">
+                                        <input type="radio" class="radio-emoji btn-check" name="rating" id="emoji-5" value="Very Satisfied" checked>
+                                        <label class=" label-emoji" for="emoji-5" title="Very Satisfied">😍</label>
+                                        <div class="column col-label"><label>Very Satisfied</label></div>
+                                    </div>
+                                </div>
+                            </div><br>
+
+                            <input type="text" name="patient_id" id="patient_id" value="<?= $patient->patient_id ?> " hidden />
+
+                            <div class="row">
+                                <?php
+                                if (empty($feedback->patient_id)) {
+                                    $rating_desc = set_value('rating_description');
+                                } else {
+                                    $rating_desc = $feedback->rating_description;
+                                }
+
+                                ?>
+                                <textarea class="form-control feedback" type="text" id="rating_description" rows="2" name="rating_description" value="<?= $rating_desc ?>" placeholder="Tell us more about yourself"></textarea>
+                            </div>
                         </div>
+
+                        <div class="modal-footer feed-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" type="submit" id="addFeedback" name="addFeedback" style="background: #3269bf;">Save</button></div>
+                        <?= form_close(); ?>
                     </div>
 
-                    <div class="modal-footer feed-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" type="submit" id="addFeedback" name="addFeedback" style="background: #3269bf;">Save</button></div>
-                    <?= form_close(); ?>   
+
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <?= form_open('Patient/add_doc_feedback_validation'); ?>
+                        <div class="feedback-rating-scale container-satisfaction">
+                            <div class="row" style="text-align: center;">
+                                <h4 class="m-0"><strong>Rate our Doctors!</strong></h4><br>
+                                <div style="font-size: 100px;">🧑🏽‍⚕️</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="cont">
+                                    <div class="btn-group stars" role="group" aria-label="Basic radio toggle button group">
+                                        <input class="star star-5" id="star-5" type="radio" name="star" value="5" />
+                                        <label class="star star-5" for="star-5"></label>
+
+                                        <input class="star star-4" id="star-4" type="radio" name="star" value="4" />
+                                        <label class="star star-4" for="star-4"></label>
+
+                                        <input class="star star-3" id="star-3" type="radio" name="star" value="3" />
+                                        <label class="star star-3" for="star-3"></label>
+
+                                        <input class="star star-2" id="star-2" type="radio" name="star" value="2" />
+                                        <label class="star star-2" for="star-2"></label>
+
+                                        <input class="star star-1" id="star-1" type="radio" name="star" value="1" />
+                                        <label class="star star-1" for="star-1"></label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <h6 style="text-align: center;"><strong>Select Doctor</strong></h6>
+                                <select class="form-control" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
+                                    <option value="select" disabled selected>select..</option>
+                                    <?php foreach ($doctorname as $doctor) : ?>
+                                        <option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id ?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div><br>
+
+                            <input type="text" name="patient_id" id="patient_id" value="<?= $patient->patient_id ?> " hidden />
+
+                            <div class="row">
+                                <?php
+                                if (empty($feedback->patient_id)) {
+                                    $rating_desc = set_value('rating_description');
+                                } else {
+                                    $rating_desc = $feedback->rating_description;
+                                }
+
+                                ?>
+                                <textarea class="form-control feedback" type="text" id="rating_description" rows="2" name="rating_description" value="<?= $rating_desc ?>" placeholder="Tell us more about your experience"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer feed-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" type="submit" id="addDoctorFeedback" name="addDoctorFeedback" style="background: #3269bf;">Save</button></div>
+                        <?= form_close(); ?>
+                    </div>
                 </div>
 
 
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <?= form_open('Patient/add_doc_feedback_validation'); ?>
-                    <div class="feedback-rating-scale container-satisfaction">
-                        <div class="row" style="text-align: center;">
-                            <h4 class="m-0"><strong>Rate our Doctors!</strong></h4><br>
-                            <div style="font-size: 100px;">🧑🏽‍⚕️</div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="cont">
-                                <div class="btn-group stars" role="group" aria-label="Basic radio toggle button group">
-                                    <input class="star star-5" id="star-5" type="radio" name="star" value="5"/>
-                                    <label class="star star-5" for="star-5"></label>
-
-                                    <input class="star star-4" id="star-4" type="radio" name="star" value="4"/>
-                                    <label class="star star-4" for="star-4"></label>
-
-                                    <input class="star star-3" id="star-3" type="radio" name="star" value="3"/>
-                                    <label class="star star-3" for="star-3"></label>
-
-                                    <input class="star star-2" id="star-2" type="radio" name="star" value="2"/>
-                                    <label class="star star-2" for="star-2"></label>
-
-                                    <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
-                                    <label class="star star-1" for="star-1"></label>
-                                </div>
-                            </div>
-
-                            
-                        </div>
-
-                        <div class="row">
-                            <h6 style="text-align: center;"><strong>Select Doctor</strong></h6>
-                            <select class="form-control" name="doctor_name" id="doctor_name" value=<?= set_value('doctor_name'); ?>>
-                                <option value="select" disabled selected>select..</option>
-                                <?php foreach ($doctorname as $doctor) : ?>
-                                    <option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id ?>"><?='Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div><br>
-
-                        <input type="text" name="patient_id" id="patient_id" value="<?= $patient->patient_id ?> " hidden/>
-                        
-                        <div class="row">
-                            <?php 
-                            if(empty($feedback->patient_id)){
-                                $rating_desc = set_value('rating_description');     
-                            } else {
-                                $rating_desc = $feedback->rating_description;
-                            }
-                            
-                            ?>
-                            <textarea class="form-control feedback" type="text" id="rating_description" rows="2" name="rating_description" value="<?= $rating_desc ?>" placeholder="Tell us more about your experience"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer feed-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-primary btn-modal" type="submit" id="addDoctorFeedback" name="addDoctorFeedback" style="background: #3269bf;">Save</button></div>
-                    <?= form_close(); ?>
-                </div>
-            </div>
-
-                
             </div>
         </div>
-        
+
     </div>
 </div>

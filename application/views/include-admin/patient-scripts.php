@@ -2,6 +2,7 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
+<script src="<?= base_url('/assets/js/validations/password.js') ?>"></script>
 
 
 <script>
@@ -80,6 +81,12 @@
         if ($('#contact_error').val() == '') {
             $('#contact_error').hide();
         }
+        if ($('#new_password_error').val() == '') {
+            $('#new_password_error').hide();
+        }
+        if ($('#conf_password_error').val() == '') {
+            $('#conf_password_error').hide();
+        }
     });
 
 
@@ -101,6 +108,9 @@
         ec_name = document.getElementById('ec_name'),
         relationship = document.getElementById('relationship'),
         ec_contact = document.getElementById('ec_contact_no');
+
+
+    
 
 
     first_name.onblur = function() {
@@ -314,7 +324,7 @@
     }
 
     civil_status.onblur = function() {
-        if (civil_status.value == '') {
+        if (civil_status.value == '' || civil_status.value == null) {
             $('#civil_status').removeClass('valid');
             $('#civil_status').addClass('warning');
 
@@ -413,6 +423,8 @@
         }
     }
 
+
+
     // validateEmail
     var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -505,7 +517,6 @@
 
 
 
-
     function validateForm() {
         //console.log(input_valid);
 
@@ -525,29 +536,29 @@
             email = $('#email').val(),
             ec_name = $('#ec_name').val(),
             relationship = $('#relationship').val(),
-            ec_contact = $('#ec_contact_no').val();
+            ec_contact = $('#ec_contact_no').val(),
 
 
-        // name validation
-        if (first_name == '') {
+            // name validation
+            if (first_name == '') {
 
-            $('#first_name').addClass('invalid');
+                $('#first_name').addClass('invalid');
 
-            // add error message
-            $('#firstName_error').show();
-            $('#firstName_error').html('First name is required');
+                // add error message
+                $('#firstName_error').show();
+                $('#firstName_error').html('First name is required');
 
-            input_valid = false;
-        } else {
-            // remove error message
-            $('#firstName_error').hide();
-            $('#first_name').html('');
+                input_valid = false;
+            } else {
+                // remove error message
+                $('#firstName_error').hide();
+                $('#first_name').html('');
 
-            $('#first_name').removeClass('invalid');
-            $('#first_name').addClass('valid');
+                $('#first_name').removeClass('invalid');
+                $('#first_name').addClass('valid');
 
-            input_valid = true;
-        }
+                input_valid = true;
+            }
 
         if (middle_name == '') {
             $('#middle_name').removeClass('invalid');

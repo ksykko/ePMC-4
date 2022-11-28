@@ -10,7 +10,7 @@ class Admin_patientrec extends CI_Controller
         parent::__construct();
         require_once 'vendor/autoload.php';
 
-        $this->load->helper(['url', 'form', 'date', 'string', 'html']);
+        $this->load->helper(['url', 'form', 'date', 'string', 'html', 'security']);
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
@@ -59,8 +59,13 @@ class Admin_patientrec extends CI_Controller
             $dt = new DateTime($patient->date_created);
             $date_added = $dt->format('Y-m-d');
             $row = array();
+
             $row[] = $patient->un_patient_id;
-            $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
+            $row[] = '
+            
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> ' . $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name . '
+
+            ';
             $row[] = $date_added;
             $row[] = $patient->type;
             $row[] = '
@@ -98,6 +103,9 @@ class Admin_patientrec extends CI_Controller
 
         foreach ($diagnoses->result() as $diagnosis) {
 
+            if ($diagnosis->p_diag_date == null || $diagnosis->p_diag_date == '0000-00-00 00:00:00') {
+                continue;
+            }
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
             // format data to eg 01/01/2021 12:00 AM
@@ -146,6 +154,10 @@ class Admin_patientrec extends CI_Controller
 
         foreach ($treatments->result() as $treatment) {
 
+            if ($treatment->p_diagnosis == '' || $treatment->p_diagnosis == null) {
+                continue;
+            }
+
             $row = array();
             $row[] = $treatment->p_diagnosis;
             $row[] = $treatment->p_treatment_plan;
@@ -189,6 +201,9 @@ class Admin_patientrec extends CI_Controller
 
         foreach ($diagnoses->result() as $diagnosis) {
 
+            if ($diagnosis->p_diag_date == null || $diagnosis->p_diag_date == '0000-00-00 00:00:00') {
+                continue;
+            }
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
             $dt = new DateTime($diag_date);
@@ -407,7 +422,7 @@ class Admin_patientrec extends CI_Controller
     }
 
 
-    
+    // * View Patient Record
     public function view_patient($id)
     {
         if ($this->session->userdata('logged_in')) {
@@ -454,6 +469,8 @@ class Admin_patientrec extends CI_Controller
         }
     }
 
+
+    // * Add Patient Record
     public function add_patient_validation()
     {
 
@@ -469,9 +486,19 @@ class Admin_patientrec extends CI_Controller
             $this->session->set_flashdata('patient_exists', 'Patient already exists.');
             $this->index();
         } else {
-            //$this->dd('success');
-            // set date_created 1 day before the current date
-            //$date_created = date('Y-m-d H:i:s', strtotime('-4 day'));
+
+            $birth_date = $this->input->post('birth_date');
+
+            if ($birth_date == '' || $birth_date == null) {
+
+                // set password to default value initial of first name + middle name + last name + date today eg. KAS0000-00-00
+                $password = $this->input->post('first_name')[0] . $this->input->post('middle_name')[0] . $this->input->post('last_name')[0] . '0000-00-00';
+
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            } else {
+                $hashed_password = password_hash($birth_date, PASSWORD_DEFAULT);
+            }
+
 
             $info = array(
                 'first_name' => $this->input->post('first_name'),
@@ -489,7 +516,7 @@ class Admin_patientrec extends CI_Controller
                 'ec_name' => $this->input->post('ec_name'),
                 'relationship' => $this->input->post('relationship'),
                 'ec_contact_no' => $this->input->post('ec_contact_no'),
-                'password' => $this->input->post('birth_date'),
+                'password' => $hashed_password,
                 'type' => 'added',
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
@@ -499,61 +526,105 @@ class Admin_patientrec extends CI_Controller
                 'date_created' => date('Y-m-d H:i:s')
             );
 
-            $insert_id = $this->Admin_model->add_patient($info);
+            if ($this->security->xss_clean($info)) {
 
-            // create custom patient id based on name initials
-            $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
-
-            // if birthdate is empty, set password to default value 0000-00-00
-            if ($info['birth_date'] == '') {
-                $info['password'] = '0000-00-00';
-            }
-
-            // update patient
-            $update = $this->Admin_model->update_patient($insert_id, $info);
-            //$this->dd($update);
-
-            $this->create_folder($insert_id);
-
-            $patientDetails = array(
-                'patient_id' => $insert_id,
-                'height' => '0',
-                'weight' => '0',
-            );
-
-            $setId = array(
-                'patient_id' => $insert_id
-            );
-
-            $patient = $this->Admin_model->get_patient_row($insert_id);
-
-            // insert a row in user_activity table
-            $user_id = $this->session->userdata('id');
-            $user_type = $this->session->userdata('role');
-            $user_activity = 'Added patient ' . $patient->un_patient_id . ' in the patient records';
-
-            $this->load->model('Login_model');
-            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+                $this->load->library('email');
+                $config_email = array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => $this->config->item('email'), //Active gmail
+                    'smtp_pass' => $this->config->item('password'), //Password
+                    'mailtype' => 'html',
+                    'starttls' => TRUE,
+                    'newline' => "\r\n",
+                    'charset' => $this->config->item('charset'),
+                    'wordwrap' => TRUE
+                );
+                $this->email->initialize($config_email);
 
 
-            $activity = array(
-                'activity' => 'A new patient record has been added in the patient records',
-                'module' => 'Patient Records',
-                'date_created' => date('Y-m-d H:i:s')
-            );
+                // * sends email for verification link
+                $this->email->set_mailtype('html');
+                $this->email->from($this->config->item('bot_email'), 'ePMC');
+                $this->email->to($info['email']);
+                $this->email->subject('ePMC Email Verification');
 
-            $this->Admin_model->add_activity($activity);
+                $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
 
-            $this->session->set_flashdata('message', 'success');
-            $this->Admin_model->add_patient_details($patientDetails);
-            $this->Admin_model->add_patient_diagnosis($setId);
-            $this->Admin_model->add_patient_lab_reports($setId);
-            $this->Admin_model->add_patient_treatment_plan($setId);
+                $message .= '<p> Dear ' . $info['first_name'] . ' ' . $info['middle_name'] . ' ' . $info['last_name'] . ',</p>';
+                $message .= '<p>Thank you for registering to ePMC. Please click the link below to verify your email address.</p>';
+                $message .= '<p><strong><a href="' . base_url('Register/verify_email/' . $info['activation_code']) . '">Verify Email</a></strong></p>';
+                $message .= '<p>Thank you!</p>';
+                $message .= '<p>ePMC Team</p>';
+                $message .= '</body></html>';
 
-            if ($this->session->userdata('role') == 'Admin') {
-                redirect('Admin_patientrec');
+                $this->email->message($message);
+
+                if (!$this->email->send()) {
+                    show_error($this->email->print_debugger());
+                }
+
+                // insert patient in patient_records table
+                $insert_id = $this->Admin_model->add_patient($info);
+
+                // create custom patient id based on name initials
+                $info['un_patient_id'] = $this->create_patient_id($info['first_name'], $info['middle_name'], $info['last_name'], $insert_id);
+
+                // if birthdate is empty, set password to default value 0000-00-00
+                // if ($info['birth_date'] == '') {
+                //     $info['password'] = '0000-00-00';
+                // }
+
+                // update patient
+                $this->Admin_model->update_patient($insert_id, $info);
+                //$this->dd($update);
+
+                $this->create_folder($insert_id);
+
+                $patientDetails = array(
+                    'patient_id' => $insert_id,
+                    'height' => '0',
+                    'weight' => '0',
+                );
+
+                $setId = array(
+                    'patient_id' => $insert_id
+                );
+
+                $patient = $this->Admin_model->get_patient_row($insert_id);
+
+                // insert a row in user_activity table
+                $user_id = $this->session->userdata('id');
+                $user_type = $this->session->userdata('role');
+                $user_activity = 'Added patient ' . $patient->un_patient_id . ' in the patient records';
+
+                $this->load->model('Login_model');
+                $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+                $activity = array(
+                    'activity' => 'A new patient record has been added in the patient records',
+                    'module' => 'Patient Records',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+
+                $this->Admin_model->add_activity($activity);
+
+                $this->session->set_flashdata('message', 'success');
+                $this->Admin_model->add_patient_details($patientDetails);
+                $this->Admin_model->add_patient_diagnosis($setId);
+                $this->Admin_model->add_patient_lab_reports($setId);
+                $this->Admin_model->add_patient_treatment_plan($setId);
+
+                if ($this->session->userdata('role') == 'Admin') {
+                    redirect('Admin_patientrec');
+                } else {
+                    redirect('Doctor_patientrec');
+                }
             } else {
-                redirect('Doctor_patientrec');
+
+                $this->dd('xss clean failed');
             }
         }
     }
@@ -769,6 +840,20 @@ class Admin_patientrec extends CI_Controller
             $this->session->set_flashdata('v_patient_exists', true);
             $this->index();
         } else {
+
+            $birth_date = $this->input->post('birth_date');
+
+            if ($birth_date == '' || $birth_date == null) {
+
+                // set password to default value initial of first name + middle name + last name + date today eg. KAS0000-00-00
+                $password = $this->input->post('first_name')[0] . $this->input->post('middle_name')[0] . $this->input->post('last_name')[0] . '0000-00-00';
+
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            } else {
+                $hashed_password = password_hash($birth_date, PASSWORD_DEFAULT);
+            }
+
+
             $info = array(
                 'first_name' => $full_name,
                 'cell_no' => $this->input->post('mobile_no'),
@@ -779,7 +864,7 @@ class Admin_patientrec extends CI_Controller
                 'sex' => $this->input->post('sex'),
                 'civil_status' => $this->input->post('civil_status'),
                 'occupation' => $this->input->post('occupation'),
-                'password' => $this->input->post('birthday'),
+                'password' => $hashed_password,
                 'type' => 'import',
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
@@ -787,73 +872,76 @@ class Admin_patientrec extends CI_Controller
                 'status' => '0',
                 'date_created' => date('Y-m-d H:i:s')
             );
-            //}
-
-            $insert_id = $this->Admin_model->add_patient($info);
-
-            // create custom patient id based on name initials
-            $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
-
-            // if birthdate is empty, set password to default value 0000-00-00
-            if ($info['birth_date'] == '') {
-                $info['password'] = '0000-00-00';
-            }
-
-            $this->Admin_model->update_patient($insert_id, $info);
 
 
-            $patientDetails = array(
-                'patient_id' => $insert_id,
-                'height' => $this->input->post('height'),
-                'weight' => $this->input->post('weight'),
-            );
+            if ($this->security->xss_clean($info)) {
 
-            // Create a folder for the patient and move the file to the folder
-            $this->create_folder($insert_id);
+                $insert_id = $this->Admin_model->add_patient($info);
 
-            $file = $this->input->post('file');
+                // create custom patient id based on name initials
+                $info['un_patient_id'] = $this->create_imp_patient_id($info['first_name'], $insert_id);
 
-            $new_file = $this->copy_file($file, $insert_id);
+                // if birthdate is empty, set password to default value 0000-00-00
+                // if ($info['birth_date'] == '') {
+                //     $info['password'] = '0000-00-00';
+                // }
 
-            $documents = array(
-                'patient_id' => $insert_id,
-                'doc_name' => 'Imported File',
-                'document' => $new_file,
-            );
+                $this->Admin_model->update_patient($insert_id, $info);
 
-            $setId = array(
-                'patient_id' => $insert_id,
-            );
 
-            $patient = $this->Admin_model->get_patient_row($insert_id);
+                $patientDetails = array(
+                    'patient_id' => $insert_id,
+                    'height' => $this->input->post('height'),
+                    'weight' => $this->input->post('weight'),
+                );
 
-            // insert a row in user_activity table
-            $user_id = $this->session->userdata('id');
-            $user_type = $this->session->userdata('role');
-            $user_activity = 'Imported patient ' . $patient->un_patient_id . ' record';
+                // Create a folder for the patient and move the file to the folder
+                $this->create_folder($insert_id);
 
-            $this->load->model('Login_model');
-            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+                $file = $this->input->post('file');
 
-            $activity = array(
-                'activity' => 'A new patient record has been imported in the patient records',
-                'module' => 'Patient Records',
-                'date_created' => date('Y-m-d H:i:s')
-            );
+                $new_file = $this->copy_file($file, $insert_id);
 
-            $this->Admin_model->add_activity($activity);
+                $documents = array(
+                    'patient_id' => $insert_id,
+                    'doc_name' => 'Imported File',
+                    'document' => $new_file,
+                );
 
-            $this->session->set_flashdata('message', 'import-success');
+                $setId = array(
+                    'patient_id' => $insert_id,
+                );
 
-            $this->Admin_model->add_patient_details($patientDetails);
-            $this->Admin_model->add_patient_diagnosis($setId);
-            $this->Admin_model->add_patient_lab_reports($documents);
-            $this->Admin_model->add_patient_treatment_plan($setId);
+                $patient = $this->Admin_model->get_patient_row($insert_id);
 
-            if ($this->session->userdata('role') == 'Admin') {
-                redirect('Admin_patientrec');
-            } else {
-                redirect('Doctor_patientrec');
+                // insert a row in user_activity table
+                $user_id = $this->session->userdata('id');
+                $user_type = $this->session->userdata('role');
+                $user_activity = 'Imported patient ' . $patient->un_patient_id . ' record';
+
+                $this->load->model('Login_model');
+                $this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+                $activity = array(
+                    'activity' => 'A new patient record has been imported in the patient records',
+                    'module' => 'Patient Records',
+                    'date_created' => date('Y-m-d H:i:s')
+                );
+
+                $this->Admin_model->add_activity($activity);
+
+                $this->session->set_flashdata('message', 'import-success');
+
+                $this->Admin_model->add_patient_details($patientDetails);
+                $this->Admin_model->add_patient_diagnosis($setId);
+                $this->Admin_model->add_patient_lab_reports($documents);
+                $this->Admin_model->add_patient_treatment_plan($setId);
+
+                if ($this->session->userdata('role') == 'Admin') {
+                    redirect('Admin_patientrec');
+                } else {
+                    redirect('Doctor_patientrec');
+                }
             }
         }
     }
@@ -1005,7 +1093,8 @@ class Admin_patientrec extends CI_Controller
 
     public  function add_document($id)
     {
-        $documents = $this->Admin_model->get_patient_documents_count($id);
+        $doc_no = $this->Admin_model->get_patient_documents_count($id);
+        $documents =  $this->Admin_model->get_patient_documents_arr($id);
         $doc_name = $this->input->post('doc_name');
 
         $config = array(
@@ -1014,7 +1103,7 @@ class Admin_patientrec extends CI_Controller
             'max_size' => 2048,
             'max_width' => 2048,
             'max_height' => 2048,
-            'file_name' => $doc_name . '-' . $documents,
+            'file_name' => $doc_name . '-' . $doc_no,
             'file_ext_tolower' => TRUE,
             'overwrite' => TRUE
         );
@@ -1046,6 +1135,24 @@ class Admin_patientrec extends CI_Controller
                     'document' => $doc_file
                 );
 
+                if ($documents == null) {
+                    $this->Admin_model->add_patient_lab_reports($doc_data);
+                } else {
+
+                    foreach ($documents as $row) {
+                        if ($row['doc_name'] == null && $row['document'] == null) {
+                            $this->Admin_model->update_patient_document($id, $doc_data);
+                            $this->session->set_flashdata('message', 'success-add-doc');
+                            break;
+                        } else {
+                            $this->Admin_model->add_patient_lab_reports($doc_data);
+                            $this->session->set_flashdata('message', 'success-add-doc');
+                            break;
+                        }
+                    }
+                }
+
+
                 $patient = $this->Admin_model->get_patient_row($id);
 
                 // insert a row in user_activity table
@@ -1065,7 +1172,6 @@ class Admin_patientrec extends CI_Controller
 
                 $this->Admin_model->add_activity($activity);
 
-                $this->Admin_model->add_patient_lab_reports($doc_data);
                 $this->session->set_flashdata('message', 'success-doc');
                 redirect('Admin_patientrec/view_patient/' . $id);
             }

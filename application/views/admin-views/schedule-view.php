@@ -343,7 +343,7 @@
 								<thead>
 									<tr>
 										<th class="align-middle border-end border-top border-2 doctor-rounded-corners rounded">
-											<h2>Doctors</h2>
+											<h3 class=" fw-bold">Doctors</h3>
 										</th>
 										<th class="align-middle border-end border-1 text-center">
 											<h5>Sunday</h5>

@@ -1,5 +1,5 @@
 <?php
-class Doctor_patientrec extends CI_Controller 
+class Doctor_patientrec extends CI_Controller
 {
     public function __construct()
     {
@@ -9,7 +9,6 @@ class Doctor_patientrec extends CI_Controller
         $this->load->library(['form_validation', 'session', 'pagination']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
-
     }
 
     public function index()
@@ -49,15 +48,19 @@ class Doctor_patientrec extends CI_Controller
             $no++;
             $dt = new DateTime($patient->date_created);
             $date_added = $dt->format('Y-m-d');
-
             $row = array();
-            $row[] = $no;
-            $row[] = $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name;
+
+            $row[] = $patient->un_patient_id;
+            $row[] = '
+            
+                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> ' . $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name . '
+
+            ';
             $row[] = $date_added;
             $row[] = $patient->type;
             $row[] = '
                 <td class="text-center" colspan="1"> 
-                    <a class="btn btn-sm btn-light mx-2" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
+                    <a class="btn btn-sm btn-light" href=" ' . base_url("Admin_patientrec/view_patient/") . $patient->patient_id . ' " type="button">View</a>
                 </td>
             ';
             $data[] = $row;
@@ -86,6 +89,9 @@ class Doctor_patientrec extends CI_Controller
 
         foreach ($diagnoses->result() as $diagnosis) {
 
+            if ($diagnosis->p_diag_date == null || $diagnosis->p_diag_date == '0000-00-00 00:00:00') {
+                continue;
+            }
 
             $diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
 
@@ -124,6 +130,10 @@ class Doctor_patientrec extends CI_Controller
         $data = array();
 
         foreach ($treatments->result() as $treatment) {
+
+            if ($treatment->p_diagnosis == '' || $treatment->p_diagnosis == null) {
+                continue;
+            }
 
             $row = array();
             $row[] = $treatment->p_diagnosis;
