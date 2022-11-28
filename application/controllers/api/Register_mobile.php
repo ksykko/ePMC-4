@@ -91,6 +91,57 @@ class Register_mobile extends RestController
                 $this->Admin_model->update_patient($patient_id, $response);
         
                 $this->create_folder($patient_id);
+
+                $patientDetails = array(
+                    'patient_id' => $patient_id,
+                    'height' => '0',
+                    'weight' => '0',
+                );
+    
+                $setId = array(
+                    'patient_id' => $patient_id
+                );
+
+                $this->load->library('email');
+                $config_email = array(
+                    'protocol' => 'smtp',
+                    'smtp_host' => 'ssl://smtp.googlemail.com',
+                    'smtp_port' => 465,
+                    'smtp_user' => $this->config->item('email'), //Active gmail
+                    'smtp_pass' => $this->config->item('password'), //Password
+                    'mailtype' => 'html',
+                    'starttls' => TRUE,
+                    'newline' => "\r\n",
+                    'charset' => $this->config->item('charset'),
+                    'wordwrap' => TRUE
+                );
+                $this->email->initialize($config_email);
+
+                $this->email->set_mailtype('html');
+                $this->email->from($this->config->item('bot_email'), 'ePMC');
+                $this->email->to($email);
+                $this->email->subject('ePMC Email Verification');
+    
+                $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Email Verification</title></head><body>';
+    
+                $message .= '<p> Dear ' . $response['first_name'] . ' ' . $response['middle_name'] . ' ' . $response['last_name'] . ',</p>';
+                $message .= '<p>Thank you for registering to ePMC. Please click the link below to verify your email address.</p>';
+                $message .= '<p><strong><a href="' . base_url('Register/verify_email/' . $response['activation_code']) . '">Verify Email</a></strong></p>';
+                $message .= '<p>Thank you!</p>';
+                $message .= '<p>ePMC Team</p>';
+                $message .= '</body></html>';
+    
+                $this->email->message($message);
+    
+                if (!$this->email->send()) {
+                    show_error($this->email->print_debugger());
+                }
+
+                $this->Admin_model->add_patient_details($patientDetails);
+                $this->Admin_model->add_patient_diagnosis($setId);
+                $this->Admin_model->add_patient_lab_reports($setId);
+                $this->Admin_model->add_patient_treatment_plan($setId);
+
             }
         // }
 
@@ -126,6 +177,22 @@ class Register_mobile extends RestController
             mkdir($folder, 0777, true);
         }
         return $folder;
+    }
+
+    public function verify_email($activation_code)
+    {
+        $user = $this->Admin_model->get_email_code($activation_code);
+        if ($user) {
+            $this->Admin_model->activate($user->patient_id);
+        }
+    }
+
+    public function dd($data)
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        die();
     }
 }
 ?>
