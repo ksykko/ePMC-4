@@ -311,36 +311,38 @@ class Doctors extends CI_Controller
             'password' => $this->input->post('password'),
         );
 
-        //$this->dd($info);
+        if ($this->security->xss_clean($info)) {
 
-        // insert a row in user_activity table
-        $user_id = $this->session->userdata('id');
-        $user_type = $this->session->userdata('role');
-        $user_activity = 'Edited personal information';
+            // insert a row in user_activity table
+            $user_id = $this->session->userdata('id');
+            $user_type = $this->session->userdata('role');
+            $user_activity = 'Edited personal information';
 
-        $this->load->model('Login_model');
-        $this->Login_model->user_activity($user_id, $user_type, $user_activity);
-
-
+            $this->load->model('Login_model');
+            $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
 
-        $activity = array(
-            'activity' => 'A user\'s account has been updated in the user accounts',
-            'module' => 'User Accounts',
-            'date_created' => date('Y-m-d H:i:s')
-        );
+            $activity = array(
+                'activity' => 'A user\'s account has been updated in the user accounts',
+                'module' => 'User Accounts',
+                'date_created' => date('Y-m-d H:i:s')
+            );
 
-        $this->Admin_model->add_activity($activity);
-        $this->session->set_flashdata('message', 'edit-user-success');
-        $this->Admin_model->edit_useracc($id, $info);
+            $this->Admin_model->add_activity($activity);
+            $this->session->set_flashdata('message', 'edit-user-success');
+            $this->Admin_model->edit_useracc($id, $info);
 
-        if ($this->session->userdata('specialization') == 'Pharmacy Assistant') {
-            redirect('PharmacyAssistant');
-        } else {
+            if ($this->session->userdata('specialization') == 'Pharmacy Assistant') {
+                redirect('PharmacyAssistant');
+            } else {
+                redirect('Doctors/index');
+            }
+
             redirect('Doctors/index');
-        }
+        } else {
 
-        redirect('Doctors/index');
+            $this->dd('xss clean failed');
+        }
     }
 
     public function update_photo($id)
@@ -386,8 +388,6 @@ class Doctors extends CI_Controller
         $this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
 
-
-
         $avatar = array(
             'avatar' => $img_name
         );
@@ -403,6 +403,50 @@ class Doctors extends CI_Controller
         }
         redirect('Doctors');
     }
+
+    public function change_password($id)
+    {
+
+        $this->form_validation->set_rules('password', 'Old Password', 'required|trim|callback_check_old_pass');
+        $this->form_validation->set_rules('new_password', 'New Password', 'required|trim|min_length[8]');
+        $this->form_validation->set_rules('conf_password', 'Confirm Password', 'required|matches[new_password]');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $this->session->set_flashdata('error', 'error-change-pass');
+            redirect('Admin');
+        } else {
+
+            $new_password = $this->security->xss_clean($this->input->post('new_password'));
+
+            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+
+            $data['password'] = $hashed_password;
+
+            //$this->dd($data);
+
+            $this->Admin_model->edit_useracc($id, $data);
+
+            $this->session->set_flashdata('message', 'success-change-pass');
+            redirect('Admin');
+        }
+    }
+
+    public function check_old_pass($old_pass)
+    {
+        $id = $this->session->userdata('id');
+        $user = $this->Admin_model->get_useracc_row($id);
+
+        //$this->dd($patient->password);
+
+        if (password_verify($old_pass, $user->password)) {
+            return TRUE;
+        } else {
+            $this->form_validation->set_message('check_old_pass', 'The {field} is incorrect');
+            return FALSE;
+        }
+    }
+
 
     public function dd($data)
     {

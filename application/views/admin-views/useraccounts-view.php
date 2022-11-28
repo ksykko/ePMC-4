@@ -25,6 +25,16 @@
                     <span>You successfully updated a user.</span>
                 </div>
             </div>
+        <?php elseif ($this->session->flashdata('message') == 'reset-password-success') : ?>
+            <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header toast-success">
+                    <strong class="me-auto">Success!</strong>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bg-opacity-50">
+                    <span>You successfully reset user's password.</span>
+                </div>
+            </div>
         <?php elseif ($this->session->flashdata('message') == 'dlt_user_success') : ?>
             <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header toast-success">
@@ -414,7 +424,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mb-2">
+                                        <div class="row">
                                             <div class="col-3"><label class="col-form-label">Email address:</label></div>
                                             <div class="col-9 col-sm-9">
                                                 <div class="input-error">
@@ -425,6 +435,20 @@
                                                     <small class="text-danger"><?= form_error('edt_email') ?></small>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <!-- <div class="row mb-2">
+                                            <div class="col-3"><label class="col-form-label">Password:</label></div>
+                                            <div class="col-9 col-sm-9">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="password" name="password" value="<?= $user->password ?>" />
+                                                    </div>
+                                                    <small class="text-danger"><?= form_error('password') ?></small>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col offset-md-6 text-end"><a class="me-1" href="<?= base_url('Admin_useracc/reset_password/') . $user->user_id ?>"><small class="badge bg-dark fw-light"><i class="fas fa-user-lock me-1"></i>Reset Password</small></a></div>
                                         </div>
                                         <input type="hidden" name="item_id" class="item_id">
                                     </div>
