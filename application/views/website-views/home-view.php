@@ -2,6 +2,10 @@
 <section id="home-banner" style="background: url('<?= base_url('/assets/img/others/PAGTAKHAN MEDICAL CLINIC.png') ?>') center / cover no-repeat;" class="py-4 py-xl-5 mt-5">
     <div class="container">
         <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center p-4 py-5" style="height: 500px;"></div>
+<!-- HERO BANNER -->
+<section id="home-banner" style="background: url('<?= base_url('/assets/img/others/PAGTAKHAN MEDICAL CLINIC.png') ?>') center / cover no-repeat;" class="py-4 py-xl-5 mt-5">
+    <div class="container">
+        <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center p-4 py-5" style="height: 500px;"></div>
     </div>
 </section>
 

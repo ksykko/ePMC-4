@@ -1,5 +1,6 @@
 <body>
     <!-- <header>
+    <!-- <header>
         <div class="container">
             <nav id="navigation">
                 <a href="#" class="logo"><img src=" <?= base_url('/assets/img/others/Logo.png') ?>" width="74" height="74"></a>
