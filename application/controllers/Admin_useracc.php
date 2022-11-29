@@ -128,7 +128,7 @@ class Admin_useracc extends CI_Controller
                 'middle_name' => $this->input->post('middle_name'),
                 'last_name' => $this->input->post('last_name'),
                 'username' => $this->input->post('username'),
-                'password' => $this->input->post('birth_date'),
+                'password' => password_hash($this->input->post('birth_date'), PASSWORD_DEFAULT),
                 'role' => $this->input->post('role'),
                 'specialization' => $this->input->post('specialization'),
                 'birth_date' => $this->input->post('birth_date'),

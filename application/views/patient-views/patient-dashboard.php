@@ -221,9 +221,18 @@
         <hr>
         <i class="fas fa-calendar-plus"></i>
         <?php
-        $date = strtotime($patient_details->consul_next);
-        $consul_next = date("l, M d Y", $date);
-        $consul_time = date("g:i A", $date);
+
+        if (is_null($patient_details->consul_next) == true) {
+            $consul_next = 'N/A';
+            $consul_time = 'N/A';
+            
+        } else {
+
+            $date = strtotime($patient_details->consul_next);
+            $consul_next = date("l, M d Y", $date);
+            $consul_time = date("g:i A", $date);
+        }
+       
         ?>
         <label for="" class="Date-label"><?= $consul_next ?> <br> <?= $consul_time ?></label>
     </div>

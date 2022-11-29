@@ -1579,12 +1579,11 @@
         $('#example').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
-            order: [
-                [1, 'asc']
-            ],
+            "order": [], //Initial no order.
+            
             "lengthMenu": [
-                [5, 10, 25, 50, 100],
-                [5, 10, 25, 50, "All"]
+                [10, 25, 50, 100, 300],
+                [10, 25, 50, 100, "All"]
             ],
             responsive: true,
 
