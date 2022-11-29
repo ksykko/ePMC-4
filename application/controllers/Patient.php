@@ -17,6 +17,7 @@ class Patient extends CI_Controller {
 
             $data['title'] = 'Patient | ePMC';
             $id = $this->session->userdata('id');
+            $id = $this->session->userdata('id');
 
             $data['user_name'] = $this->session->userdata('full_name');
             $data['user_role'] = $this->session->userdata('role');
