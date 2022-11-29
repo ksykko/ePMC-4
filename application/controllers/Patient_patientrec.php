@@ -113,8 +113,8 @@ class Patient_patientrec extends CI_Controller
             }
 
             $row = array();
-            $row[] = $treatment->p_diagnosis;
-            $row[] = $treatment->p_treatment_plan;
+            $row[] = $this->encryption->decrypt($treatment->p_diagnosis);
+            $row[] = $this->encryption->decrypt($treatment->p_treatment_plan);
             $row[] = '
                 <div class="d-md-flex justify-content-md-center">
                     <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-treatment-' . $treatment->id . '">View</a>

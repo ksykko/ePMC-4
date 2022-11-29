@@ -54,13 +54,22 @@ class Patient extends CI_Controller {
         foreach ($diagnosis->result() as $recent_diagnosis) {
             if ($id == $recent_diagnosis->patient_id) {
 
+
+                if ($recent_diagnosis->p_doctor == '' || $recent_diagnosis->p_doctor == null) {
+                    $doctor = 'No doctor assigned';
+                }
+                else {
+                    $doctor = 'Dr. ' . $this->encryption->decrypt($recent_diagnosis->p_doctor);
+                }
+
+
                 // format date to November 12, 2019 5:30 PM
                 $dt = new DateTime($recent_diagnosis->p_diag_date);
                 $date_added = $dt->format('F d, Y h:i A');
 
                 $row = array();
                 $row[] = $date_added;
-                $row[] = 'Dr. ' . $this->encryption->decrypt($recent_diagnosis->p_doctor);
+                $row[] = $doctor;
                 
                 $data[] = $row;    
             }

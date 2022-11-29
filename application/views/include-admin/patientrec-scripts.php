@@ -1579,7 +1579,13 @@
         $('#example').DataTable({
             "processing": true, //Feature control the processing indicator.
             //"serverSide": true, //Feature control DataTables' server-side processing mode.
-            order: [[1, 'asc']],
+            order: [
+                [1, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 10, 25, 50, 100],
+                [5, 10, 25, 50, "All"]
+            ],
             responsive: true,
 
             // if user is doctor, change url to doctor's datatable

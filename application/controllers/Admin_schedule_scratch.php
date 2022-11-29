@@ -27,6 +27,7 @@ class Admin_schedule_scratch extends CI_Controller
 
 			
 			foreach ($data['result'] as $key => $value) {
+				$data['data'][$key]['id'] = $value->schedule_id;
 				$data['data'][$key]['title'] = $value->doctor_name;
 				$data['data'][$key]['start'] = $value->start_date;
 				$data['data'][$key]['end'] = $value->end_date;
@@ -49,8 +50,8 @@ class Admin_schedule_scratch extends CI_Controller
 
 			//Get Schedule Data
 			$id = $this->session->userdata('schedule_id');
-			// $data['schedule'] = $this->schedModel->get_schedule_row($id);
-			// $data['schedules'] = $this->schedModel->get_schedule_table();
+			$data['schedule'] = $this->schedModel->get_schedule_row($id);
+			$data['schedules'] = $this->schedModel->get_schedule_table();
 
 
         
@@ -66,47 +67,120 @@ class Admin_schedule_scratch extends CI_Controller
 		}
 	}
 
-	public function load(){
-		$event_data = $this->schedModel->fetch_all_event();
-		foreach($event_data->result_array() as $row){
-			$data[] = array(
-				'id' => $row['schedule_id'],
-				'title' => $row['title'],
-				'start' => $row['start_date'],
-				'end' => $row['end_date'],
-				'backgroundColor' => $row['color']
-			);
-		}
-		echo json_encode($data);
-	}
+	// public function load(){
+
+		
+	// 	$event_data = $this->schedModel->fetch_all_event();
+	// 	foreach($event_data->result_array() as $row){
+	// 		$data[] = array(
+	// 			'id' => $row['schedule_id'],
+	// 			'title' => $row['title'],
+	// 			'start' => $row['start_date'],
+	// 			'end' => $row['end_date'],
+	// 			'backgroundColor' => $row['color']
+	// 		);
+	// 	}
+	// 	echo json_encode($data);
+	// }
 
 	function insert(){
-		if($this->input->post('title')){
+			$this->form_validation->set_rules('doctor_name', 'doctor', 'required', array(
+			'required' => 'Choose a %s.'
+		));
+		$this->form_validation->set_rules('start_date', 'start date', 'required', array(
+			'required' => 'Choose the %s.'
+		));
+		$this->form_validation->set_rules('end_date', 'end date');
+		// $this->form_validation->set_rules('days[]', 'day of the week', 'required', array(
+		//     'required' => 'Choose at least one %s.'
+		// ));
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message', 'add_failed');
+			$this->index();
+		} else {
+
+			$result = $this->input->post('doctor_name');
+			$result_explode = explode('|', $result);
+			$doctor_name = $result_explode[0];
+			$user_id = $result_explode[1];
+			$specialization = $result_explode[2];
+
 			$data = array(
-				'title'  => $this->input->post('title'),
-				'start_date'=> $this->input->post('start'),
-				'end_date' => $this->input->post('end')
+				'user_id' => $user_id,
+				'doctor_name' => $doctor_name,
+				'specialization' => $specialization,
+				'start_date' => $this->input->post('start_date'),
+				'end_date' => $this->input->post('end_date'),
+				'color' => $this->input->post('color')
 			);
-		$this->schedModel->insert_event($data);
+
+			$this->schedModel->insert_event($data);
+
+			$user_id = $this->session->userdata('id');
+			$user_type = $this->session->userdata('role');
+			$user_activity = 'Added a schedule';
+
+			$this->load->model('Login_model');
+			$this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+
+			$activity = array(
+				'activity' => 'A new schedule has been added in the schedules',
+				'module' => 'Schedule',
+				'date_created' => date('Y-m-d H:i:s')
+			);
+
+			$this->Admin_model->add_activity($activity);
+			$this->session->set_flashdata('message', 'success');
+			redirect('Admin_schedule_scratch');
 		}
 	}
 
 	function update() {
-		if($this->input->post('id')) {
-			$data = array(
-				'title'   => $this->input->post('title'),
-				'start_date' => $this->input->post('start'),
-				'end_date'  => $this->input->post('end')
-			);
+		$this->form_validation->set_rules('start_date', 'start date', 'required', array(
+			'required' => 'Choose the %s.'
+		));
 
+		$this->form_validation->set_rules('end_date', 'end date');
+		
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message', 'add_failed');
+			$this->index();
+		} else {
+
+			$data = array(
+				'start_date' => $this->input->post('start_date'),
+				'end_date' => $this->input->post('end_date'),
+				'color' => $this->input->post('color')
+			);
+			
 			$this->schedModel->update_event($data, $this->input->post('id'));
 		}
 	}
 
 	function delete() {
-		if($this->input->post('id')) {
-			$this->schedModel->delete_event($this->input->post('id'));
-		}
+
+		$activity = array(
+			'activity' => 'A schedule has been deleted in the list',
+			'module' => 'Schedule',
+			'date_created' => date('Y-m-d H:i:s')
+		);
+
+		// insert a row in user_activity table
+		$user_id = $this->session->userdata('id');
+		$user_type = $this->session->userdata('role');
+		$user_activity = 'Deleted a schedule';
+
+		$this->load->model('Login_model');
+		$this->Login_model->user_activity($user_id, $user_type, $user_activity);
+
+		$this->Admin_model->add_activity($activity);
+		$this->session->set_flashdata('message', 'dlt_success');
+		
+		$this->schedModel->delete_event($this->input->post('id'));
+	
 	}
 
 	

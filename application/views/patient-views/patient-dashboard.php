@@ -231,7 +231,7 @@
     <label class="recent-act-patient-label" for="" style="margin-left: 20px;"><br>Consultation History<br></label>
     <div class="recent-consultations shadow">
         <div class="dash-inner-content">
-            <table id="patient-diagnosis-table" class="table table-hover ">
+            <table id="patient-diagnosis-table" class="table table-hover" style="width:100%">
                 <thead>
                     <tr>
                         <th class="inv-td">Consultation Date</th>

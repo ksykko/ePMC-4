@@ -20,14 +20,14 @@ class Admin_schedule_model extends CI_Model {
         return $query->result();
     }
 
-    // public function get_schedule_tbl($id) {
-    //     return $this->db->get_where('new_schedule', ['schedule_id' => $id]);
-    // }
+    public function get_schedule_tbl($id) {
+        return $this->db->get_where('new_schedule', ['schedule_id' => $id]);
+    }
 
-    // public function get_schedule_table()
-    // {
-    //     return $this->db->get('new_schedule')->result();
-    // }
+    public function get_schedule_table()
+    {
+        return $this->db->get('new_schedule')->result();
+    }
 
     // public function delete_schedule($id) {
     //     return $this->db->delete('new_schedule', ['schedule_id' => $id]);
@@ -37,10 +37,10 @@ class Admin_schedule_model extends CI_Model {
     //     return $this->db->update('new_schedule', $info, ['schedule_id' => $id]);
     // }
 
-    // public function get_schedule_row($id)
-    // {
-    //     return $this->db->get_where('new_schedule', ['schedule_id' => $id])->row();
-    // }
+    public function get_schedule_row($id)
+    {
+        return $this->db->get_where('new_schedule', ['schedule_id' => $id])->row();
+    }
 
     function fetch_all_event(){
         $this->db->order_by('schedule_id');
@@ -69,6 +69,26 @@ class Admin_schedule_model extends CI_Model {
         $this->db->from('new_schedule');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function get_schedData()
+    {
+        $this->db->select('schedule_id, user_id, doctor_name, specialization, start_date, end_date');
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_startDate() {
+        $this->db->select('start_date');
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_rowstartDate($start_date) {
+        $query = $this->db->get_where('schedule', ['start_date' => $start_date]);
+        return $query->row();;
+    
     }
 }
 
