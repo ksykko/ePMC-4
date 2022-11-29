@@ -195,39 +195,25 @@
 								<div class="col"><label class="col-form-label">Choose color:</label></div>
 								<div class="row mt-4 mb-2">
 									<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color1_edit_<?= $schedule->schedule_id; ?>" value="color1" <?php if ($schedule->theme == 'color1') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color1_edit_<?= $schedule->schedule_id; ?>" value="color1" <?php if ($schedule->theme == 'color1') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color1" for="color1_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color2_edit_<?= $schedule->schedule_id; ?>" value="color2" <?php if ($schedule->theme == 'color2') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color2_edit_<?= $schedule->schedule_id; ?>" value="color2" <?php if ($schedule->theme == 'color2') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color2" for="color2_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color3_edit_<?= $schedule->schedule_id; ?>" value="color3" <?php if ($schedule->theme == 'color3') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color3_edit_<?= $schedule->schedule_id; ?>" value="color3" <?php if ($schedule->theme == 'color3') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color3" for="color3_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color4_edit_<?= $schedule->schedule_id; ?>" value="color4" <?php if ($schedule->theme == 'color4') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color4_edit_<?= $schedule->schedule_id; ?>" value="color4" <?php if ($schedule->theme == 'color4') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color4" for="color4_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color5_edit_<?= $schedule->schedule_id; ?>" value="color5" <?php if ($schedule->theme == 'color5') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color5_edit_<?= $schedule->schedule_id; ?>" value="color5" <?php if ($schedule->theme == 'color5') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color5" for="color5_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color6_edit_<?= $schedule->schedule_id; ?>" value="color6" <?php if ($schedule->theme == 'color6') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color6_edit_<?= $schedule->schedule_id; ?>" value="color6" <?php if ($schedule->theme == 'color6') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color6" for="color6_edit_<?= $schedule->schedule_id; ?>"> </label>
 
-										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color7_edit_<?= $schedule->schedule_id; ?>" value="color7" <?php if ($schedule->theme == 'color7') {
-																																																	echo ' checked';
-																																																} ?> autocomplete="off">
+										<input type="radio" class="btn-check" name="color_edit_<?= $schedule->schedule_id; ?>" id="color7_edit_<?= $schedule->schedule_id; ?>" value="color7" <?php if ($schedule->theme == 'color7') {echo ' checked';} ?> autocomplete="off">
 										<label class="btn btn-outline color7" for="color7_edit_<?= $schedule->schedule_id; ?>"> </label>
 									</div>
 								</div>
@@ -389,3 +375,50 @@
         </div>
     <?php endif; ?>
 </div>
+
+<script>
+     var events = <?php echo json_encode($data) ?>;
+    
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     var calendarEl = document.getElementById('calendar');
+
+    //     var calendar = new FullCalendar.Calendar(calendarEl, {
+    //     headerToolbar: {
+    //         left: 'prev,next today',
+    //         center: 'title',
+    //         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    //     },
+    //     initialDate: date,
+    //     editable: true,
+    //     dayMaxEvents: true, // allow "more" link when too many events
+    //     events: events,
+    //     eventClick:function(event)
+    //         {
+               
+    //             if(confirm("Are you sure you want to remove it?"))
+    //             {
+    //                 var id = event.event.id;
+                    
+    //                 $.ajax({
+    //                     url:"<?php //echo base_url('Admin_schedule_scratch/delete'); ?>",
+    //                     type:"POST",
+    //                     data:{id: id},
+    //                     success:function()
+    //                     {
+    //                         location.reload();
+    //                         event.fullCalendar('refetchEvents');
+                            
+    //                     }
+                        
+    //                 })
+    //             }
+    //         }
+    //     });
+
+    //     calendar.render();
+    // });
+</script>
