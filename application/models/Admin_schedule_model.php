@@ -70,6 +70,26 @@ class Admin_schedule_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function get_schedData()
+    {
+        $this->db->select('schedule_id, user_id, doctor_name, specialization, start_date, end_date');
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_startDate() {
+        $this->db->select('start_date');
+        $this->db->from('schedule');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_rowstartDate($start_date) {
+        $query = $this->db->get_where('schedule', ['start_date' => $start_date]);
+        return $query->row();;
+    
+    }
 }
 
 ?>
