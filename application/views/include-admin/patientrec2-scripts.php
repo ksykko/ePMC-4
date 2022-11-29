@@ -1406,6 +1406,23 @@
         //... and adds the "active" class on the current step:
         x[n].className += " active";
     }
+
+
+    function printPresc() {
+        printJS({
+            printable: 'prescription',
+            type: 'html',
+            header: 'Prescription',
+            style: 'https://www.w3schools.com/w3css/4/w3.css'
+
+        })
+    }
+
+    document.getElementById("printPresc").addEventListener("click", printPresc);
+
+
+
+
 </script>
 
 

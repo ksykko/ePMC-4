@@ -261,11 +261,11 @@
                                     <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                     <hr size="5" />
                                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
-                                        <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm rounded-pill" type="text" id="ec_name" name="ec_name" value="<?= set_value('ec_name') ?>" />
+                                        <div class="col form-group required px-1"><label class="form-label">Name</label><input class="form-control form-control-sm rounded-pill" type="text" id="ec_name" name="ec_name" value="<?= set_value('ec_name') ?>" />
                                             <label id="ec_name_error" class="text-danger font-monospace" style="font-size:13px"></label>
 
                                         </div>
-                                        <div class="col form-group px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm rounded-pill text-dark" id="relationship" name="relationship">
+                                        <div class="col form-group required px-1"><label class="form-label">Relationship</label><select class="form-select form-select-sm rounded-pill text-dark" id="relationship" name="relationship">
                                                 <option value="" selected disabled>select ...</option>
                                                 <option value="Father">Father</option>
                                                 <option value="Mother">Mother</option>
@@ -280,7 +280,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-2">
-                                        <div class="col form-group px-1 col-md-6"><label class="form-label">Contact No.</label>
+                                        <div class="col form-group required px-1 col-md-6"><label class="form-label">Contact No.</label>
                                             <input class="form-control form-control-sm rounded-pill" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= set_value('ec_contact_no') ?>" />
                                             <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
