@@ -80,3 +80,4 @@ $route['adm_Satsched'] = 'api/Admin_schedule/sat_schedData';
 $route['register_mobile'] = 'api/Register_mobile/register';
 $route['adm_sched_mobile'] = 'api/Admin_schedule_mobile/sched_data';
 $route['profile_mobile'] = 'api/Profile_mobile/profile';
+$route['editprofile_mobile'] = 'api/Profile_mobile/update';

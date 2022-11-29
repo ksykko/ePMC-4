@@ -51,76 +51,8 @@
     <?php endif; ?>
 </div>
 <div class="container-fluid mt-5">
-    <!-- Start: first row -->
-    <div class="row gy-3 row-cols-1 row-cols-lg-4 mb-4 dshb-main">
-        <div class="col">
-            <div class="card dashboard-cards border-0 h-100">
-                <div class="card-body bw-dashboard">
-                    <div class="dash-inner-content">
-                        <i class="fas fa-notes-medical"></i>
-                        <label for="" class="number-label">
-                            <?= $patient_count ?>
-                        </label>
-                        <label for="" class="description-label">Total no. of Patient
-                            Records</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card dashboard-cards border-0 h-100">
-                <div class="card-body bw-dashboard">
-                    <div class="dash-inner-content">
-                        <i class="fas fa-archive"></i>
-                        <label for="" class="number-label">
-                            <?php
-                            $sum_stockin = 0;
-                            $sum_stockout = 0;
-                            foreach ($inventory_stocks as $product) {
-                                $sum_stockin += $product->stock_in;
-                                $sum_stockout += $product->stock_out;
-                            }
-                            echo $sum_stockin + $sum_stockout;
-                            ?>
-                        </label>
-                        <label for="" class="description-label">Total no. of Inventory
-                            Items</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card dashboard-cards border-0 h-100">
-                <div class="card-body bw-dashboard">
-                    <div class="dash-inner-content">
-                        <i class="fas fa-user-alt"></i>
-                        <label for="" class="number-label">
-                            <?= $users_count ?>
-                        </label>
-                        <label for="" class="description-label">Total no. of User
-                            Accounts</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card dashboard-cards border-0 h">
-                <div class="card-body bw-dashboard">
-                    <div class="dash-inner-content">
-                        <i class="fas fa-address-book"></i>
-                        <label for="" class="number-label">
-                            <?= $new_patient_count ?>
-                        </label>
-                        <label for="" class="description-label">Total no. of New Patients
-                            today</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End: first row -->
     <!-- Start: second row -->
-    <div class="row gy-3 row-cols-1 row-cols-lg-3 mb-4">
+    <div class="row gy-3 row-cols-1 row-cols-lg-3 mt-3 mb-4">
         <div class="col col-lg-3">
             <div class="card shadow mb-4 profile-card">
                 <div class="card-body text-center shadow profile-card">
