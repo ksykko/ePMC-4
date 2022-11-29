@@ -26,7 +26,7 @@
                         <hr size="5" />
                         <!-- DOCTOR NAME -->
                         <div class="row mt-4 mb-2">
-                            <div class="col"><label class="col-form-label">Doctor Name:</label></div>
+                            <div class="col"><label class="col-form-label">Title:</label></div>
                             <div class="col">
                                 <div class="input-error">
                                     <div class="input-group">
@@ -34,6 +34,10 @@
                         
                                         <select class="form-control" name="doctor_name" id="doctor_name" >
                                             <option value="select" disabled selected>select..</option>
+                                            <?php foreach ($patientname as $patient) : ?>
+                                                <option value="<?= $patient->first_name . ' ' . $patient->last_name . '|' . $patient->patient_id . '|' . $patient->un_patient_id ?>"><?= $patient->first_name . ' ' . $patient->last_name ?></option>
+                                            <?php endforeach; ?>
+
                                             <?php foreach ($doctorname as $doctor) : ?>
                                                 <option value="<?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name . '|' . $doctor->user_id . '|' . $doctor->specialization ?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
                                             <?php endforeach; ?>
@@ -125,7 +129,7 @@
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title ms-3 fw-bolder"> Edit Schedule</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h4 class="modal-title ms-3 fw-bolder">Schedule</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
     
                         <div class="modal-body mx-5">
@@ -133,7 +137,7 @@
                             <hr size="5" />
                             <!-- DOCTOR NAME -->
                             <div class="row mt-4 mb-2">
-                                <div class="col"><label class="col-form-label">Doctor Name:</label></div>
+                                <div class="col"><label class="col-form-label">Title:</label></div>
                                 <div class="col">
                                     <div class="input-error">
                                         <div class="input-group">
@@ -150,7 +154,12 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- set time to 7:00 am -->
-                                            <input type="datetime-local" class="form-control" name="start_date_edit" id="start_date_edit">
+                                            <?php if ($user_role == 'Admin') : ?>
+                                                <input type="datetime-local" class="form-control" name="start_date_edit" id="start_date_edit">   
+                                            <?php else : ?> 
+                                                <input type="datetime-local" class="form-control" name="start_date_edit" id="start_date_edit" disabled>
+                                            <?php endif; ?> 
+                                            
                                         </div>
     
                                     </div>
@@ -162,7 +171,12 @@
                                 <div class="col">
                                     <div class="input-error">
                                         <div class="input-group">
-                                            <input type="datetime-local" class="form-control" name="end_date_edit" id="end_date_edit">
+                                            <?php if ($user_role == 'Admin') : ?>
+                                                <input type="datetime-local" class="form-control" name="end_date_edit" id="end_date_edit">   
+                                            <?php else : ?> 
+                                                <input type="datetime-local" class="form-control" name="end_date_edit" id="end_date_edit" disabled>
+                                            <?php endif; ?> 
+                                            
                                         </div>
     
                                     </div>
@@ -170,6 +184,8 @@
                             </div>
     
                             <!-- THEME COLOR -->
+
+                            <?php if ($user_role == 'Admin') : ?>
                             <div class="col"><label class="col-form-label">Choose color:</label></div>
                             <div class="row mt-4 mb-2">
                                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -194,11 +210,20 @@
                                     <input type="radio" class="btn-check" name="color2" id="color7_edit" value="e5d8bd" autocomplete="off">
                                     <label class="btn btn-outline color7" for="color7_edit"> </label>
                                 </div>
-                            </div>
+                            </div>      
+                            
+                            <?php endif; ?> 
+                            
+                            
                             <div class="modal-footer">
-                            <button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                            <button class="btn btn-primary btn-sm " type="submit" id="deleteBtn" name="Delete" style="background: red;"> Delete Schedule</button>
-                            <button class="btn btn-primary btn-sm btn-modal" type="submit" id="saveBtn" name="Save" style="background: #3269bf;">Save</button></div>
+                            
+                            <?php if ($user_role == 'Admin') : ?>
+                                <button class="btn btn-primary btn-sm " type="submit" id="deleteBtn" name="Delete" style="background: red;"> Delete Schedule</button>
+                                <button class="btn btn-primary btn-sm btn-modal" type="submit" id="saveBtn" name="Save" style="background: #3269bf;">Save</button></div>
+                                <button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                            <?php endif; ?>
+                            
+                           
                         </div>
                     </div>
                 </div>
