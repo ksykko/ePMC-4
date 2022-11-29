@@ -822,7 +822,7 @@
                         </div>
                         <div id="card-prescription" class="card shadow mb-4" style="height: 540px;">
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 ch-patientrec add-header">
+                                <div class="card-header py-3 ch-patientrec">
                                     <div class="d-flex">
                                         <div class="me-auto">
                                             <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
@@ -833,7 +833,7 @@
                                     </div>
                                 </div>
                                 <div id="print_prescription" class="card-body mx-3">
-                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;" readonly><?= $healthinfo->prescription ?></textarea></div>
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;" readonly><?= $this->encryption->decrypt($healthinfo->prescription) ?></textarea></div>
                                 </div>
                             </div>
                         </div>
@@ -844,12 +844,7 @@
                             <div class="card-body mx-3">
                                 <div class="row">
                                     <div class="col-xxl-12">
-                                        <?php
-                                        $date = strtotime($patient_details->consul_next);
-                                        $consul_next = date("l, M d Y", $date);
-                                        $consul_time = date("g:i A", $date);
-                                        ?>
-                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" readonly /></div>
                                     </div>
                                 </div>
                             </div>
@@ -970,6 +965,34 @@
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col">
+            <div id="accordion-2" class="accordion" role="tablist">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-1" aria-expanded="true" aria-controls="accordion-2 .item-1">Objectives</button></h2>
+                    <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                        <div class="accordion-body mx-3">
+                            <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $this->encryption->decrypt($healthinfo->objectives) ?></textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col">
+            <div id="accordion-3" class="accordion" role="tablist">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="true" aria-controls="accordion-3 .item-1">Symptoms</button></h2>
+                    <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                        <div class="accordion-body mx-3">
+                            <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $this->encryption->decrypt($healthinfo->symptoms) ?></textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col">
             <div class="card shadow mb-4">
@@ -1019,7 +1042,7 @@
                                                                 <div class="col">
                                                                     <div class="input-error">
                                                                         <div class="input-group">
-                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. '. $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
+                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. ' . $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
                                                                         </div>
                                                                         <small class="text-danger"><?= form_error('role') ?></small>
                                                                     </div>

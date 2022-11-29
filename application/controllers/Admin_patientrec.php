@@ -1064,23 +1064,25 @@ class Admin_patientrec extends CI_Controller
 
                     $img_name = 'default-avatar.png';
                     $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
-
                 } else {
 
                     $img_name = $this->upload->data('file_name') . '.' . $fileExt;
                     $this->session->set_flashdata('error-profilepic', $this->upload->display_errors());
-
                 }
-
-                redirect('Admin_patientrec/view_patient/' . $id);
-
             } else {
                 $img_name = $this->upload->data('file_name');
             }
 
-            // Convert ISO 8601 datetime-local input format to MySQL datetime format
-            $consul_next = date('Y-m-d\TH:i:s', strtotime($this->input->post('consul_next')));
-            $formatted_consul = date('Y-m-d H:i:s', strtotime($consul_next));
+            if ($this->input->post('consul_next') == '' || $this->input->post('consul_next') == NULL) {
+
+                $formatted_consul = NULL;
+            } else {
+
+                // Convert ISO 8601 datetime-local input format to MySQL datetime format
+                $consul_next = date('Y-m-d\TH:i:s', strtotime($this->input->post('consul_next')));
+                $formatted_consul = date('Y-m-d H:i:s', strtotime($consul_next));
+            }
+
 
             $avatar = array(
                 'avatar' => $img_name

@@ -936,10 +936,10 @@
                             </div>
                         </div>
                         <?php if ($user_role == 'Doctor') : ?>
-                            <div class="card shadow mb-4">
+                            <div id="presc-card" class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
                                     <!-- Print Prescription -->
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading me-auto">Prescription</h6><a class="btn btn-sm btn-dark" onclick="window.print()" >Print</a>
+                                    <h6 class="m-0 fw-bold fs-5 ch-heading me-auto">Prescription</h6><a class="btn btn-sm btn-dark me-3" onclick="printJS('prescription', 'html')"><i class="fas fa-print me-1"></i>Print</a>
                                 </div>
                                 <div id="print_prescription" class="card-body mx-3">
                                     <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $this->encryption->decrypt($healthinfo->prescription) ?></textarea></div>

@@ -153,12 +153,12 @@
                     </label><br>
                     <div class="row mt-3">
                         <div class="col">
-                            <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" style="width: 133.64px;" type="button" data-bs-toggle="modal" data-bs-target="#settings">Settings</button></div>
+                            <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
+                            <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" style="width: 133.64px;" type="button" data-bs-toggle="modal" data-bs-target="#settings">Settings</button></div>
                         </div>
                     </div>
                 </div>

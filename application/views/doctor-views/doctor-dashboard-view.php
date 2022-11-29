@@ -51,7 +51,7 @@
     <?php endif; ?>
 </div>
 <div class="container-fluid mt-5">
-    
+
     <!-- End: first row -->
     <!-- Start: second row -->
     <div class="row gy-3 row-cols-1 row-cols-lg-3 mt-3 mb-4">
@@ -67,12 +67,13 @@
                     </label><br>
                     <div class="row">
                         <div class="col">
-                            <div class="btn-group mt-3" role="group"><button class="btn btn-sm btn-light" style="width: 133.64px;" type="button" data-bs-toggle="modal" data-bs-target="#settings">Settings</button></div>
+                            <div class="btn-group mt-3 " role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#view-pers-info">View Profile</button></div>
+                            <div class="btn-group mt-3 mt-lg-2" role="group"><button class="btn btn-sm btn-light" style="width: 133.64px;" type="button" data-bs-toggle="modal" data-bs-target="#settings">Settings</button></div>
                         </div>
                     </div>
 
