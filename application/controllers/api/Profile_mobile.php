@@ -61,5 +61,15 @@ class Profile_mobile extends RestController
 
         echo json_encode($response);
     }
+
+    public function update_post() {
+        $data=json_decode(file_get_contents('php://input'));
+
+        $email=$data->email;
+        $pass=$data->pass;
+
+        $result = $this->Login_model->login($email,$pass);
+
+    }
 }
 ?>
