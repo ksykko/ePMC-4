@@ -525,3 +525,10 @@ if (toastTrigger) {
 function changePhoto() {
     $('#changePhoto').submit();
 }
+
+
+// get textarea value id="prescription"
+
+// function getPrescription() {
+//     var prescription = document.getElementById('prescription').value;
+//     console.log(prescription);

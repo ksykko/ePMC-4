@@ -1,5 +1,6 @@
 <body>
     <!-- <header>
+    <!-- <header>
         <div class="container">
             <nav id="navigation">
                 <a href="#" class="logo"><img src=" <?= base_url('/assets/img/others/Logo.png') ?>" width="74" height="74"></a>
@@ -24,7 +25,6 @@
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('Web') ?>">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact-us">Contact Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about-us">Services</a></li>
                     <li class="nav-item"><a class="nav-link fw-bold" href="<?= base_url('Login/signin') ?>">Login</a></li>
                 </ul>
             </div>

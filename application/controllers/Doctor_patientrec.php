@@ -6,7 +6,7 @@ class Doctor_patientrec extends CI_Controller
         parent::__construct();
 
         $this->load->helper(['url', 'form', 'date', 'string']);
-        $this->load->library(['form_validation', 'session', 'pagination']);
+        $this->load->library(['form_validation', 'session', 'pagination', 'encryption']);
         $this->load->model('Admin_model');
         $this->load->model('Doctors_model');
     }
@@ -97,8 +97,8 @@ class Doctor_patientrec extends CI_Controller
 
             $row = array();
             $row[] = $diag_date;
-            $row[] = $diagnosis->p_recent_diagnosis;
-            $row[] = $diagnosis->p_doctor;
+            $row[] = $this->encryption->decrypt($diagnosis->p_recent_diagnosis);
+            $row[] = $this->encryption->decrypt($diagnosis->p_doctor);
             $row[] = '
                 <td class="text-center" colspan="1">
                     <a class="btn btn-sm btn-light mx-2" type="button" data-bs-toggle="modal" data-bs-target="#view-diagnosis-' . $diagnosis->id . '">View</a>
@@ -157,4 +157,6 @@ class Doctor_patientrec extends CI_Controller
         );
         echo json_encode($output);
     }
+
+
 }

@@ -633,13 +633,13 @@
                     </div>
                 </div>
             <?php elseif ($this->session->flashdata('error-profilepic')) : ?>
-                <div id="liveToast" class="toast toast-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="liveToast" class="toast toast-error" role="alert" aria-live="assertive" aria-atomic="true">
                     <div class="toast-header text-bg-danger bg-opacity-100">
                         <strong class="me-auto">Error!</strong>
                         <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
                     <div class="toast-body bg-opacity-50">
-                        <span>Patient's profile picture has not been updated. <?= $this->session->flashdata('error') ?></span>
+                        <span>Patient's profile picture has not been updated. <?= $this->session->flashdata('error-profilepic') ?></span>
                     </div>
                 </div>
             <?php elseif ($this->session->flashdata('error')) : ?>
@@ -936,19 +936,13 @@
                             </div>
                         </div>
                         <?php if ($user_role == 'Doctor') : ?>
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3 ch-patientrec add-header">
-                                    <div class="d-flex">
-                                        <div class="me-auto">
-                                            <h6 class="m-0 fw-bold fs-5 ch-heading">Prescription</h6>
-                                        </div>
-                                        <div>
-                                            <!-- <button class="btn btn-sm btn-success btn-save-patient" onclick="printPage()" type="button"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none">Print</span></button> -->
-                                        </div>
-                                    </div>
+                            <div id="presc-card" class="card shadow mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                                    <!-- Print Prescription -->
+                                    <h6 class="m-0 fw-bold fs-5 ch-heading me-auto">Prescription</h6><a class="btn btn-sm btn-dark me-3" onclick="printJS('prescription', 'html')"><i class="fas fa-print me-1"></i>Print</a>
                                 </div>
                                 <div id="print_prescription" class="card-body mx-3">
-                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 426px;"><?= $healthinfo->prescription ?></textarea></div>
+                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $this->encryption->decrypt($healthinfo->prescription) ?></textarea></div>
                                 </div>
                             </div>
 
@@ -1130,7 +1124,7 @@
                             <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-1" aria-expanded="true" aria-controls="accordion-2 .item-1">Objectives</button></h2>
                             <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
                                 <div class="accordion-body mx-3">
-                                    <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $healthinfo->objectives ?></textarea></div>
+                                    <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $this->encryption->decrypt($healthinfo->objectives) ?></textarea></div>
                                 </div>
                             </div>
                         </div>
@@ -1144,7 +1138,7 @@
                             <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="true" aria-controls="accordion-3 .item-1">Symptoms</button></h2>
                             <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
                                 <div class="accordion-body mx-3">
-                                    <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $healthinfo->symptoms ?></textarea></div>
+                                    <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $this->encryption->decrypt($healthinfo->symptoms) ?></textarea></div>
                                 </div>
                             </div>
                         </div>
@@ -1159,52 +1153,48 @@
         <div class="row">
             <div class="col">
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
-                        <div class="d-flex">
-                            <div class="me-auto">
-                                <h6 class="bd-highlight fw-bold fs-5 ch-heading">Patient Diagnosis</h6>
-                            </div>
-                            <div><button id="add-diagnosis" class="btn btn-success btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
-                                <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
-                                    <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
-                                    <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
+                        <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Patient Diagnosis</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
+                                <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
+                                </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
+                        <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
+                            <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
+                            <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body mx-sm-5">
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                            <div class="col">
+                                                <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea><?= set_value('p_recent_diagnosis') ?></div>
+                                                <small class="text-danger"><?= form_error('p_recent_diagnosis') ?></small>
                                             </div>
-                                            <div class="modal-body mx-sm-5">
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea><?= set_value('p_recent_diagnosis') ?></div>
-                                                        <small class="text-danger"><?= form_error('p_recent_diagnosis') ?></small>
+                                        </div>
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                            <div class="col">
+                                                <div class="input-error">
+                                                    <div class="input-group">
+                                                        <!-- role -->
+                                                        <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
+                                                            <option value="select" disabled selected>select...</option>
+                                                            <?php foreach ($doctors as $doctor) : ?>
+                                                                <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
                                                     </div>
-                                                </div>
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-error">
-                                                            <div class="input-group">
-                                                                <!-- role -->
-                                                                <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
-                                                                    <option value="select" disabled selected>select...</option>
-                                                                    <?php foreach ($doctors as $doctor) : ?>
-                                                                        <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= $doctor->first_name . ' ' . $doctor->last_name ?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </div>
-                                                            <small class="text-danger"><?= form_error('role') ?></small>
-                                                        </div>
-                                                    </div>
+                                                    <small class="text-danger"><?= form_error('role') ?></small>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
                                         </div>
                                     </div>
-                                    <?= form_close() ?>
+                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
                                 </div>
                             </div>
+                            <?= form_close() ?>
                         </div>
                     </div>
                     <div class="card-body mx-3 pt-4 pb-5">
@@ -1226,16 +1216,19 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <?php
-                                                            //$diag_date = unix_to_human(mysql_to_unix($diagnosis->p_diag_date));
+                                                            // format date to readable format eg. November 12, 2020 12:00 AM
+                                                            $date = date_create($diagnosis->p_diag_date);
+                                                            $date = date_format($date, 'F d, Y h:i A');
+                                            
                                                             ?>
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title ms-3 fw-bolder">Diagnosis <?= $diag_date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <h4 class="modal-title ms-3 fw-bolder">Diagnosis on <?= $date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body mx-sm-5">
                                                                 <div class="row mt-4 mb-2">
                                                                     <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
                                                                     <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $diagnosis->p_recent_diagnosis ?></textarea></div>
+                                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($diagnosis->p_recent_diagnosis) ?></textarea></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row mt-4 mb-2">
@@ -1243,7 +1236,7 @@
                                                                     <div class="col">
                                                                         <div class="input-error">
                                                                             <div class="input-group">
-                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= $diagnosis->p_doctor ?>" readonly />
+                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. '. $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
                                                                             </div>
                                                                             <small class="text-danger"><?= form_error('role') ?></small>
                                                                         </div>
@@ -1280,40 +1273,36 @@
         <div class="row">
             <div class="col">
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3 ch-patientrec ch-patientdiag add-header">
-                        <div class="d-flex">
-                            <div class="me-auto">
-                                <h6 class="bd-highlight fw-bold fs-5 ch-heading">Treatment Plan</h6>
-                            </div>
-                            <div><button id="add-treatment-plan" class="btn btn-success btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatment-plan"><i class="typcn typcn-document-add"></i><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
-                                <div id="mdl-add-treatment-plan" class="modal fade" role="dialog" tabindex="-1">
-                                    <?php $addTreatmentPath = 'Admin_patientrec/add_treatment/' . $patient->patient_id; ?>
-                                    <?= form_open_multipart($addTreatmentPath, array('id' => 'addTreatmentForm')); ?>
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title ms-3 fw-bolder">Add Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
+                        <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Treatment Plan</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatment-plan"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
+                                <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
+                            </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
+                        <div id="mdl-add-treatment-plan" class="modal fade" role="dialog" tabindex="-1">
+                            <?php $addTreatmentPath = 'Admin_patientrec/add_treatment/' . $patient->patient_id; ?>
+                            <?= form_open_multipart($addTreatmentPath, array('id' => 'addTreatmentForm')); ?>
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title ms-3 fw-bolder">Add Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body mx-sm-5">
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                            <div class="col">
+                                                <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;"></textarea></div>
                                             </div>
-                                            <div class="modal-body mx-sm-5">
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;"></textarea></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-4 mb-2">
-                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
-                                                    <div class="col">
-                                                        <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;"></textarea></div>
-                                                    </div>
-                                                </div>
+                                        </div>
+                                        <div class="row mt-4 mb-2">
+                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
+                                            <div class="col">
+                                                <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;"></textarea></div>
                                             </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success btn-save-patient" type="submit">Save</button></div>
                                         </div>
                                     </div>
-                                    <?= form_close(); ?>
+                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
                                 </div>
                             </div>
+                            <?= form_close(); ?>
                         </div>
                     </div>
                     <div class="card-body mx-3">
@@ -1340,13 +1329,13 @@
                                                                 <div class="row mt-4 mb-2">
                                                                     <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
                                                                     <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" disabled><?= $treatment->p_diagnosis ?></textarea></div>
+                                                                        <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_diagnosis) ?></textarea></div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row mt-4 mb-2">
                                                                     <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
                                                                     <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" disabled><?= $treatment->p_treatment_plan ?></textarea></div>
+                                                                        <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_treatment_plan) ?></textarea></div>
                                                                     </div>
                                                                 </div>
                                                             </div>

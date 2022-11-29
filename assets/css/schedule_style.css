@@ -234,7 +234,9 @@ table.table-fit tfoot td {
     font-weight: 600;
 }
 
-
+.fc-daygrid-event-harness {
+    cursor: pointer !important;
+}
 
 @media (min-width: 1366px){
     h6 {

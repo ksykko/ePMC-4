@@ -214,12 +214,11 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Username</th>
                                 <th>Role</th>
                                 <th>Birthdate</th>
                                 <th>Contact #</th>
                                 <th>Email</th>
-                                <th class="text-center col-md-3">Action</th>
+                                <th class="text-center col-md-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>

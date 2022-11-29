@@ -134,6 +134,23 @@ class Login_model extends CI_Model
 
     }
 
+    public function reset_password($cred) 
+    {
+        // look for email or un_patient_id in patient_record and user_accounts
+        $query1 = $this->db->get_where('patient_record', ['email' => $cred]);
+        $query2 = $this->db->get_where('user_accounts', ['email' => $cred]);
+        $query3 = $this->db->get_where('patient_record', ['un_patient_id' => $cred]);
+
+        if ($query1->num_rows() > 0) {
+           
+            return $query1->row();
+        } else if ($query2->num_rows() > 0) {
+            return $query2->row();
+        } else if ($query3->num_rows() > 0) {
+            return $query3->row();
+        } 
+    }
+
     public function user_activity($user_id, $user_type, $activity)
     {
 

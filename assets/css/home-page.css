@@ -526,3 +526,42 @@ button:hover {
 #continueBtn {
     background-color: #3269bf;
 }
+
+
+/* * Toasts */
+
+.alert-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1055;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+.toast-dialog {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast-error {
+    background-color: #f75663d5;
+    color: white;
+}
+
+.toast-success {
+    background-color: #0abd90e1;
+    color: white;
+}
+
+.footer-text {
+    letter-spacing: 4px;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+}
