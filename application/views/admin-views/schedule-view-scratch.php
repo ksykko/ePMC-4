@@ -57,6 +57,7 @@
                                             var today = currentdate.toISOString().slice(0, 16);
 
                                             document.getElementsByName("start_date")[0].min = today;
+                                            
 
                                             $("#start_date").on("change", function(){
                                                 $("#end_date").attr("min", $(this).val());
