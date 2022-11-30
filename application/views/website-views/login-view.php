@@ -36,22 +36,30 @@
                                         </div>
                                     <?php endif; ?>
                                     <form class="user">
+                                        <label for="text" style="font-size: 20px; padding-bottom:7px;"><strong>Patient ID or Email</strong></label>
                                         <div class="mb-3"><input class="form-control form-control-user" type="text" id="text" name="email" placeholder="Enter Patient ID or Email"></div>
+                                        <label for="text" style="font-size: 20px; padding-bottom:7px;"><strong>Password</strong></label>
                                         <div class="mb-3"><input class="form-control form-control-user" type="password" id="password" name="password" placeholder="Password"></div>
                                         <dsv class="mb-3">
                                             <dsv class="mb-3">
                                                 <div class="custom-control custom-checkbox small"></div>
                                             </dsv><button class="btn btn-primary d-block btn-user w-100" type="submit" name="login" style="background: #0f6bae;">Login</button>
+
+                                            
                                     </form>
+                                    
                                     <div class="row mt-3">
-                                        <div class="col d-flex justify-content-end">
-                                            <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none text-muted">Forgot Password?</a>
-                                        </div>
+                                        <a class="small text-decoration-none  btn btn-primary d-block btn-user w-100" style="font-size: 15px; color:white !important;" href="<?= base_url('Register/') ?>">Sign Up</a>
                                     </div>
                                     <hr>
                                     <?= form_close(); ?>
                                     <div class="text-center"></div>
-                                    <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small text-decoration-none text-muted" href="<?= base_url('Register/') ?>">Don't Have an Account? Register Here.</a></div>
+                                    
+                                    <div class="row mt-3">
+                                        <div class="col d-flex justify-content-end">
+                                            <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none text-muted" style="font-size: 20px;">Forgot Password?</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

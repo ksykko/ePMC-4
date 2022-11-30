@@ -124,7 +124,7 @@ class Admin_schedule_scratch extends CI_Controller
 			$this->load->model('Login_model');
 			$this->Login_model->user_activity($user_id, $user_type, $user_activity);
 
-			//try try try
+			
 			$activity = array(
 				'activity' => 'A new schedule has been added in the schedules',
 				'module' => 'Schedule',

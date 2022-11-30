@@ -77,7 +77,7 @@
             <div class="card dashboard-cards border-0 h-100">
                 <div class="card-body bw-dashboard">
                     <div class="dash-inner-content">
-                        <i class="fas fa-notes-medical"></i>
+                    <img src="https://img.icons8.com/color/48/null/treatment-plan.png"/>
                         <label for="" class="number-label">
                             <?= $patient_count ?>
                         </label>
@@ -91,7 +91,7 @@
             <div class="card dashboard-cards border-0 h-100">
                 <div class="card-body bw-dashboard">
                     <div class="dash-inner-content">
-                        <i class="fas fa-archive"></i>
+                    <img src="https://img.icons8.com/color/48/null/scan-stock.png"/>
                         <label for="" class="number-label">
                             <?php
                             $sum_stockin = 0;
@@ -113,7 +113,7 @@
             <div class="card dashboard-cards border-0 h-100">
                 <div class="card-body bw-dashboard">
                     <div class="dash-inner-content">
-                        <i class="fas fa-user-alt"></i>
+                    <img src="https://img.icons8.com/color/48/null/weak-person--v1.png"/>
                         <label for="" class="number-label">
                             <?= $users_count ?>
                         </label>
@@ -127,7 +127,7 @@
             <div class="card dashboard-cards border-0 h">
                 <div class="card-body bw-dashboard">
                     <div class="dash-inner-content">
-                        <i class="fas fa-address-book"></i>
+                    <img src="https://img.icons8.com/color/48/null/triangular-bandage.png"/>
                         <label for="" class="number-label">
                             <?= $new_patient_count ?>
                         </label>
@@ -165,20 +165,20 @@
             </div>
         </div>
         <div class="col col-lg-6">
-            <div class="card shadow mb-4 chart-body-purp h-100">
-                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-purp">
-                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">User Activity</h6>
+            <div class="card shadow mb-4 h-100" style="background-color: #b83eb8;">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec" style="background-color: #ff00ff;">
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading" style="color: #0000ff;">User Activity</h6>
                 </div>
-                <div class="card-body mx-3 my-3">
+                <div class="card-body mx-3 my-3" >
                     <div id="activity_chart"></div>
                 </div>
             </div>
 
         </div>
         <div class="col col-lg-3">
-            <div class="card shadow mb-4 h-100 chart-body-violet">
-                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
-                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Patient Satisfaction</h6>
+            <div class="card shadow mb-4 h-100" style="background-color: #7ad95b;">
+                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec " style="background-color: #40ff00;">
+                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading" style="color:#ff05f3;">Patient Satisfaction</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -335,15 +335,15 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="card-body mx-5">
+                    <div class="card-body">
 
                         <div class="tab-content" id="nav-tabContent">
                             <!-- Edit Profile -->
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            <div class="tab-pane fade show active" style="text-align: right;" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                                 <?php $updateUserInfoPath = 'Admin/edit_useracc/' . $admin_id; ?>
                                 <?= form_open($updateUserInfoPath, array('id' => 'edit_info')); ?>
                                 <div class="row row-cols-1 row-cols-lg-2 mb-1 mb-lg-1">
-                                    <div class="col col-lg-5"><label class="col-form-label text-body">First Name</label></div>
+                                    <div class="col col-lg-5" style="text-align: right;"><label class="col-form-label text-body">First Name</label></div>
                                     <div class="col col-lg-7">
                                         <div class="input-group"><input class="form-control form-control-sm" type="text" id="first_name" name="first_name" value="<?= $user->first_name ?>" /></div>
                                         <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -411,20 +411,20 @@
                                 <?php $updatePatientPath = 'Admin/change_password/' . $user->user_id; ?>
                                 <?= form_open_multipart($updatePatientPath, array('id' => 'changePass')); ?>
                                 <div class="row row-cols-1 row-cols-lg-2">
-                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Old Password</label></div>
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label" style="font-family: arial black;">Old Password</label></div>
                                     <div class="col-lg-7">
                                         <div class="input-group"><input id="password" class="form-control form-control-sm" type="password" name="password" /></div>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-lg-2">
-                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">New Password</label></div>
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label" style="font-family: 'tahoma', sans-serif;">New Password</label></div>
                                     <div class="col-lg-7">
                                         <div class="input-group"><input id="new_password" class="form-control form-control-sm" type="password" name="new_password" /></div>
                                         <label id="new_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-lg-2 mb-5">
-                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label">Confirm Password</label></div>
+                                    <div class="col-lg-5 text-start justify-content-start align-items-center"><label class="col-form-label" style="font-family: impact;">Confirm Password</label></div>
                                     <div class="col-lg-7">
                                         <div class="input-group"><input id="conf_password" class="form-control form-control-sm" type="password" name="conf_password" /></div>
                                         <label id="conf_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
