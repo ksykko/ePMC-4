@@ -111,10 +111,7 @@
                                         <input class="form-control form-control-sm" type="text" id="address" name="address" value="<?= set_value('address') ?>" />
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="tab">
-                                <h5 class="heading-modal fw-semibold">Contact Information</h5>
+                                <h5 class="heading-modal fw-semibold mt-4">Contact Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" value="<?= set_value('cell_no') ?>" />
@@ -129,10 +126,7 @@
                                         <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="tab">
-                                <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
+                                <h5 class="heading-modal fw-semibold mt-4">Emergency Contact</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
                                     <div class="col form-group px-1"><label class="form-label">Name</label><input class="form-control form-control-sm" type="text" id="ec_name" name="ec_name" value="<?= set_value('ec_name') ?>" /></div>
@@ -156,6 +150,8 @@
                                 </div>
                             </div>
 
+
+
                         </div>
                         <!-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary btn-modal" type="submit" style="background: #3269bf;">Next</button></div> -->
                         <div class="modal-footer" style="overflow:auto;">
@@ -166,7 +162,7 @@
                         </div>
                         <?= form_close(); ?>
                         <!-- Circles which indicates the steps of the form: -->
-                        <div class="mb-4" style="text-align:center;">
+                        <div class="mb-4" style="text-align:center; display: none">
                             <span class="step"></span>
                             <span class="step"></span>
                             <span class="step"></span>
@@ -357,7 +353,7 @@
 
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4 p-5 pt-4 pb-5">
+            <div class="card shadow">
                 <div>
                     <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
                         <?php if ($this->session->flashdata('message') == 'success') : ?>

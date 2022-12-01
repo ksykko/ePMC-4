@@ -935,461 +935,424 @@
                                 </form>
                             </div>
                         </div>
-                        <?php if ($user_role == 'Doctor') : ?>
-                            <div id="presc-card" class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                                    <!-- Print Prescription -->
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading me-auto">Prescription</h6><a class="btn btn-sm btn-dark me-3" onclick="printJS('prescription', 'html')"><i class="fas fa-print me-1"></i>Print</a>
-                                </div>
-                                <div id="print_prescription" class="card-body mx-3">
-                                    <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $this->encryption->decrypt($healthinfo->prescription) ?></textarea></div>
-                                </div>
+                        <div id="presc-card" class="card shadow mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
+                                <!-- Print Prescription -->
+                                <h6 class="m-0 fw-bold fs-5 ch-heading me-auto">Prescription</h6><a class="btn btn-sm btn-dark me-3" onclick="printJS('prescription', 'html')"><i class="fas fa-print me-1"></i>Print</a>
                             </div>
+                            <div id="print_prescription" class="card-body mx-3">
+                                <div class="mb-2"><textarea class="form-control text-area" id="prescription" name="prescription" style="height: 450px;"><?= $this->encryption->decrypt($healthinfo->prescription) ?></textarea></div>
+                            </div>
+                        </div>
 
-                            <div id="card-next-consultation" class="card shadow mb-4" style="height: 248px">
-                                <div class="card-header py-3 ch-patientrec">
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
-                                </div>
-                                <div class="card-body mx-3">
-                                    <div class="row">
-                                        <div class="col-xxl-12">
-                                            <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
-                                        </div>
+                        <div id="card-next-consultation" class="card shadow mb-4" style="height: 248px">
+                            <div class="card-header py-3 ch-patientrec">
+                                <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
+                            </div>
+                            <div class="card-body mx-3">
+                                <div class="row">
+                                    <div class="col-xxl-12">
+                                        <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
                                     </div>
                                 </div>
                             </div>
-                        <?php endif; ?>
-                        <?php if ($user_role == 'Admin') : ?>
-                            <div id="card-next-consultation" class="card shadow mb-4" style="height: 270px">
-                                <div class="card-header py-3 ch-patientrec">
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading">Next Consultation</h6>
-                                </div>
-                                <div class="card-body mx-3">
-                                    <div class="row">
-                                        <div class="col-xxl-12">
-                                            <div class="mb-3"><label class="form-label" for="consul_next"><strong>Date</strong></label><input id="consul_next" class="form-control" name="consul_next" value="<?= $healthinfo->consul_next ?>" type="datetime-local" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card shadow mb-4" style="height: 522px">
-                                <div class="card-header py-3 ch-patientrec">
-                                    <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
-                                </div>
-                                <div class="card-body mx-3">
-                                    <div>
-                                        <table id="consul_table" class="table table-hover" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th class="col-sm-6">Date and Time</th>
-                                                    <th class="col-sm-6">Doctor</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php if ($user_role == 'Doctor') : ?>
-            <div class="row mb-4">
-                <div class="col">
-                    <div id="accordion-1" class="accordion" role="tablist">
-                        <div class="accordion-item">
-                            <div>
-                                <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Documents</button></h2>
-                            </div>
-                            <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-1">
-                                <div class="accordion-body mx-3">
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-end justify-content-xl-end"><button class="btn btn-success me-3 btn-sm rounded-1 btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-document"><span class="text-white"><svg class="me-1 fs-6" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.89543 2 4 2.89543 4 4V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V7.41421C16 6.88378 15.7893 6.37507 15.4142 6L12 2.58579C11.6249 2.21071 11.1162 2 10.5858 2H6ZM11 8C11 7.44772 10.5523 7 10 7C9.44772 7 9 7.44772 9 8V10H7C6.44772 10 6 10.4477 6 11C6 11.5523 6.44772 12 7 12H9V14C9 14.5523 9.44771 15 10 15C10.5523 15 11 14.5523 11 14L11 12H13C13.5523 12 14 11.5523 14 11C14 10.4477 13.5523 10 13 10H11V8Z" fill="currentColor"></path>
-                                                    </svg>Add a document</span></button>
-                                            <div id="mdl-add-document" class="modal fade" role="dialog" tabindex="-1">
-                                                <?php $addDocumentPath = 'Admin_patientrec/add_document/' . $patient->patient_id; ?>
-                                                <?= form_open_multipart($addDocumentPath) ?>
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title ms-3 fw-bolder">Add a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body mx-sm-5">
-                                                            <div class="row mt-4 mb-2">
-                                                                <div class="input-group"><input class="form-control form-control-sm" type="file" name="doc_file" /></div>
 
-                                                            </div>
-                                                            <div class="row mt-4 mb-2">
-                                                                <div class="col col-sm-4"><label class="col-form-label">Document Title:</label></div>
-                                                                <div class="col">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control form-control-sm" id="doc_name" name="doc_name" />
-                                                                    </div>
+        <div class="row mb-4" style="margin-top: 300px">
+            <div class="col">
+                <div id="accordion-1" class="accordion" role="tablist">
+                    <div class="accordion-item">
+                        <div>
+                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Documents</button></h2>
+                        </div>
+                        <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body mx-3">
+                                <div class="row">
+                                    <div class="col d-flex justify-content-end justify-content-xl-end"><button class="btn btn-success me-3 btn-sm rounded-1 btn-save-patient" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-document"><span class="text-white"><svg class="me-1 fs-6" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" fill="none">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2C4.89543 2 4 2.89543 4 4V16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V7.41421C16 6.88378 15.7893 6.37507 15.4142 6L12 2.58579C11.6249 2.21071 11.1162 2 10.5858 2H6ZM11 8C11 7.44772 10.5523 7 10 7C9.44772 7 9 7.44772 9 8V10H7C6.44772 10 6 10.4477 6 11C6 11.5523 6.44772 12 7 12H9V14C9 14.5523 9.44771 15 10 15C10.5523 15 11 14.5523 11 14L11 12H13C13.5523 12 14 11.5523 14 11C14 10.4477 13.5523 10 13 10H11V8Z" fill="currentColor"></path>
+                                                </svg>Add a document</span></button>
+                                        <div id="mdl-add-document" class="modal fade" role="dialog" tabindex="-1">
+                                            <?php $addDocumentPath = 'Admin_patientrec/add_document/' . $patient->patient_id; ?>
+                                            <?= form_open_multipart($addDocumentPath) ?>
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title ms-3 fw-bolder">Add a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body mx-sm-5">
+                                                        <div class="row mt-4 mb-2">
+                                                            <div class="input-group"><input class="form-control form-control-sm" type="file" name="doc_file" /></div>
+
+                                                        </div>
+                                                        <div class="row mt-4 mb-2">
+                                                            <div class="col col-sm-4"><label class="col-form-label">Document Title:</label></div>
+                                                            <div class="col">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control form-control-sm" id="doc_name" name="doc_name" />
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Upload</button></div>
                                                     </div>
+                                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Upload</button></div>
                                                 </div>
-                                                <?= form_close() ?>
                                             </div>
+                                            <?= form_close() ?>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <?php foreach ($documents as $document) : ?>
-                                            <?php if ($document->doc_name == NULL || $document->document == NULL) : ?>
-                                                <div class="col d-flex justify-content-center">
-                                                    <div class=" mb-1">
-                                                        <div class="py-3 ">
-                                                            <h6 class="m-0 fs-6">No documents yet</h6>
-                                                        </div>
+                                </div>
+                                <div class="row">
+                                    <?php foreach ($documents as $document) : ?>
+                                        <?php if ($document->doc_name == NULL || $document->document == NULL) : ?>
+                                            <div class="col d-flex justify-content-center">
+                                                <div class=" mb-1">
+                                                    <div class="py-3 ">
+                                                        <h6 class="m-0 fs-6">No documents yet</h6>
                                                     </div>
                                                 </div>
-                                            <?php else : ?>
-                                                <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
-                                                    <div class="card shadow">
-                                                        <div class="hover">
-                                                            <button type="button" class="btn btn-sm btn-icon btn-danger" data-bs-toggle="modal" data-bs-target="#delete-doc-<?= $document->id ?>">
-                                                                <i class="fas fa-trash-alt"></i>
-                                                            </button>
-                                                        </div>
-                                                        <?php
-                                                        $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="col p-4 col-sm-6 col-md-4 col-lg-3">
+                                                <div class="card shadow">
+                                                    <div class="hover">
+                                                        <button type="button" class="btn btn-sm btn-icon btn-danger" data-bs-toggle="modal" data-bs-target="#delete-doc-<?= $document->id ?>">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </div>
+                                                    <?php
+                                                    $fileExt = pathinfo($document->document, PATHINFO_EXTENSION);
 
-                                                        if ($fileExt == 'pdf') {
-                                                            $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
-                                                        } else {
-                                                            $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
-                                                        }
-                                                        ?>
-                                                        <img class="card-img-top w-100 d-block thumbnail" src="<?= $thumbnail ?>" height="150px" />
-                                                        <div class="card-body">
-                                                            <h5><?= $document->doc_name ?></h5>
-                                                            <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
-                                                                        <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                                                        <path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"></path>
-                                                                    </svg>
+                                                    if ($fileExt == 'pdf') {
+                                                        $thumbnail = base_url('/assets/img/others/pdf-thumbnail.png');
+                                                    } else {
+                                                        $thumbnail = base_url('/uploads/') . $document->patient_id . '/' . $document->document;
+                                                    }
+                                                    ?>
+                                                    <img class="card-img-top w-100 d-block thumbnail" src="<?= $thumbnail ?>" height="150px" />
+                                                    <div class="card-body">
+                                                        <h5><?= $document->doc_name ?></h5>
+                                                        <div class="btn-group btn-group-sm d-flex justify-content-center align-items-center mt-4" role="group"><button class="btn btn-light fw-semibold" type="button" data-bs-toggle="modal" data-bs-target="#view-doc-<?= $document->id ?>"><span class="d-none d-xxl-inline-block">View</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
                                                                     <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                                                    <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path>
-                                                                    </svg>
-                                                                </button><a class="btn btn-light fw-semibold" type="button" href="<?= base_url('Admin_patientrec/download_document/') . $document->patient_id . '/' . $document->id ?>"><span class="d-none d-xxl-inline-block">Download</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
-                                                                        <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
-                                                                        <path d="M480 352h-133.5l-45.25 45.25C289.2 409.3 273.1 416 256 416s-33.16-6.656-45.25-18.75L165.5 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32v-96C512 366.3 497.7 352 480 352zM432 456c-13.2 0-24-10.8-24-24c0-13.2 10.8-24 24-24s24 10.8 24 24C456 445.2 445.2 456 432 456zM233.4 374.6C239.6 380.9 247.8 384 256 384s16.38-3.125 22.62-9.375l128-128c12.49-12.5 12.49-32.75 0-45.25c-12.5-12.5-32.76-12.5-45.25 0L288 274.8V32c0-17.67-14.33-32-32-32C238.3 0 224 14.33 224 32v242.8L150.6 201.4c-12.49-12.5-32.75-12.5-45.25 0c-12.49 12.5-12.49 32.75 0 45.25L233.4 374.6z"></path>
-                                                                    </svg></a></div>
-                                                        </div>
+                                                                    <path d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"></path>
+                                                                </svg>
+                                                                <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                                                <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path>
+                                                                </svg>
+                                                            </button><a class="btn btn-light fw-semibold" type="button" href="<?= base_url('Admin_patientrec/download_document/') . $document->patient_id . '/' . $document->id ?>"><span class="d-none d-xxl-inline-block">Download</span><svg class="text-muted ms-lg-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+                                                                    <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                                                    <path d="M480 352h-133.5l-45.25 45.25C289.2 409.3 273.1 416 256 416s-33.16-6.656-45.25-18.75L165.5 352H32c-17.67 0-32 14.33-32 32v96c0 17.67 14.33 32 32 32h448c17.67 0 32-14.33 32-32v-96C512 366.3 497.7 352 480 352zM432 456c-13.2 0-24-10.8-24-24c0-13.2 10.8-24 24-24s24 10.8 24 24C456 445.2 445.2 456 432 456zM233.4 374.6C239.6 380.9 247.8 384 256 384s16.38-3.125 22.62-9.375l128-128c12.49-12.5 12.49-32.75 0-45.25c-12.5-12.5-32.76-12.5-45.25 0L288 274.8V32c0-17.67-14.33-32-32-32C238.3 0 224 14.33 224 32v242.8L150.6 201.4c-12.49-12.5-32.75-12.5-45.25 0c-12.49 12.5-12.49 32.75 0 45.25L233.4 374.6z"></path>
+                                                                </svg></a></div>
                                                     </div>
-                                                    <div id="view-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title ms-3 fw-bolder"><?= $document->doc_name ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body d-xl-flex justify-content-xl-center align-items-xl-center"><img class="img-fluid" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" /></div>
-                                                                <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
+                                                </div>
+                                                <div id="view-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title ms-3 fw-bolder"><?= $document->doc_name ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="delete-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title ms-3 fw-bolder">Delete a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body mx-3">
-                                                                    <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this document?</p>
-                                                                </div>
-                                                                <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_document/') . $document->patient_id . '/' . $document->id ?>" type="button">Confirm</a></div>
-                                                            </div>
+                                                            <div class="modal-body d-xl-flex justify-content-xl-center align-items-xl-center"><img class="img-fluid" src="<?= base_url('/uploads/') . $document->patient_id . '/' . $document->document ?>" /></div>
+                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
+                                                <div id="delete-doc-<?= $document->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title ms-3 fw-bolder">Delete a Document</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body mx-3">
+                                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this document?</p>
+                                                            </div>
+                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-default-blue text-white" href="<?= base_url('Admin_patientrec/delete_document/') . $document->patient_id . '/' . $document->id ?>" type="button">Confirm</a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div id="accordion-2" class="accordion" role="tablist">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-1" aria-expanded="true" aria-controls="accordion-2 .item-1">Objectives</button></h2>
-                            <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
-                                <div class="accordion-body mx-3">
-                                    <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $this->encryption->decrypt($healthinfo->objectives) ?></textarea></div>
-                                </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div id="accordion-2" class="accordion" role="tablist">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-2 .item-1" aria-expanded="true" aria-controls="accordion-2 .item-1">Objectives</button></h2>
+                        <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                            <div class="accordion-body mx-3">
+                                <div class="mb-3"><textarea class="form-control text-area" id="objectives" name="objectives"><?= $this->encryption->decrypt($healthinfo->objectives) ?></textarea></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div id="accordion-3" class="accordion" role="tablist">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="true" aria-controls="accordion-3 .item-1">Symptoms</button></h2>
-                            <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
-                                <div class="accordion-body mx-3">
-                                    <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $this->encryption->decrypt($healthinfo->symptoms) ?></textarea></div>
-                                </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div id="accordion-3" class="accordion" role="tablist">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed bd-highlight fw-bold fs-5 ch-heading" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-3 .item-1" aria-expanded="true" aria-controls="accordion-3 .item-1">Symptoms</button></h2>
+                        <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-2">
+                            <div class="accordion-body mx-3">
+                                <div class="mb-3"><textarea class="form-control text-area" id="symptoms" name="symptoms"><?= $this->encryption->decrypt($healthinfo->symptoms) ?></textarea></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
+        </div>
     </section>
     <?= form_close() ?>
 
-    <?php if ($user_role == 'Doctor') : ?>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
-                        <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Patient Diagnosis</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
-                                <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
-                                </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
-                        <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
-                            <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
-                            <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body mx-sm-5">
-                                        <div class="row mt-4 mb-2">
-                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                            <div class="col">
-                                                <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea><?= set_value('p_recent_diagnosis') ?></div>
-                                                <small class="text-danger"><?= form_error('p_recent_diagnosis') ?></small>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4 mb-2">
-                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
-                                            <div class="col">
-                                                <div class="input-error">
-                                                    <div class="input-group">
-                                                        <!-- role -->
-                                                        <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
-                                                            <option value="select" disabled selected>select...</option>
-                                                            <?php foreach ($doctors as $doctor) : ?>
-                                                                <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                    </div>
-                                                    <small class="text-danger"><?= form_error('role') ?></small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
+                    <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Patient Diagnosis</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-diagnosis"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
+                            <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
+                        </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Diagnosis</span></button>
+                    <div id="mdl-add-diagnosis" class="modal fade" role="dialog" tabindex="-1">
+                        <?php $addDiagnosisPath = 'Admin_patientrec/add_diagnosis/' . $patient->patient_id; ?>
+                        <?= form_open_multipart($addDiagnosisPath, array('id' => 'addDiagnosisForm')); ?>
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title ms-3 fw-bolder">Add a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
+                                <div class="modal-body mx-sm-5">
+                                    <div class="row mt-4 mb-2">
+                                        <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                        <div class="col">
+                                            <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 200px;"></textarea><?= set_value('p_recent_diagnosis') ?></div>
+                                            <small class="text-danger"><?= form_error('p_recent_diagnosis') ?></small>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 mb-2">
+                                        <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                        <div class="col">
+                                            <div class="input-error">
+                                                <div class="input-group">
+                                                    <!-- role -->
+                                                    <select class="form-select" id="p_doctor" name="p_doctor" value="<?= set_value('p_doctor'); ?>">
+                                                        <option value="select" disabled selected>select...</option>
+                                                        <?php foreach ($doctors as $doctor) : ?>
+                                                            <option value="<?= $doctor->first_name . ' ' . $doctor->last_name ?>"><?= 'Dr. ' . $doctor->first_name . ' ' . $doctor->last_name ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <small class="text-danger"><?= form_error('role') ?></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
                             </div>
-                            <?= form_close() ?>
                         </div>
+                        <?= form_close() ?>
                     </div>
-                    <div class="card-body mx-3 pt-4 pb-5">
-                        <div class="row">
-                            <div class="col">
-                                <div>
-                                    <table id="diag_table" class="table table-hover" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle">Date Created</th>
-                                                <th class="align-middle col-md-6">Diagnosis</th>
-                                                <th class="align-middle">Doctor</th>
-                                                <th class="text-center col-md-2 align-middle">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($diagnoses as $diagnosis) : ?>
-                                                <div id="view-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <?php
-                                                            // format date to readable format eg. November 12, 2020 12:00 AM
-                                                            $date = date_create($diagnosis->p_diag_date);
-                                                            $date = date_format($date, 'F d, Y h:i A');
-                                            
-                                                            ?>
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title ms-3 fw-bolder">Diagnosis on <?= $date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body mx-sm-5">
-                                                                <div class="row mt-4 mb-2">
-                                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                                    <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($diagnosis->p_recent_diagnosis) ?></textarea></div>
-                                                                    </div>
+                </div>
+                <div class="card-body mx-3 pt-4 pb-5">
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <table id="diag_table" class="table table-hover" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-middle">Date Created</th>
+                                            <th class="align-middle col-md-6">Diagnosis</th>
+                                            <th class="align-middle">Doctor</th>
+                                            <th class="text-center col-md-2 align-middle">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($diagnoses as $diagnosis) : ?>
+                                            <div id="view-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <?php
+                                                        // format date to readable format eg. November 12, 2020 12:00 AM
+                                                        $date = date_create($diagnosis->p_diag_date);
+                                                        $date = date_format($date, 'F d, Y h:i A');
+
+                                                        ?>
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Diagnosis on <?= $date ?></h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body mx-sm-5">
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_recent_diagnosis" name="p_recent_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($diagnosis->p_recent_diagnosis) ?></textarea></div>
                                                                 </div>
-                                                                <div class="row mt-4 mb-2">
-                                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
-                                                                    <div class="col">
-                                                                        <div class="input-error">
-                                                                            <div class="input-group">
-                                                                                <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. '. $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
-                                                                            </div>
-                                                                            <small class="text-danger"><?= form_error('role') ?></small>
+                                                            </div>
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Doctor:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-error">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" type="text" id="p_doctor" name="p_doctor" value="<?= 'Dr. ' . $this->encryption->decrypt($diagnosis->p_doctor) ?>" readonly />
                                                                         </div>
+                                                                        <small class="text-danger"><?= form_error('role') ?></small>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
                                                         </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
                                                     </div>
                                                 </div>
-                                                <div id="delete-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title ms-3 fw-bolder">Delete a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
-                                                            </div>
-                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_diagnosis/') . $diagnosis->patient_id . '/' . $diagnosis->id ?>" type="button">Confirm</a></div>
+                                            </div>
+                                            <div id="delete-diagnosis-<?= $diagnosis->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Delete a Diagnosis</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
+                                                        <div class="modal-body">
+                                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-default-blue text-white" href="<?= base_url('Admin_patientrec/delete_diagnosis/') . $diagnosis->patient_id . '/' . $diagnosis->id ?>" type="button">Confirm</a></div>
                                                     </div>
                                                 </div>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
-                        <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Treatment Plan</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatment-plan"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
-                                <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
-                            </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
-                        <div id="mdl-add-treatment-plan" class="modal fade" role="dialog" tabindex="-1">
-                            <?php $addTreatmentPath = 'Admin_patientrec/add_treatment/' . $patient->patient_id; ?>
-                            <?= form_open_multipart($addTreatmentPath, array('id' => 'addTreatmentForm')); ?>
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder">Add Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body mx-sm-5">
-                                        <div class="row mt-4 mb-2">
-                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                            <div class="col">
-                                                <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;"></textarea></div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4 mb-2">
-                                            <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
-                                            <div class="col">
-                                                <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;"></textarea></div>
-                                            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center ch-patientrec ch-patientdiag">
+                    <h6 class="bd-highlight fw-bold fs-5 ch-heading me-auto">Treatment Plan</h6><button class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#mdl-add-treatment-plan"><svg class="me-md-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -32 576 576" width="1em" height="1em" fill="currentColor">
+                            <path d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V198.6C310.1 219.5 256 287.4 256 368C256 427.1 285.1 479.3 329.7 511.3C326.6 511.7 323.3 512 320 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM288 368C288 288.5 352.5 224 432 224C511.5 224 576 288.5 576 368C576 447.5 511.5 512 432 512C352.5 512 288 447.5 288 368zM448 303.1C448 295.2 440.8 287.1 432 287.1C423.2 287.1 416 295.2 416 303.1V351.1H368C359.2 351.1 352 359.2 352 367.1C352 376.8 359.2 383.1 368 383.1H416V431.1C416 440.8 423.2 447.1 432 447.1C440.8 447.1 448 440.8 448 431.1V383.1H496C504.8 383.1 512 376.8 512 367.1C512 359.2 504.8 351.1 496 351.1H448V303.1z"></path>
+                        </svg><span class="span-add-diagnosis d-md-inline-block d-none"> Add Treatment Plan</span></button>
+                    <div id="mdl-add-treatment-plan" class="modal fade" role="dialog" tabindex="-1">
+                        <?php $addTreatmentPath = 'Admin_patientrec/add_treatment/' . $patient->patient_id; ?>
+                        <?= form_open_multipart($addTreatmentPath, array('id' => 'addTreatmentForm')); ?>
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title ms-3 fw-bolder">Add Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body mx-sm-5">
+                                    <div class="row mt-4 mb-2">
+                                        <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                        <div class="col">
+                                            <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;"></textarea></div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
+                                    <div class="row mt-4 mb-2">
+                                        <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
+                                        <div class="col">
+                                            <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;"></textarea></div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-sm btn-success btn-save-patient" type="submit">Save</button></div>
                             </div>
-                            <?= form_close(); ?>
                         </div>
+                        <?= form_close(); ?>
                     </div>
-                    <div class="card-body mx-3">
-                        <div class="row">
-                            <div class="col">
-                                <div>
-                                    <table id="treatment_plan_table" class="table table-hover" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="align-middle col-md-5">Diagnosis</th>
-                                                <th class="align-middle col-md-5">Treatment Plan</th>
-                                                <th class="align-middle col-md-2">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($treatments as $treatment) : ?>
-                                                <div id="view-treatment-<?= $treatment->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title ms-3 fw-bolder">Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body mx-sm-5">
-                                                                <div class="row mt-4 mb-2">
-                                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
-                                                                    <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_diagnosis) ?></textarea></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mt-4 mb-2">
-                                                                    <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
-                                                                    <div class="col">
-                                                                        <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_treatment_plan) ?></textarea></div>
-                                                                    </div>
+                </div>
+                <div class="card-body mx-3">
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <table id="treatment_plan_table" class="table table-hover" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-middle col-md-5">Diagnosis</th>
+                                            <th class="align-middle col-md-5">Treatment Plan</th>
+                                            <th class="align-middle col-md-2">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($treatments as $treatment) : ?>
+                                            <div id="view-treatment-<?= $treatment->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body mx-sm-5">
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_diagnosis) ?></textarea></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
+                                                            <div class="row mt-4 mb-2">
+                                                                <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
+                                                                <div class="col">
+                                                                    <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" readonly><?= $this->encryption->decrypt($treatment->p_treatment_plan) ?></textarea></div>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button></div>
                                                     </div>
                                                 </div>
-                                                <div id="delete-treatment-<?= $treatment->id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title ms-3 fw-bolder">Delete a Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
-                                                            </div>
-                                                            <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_patientrec/delete_treatment/') . $treatment->patient_id . '/' . $treatment->id ?>" type="button">Confirm</a></div>
+                                            </div>
+                                            <div id="delete-treatment-<?= $treatment->id ?>" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title ms-3 fw-bolder">Delete a Treatment Plan</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
+                                                        <div class="modal-body">
+                                                            <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-danger"></i>Are you sure you want to delete this diagnosis?</p>
+                                                        </div>
+                                                        <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-default-blue text-white" href="<?= base_url('Admin_patientrec/delete_treatment/') . $treatment->patient_id . '/' . $treatment->id ?>" type="button">Confirm</a></div>
                                                     </div>
                                                 </div>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 ch-patientrec">
-                        <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
-                    </div>
-                    <div class="card-body mx-3">
-                        <div>
-                            <table id="consul_table" class="table table-hover" style="width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th class="col-sm-6">Date and Time</th>
-                                        <th class="col-sm-6">Doctor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 ch-patientrec">
+                    <h6 class="m-0 fw-bold fs-5 ch-heading">Consultation History</h6>
+                </div>
+                <div class="card-body mx-3">
+                    <div>
+                        <table id="consul_table" class="table table-hover" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th class="col-sm-6">Date and Time</th>
+                                    <th class="col-sm-6">Doctor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    <?php endif; ?>
+    </div>
+
 </div>
 <!-- <a href="javascript:PrintTextareaContent('prescription','print_prescription')">
     Print Textarea Field Content

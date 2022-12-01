@@ -28,7 +28,7 @@
     </div> -->
     <div class="row">
         <div class="col-lg-12 col-xxl-12 mb-4">
-            <div class="card shadow mb-4 p-5 pt-4 pb-5">
+            <div class="card shadow">
                 <div>
                     <ul class="nav nav-tabs d-flex justify-content-end me-md-3" role="tablist">
                         <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#admin_audit">Admin</a></li>

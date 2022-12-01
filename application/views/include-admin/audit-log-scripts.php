@@ -24,7 +24,7 @@
                 // style the print button
                 {
                     extend: 'print',
-                    text: '<i class="fas fa-print"><small style="' + font + '"> Print</small></i>',
+                    text: '<img src="https://img.icons8.com/color-glass/48/null/send-to-printer.png"/><small style="' + font + '"> Print</small>',
                     className: 'btn btn-dark btn-sm',
                     exportOptions: {
                         columns: [0, 1, 2, 3]
