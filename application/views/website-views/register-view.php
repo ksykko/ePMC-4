@@ -151,21 +151,21 @@
                             <div class=" mx-md-4">
                                 <div class="tab mt-3">
                                     <h5 class="fw-semibold mb-3">Personal Information</h5>
-                                    <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                        <div class="col form-group required col-md-5 px-1"><label class="form-label">First Name</label>
+                                    
+                                        <div class="col form-group required px-1"><label class="form-label">First Name</label>
                                             <input class="form-control form-control-sm rounded-pill rounded-pill" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
                                             <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                        <div class="col form-group col-md-4 px-1"><label class="form-label">Middle Name</label>
+                                        <div class="col form-group px-1"><label class="form-label">Middle Name</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
                                             <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                        <div class="col form-group required col-md-3 px-1"><label class="form-label">Surname</label>
+                                        <div class="col form-group required px-1"><label class="form-label">Surname</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
                                             <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
+                                    
+                                    
                                         <div class="col form-group required px-1"><label class="form-label">Age</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="age" name="age" value="<?= set_value('age') ?>" /><small class="text-danger"><?= form_error('age') ?></small>
                                             <label id="age_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -174,9 +174,9 @@
                                             <input class="form-control form-control-sm rounded-pill" id="birth_date" name="birth_date" type="date" value="<?= set_value('birth_date') ?>" /><small class="text-danger"><?= form_error('birth_date') ?></small>
                                             <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
-                                        <div class="col form-group required col-md-3 px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm rounded-pill text-dark" id="sex" name="sex">
+                                    
+                                    
+                                        <div class="col form-group required px-1"><label class="form-label">Sex</label><select class="form-select form-select-sm rounded-pill text-dark" id="sex" name="sex">
                                                 <?php if (set_value('sex') == 'Male') : ?>
                                                     <option value="" disabled>select ...</option>
                                                     <option value="Male" selected>Male</option>
@@ -233,34 +233,36 @@
                                                 <?php endif; ?>
                                             </select><small class="text-danger"><?= form_error('civil_status') ?></small></div>
                                         <div class="col form-group px-1"><label class="form-label">Occupation</label><input class="form-control form-control-sm rounded-pill" type="text" id="occupation" name="occupation" value="<?= set_value('occupation') ?>" /></div>
-                                    </div>
-                                    <div class="row mb-2">
+                                    
+                                    
                                         <div class="col form-group px-1"><label class="form-label">Address</label>
                                             <input class="form-control form-control-sm rounded-pill" type="text" id="address" name="address" value="<?= set_value('address') ?>" />
                                         </div>
-                                    </div>
+                                
                                 </div>
                                 <div class="tab mt-3">
                                     <h5 class="heading-modal fw-semibold">Contact Information</h5>
                                     <hr size="5" />
-                                    <div class="row row-cols-1 row-cols-sm-2">
+
+                                    
                                         <div class="col form-group required px-1"><label class="form-label">Cellphone No.</label><input class="form-control form-control-sm rounded-pill" type="tel" id="cell_no" name="cell_no" placeholder="09xxxxxxxxx" value="<?= set_value('cell_no') ?>" />
                                             <label id="cell_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col form-group px-1"><label class="form-label">Telephone No.</label><input class="form-control form-control-sm rounded-pill" type="tel" id="tel_no" name="tel_no" value="<?= set_value('tel_no') ?>" />
                                             <label id="tel_no_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
-                                    <div class="row">
+                                    
+
+                                    
                                         <div class="col form-group required px-1"><label class="form-label">Email</label><input class="form-control form-control-sm rounded-pill" type="email" id="email" name="email" placeholder="name@example.com" value="<?= set_value('email') ?>" />
                                             <label id="email_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="tab mt-3">
                                     <h5 class="heading-modal fw-semibold">Emergency Contact</h5>
                                     <hr size="5" />
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
+                                    
                                         <div class="col form-group required px-1"><label class="form-label">Name</label><input class="form-control form-control-sm rounded-pill" type="text" id="ec_name" name="ec_name" value="<?= set_value('ec_name') ?>" />
                                             <label id="ec_name_error" class="text-danger font-monospace" style="font-size:13px"></label>
 
@@ -278,25 +280,25 @@
                                             </select>
                                             <label id="relationship_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
-                                    <div class="row mb-2">
+                                    
+                                    
                                         <div class="col form-group required px-1 col-md-6"><label class="form-label">Contact No.</label>
                                             <input class="form-control form-control-sm rounded-pill" type="tel" id="ec_contact_no" name="ec_contact_no" value="<?= set_value('ec_contact_no') ?>" />
                                             <label id="ec_contact_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="tab mt-3">
                                     <h5 class="heading-modal fw-semibold">Password</h5>
                                     <hr size="5" />
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-2 row-cols-xxl-2 mb-2">
+                                    
                                         <div class="col form-group px-1"><label class="form-label">Password</label><input class="form-control form-control-sm rounded-pill" type="password" id="password" name="password" value="<?= set_value('ec_name') ?>" />
                                             <label id="password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
                                         <div class="col form-group px-1"><label class="form-label">Confirm Password</label><input class="form-control form-control-sm rounded-pill" type="password" id="conf_password" name="conf_password" />
                                             <label id="confirm_password_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                         </div>
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="modal-footer m-4" style="overflow:auto;">
