@@ -35,14 +35,8 @@
                         <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
                         </li>
-                        <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                            <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                        </li>
                         <li <?php if($this->uri->segment(1) == "Admin_inventory"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_inventory/index') ?>"><i class="far fa-chart-bar"></i>Inventory</a>
-                        </li>
-                        <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
-                            <a class="nav-link" href="<?= site_url('Admin_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
                         </li>
                     <?php endif; ?> 
 
@@ -53,12 +47,6 @@
                     <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
                         <a class="nav-link" href="<?= site_url('Doctor_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
                     </li>
-                    <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                    </li> 
-                    <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Doctor_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
-                    </li> 
                 
                 <?php } elseif ($user_role == 'Patient' || $user_role == 'patient'){?>
                     <!-- patient record viewing only -->
@@ -66,9 +54,6 @@
                         <a class="nav-link" href="<?= site_url('Patient_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Record</a>
                     </li>   
                     <!-- change to viewing of schedules -->
-                    <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                    </li>  
                 <?php }?>
 
                 <li class="nav-item">
