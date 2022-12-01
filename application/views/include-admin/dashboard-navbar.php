@@ -35,14 +35,8 @@
                         <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
                         </li>
-                        <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                            <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                        </li>
                         <li <?php if($this->uri->segment(1) == "Admin_inventory"){echo 'class="active"';}?> class="nav-item">
                             <a class="nav-link" href="<?= site_url('Admin_inventory/index') ?>"><i class="far fa-chart-bar"></i>Inventory</a>
-                        </li>
-                        <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
-                            <a class="nav-link" href="<?= site_url('Admin_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
                         </li>
                     <?php endif; ?> 
 
@@ -52,14 +46,7 @@
                 <?php } elseif ($user_role == 'Doctor' || $user_role == 'doctor'){?>
                     <li <?php if($this->uri->segment(1) == "Admin_patientrec"){echo 'class="active"';}?> class="nav-item">
                         <a class="nav-link" href="<?= site_url('Doctor_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Records</a>
-                    </li>
-                    <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                    </li> 
-                    <li <?php if($this->uri->segment(1) == "Admin_reports"){echo 'class="active"';}?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Doctor_reports/index') ?>"><i class="far fa-copy"></i>Reports</a>
-                    </li> 
-                
+                    </li>   
                 <?php } elseif ($user_role == 'Patient' || $user_role == 'patient'){?>
                     <!-- patient record viewing only -->
                     <li <?php if($this->uri->segment(1) == "Patient_patientrec"){echo 'class="active"';}?> class="nav-item">
