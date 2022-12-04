@@ -6,10 +6,13 @@
                     <div class="card-body p-0 card-body-login mx-5 mt-4">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-lg-start align-items-lg-center justify-content-xxl-start align-items-xxl-center">
-                                <h2 class="d-lg-flex align-self-start justify-content-lg-center align-items-lg-center h2-login-header"><strong>Welcome</strong><br /><br /></h2><img width="398" height="290" src="<?= base_url('/assets/img/others/Health checkup.png') ?>" />
+                                <h2 class="d-lg-flex align-self-start justify-content-lg-center align-items-lg-center h2-login-header"><strong>Welcome</strong>
+                                    <br /><br />
+                                </h2><img width="398" height="290" src="<?= base_url('/assets/img/others/Health checkup.png') ?>" />
                             </div>
                             <div class="col-lg-6 col-xxl-6">
-                                <div class="p-5">
+                                <div>
+                                    <div class="text-center"><img class="img-fluid" height="100" width="100" src="<?= base_url('/assets/img/logo/epmc-logo.png') ?>" /></div>
                                     <div class="text-center">
                                         <h4 class="fw-bolder text-dark mb-4">LOGIN</h4>
                                     </div>
@@ -45,13 +48,13 @@
                                     </form>
                                     <div class="row mt-3">
                                         <div class="col d-flex justify-content-end">
-                                            <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none text-muted">Forgot Password?</a>
+                                            <a href="<?= base_url('Login/forgot_password') ?>" class="small text-decoration-none text-muted"><small>Forgot Password?</small></a>
                                         </div>
                                     </div>
                                     <hr>
                                     <?= form_close(); ?>
                                     <div class="text-center"></div>
-                                    <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small text-decoration-none text-muted" href="<?= base_url('Register/') ?>">Don't Have an Account? Register Here.</a></div>
+                                    <div class="text-center d-xxl-flex justify-content-xxl-center"><a class="small text-decoration-none text-muted" href="<?= base_url('Register/') ?>"><small>Don't Have an Account? Register Here.</small></a></div>
                                 </div>
                             </div>
                         </div>
