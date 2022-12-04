@@ -30,32 +30,12 @@ class Login_mobile extends RestController
         $result = $this->Login_model->login($email,$pass);
         //login as admin
         if (isset($result)){
-            if ($result->status == '0') {
-                $response[] = array('status'=>$result->status);
-            } else {
-                $verification_code = random_string('numeric', 4);
+            if ($result->role == 'patient' || $result->role == 'Patient') {
+                if($result->status == '0'){
+                    $response[] = array('status'=>'0');
+                } else {
+                    $verification_code = random_string('numeric', 4);
 
-                $this->load->library('email');
-                $config_email = array(
-                    'protocol' => 'smtp',
-                    'smtp_host' => 'ssl://smtp.googlemail.com',
-                    'smtp_port' => 465,
-                    'smtp_user' => $this->config->item('email'), //Active gmail
-                    'smtp_pass' => $this->config->item('password'), //Password
-                    'mailtype' => 'html',
-                    'starttls' => TRUE,
-                    'newline' => "\r\n",
-                    'charset' => $this->config->item('charset'),
-                    'wordwrap' => TRUE
-                );
-                $this->email->initialize($config_email);
-
-                $this->email->set_mailtype('html');
-                $this->email->from($this->config->item('bot_email'), 'ePMC');
-                $this->email->to($result->email);
-                $this->email->subject('ePMC Mobile Login Verification');
-                
-                if ($result->role == 'patient' || $result->role == 'Patient') {
                     $response[] = array("role" => $result->role,
                                         'patient_id'=>$result->patient_id, 
                                         'full_name' => $result->first_name . ' ' .  $result->last_name,
@@ -67,7 +47,46 @@ class Login_mobile extends RestController
                                         'verification_code'=>$verification_code,
                                         'nav'=>'PatientNavbar'
                     );
-                } else if ($result->role == "Doctor") {
+                    // $this->load->library('email');
+                    // $config_email = array(
+                    //     'protocol' => 'smtp',
+                    //     'smtp_host' => 'ssl://smtp.googlemail.com',
+                    //     'smtp_port' => 465,
+                    //     'smtp_user' => $this->config->item('email'), //Active gmail
+                    //     'smtp_pass' => $this->config->item('password'), //Password
+                    //     'mailtype' => 'html',
+                    //     'starttls' => TRUE,
+                    //     'newline' => "\r\n",
+                    //     'charset' => $this->config->item('charset'),
+                    //     'wordwrap' => TRUE
+                    // );
+                    // $this->email->initialize($config_email);
+
+                    // $this->email->set_mailtype('html');
+                    // $this->email->from($this->config->item('bot_email'), 'ePMC');
+                    // $this->email->to($result->email);
+                    // $this->email->subject('ePMC Mobile Login Verification');
+                    
+                    
+                    // $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Mobile Login Verification</title></head><body>';
+                    // $message .= '<h1>Mobile Login Verification</h1>';
+                    // $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
+                    // $message .= '<p>This is your Login Verification Code: '.$verification_code.'</p>';
+                    // $message .= '<p>If this request did not come from you, change your account password immediately to prevent further unauthorized access.</p>';
+                    // $message .= '<p>Thank you!</p>';
+                    // $message .= '<p>ePMC Team</p>';
+                    // $message .= '</body></html>';
+
+                    // $this->email->message($message);
+
+                    // if (!$this->email->send()) {
+                    //     show_error($this->email->print_debugger());   
+                    // }
+                } 
+            } else {
+                $verification_code = random_string('numeric', 4);
+
+                if ($result->role == "Doctor") {
                     $response[] = array("role" => $result->role,  
                                         'doctor_id' => $result->user_id, 
                                         'full_name' => $result->first_name . ' ' .  $result->last_name,
@@ -75,6 +94,7 @@ class Login_mobile extends RestController
                                         'username'=>$result->username,
                                         'pass' => $result->password,
                                         'contact_no'=>$result->contact_no,
+                                        'status'=>'1',
                                         'verification_code'=>$verification_code,
                                         'nav'=>'DoctorNavbar'
                     );
@@ -86,24 +106,47 @@ class Login_mobile extends RestController
                                         'username'=>$result->username,
                                         'pass' => $result->password,
                                         'contact_no'=>$result->contact_no,
+                                        'status'=>'1',
                                         'verification_code'=>$verification_code,
                                         'nav'=>'AdminNavbar'
                     );
                 }
-                $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Mobile Login Verification</title></head><body>';
-                $message .= '<h1>Mobile Login Verification</h1>';
-                $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
-                $message .= '<p>This is your Login Verification Code: '.$verification_code.'</p>';
-                $message .= '<p>If this request did not come from you, change your account password immediately to prevent further unauthorized access.</p>';
-                $message .= '<p>Thank you!</p>';
-                $message .= '<p>ePMC Team</p>';
-                $message .= '</body></html>';
 
-                $this->email->message($message);
+                // $this->load->library('email');
+                // $config_email = array(
+                //     'protocol' => 'smtp',
+                //     'smtp_host' => 'ssl://smtp.googlemail.com',
+                //     'smtp_port' => 465,
+                //     'smtp_user' => $this->config->item('email'), //Active gmail
+                //     'smtp_pass' => $this->config->item('password'), //Password
+                //     'mailtype' => 'html',
+                //     'starttls' => TRUE,
+                //     'newline' => "\r\n",
+                //     'charset' => $this->config->item('charset'),
+                //     'wordwrap' => TRUE
+                // );
+                // $this->email->initialize($config_email);
 
-                if (!$this->email->send()) {
-                    show_error($this->email->print_debugger());   
-                } 
+                // $this->email->set_mailtype('html');
+                // $this->email->from($this->config->item('bot_email'), 'ePMC');
+                // $this->email->to($result->email);
+                // $this->email->subject('ePMC Mobile Login Verification');
+                
+                
+                // $message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>ePMC Mobile Login Verification</title></head><body>';
+                // $message .= '<h1>Mobile Login Verification</h1>';
+                // $message .= '<p>Hi ' . $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name . ',</p>';
+                // $message .= '<p>This is your Login Verification Code: '.$verification_code.'</p>';
+                // $message .= '<p>If this request did not come from you, change your account password immediately to prevent further unauthorized access.</p>';
+                // $message .= '<p>Thank you!</p>';
+                // $message .= '<p>ePMC Team</p>';
+                // $message .= '</body></html>';
+
+                // $this->email->message($message);
+
+                // if (!$this->email->send()) {
+                //     show_error($this->email->print_debugger());   
+                // } 
             }
         }
          //invalid credentials
