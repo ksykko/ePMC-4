@@ -6,38 +6,51 @@
     </div>
 
     <div class="card shadow mb-4 p-3 pt-3 pb-3">
-        <div class="card">
-            <div class="card-body mx-3 my-3">
-                <div class="row gy-3 row-cols-1 row-cols-lg-2">
-                    <div class="col-lg-5 col-xl-4">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="card chart-body-violet" style="height: 448px;">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
-                                        <h6 class="fw-bold ms-2 m-0 ch-heading text-white">Overall Patient Satisfaction</h6>
-                                    </div>
-                                    <div class="card-body d-flex justify-content-center align-items-center">
-                                        <!-- <div class="chart-area">
+        <div>
+            <ul class="nav nav-tabs d-flex justify-content-end me-md-3" role="tablist">
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-dark dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Audit Log</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-bs-toggle="tab" href="#user_audit">User</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="tab" href="#patient_audit">Patient</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" role="presentation"><a class="nav-link text-dark" role="tab" data-bs-toggle="tab" href="#charts">Chart</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="charts" class="tab-pane fade" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body mx-3 my-3">
+                            <div class="row gy-3 row-cols-1 row-cols-lg-2">
+                                <div class="col-lg-5 col-xl-4">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="card chart-body-violet" style="height: 448px;">
+                                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-violet">
+                                                    <h6 class="fw-bold ms-2 m-0 ch-heading text-white">Overall Patient Satisfaction</h6>
+                                                </div>
+                                                <div class="card-body d-flex justify-content-center align-items-center">
+                                                    <!-- <div class="chart-area">
                                             <canvas class="align-items-center" id="Chart1"></canvas>
                                         </div> -->
-                                        <div id="satis_chart"></div>
+                                                    <div id="satis_chart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="card h-100 chart-body-darkblue">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-darkblue">
-                                        <h5 class="fw-bold ms-2 m-0 ch-heading text-white">Doctor's Treatment Plan</h5>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="card h-100 chart-body-darkblue">
+                                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-darkblue">
+                                                    <h5 class="fw-bold ms-2 m-0 ch-heading text-white">Doctor's Treatment Plan</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div id="chart"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div id="chart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="row">
+                                    <!-- <div class="row">
                             <div class="col">
                                 <div class="card h-100">
                                     <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
@@ -55,35 +68,78 @@
                                 </div>
                             </div>
                         </div> -->
-                    </div>
-                    <div class="col-lg-7 col-xl-8">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="card h-100 chart-body-yellow">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-yellow">
-                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Insertions vs Deletions of Patients</h6>
+                                </div>
+                                <div class="col-lg-7 col-xl-8">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="card h-100 chart-body-yellow">
+                                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-yellow">
+                                                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Insertions vs Deletions of Patients</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- <div id="add_dlt"></div> -->
+
+                                                    <div id="recent_chart"></div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="card-body">
-                                        <!-- <div id="add_dlt"></div> -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card h-100 chart-body-red">
+                                                <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
+                                                    <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Stock Items</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div id="stock_chart"></div>
+                                                </div>
+                                            </div>
 
-                                        <div id="recent_chart"></div>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card h-100 chart-body-red">
-                                    <div class="card-header d-flex justify-content-between align-items-center ch-patientrec chart-header-red">
-                                        <h6 class="fw-bold ms-2 fs-5 m-0 ch-heading text-white">Stock Items</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="stock_chart"></div>
-                                    </div>
-                                </div>
-
-                            </div>
+                    </div>
+                </div>
+                <div id="user_audit" class="tab-pane show active fade" role="tabpanel">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="audit_log" class="table table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="col-md-1">ID</th> -->
+                                        <!-- Include avatar -->
+                                        <th class="col-md-3 align-middle">Name</th>
+                                        <th class="col-md-1">Role</th>
+                                        <th>Activity</th>
+                                        <th class="col-md-2">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="patient_audit" class="tab-pane fade" role="tabpanel">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="patient_audit_log" class="table table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="col-md-1">ID</th> -->
+                                        <!-- Include avatar -->
+                                        <th class="col-md-3 align-middle">Patient ID</th>
+                                        <th class="col-md-1">Role</th>
+                                        <th>Activity</th>
+                                        <th class="col-md-2">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -117,7 +173,90 @@
     //     }
 
     // })    
+    var font = "font-family: 'Poppins', sans-serif;";
 
+    $(document).ready(function() {
+        $('#audit_log').DataTable({
+            "processing": true,
+            order: [
+                [3, 'desc']
+            ],
+            responsive: true,
+            "ajax": {
+                url: "<?= site_url('Admin/audit_log_dt'); ?>",
+                type: "POST"
+            },
+            // add print button to the table
+            dom: 'Bfrtip',
+            buttons: [
+                // style the print button
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"><small style="' + font + '"> Print</small></i>',
+                    className: 'btn btn-dark btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                }
+            ],
+
+
+            "columnDefs": [{
+                    "targets": [2],
+                    "orderable": false,
+                },
+                {
+                    "targets": [0, 1, 2, 3],
+                    "className": "align-middle"
+                }
+
+            ],
+        });
+
+    });
+
+    $(document).ready(function() {
+        $('#patient_audit_log').DataTable({
+            "processing": true,
+            order: [
+                [3, 'desc']
+            ],
+            responsive: true,
+            "ajax": {
+                url: "<?= site_url('Admin/patient_audit_dt'); ?>",
+                type: "POST"
+            },
+            // add print button to the table
+            dom: 'Bfrtip',
+            buttons: [
+                // style the print button
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"><small style="' + font + '"> Print</small></i>',
+                    className: 'btn btn-dark btn-sm',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                }
+            ],
+            autoWidth: false,
+
+
+            "columnDefs": [{
+                    "targets": [2],
+                    "orderable": false,
+                },
+                {
+                    "targets": [0, 1, 2, 3],
+                    "className": "align-middle"
+                }
+
+            ],
+        });
+
+
+
+    });
 
     var insertions = JSON.parse('<?= $insertions; ?>');
     console.log(insertions);

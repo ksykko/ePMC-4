@@ -300,7 +300,7 @@
         <div class="col col-lg-7">
             <div class="card shadow mb-4" style="height: 450px;">
                 <div class="card-header d-flex justify-content-between align-items-center ch-patientrec">
-                    <h6 class="fw-bold fs-5 m-0 ch-heading me-auto">Recent Activity</h6><a href="<?= base_url('Admin/audit_log') ?>" class="btn btn-sm btn-info h-auto w-auto me-4" role="button"><i class="fas fa-list-ul me-2"></i><small>Audit Log</small></a>
+                    <h6 class="fw-bold fs-5 m-0 ch-heading me-auto">Recent Activity</h6><a href="<?= base_url('Admin_reports/') ?>" class="btn btn-sm btn-info h-auto w-auto me-4" role="button"><i class="fas fa-list-ul me-2"></i><small>Audit Log</small></a>
                 </div>
                 <div class="card-body mx-3 ">
                     <table id="recent_activity_table" class="table table-hover d-column w-100  ">
