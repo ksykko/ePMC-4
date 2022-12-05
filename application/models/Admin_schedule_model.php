@@ -48,7 +48,7 @@ class Admin_schedule_model extends CI_Model {
     }
     
     function insert_event($data){
-        $this->db->insert('schedule', $data);
+        $this->db->insert('patient_schedule', $data);
     }
 
     function insert_event_patient($data){

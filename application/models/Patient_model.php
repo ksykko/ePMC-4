@@ -31,6 +31,11 @@ class Patient_model extends CI_Model
         return $this->db->get_where('patient_schedule', ['un_patient_id' => $id])->result();
     }
 
+    public function get_patient_sched_table()
+    {
+        return $this->db->get('patient_schedule');
+    }
+
     public function update_patient($id, $info)
     { // update patient info based on patient_id ($id = primary key)
         $this->db->update('patient_record', $info, ['patient_id' => $id]);

@@ -35,21 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($patients as $patient) : ?>
-                                <div id="restore-patient-<?= $patient->patient_id ?>" class="modal fade" role="dialog" tabindex="-1">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header border-bottom-0">
-                                                <button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p class="d-md-flex justify-content-md-center align-items-md-center">Are you sure you want to restore this patient?</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light btn-sm" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-info" href="<?= base_url('Admin_archives/restore_patient/') . $patient->patient_id ?>" type="button">Confirm</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
+                            
                         </tbody>
                     </table>
                 </div>

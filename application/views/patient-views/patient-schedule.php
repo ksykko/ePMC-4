@@ -406,10 +406,8 @@
                             <div class="col"><label class="col-form-label" style="padding: 0 !important;">Schedule Status:</label></div>
                             <div class="col">
                                 <div class="input-error">
-                                    <div class="input-group">
-                                        <h5 id="status" style="color: red;"></h5>
-                                    </div>
-
+                                    <h5 id="status" style="font-weight: 600;"></h5>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -476,6 +474,7 @@
 
                     var doctor_name = event.event._def.extendedProps.doctor_name;
                     var patient_name = event.event._def.extendedProps.patient_name;
+                    var status = event.event._def.extendedProps.status;
 
                     var id = event.event.id;
                     var start_date = event.event.start;
@@ -515,7 +514,16 @@
                     $('#patient-schedule-modal').find('#doctor_name').val(doctor_name);
                     $('#patient-schedule-modal').find('#patient_name').val(patient_name);
 
+                    $('#patient-schedule-modal').find('#status').text(status);
 
+
+                    if (status == 'Cancelled') {
+                        $('#patient-schedule-modal').find('#status').css('color', 'red');
+                    } else if (status == 'Confirmed') {
+                        $('#patient-schedule-modal').find('#status').css('color', 'green');
+                    } else {
+                        $('#patient-schedule-modal').find('#status').css('color', '#b8a70f');
+                    } 
 
 
                     $('#deleteBtn').on("click", function() {

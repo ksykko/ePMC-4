@@ -35,7 +35,7 @@ class Patient_schedule extends CI_Controller
                 $data['data'][$key]['start'] = $value->date;
                 $data['data'][$key]['doctor_name'] = $value->doctor_name;
                 $data['data'][$key]['patient_name'] = $value->patient_name;
-                $data['data'][$key]['color'] = $value->color;
+                $data['data'][$key]['backgroundColor'] = '#'.$value->color;
                 $data['data'][$key]['status'] = $value->status;
             }
             
@@ -114,10 +114,9 @@ class Patient_schedule extends CI_Controller
 		$this->form_validation->set_rules('doctor_name', 'doctor', 'required', array(
 			'required' => 'Choose a %s.'
 		));
+
 		$this->form_validation->set_rules('luisp', 'Date');
-
         $this->form_validation->set_rules('patient_name', 'Patient Name');
-
         $this->form_validation->set_rules('status', 'Status');
         $this->form_validation->set_rules('color', 'Color');
 
