@@ -17,6 +17,7 @@ class Users extends CI_Controller {
        if ($this->session->userdata('role') == 'admin') {
             redirect('Admin');
        } elseif ($this->session->userdata('role') == 'patient') {
+          
             redirect('Patient');
        }
 
@@ -25,6 +26,7 @@ class Users extends CI_Controller {
        $data['active'] = 'profile';
        $data['user'] = $this->Users_model->get_user_row($id);
        $data['user_role'] = $this->session->userdata('role');
+       $data['user_name'] = $this->session->userdata('full_name');
        $data['user_specialization'] = $this->session->userdata('specialization');
        $this->load->view('include/header', $data);
        $this->load->view('users_view', $data);

@@ -30,8 +30,7 @@ class Admin_schedule extends CI_Controller
 				$data['data'][$key]['id'] = $value->schedule_id;
 				$data['data'][$key]['title'] = $value->doctor_name;
 				$data['data'][$key]['start'] = $value->start_date;
-				$data['data'][$key]['end'] = $value->end_date;
-				$data['data'][$key]['backgroundColor'] = "#" . $value->color;
+				$data['data'][$key]['backgroundColor'] = "#" . $value->status;
 			}
 
 			$data['user_role'] = $this->session->userdata('role');
@@ -91,7 +90,6 @@ class Admin_schedule extends CI_Controller
 		$this->form_validation->set_rules('start_date', 'start date', 'required', array(
 			'required' => 'Choose the %s.'
 		));
-		$this->form_validation->set_rules('end_date', 'end date');
 		// $this->form_validation->set_rules('days[]', 'day of the week', 'required', array(
 		//     'required' => 'Choose at least one %s.'
 		// ));
@@ -112,8 +110,7 @@ class Admin_schedule extends CI_Controller
 				'doctor_name' => $doctor_name,
 				'specialization' => $specialization,
 				'start_date' => $this->input->post('start_date'),
-				'end_date' => $this->input->post('end_date'),
-				'color' => $this->input->post('color')
+				'status' => $this->input->post('color')
 			);
 
 			$this->schedModel->insert_event($data);
@@ -143,7 +140,6 @@ class Admin_schedule extends CI_Controller
 			'required' => 'Choose the %s.'
 		));
 
-		$this->form_validation->set_rules('end_date', 'end date');
 		
 
 		if ($this->form_validation->run() == FALSE) {
@@ -153,8 +149,7 @@ class Admin_schedule extends CI_Controller
 
 			$data = array(
 				'start_date' => $this->input->post('start_date'),
-				'end_date' => $this->input->post('end_date'),
-				'color' => $this->input->post('color')
+				'status' => $this->input->post('color')
 			);
 			
 			$this->schedModel->update_event($data, $this->input->post('id'));

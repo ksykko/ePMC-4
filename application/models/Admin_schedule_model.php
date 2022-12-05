@@ -50,6 +50,10 @@ class Admin_schedule_model extends CI_Model {
     function insert_event($data){
         $this->db->insert('schedule', $data);
     }
+
+    function insert_event_patient($data){
+        $this->db->insert('patient_schedule', $data);
+    }
     
     function update_event($data, $id){
         $this->db->where('schedule_id', $id);
@@ -59,6 +63,11 @@ class Admin_schedule_model extends CI_Model {
     function delete_event($id){
         $this->db->where('schedule_id', $id);
         $this->db->delete('schedule');
+    }
+
+    function delete_event_patient($id){
+        $this->db->where('schedule_id', $id);
+        $this->db->delete('patient_schedule');
     }
 
     //FOR MOBILE

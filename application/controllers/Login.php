@@ -309,7 +309,11 @@ class Login extends CI_Controller
                 if ($result->role == 'patient' || $result->role == 'Patient') {
                     $sess_data = array(
                         'id' => $result->patient_id,
-                        'full_name' => $result->full_name,
+                        'un_patient_id' => $result->un_patient_id,
+                        'full_name' => $result->first_name . ' ' . $result->middle_name . ' ' . $result->last_name,
+                        'first_name' => $result->first_name,
+                        'middle_name' => $result->middle_name,
+                        'last_name' => $result->last_name,
                         'age' => $result->age,
                         'birth_date' => $result->birth_date,
                         'sex' => $result->sex,
