@@ -56,6 +56,73 @@ class Patient_appointment extends RestController
         echo json_encode($response);
     }
 
+    //display patient's appointment
+    public function patient_appointment_post() {
+        $data=json_decode(file_get_contents('php://input'));
 
+        $patientID=$data->patientID;
+
+        //get patient's appointment by ID
+        $p_appointment = $this->Appointment_model->get_patient_appointment($patientID);
+
+        //get date of p_appointment
+        foreach ($p_appointment as $p) {
+            $date[] = array (
+                'date' => date('Y-m-d', strtotime($p->appointment_date)),
+            );
+        }
+
+        //get appointment details of date
+        for ($i=0; $i < count($date); $i++) { 
+            $d = $date[$i]['date'];
+            for($j=0; $j < count($p_appointment); $j++) {
+                $response[$d][] = array(
+                    'appointment_id' => $p_appointment[$i]->appointment_id,
+                    'patient_id' => $p_appointment[$i]->patient_id,
+                    'username' => $p_appointment[$i]->username,
+                    'full_name' => $p_appointment[$i]->full_name,
+                    'doctor_name' => $p_appointment[$i]->doctor_name,
+                    'time' => date('H:i:s', strtotime($p_appointment[$i]->appointment_date)),
+                    'status' => $p_appointment[$i]->status,
+                );
+                break;
+            }
+        }
+
+        echo json_encode($response);
+    }
+
+    //display all appointment
+    public function appointment_get() {
+        $appointment = $this->Appointment_model->get_all_appointment();
+
+        //get date of appointment
+        foreach ($appointment as $a) {
+            $date[] = array (
+                'date' => date('Y-m-d', strtotime($a->appointment_date)),
+            );
+        }
+
+        //get appointment details of date
+        for ($i=0; $i < count($date); $i++) { 
+            $d = $date[$i]['date'];
+            for($j=0; $j < count($appointment); $j++) {
+                $response[$d][] = array(
+                    'appointment_id' => $appointment[$i]->appointment_id,
+                    'patient_id' => $appointment[$i]->patient_id,
+                    'username' => $appointment[$i]->username,
+                    'full_name' => $appointment[$i]->full_name,
+                    'doctor_name' => $appointment[$i]->doctor_name,
+                    'time' => date('H:i:s', strtotime($appointment[$i]->appointment_date)),
+                    'status' => $appointment[$i]->status,
+                );
+                break;
+            }
+        }
+        echo json_encode($response);
+    }
 }
+
+
+
 ?>
