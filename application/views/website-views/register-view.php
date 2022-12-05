@@ -2,10 +2,18 @@
     .modal {
         overflow-y: auto;
     }
+
     .toast-error {
-    background-color: #f75663d5;
-    color: white;
-}
+        background-color: #f75663d5;
+        color: white;
+
+    }
+
+    .text-justify {
+        text-align: justify;
+    }
+
+
 </style>
 <div class="container-fluid" style="margin-top: 100px;">
     <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
