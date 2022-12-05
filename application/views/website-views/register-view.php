@@ -159,6 +159,7 @@
                             <div class=" mx-md-4">
                                 <div class="tab mt-3">
                                     <h5 class="fw-semibold mb-3">Personal Information</h5>
+                                    <hr size="5" />
                                     <div class="row row-cols-1 row-cols-sm-2 mb-2">
                                         <div class="col form-group required col-md-5 px-1"><label class="form-label">First Name</label>
                                             <input class="form-control form-control-sm rounded-pill rounded-pill" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>

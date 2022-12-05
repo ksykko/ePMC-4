@@ -34,7 +34,7 @@ class Patient_schedule extends CI_Controller
 				$data['data'][$key]['backgroundColor'] = "#" . $value->color;
 			}
 
-            $this->dd($data['result']);
+            //$this->dd($data['result']);
 
             $id = $this->session->userdata('id');
             $un_id = $this->session->userdata('un_patient_id');

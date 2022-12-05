@@ -91,6 +91,7 @@ class Admin extends CI_Controller
 
             $row = array();
 
+            $row[] = $no;
             $row[] = '
             
                 <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $user->avatar . '" /> ' . $user->first_name . ' ' . $user->last_name . '
@@ -133,6 +134,7 @@ class Admin extends CI_Controller
 
             $row = array();
 
+            $row[] = $no;
             $row[] = '
             
                 <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $user->avatar . '" /> ' . $user->un_patient_id . '
