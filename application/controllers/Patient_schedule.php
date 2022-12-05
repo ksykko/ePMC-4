@@ -24,21 +24,26 @@ class Patient_schedule extends CI_Controller
 		if ($this->session->userdata('logged_in')) {
 			//Get doctors list from schedule table
 			$data['doctors'] = $this->schedModel->get_unique_docnames();
-			$data['result'] = $this->db->get("patient_schedule")->result();
+			$data['user_un_id'] = $this->session->userdata('un_patient_id');
 
-			foreach ($data['result'] as $key => $value) {
-				$data['data'][$key]['id'] = $value->schedule_id;
-				$data['data'][$key]['title'] = $value->un_patient_id;
-				$data['data'][$key]['start'] = $value->date;
-                $data['data'][$key]['description'] = $value->doctor_name;
-				$data['data'][$key]['backgroundColor'] = "#" . $value->color;
-			}
-
+            $data['result'] = $this->Patient_model->get_patient_sched($data['user_un_id']);
+            // $this->dd($data['result']);
+			
+            foreach ($data['result'] as $key => $value) {
+                $data['data'][$key]['id'] = $value->schedule_id;
+                $data['data'][$key]['title'] = $value->un_patient_id;
+                $data['data'][$key]['start'] = $value->date;
+                $data['data'][$key]['doctor_name'] = $value->doctor_name;
+                $data['data'][$key]['patient_name'] = $value->patient_name;
+                $data['data'][$key]['color'] = $value->color;
+                $data['data'][$key]['status'] = $value->status;
+            }
+            
             // $this->dd($data['result']);
 
             $id = $this->session->userdata('id');
             $un_id = $this->session->userdata('un_patient_id');
-            $data['user_un_id'] = $this->session->userdata('un_patient_id');
+            
             $data['user_role'] = $this->session->userdata('role');
             $data['user_age'] = $this->session->userdata('age');
             $data['user_birthday'] = $this->session->userdata('birth_date');
@@ -48,8 +53,8 @@ class Patient_schedule extends CI_Controller
             $data['user_address'] = $this->session->userdata('address');
 
             $data['patient'] = $this->Patient_model->get_patient_row($id);
-             $data['patient_sched'] = $this->Patient_model->get_patient_sched_row($un_id);
-            $data['patient_un_id'] = $this->Patient_model->get_patient_unique_id($un_id);
+            $data['patient_sched'] = $this->Patient_model->get_patient_sched_row($un_id);
+            // $data['patient_un_id'] = $this->Patient_model->get_patient_unique_id($un_id);
 
 			if ($data['user_role'] == 'Admin') {
 				$data['title'] = 'Admin - Schedule | ePMC';
@@ -68,7 +73,6 @@ class Patient_schedule extends CI_Controller
 			$id = $this->session->userdata('schedule_id');
 			$data['schedule'] = $this->schedModel->get_schedule_row($id);
 			$data['schedules'] = $this->schedModel->get_schedule_table();
-            $data['p_sched'] = $this->Patient_model->get_patient_sched_table();
             // $this->dd($data['p_sched']);
 
 

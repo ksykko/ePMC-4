@@ -363,7 +363,7 @@
                                 <div class="col">
                                     <div class="input-error">
                                         <div class="input-group">
-                                                <input type="text" class="form-control" name="patient_name" id="patient_name" value="<?= $patient_sched->patient_name ?>" disabled>
+                                                <input type="text" class="form-control" name="patient_name" id="patient_name" disabled>
                                         </div>
     
                                     </div>
@@ -378,7 +378,7 @@
                                             <?php if ($user_role == 'Admin') : ?>
                                                 <input type="datetime-local" class="form-control" name="end_date_edit" id="end_date_edit">   
                                             <?php else : ?> 
-                                                <input type="text" class="form-control" name="doctor_name" id="doctor_name" value="<?= $patient_sched->doctor_name ?>" disabled>
+                                                <input type="text" class="form-control" name="doctor_name" id="doctor_name"  disabled>
                                             <?php endif; ?> 
                                             
                                         </div>
@@ -394,12 +394,8 @@
                                     <div class="input-error">
                                         <div class="input-group">
                                             <!-- set time to 7:00 am -->
-                                            <?php if ($user_role == 'Admin') : ?>
-                                                <input type="datetime-local" class="form-control" name="start_date_edit" id="start_date_edit">   
-                                            <?php else : ?> 
                                                 <input type="text" class="form-control" name="start_date_edit" id="start_date_edit" disabled>
-                                            <?php endif; ?> 
-                                            
+                                          
                                         </div>
     
                                     </div>
@@ -412,13 +408,7 @@
                                 <div class="col">
                                     <div class="input-error">
                                         <div class="input-group">
-                                            <?php if ($patient_sched->status == 'Confirmed') :?>
-                                                <h5 style="color: green; font-weight:600;"><?= $patient_sched->status ?></h5>
-                                            <?php elseif ($patient_sched->status == 'Declined') : ?>
-                                                <h5 style="color: red;"><?= $patient_sched->status ?></h5>
-                                            <?php else : ?>
-                                                <h5 style="color: #b8a70f;"><?= $patient_sched->status ?></h5>
-                                            <?php endif; ?>
+                                            <h5 id="status" style="color: red;"></h5>
                                         </div>
     
                                     </div>
@@ -455,6 +445,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
+
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
@@ -466,7 +458,9 @@
         dayMaxEvents: true, // allow "more" link when too many events
         events: events,
         eventClick:function(event)
-            {
+            {   
+                var doctor = events.doctor_name;
+                console.log(doctor);
                 var id = event.event.id;
                 var start_date = event.event.start;           
 
@@ -502,6 +496,7 @@
                 $('#patient-schedule-modal').find('.modal-title').text('Schedule');
                 $('#patient-schedule-modal').find('#un_patient_id').val(event.event.title);
                 $('#patient-schedule-modal').find('#start_date_edit').val(start_edit_date);
+                $('#patient-schedule-modal').find('#doctor_name').val(event.event.doctor_name);
                 
                 
 
