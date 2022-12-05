@@ -23,15 +23,19 @@ class Admin_schedule extends CI_Controller
 		if ($this->session->userdata('logged_in')) {
 			//Get doctors list from schedule table
 			$data['doctors'] = $this->schedModel->get_unique_docnames();
-			$data['result'] = $this->db->get("schedule")->result();
+			$data['result'] = $this->db->get("patient_schedule")->result();
 
+            // $this->dd($data['result']);
 			
-			foreach ($data['result'] as $key => $value) {
-				$data['data'][$key]['id'] = $value->schedule_id;
-				$data['data'][$key]['title'] = $value->doctor_name;
-				$data['data'][$key]['start'] = $value->date;
-				$data['data'][$key]['backgroundColor'] = "#" . $value->status;
-			}
+            foreach ($data['result'] as $key => $value) {
+                $data['data'][$key]['id'] = $value->schedule_id;
+                $data['data'][$key]['title'] = $value->doctor_name;
+                $data['data'][$key]['start'] = $value->date;
+                $data['data'][$key]['un_patient_id'] = $value->un_patient_id;
+                $data['data'][$key]['patient_name'] = $value->patient_name;
+                $data['data'][$key]['backgroundColor'] = '#' . $value->color;
+                $data['data'][$key]['status'] = $value->status;
+            }
 
 			$data['user_role'] = $this->session->userdata('role');
 
@@ -84,10 +88,11 @@ class Admin_schedule extends CI_Controller
 	// }
 
 	function insert(){
-			$this->form_validation->set_rules('doctor_name', 'doctor', 'required', array(
+			$this->form_validation->set_rules('doctor_name', 'Doctor', 'required', array(
 			'required' => 'Choose a %s.'
 		));
-		$this->form_validation->set_rules('date', 'Date', 'required', array(
+		$this->form_validation->set_rules('luisp', 'Date');
+		$this->form_validation->set_rules('patient_name', 'Patient Name', 'required', array(
 			'required' => 'Choose the %s.'
 		));
 		// $this->form_validation->set_rules('days[]', 'day of the week', 'required', array(
@@ -99,18 +104,18 @@ class Admin_schedule extends CI_Controller
 			$this->index();
 		} else {
 
-			$result = $this->input->post('doctor_name');
+			$result = $this->input->post('patient_name');
 			$result_explode = explode('|', $result);
-			$doctor_name = $result_explode[0];
-			$user_id = $result_explode[1];
-			$specialization = $result_explode[2];
+			$patient_name = $result_explode[0];
+			$un_patient_id = $result_explode[1];
 
 			$data = array(
-				'user_id' => $user_id,
-				'doctor_name' => $doctor_name,
-				'specialization' => $specialization,
-				'start_date' => $this->input->post('date'),
-				'status' => $this->input->post('color')
+				'un_patient_id' => $un_patient_id,
+                'patient_name' => $patient_name,
+				'doctor_name' => $this->input->post('doctor_name'),
+				'date' => str_replace('/', '-',$this->input->post('luisp')) . str_replace('/', '-',$this->input->post('jaymiep')) . str_replace('/', '-',$this->input->post('miguelp')) . str_replace('/', '-',$this->input->post('jassh')) . str_replace('/', '-',$this->input->post('defaultdtp')) . ':00',
+				'status' => 'Pending',
+                'color' => 'b8a70f',
 			);
 
 			$this->schedModel->insert_event($data);
