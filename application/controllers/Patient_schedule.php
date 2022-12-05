@@ -39,7 +39,7 @@ class Patient_schedule extends CI_Controller
                 $data['data'][$key]['status'] = $value->status;
             }
             
-            // $this->dd($data['result']);
+            //$this->dd($data['result']);
 
             $id = $this->session->userdata('id');
             $un_id = $this->session->userdata('un_patient_id');
@@ -208,7 +208,8 @@ class Patient_schedule extends CI_Controller
 		// $this->Admin_model->add_activity($activity);
 		$this->session->set_flashdata('message', 'dlt_success');
 		
-		$this->schedModel->delete_event_patient($this->input->post('id'));     
+		$this->schedModel->delete_event_patient($this->input->post('id'));
+
 	}
 	
     public function dd($data)
