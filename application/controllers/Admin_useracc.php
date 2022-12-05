@@ -46,6 +46,11 @@ class Admin_useracc extends CI_Controller
         $no = 0;
         foreach ($users->result() as $user) {
 
+            // format date_created to readable format eg. Nov 12, 2019 11:00 AM
+            $date_created = date('M d, Y h:i A', strtotime($user->date_created));
+
+            
+            
             $no++;
             $row = array();
             $row[] = $no;
@@ -56,9 +61,8 @@ class Admin_useracc extends CI_Controller
             
             ';
             $row[] = ucfirst($user->role);
-            $row[] = $user->birth_date;
+            $row[] = $date_created;
             $row[] = $user->contact_no;
-            $row[] = $user->email;
             $row[] = '
                 <td class="text-center" colspan="1">
                 
@@ -274,6 +278,7 @@ class Admin_useracc extends CI_Controller
     public function reset_password($id)
     {
         $user = $this->Admin_model->get_useracc_row($id);
+        //$this->dd($user);
 
         $info = array(
             'password' => password_hash($user->birth_date, PASSWORD_DEFAULT)

@@ -1111,13 +1111,13 @@
                                                             <div class="row mt-4 mb-2">
                                                                 <div class="col col-3 col-sm-4"><label class="col-form-label">Diagnosis:</label></div>
                                                                 <div class="col">
-                                                                    <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" disabled><?= $treatment->p_diagnosis ?></textarea></div>
+                                                                    <div class="input-group"><textarea class="form-control" id="p_diagnosis" name="p_diagnosis" style="height: 250px;" disabled><?= $this->encryption->decrypt($treatment->p_diagnosis) ?></textarea></div>
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-4 mb-2">
                                                                 <div class="col col-3 col-sm-4"><label class="col-form-label">Treatment Plan:</label></div>
                                                                 <div class="col">
-                                                                    <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" disabled><?= $treatment->p_treatment_plan ?></textarea></div>
+                                                                    <div class="input-group"><textarea class="form-control" id="p_treatment_plan" name="p_treatment_plan" style="height: 250px;" disabled><?= $this->encryption->decrypt($treatment->p_treatment_plan) ?></textarea></div>
                                                                 </div>
                                                             </div>
                                                         </div>

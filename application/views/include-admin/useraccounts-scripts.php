@@ -50,13 +50,13 @@
             },
             //Set column definition initialisation properties.
             "columnDefs": [{
-                    "targets": [6], //first column / numbering column
+                    "targets": [5], //first column / numbering column
                     "orderable": false, //set not orderable
                     "className": "text-center",
-                    "targets": [6]
+                    "targets": [5]
                 },
                 {
-                    "targets": [0, 1, 2, 3, 4, 5, 6],
+                    "targets": [0, 1, 2, 3, 4, 5],
                     "className": "align-middle"
                 },
             ]

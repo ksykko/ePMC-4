@@ -16,6 +16,12 @@
         margin-right: 10px;
     }
 </style> -->
+<style>
+    table.dataTable td {
+        font-size: 15px;
+    }
+</style>
+
 <!-- Toasts -->
 <div id="liveToastTrigger" class="toast-container top-0 p-3 toast-dialog">
     <?php if ($this->session->flashdata('message') == 'edit-user-success') : ?>
