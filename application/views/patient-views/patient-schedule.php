@@ -57,23 +57,29 @@
             </div>
         <?php endif; ?>
     </div>
+
+    <div class="d-flex mb-3">
+        <div>
+            <h1 class="d-none d-lg-inline-block patientrec-label">Schedule</h1>
+        </div>
+        <div class="d-sm-flex ms-auto d-md-flex d-lg-flex d-xxl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xxl-center align-items-xxl-center me-4">
+            <button id="btn-add-appointment" class="btn btn-sm btn-success" type="button" data-bs-toggle="modal" data-bs-target="#schedule-modal">
+                <i class="icon ion-android-add-circle ms-xl-1"></i>
+                <span class="d-none d-xl-inline-block">Add Appointment</span>
+            </button>
+        </div>
+
+    </div>
+
+
+
+
+<!-- 
     <h1 class="d-none d-sm-inline schedule-label">Schedule</h1>
     <button id="btn-add-appointment" style="float: right;" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
         <i class="icon ion-android-add-circle ms-xl-1"></i>
         <span class="d-none d-xl-inline-block">Add Appointment</span>
-    </button>
-
-    <div class="d-flex flex-row-reverse">
-        <div class="p-2">
-            <h6 style="color:red;"><i class="fas fa-circle" style="color: red;"></i> Declined</h6>
-        </div>
-        <div class="p-2">
-            <h6 style="color:#b8a70f;"><i class="fas fa-circle" style="color: #b8a70f;"></i> Pending</h6>
-        </div>
-        <div class="p-2">
-            <h6 style="color:green;"><i class="fas fa-circle" style="color: Green;"></i> Confirmed</h6>
-        </div>
-    </div>
+    </button> -->
 
     <div class="d-sm-flex d-md-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
 
@@ -417,10 +423,30 @@
 
         </div>
 
-        <div class="container" id="calendar">
 
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xxl-12 mb-4">
+            <div class="card shadow mb-4 p-5 pt-4 pb-5">
+                <div class="d-flex flex-row-reverse">
+                    <div class="p-2">
+                        <h6 style="color:red;"><i class="fas fa-circle" style="color: red;"></i> Declined</h6>
+                    </div>
+                    <div class="p-2">
+                        <h6 style="color:#b8a70f;"><i class="fas fa-circle" style="color: #b8a70f;"></i> Pending</h6>
+                    </div>
+                    <div class="p-2">
+                        <h6 style="color:green;"><i class="fas fa-circle" style="color: Green;"></i> Confirmed</h6>
+                    </div>
+                </div>
+                <div class="container" id="calendar">
+
+                </div>
+            </div>
         </div>
-
     </div>
 
     <script>
