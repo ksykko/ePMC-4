@@ -21,6 +21,7 @@ class Patient_appointment extends RestController
         $this->load->model('Appointment_model');
     }
     
+    //add appointment
     public function add_appointment_post() {
         $data=json_decode(file_get_contents('php://input'));
         
@@ -82,7 +83,9 @@ class Patient_appointment extends RestController
                     'username' => $p_appointment[$i]->username,
                     'full_name' => $p_appointment[$i]->full_name,
                     'doctor_name' => $p_appointment[$i]->doctor_name,
+                    // 'appoint date' => date('Y/m/d', $p_appointment[$i]->appointment_date),
                     'time' => date('H:i:s', strtotime($p_appointment[$i]->appointment_date)),
+
                     'status' => $p_appointment[$i]->status,
                 );
                 break;
@@ -119,6 +122,56 @@ class Patient_appointment extends RestController
                 break;
             }
         }
+        echo json_encode($response);
+    }
+
+    //update status
+    public function update_status_post() {
+        $data=json_decode(file_get_contents('php://input'));
+
+        $appointmentID=$data->appointmentID;
+        $status=$data->status;
+
+        //get row by appointment id
+        $row = $this->Appointment_model->get_row_appointment($appointmentID);
+
+        //update status
+        if(isset($row)) {
+            $response = array(
+                'status' => $status,
+            );
+            $this->Appointment_model->update_status($appointmentID, $response);
+        } 
+        else {
+            $response = array('message' => 'Appointment ID not found');
+        }
+
+        echo json_encode($response);
+
+    }
+
+    //delete appointment
+    public function delete_appointment_post() {
+        $data=json_decode(file_get_contents('php://input'));
+
+        $appointmentID=$data->appointmentID;
+
+        //get row by appointment id
+        $row = $this->Appointment_model->get_row_appointment($appointmentID);
+
+        //delete appointment
+        if(isset($row)) {
+            $this->Appointment_model->delete_appointment($appointmentID);
+            $response = array(
+                            'message' => 'Appointment deleted',
+                            'status' => 5
+                        );
+
+        } 
+        else {
+            $response = array('message' => 'Appointment ID not found');
+        }
+
         echo json_encode($response);
     }
 }
