@@ -111,6 +111,7 @@
                                     <tr>
                                         <!-- <th class="col-md-1">ID</th> -->
                                         <!-- Include avatar -->
+                                        <th>ID</th>
                                         <th class="col-md-3 align-middle">Name</th>
                                         <th class="col-md-1">Role</th>
                                         <th>Activity</th>
@@ -131,6 +132,7 @@
                                     <tr>
                                         <!-- <th class="col-md-1">ID</th> -->
                                         <!-- Include avatar -->
+                                        <th>ID</th>
                                         <th class="col-md-3 align-middle">Patient ID</th>
                                         <th class="col-md-1">Role</th>
                                         <th>Activity</th>
@@ -179,7 +181,7 @@
         $('#audit_log').DataTable({
             "processing": true,
             order: [
-                [3, 'desc']
+                [0, 'desc']
             ],
             responsive: true,
             "ajax": {
@@ -195,19 +197,24 @@
                     text: '<i class="fas fa-print"><small style="' + font + '"> Print</small></i>',
                     className: 'btn btn-dark btn-sm',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2, 3, 4]
                     }
                 }
             ],
 
 
             "columnDefs": [{
-                    "targets": [2],
+                    "targets": [3],
                     "orderable": false,
                 },
                 {
-                    "targets": [0, 1, 2, 3],
+                    "targets": [0, 1, 2, 3, 4],
                     "className": "align-middle"
+                },
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
                 }
 
             ],
@@ -219,7 +226,7 @@
         $('#patient_audit_log').DataTable({
             "processing": true,
             order: [
-                [3, 'desc']
+                [0, 'desc']
             ],
             responsive: true,
             "ajax": {
@@ -235,7 +242,7 @@
                     text: '<i class="fas fa-print"><small style="' + font + '"> Print</small></i>',
                     className: 'btn btn-dark btn-sm',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2, 3, 4]
                     }
                 }
             ],
@@ -249,6 +256,11 @@
                 {
                     "targets": [0, 1, 2, 3],
                     "className": "align-middle"
+                },
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
                 }
 
             ],

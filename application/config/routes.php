@@ -85,3 +85,5 @@ $route['patient_dashboard'] = 'api/Profile_mobile/next_consult';
 $route['add_appointment'] = 'api/Patient_appointment/add_appointment';
 $route['patient_appointment'] = 'api/Patient_appointment/patient_appointment';
 $route['adm_view_appointment'] = 'api/Patient_appointment/appointment';
+$route['adm_update_appointment'] = 'api/Patient_appointment/update_status';
+$route['patient_del_appointment'] = 'api/Patient_appointment/delete_appointment';

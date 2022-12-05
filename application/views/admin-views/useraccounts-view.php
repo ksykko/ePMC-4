@@ -78,7 +78,7 @@
 
         <div class="d-sm-flex d-md-flex d-xl-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
             <button id="btn-add-patient" onclick="formValidation()" class="btn btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#modal-1">
-                <i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add User</span>
+                <i class="icon ion-android-add-circle"></i><span class="d-none d-lg-inline-block ms-1">Add Employee</span>
             </button>
 
 
@@ -98,7 +98,7 @@
                                 <h5 class="heading-modal fw-semibold">Personal Information</h5>
                                 <hr size="5" />
                                 <div class="row row-cols-1 row-cols-sm-2 mb-2">
-                                    <div class="col form-group col-md-5 px-1"><label class="form-label">First Name</label>
+                                    <div class="col form-group required col-md-5 px-1"><label class="form-label">First Name</label>
                                         <input class="form-control form-control-sm" type="text" id="first_name" name="first_name" /><small class="text-danger"><?= form_error('first_name') ?></small>
                                         <span id="fullName_result"></span>
                                         <label id="firstName_error" class="text-danger font-monospace" style="font-size:13px"></label>
@@ -107,17 +107,17 @@
                                         <input class="form-control form-control-sm" type="text" id="middle_name" name="middle_name" /><small class="text-danger"><?= form_error('middle_name') ?></small>
                                         <label id="middleName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
-                                    <div class="col form-group col-md-3 px-1"><label class="form-label">Surname</label>
+                                    <div class="col form-group required col-md-3 px-1"><label class="form-label">Surname</label>
                                         <input class="form-control form-control-sm" type="text" id="last_name" name="last_name" /><small class="text-danger"><?= form_error('last_name') ?></small>
                                         <label id="lastName_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Username</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Username</label>
                                         <input class="form-control form-control-sm" type="text" id="username" name="username" /><small class="text-danger"><?= form_error('age') ?></small>
                                         <label id="username_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
-                                    <div class="col form-group px-1"><label class="form-label">Role</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Role</label>
                                         <select class="form-select form-select-sm" id="role" name="role" onchange='toggleDropdown();' value="<?= set_value('role'); ?>">
                                             <option value="" selected>select...</option>
                                             <option value="Admin">Admin</option>
@@ -129,7 +129,7 @@
                                 </div>
                                 <!-- Add row here if doctor -->
                                 <div class="row mb-2" id="specialization_div" style="display: none;">
-                                    <div class="col form-group px-1"><label class="form-label">Specialization</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Specialization</label>
                                         <select class="form-select form-select-sm" id="specialization" value="<?= set_value('specialization'); ?>">
                                             <option value="" selected>select...</option>
                                             <option value="Internal Medicine">Internal Medicine</option>
@@ -142,7 +142,7 @@
                                 </div>
                                 <!-- Add row here if admin -->
                                 <div class="row mb-2" id="admin_div" style="display: none;">
-                                    <div class="col form-group px-1"><label class="form-label">Position</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Position</label>
                                         <select class="form-select form-select-sm" id="admin_spec">
                                             <option value="" selected>select...</option>
                                             <option value="General Manager">General Manager</option>
@@ -154,7 +154,7 @@
                                     </div>
                                 </div>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 mb-2">
-                                    <div class="col form-group px-1"><label class="form-label">Sex</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Sex</label>
                                         <select class="form-select form-select-sm" id="sex" name="sex">
                                             <option value="" selected disabled>select ...</option>
                                             <option value="Male">Male</option>
@@ -162,7 +162,7 @@
                                         </select>
                                         <label id="sex_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
-                                    <div class="col form-group px-1"><label class="form-label">Birthday</label>
+                                    <div class="col form-group required px-1"><label class="form-label">Birthday</label>
                                         <input class="form-control form-control-sm" type="date" id="birth_date" name="birth_date" value="<?= set_value('birth_date'); ?>" />
                                         <label id="birthdate_error" class="text-danger font-monospace" style="font-size:13px"></label>
                                     </div>
@@ -246,7 +246,7 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title ms-3 fw-bolder">Edit User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h4 class="modal-title ms-3 fw-bolder">Edit Employee</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <div class="modal-body mx-5">

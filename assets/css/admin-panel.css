@@ -979,3 +979,8 @@ hr {
 .thumbnail {
     object-fit: cover;
 }
+
+.form-group.required .form-label:after {
+    content: " *";
+    color: red;
+}

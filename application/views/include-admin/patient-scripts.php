@@ -51,6 +51,12 @@
     }
 
     $(document).ready(function() {
+        if ($('#name_error').val() == '') {
+            $('#name_error').hide();
+        }
+        if ($('#firstName_error').val() == '') {
+            $('#firstName_error').hide();
+        }
         if ($('#firstName_error').val() == '') {
             $('#firstName_error').hide();
         }
@@ -81,12 +87,30 @@
         if ($('#contact_error').val() == '') {
             $('#contact_error').hide();
         }
-        if ($('#new_password_error').val() == '') {
-            $('#new_password_error').hide();
+        if ($('#ext_name_error').val() == '') {
+            $('#ext_name_error').hide();
         }
-        if ($('#conf_password_error').val() == '') {
-            $('#conf_password_error').hide();
+        if ($('#ext_age_error').val() == '') {
+            $('#ext_age_error').hide();
         }
+        if ($('#ext_birthdate_error').val() == '') {
+            $('#ext_birthdate_error').hide();
+        }
+        if ($('#ext_mob_error').val() == '') {
+            $('#ext_mob_error').hide();
+        }
+        if ($('#ext_tel_error').val() == '') {
+            $('#ext_tel_error').hide();
+        }
+        if ($('#ext_weight_error').val() == '') {
+            $('#ext_weight_error').hide();
+        }
+        if ($('#ext_height_error').val() == '') {
+            $('#ext_height_error').hide();
+        }
+
+
+        
     });
 
 
@@ -108,9 +132,6 @@
         ec_name = document.getElementById('ec_name'),
         relationship = document.getElementById('relationship'),
         ec_contact = document.getElementById('ec_contact_no');
-
-
-    
 
 
     first_name.onblur = function() {
@@ -203,47 +224,6 @@
         }
     }
 
-    var age_imp = document.getElementById('age_imp');
-
-    age_imp.onblur = function() {
-        if (age_imp.value < 0 || age_imp.value > 120) {
-            $('#age_imp_error').show();
-            $('#age_imp_error').html('Age must be between 0 and 120');
-
-            $('#age_imp').removeClass('warning');
-            $('#age_imp').removeClass('valid');
-            $('#age_imp').addClass('invalid');
-            //$('#age_imp').focus();
-
-            input_valid = false;
-
-        } else if (isNaN(age_imp.value)) {
-            $('#age_imp').removeClass('warning');
-            $('#age_imp').addClass('invalid');
-
-            // add error message
-            $('#age_imp_error').show();
-            $('#age_imp_error').html('Invalid age');
-            input_valid = false;
-
-        } else if (age_imp.value == '') {
-            $('#age_imp').removeClass('invalid');
-            $('#age_imp').addClass('warning');
-
-            $('#age_imp_error').hide();
-            $('#age_imp_error').html('');
-
-            input_valid = true;
-        } else {
-            $('#age_imp_error').hide();
-
-            $('#age_imp').removeClass('warning');
-            $('#age_imp').removeClass('invalid');
-            $('#age_imp').addClass('valid');
-            input_valid = true;
-        }
-    }
-
     birthdate.onblur = function() {
         if (birthdate.value == '') {
             $('#birth_date').removeClass('invalid');
@@ -309,12 +289,6 @@
 
 
             input_valid = true;
-
-        } else if (sex.value == 'Male' || sex.value == 'Female') {
-            $('#sex').removeClass('warning');
-            $('#sex').addClass('valid');
-
-
         } else {
             $('#sex').removeClass('warning');
             $('#sex').addClass('valid');
@@ -324,7 +298,7 @@
     }
 
     civil_status.onblur = function() {
-        if (civil_status.value == '' || civil_status.value == null) {
+        if (civil_status.value == '') {
             $('#civil_status').removeClass('valid');
             $('#civil_status').addClass('warning');
 
@@ -423,8 +397,6 @@
         }
     }
 
-
-
     // validateEmail
     var email_regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -517,6 +489,7 @@
 
 
 
+
     function validateForm() {
         //console.log(input_valid);
 
@@ -536,29 +509,29 @@
             email = $('#email').val(),
             ec_name = $('#ec_name').val(),
             relationship = $('#relationship').val(),
-            ec_contact = $('#ec_contact_no').val(),
+            ec_contact = $('#ec_contact_no').val();
 
 
-            // name validation
-            if (first_name == '') {
+        // name validation
+        if (first_name == '') {
 
-                $('#first_name').addClass('invalid');
+            $('#first_name').addClass('invalid');
 
-                // add error message
-                $('#firstName_error').show();
-                $('#firstName_error').html('First name is required');
+            // add error message
+            $('#firstName_error').show();
+            $('#firstName_error').html('First name is required');
 
-                input_valid = false;
-            } else {
-                // remove error message
-                $('#firstName_error').hide();
-                $('#first_name').html('');
+            input_valid = false;
+        } else {
+            // remove error message
+            $('#firstName_error').hide();
+            $('#first_name').html('');
 
-                $('#first_name').removeClass('invalid');
-                $('#first_name').addClass('valid');
+            $('#first_name').removeClass('invalid');
+            $('#first_name').addClass('valid');
 
-                input_valid = true;
-            }
+            input_valid = true;
+        }
 
         if (middle_name == '') {
             $('#middle_name').removeClass('invalid');
@@ -858,16 +831,6 @@
         return input_valid;
     }
 
-
-    function fixStepIndicator(n) {
-        // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
-        for (i = 0; i < x.length; i++) {
-            x[i].className = x[i].className.replace(" active", "");
-        }
-        //... and adds the "active" class on the current step:
-        x[n].className += " active";
-    }
 </script>
 <script>
     const toastTrigger = document.getElementById('liveToastTrigger')
