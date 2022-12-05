@@ -61,20 +61,23 @@
             </div>
         <?php endif; ?>
     </div>
+
     <?php if ($user_role == 'Admin') : ?>
-        <button id="btn-add-product" style="float: right; " class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
+        <div style="float: right;">
+            <a id="btn-view-schedule" href="<?= base_url('Admin_appointment_reqs/index') ?>" class="btn btn-sm btn-dark" type="button"><i class="fas fa-file-archive"></i><span class="d-none d-lg-inline-block ms-1">Appointments</span></a></div>
+
+        <button id="btn-add-product" style="float: right; margin-right:10px;" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
             <i class="icon ion-android-add-circle ms-xl-1"></i>
             <span class="d-none d-xl-inline-block">Add Schedule</span>
         </button>
-        <br>
-        <button id="btn-approve-product" style="float: right;" class="btn btn-success btn-sm" type="submit" >
-            <i class="icon ion-android-add-circle ms-xl-1"></i>
-            <span class="d-none d-xl-inline-block">Schedule Requests</span> 
-        </button>
+        <!-- <button id="btn-approve-product" style="float: right;" class="btn btn-info btn-sm" type="submit" >
+            <i class="fas fa-table"></i>
+            <span class="d-none d-xl-inline-block"> Appointments</span> 
+        </button> -->
+
+        
     <?php endif; ?>  
     
-        
-            
     <div class="d-sm-flex d-md-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
       
         <!-- Popup Form - Add Sched -->

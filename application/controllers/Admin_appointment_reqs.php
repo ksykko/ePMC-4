@@ -26,12 +26,13 @@ class Admin_appointment_reqs extends CI_Controller
             } else {
                 $data['title'] = 'Doctor - Archived Records | ePMC';
             }
-
+            
+            $data['specialization'] = $this->session->userdata('specialization');
 
             $this->load->view('include-admin/dashboard-header', $data);
             $this->load->view('include-admin/dashboard-navbar', $data);
             $this->load->view('admin-views/schedule-requests', $data);
-            $this->load->view('include-admin/archives-scripts');
+            $this->load->view('include-admin/patient-sched-scripts');
         } else {
             redirect('Login/signin');
         }
@@ -44,39 +45,36 @@ class Admin_appointment_reqs extends CI_Controller
         $start = intval($this->input->get("start"));
         $length = intval($this->input->get("length"));
 
-        $patients = $this->Admin_model->get_arc_patient_record();
+        $schedules = $this->Patient_model->get_patient_sched_table();
 
         $data = array();
         $no = 0;
-        foreach ($patients->result() as $patient) {
-
-            $sql_last_accessed = mysql_to_unix($patient->last_accessed);
-            $last_accessed = unix_to_human($sql_last_accessed, FALSE);
+        foreach ($schedules->result() as $schedule) {
 
             $no++;
             // $editId = 'edit-patient-' . $patient->patient_id;
             $row = array();
-            $row[] = $patient->un_patient_id;
+            $row[] = $schedule->un_patient_id;
+            $row[] = $schedule->patient_name;
+            $row[] = 'Dr. ' . $schedule->doctor_name;
+            $row[] = $schedule->date;
             $row[] = '
-        
-                <img class="rounded-circle me-2" width="50" height="50" src="' . base_url('/assets/img/profile-avatars/') . $patient->avatar . '" /> ' . $patient->first_name . ' ' . $patient->middle_name . ' ' . $patient->last_name . '
-
-            ';
-            $row[] = $last_accessed;
-            $row[] = '
-                <td class="text-center" colspan="1"> 
-                    <button class="btn btn-sm btn-info mx-2" type="button" data-bs-toggle="modal" data-bs-target="#restore-patient-' . $patient->patient_id . '"><i class="fas me-xl-2 fa-undo-alt"></i><span class="d-none d-xl-inline-block">Restore</span></button>
-                </td>
+            <div class="d-md-flex justify-content-md-center">
+                <button class="btn btn-sm btn-light" type="button" data-bs-toggle="modal" data-bs-target="#edit-diagnosis-' . $schedule->schedule_id . '">Edit</button>
+            </div>
             ';
             $data[] = $row;
         }
 
         $output = array(
             "draw" => $draw,
-            "recordsTotal" => $patients->num_rows(),
-            "recordsFiltered" => $patients->num_rows(),
+            "recordsTotal" => $schedules->num_rows(),
+            "recordsFiltered" => $schedules->num_rows(),
             "data" => $data
         );
+
+        $this->dd($output);
+        
         echo json_encode($output);
     }
 
@@ -102,5 +100,12 @@ class Admin_appointment_reqs extends CI_Controller
         $this->Admin_model->add_activity($activity);
         $this->session->set_flashdata('message', 'rstr_success');
         redirect('Admin_archives');
+    }
+
+    public function dd($data)
+    {
+        echo "<pre>";
+        die(var_dump($data));
+        echo "</pre>";
     }
 }
