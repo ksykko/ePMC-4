@@ -12,6 +12,7 @@
 
 #schedule-table {
     margin-top: 20px;
+    
 }
 
 .hidden {
@@ -233,6 +234,8 @@ table.table-fit tfoot td {
     color: #222;
     font-weight: 600;
 }
+
+
 
 .fc-daygrid-event-harness {
     cursor: pointer !important;

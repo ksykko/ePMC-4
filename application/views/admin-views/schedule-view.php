@@ -4,11 +4,18 @@
 <div class="container-fluid schedule">
     <h1 class="d-none d-sm-inline schedule-label">Schedule</h1>
     <?php if ($user_role == 'Admin') : ?>
-        <button id="btn-add-product" style="float: right;" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
+        <button id="btn-add-product" style="float: right; " class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
             <i class="icon ion-android-add-circle ms-xl-1"></i>
             <span class="d-none d-xl-inline-block">Add Schedule</span>
         </button>
+        <br>
+        <button id="btn-approve-product" style="float: right;" class="btn btn-success btn-sm" type="submit" >
+            <i class="icon ion-android-add-circle ms-xl-1"></i>
+            <span class="d-none d-xl-inline-block">Schedule Requests</span> 
+        </button>
     <?php endif; ?>  
+    
+        
             
     <div class="d-sm-flex d-md-flex justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-xl-center align-items-xl-center ms-auto me-4 p">
       
@@ -50,7 +57,7 @@
 
                         <!-- START TIME -->
                         <div class="row mt-4 mb-2">
-                            <div class="col"><label class="col-form-label">Start Date:</label></div>
+                            <div class="col"><label class="col-form-label">Date:</label></div>
                             <div class="col">
                                 <div class="input-error">
                                     <div class="input-group">
@@ -78,18 +85,7 @@
                             </div>
                         </div>
 
-                        <!-- END TIME -->
-                        <div class="row mt-4 mb-2">
-                            <div class="col"><label class="col-form-label">End Date:</label></div>
-                            <div class="col">
-                                <div class="input-error">
-                                    <div class="input-group">
-                                        <input type="datetime-local" class="form-control" name="end_date" id="end_date" >
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <!-- THEME COLOR -->
                         <div class="col"><label class="col-form-label">Choose color:</label></div>
@@ -258,8 +254,8 @@
             center: 'title',
             right: 'dayGridMonth,dayGridWeek,timeGridDay'
         },
+        initialView: 'dayGridWeek',
         initialDate: date,
-        
         dayMaxEvents: true, // allow "more" link when too many events
         events: events,
         eventClick:function(event)

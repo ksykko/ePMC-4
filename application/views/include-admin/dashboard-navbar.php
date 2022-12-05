@@ -95,12 +95,10 @@
                         <a class="nav-link" href="<?= site_url('Patient_patientrec/index') ?>"><i class="far fa-clone"></i>Patient Record</a>
                     </li>
                     <!-- change to viewing of schedules -->
-                    <li <?php if ($this->uri->segment(1) == "Admin_schedule") {
-                            echo 'class="active"';
-                        } ?> class="nav-item">
-                        <a class="nav-link" href="<?= site_url('Admin_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
-                    </li>
-                <?php } ?>
+                    <li <?php if($this->uri->segment(1) == "Admin_schedule"){echo 'class="active"';}?> class="nav-item">
+                        <a class="nav-link" href="<?= site_url('Patient_schedule/index') ?>"><i class="far fa-calendar-alt"></i>Schedule</a>
+                    </li>  
+                <?php }?>
 
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('Login/logout') ?>"><i class="fas fa-sign-out-alt"></i>Logout</a>
