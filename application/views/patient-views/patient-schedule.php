@@ -140,7 +140,7 @@
                                 <div class="input-error">
                                     <div class="input-group">
         
-                                        <input type="text" class="form-control" id="luisp" name="luisp" style="display:none"> 
+                                        <input type="text" class="form-control" id="luisp" name="luisp" style="display:none" readonly> 
                                         <input type="text" class="form-control" id="jaymiep" name="jaymiep" style="display:none"> 
                                         <input type="text" class="form-control" id="miguelp" name="miguelp" style="display:none"> 
                                         <input type="text" class="form-control" id="jassh" name="jassh" style="display:none"> 
@@ -271,15 +271,15 @@
 
                                             });
 
-                                            <?php 
-                                                foreach ($p_scheds as $p_sched) {
-                                                    if ($p_sched->un_patient_id == $patient->un_patient_id) {
-                                                        $datetime = explode(" ", $p_sched->date);
-                                                        $sched_date = $datetime[0];
-                                                        $sched_time = $datetime[1];
-                                                    }
-                                                }
-                                            ?>
+                                            // <?php 
+                                            //     foreach ($p_scheds as $p_sched) {
+                                            //         if ($p_sched->un_patient_id == $patient->un_patient_id) {
+                                            //             $datetime = explode(" ", $p_sched->date);
+                                            //             $sched_date = $datetime[0];
+                                            //             $sched_time = $datetime[1];
+                                            //         }
+                                            //     }
+                                            // ?>
 
                                             $('#jaymiep').datetimepicker({
                                                 minDate:new Date(),

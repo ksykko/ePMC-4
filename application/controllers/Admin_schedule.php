@@ -29,7 +29,7 @@ class Admin_schedule extends CI_Controller
 			foreach ($data['result'] as $key => $value) {
 				$data['data'][$key]['id'] = $value->schedule_id;
 				$data['data'][$key]['title'] = $value->doctor_name;
-				$data['data'][$key]['start'] = $value->start_date;
+				$data['data'][$key]['start'] = $value->date;
 				$data['data'][$key]['backgroundColor'] = "#" . $value->status;
 			}
 
@@ -87,7 +87,7 @@ class Admin_schedule extends CI_Controller
 			$this->form_validation->set_rules('doctor_name', 'doctor', 'required', array(
 			'required' => 'Choose a %s.'
 		));
-		$this->form_validation->set_rules('start_date', 'start date', 'required', array(
+		$this->form_validation->set_rules('date', 'Date', 'required', array(
 			'required' => 'Choose the %s.'
 		));
 		// $this->form_validation->set_rules('days[]', 'day of the week', 'required', array(
@@ -109,7 +109,7 @@ class Admin_schedule extends CI_Controller
 				'user_id' => $user_id,
 				'doctor_name' => $doctor_name,
 				'specialization' => $specialization,
-				'start_date' => $this->input->post('start_date'),
+				'start_date' => $this->input->post('date'),
 				'status' => $this->input->post('color')
 			);
 
@@ -136,7 +136,7 @@ class Admin_schedule extends CI_Controller
 	}
 
 	function update() {
-		$this->form_validation->set_rules('start_date', 'start date', 'required', array(
+		$this->form_validation->set_rules('date', 'Date', 'required', array(
 			'required' => 'Choose the %s.'
 		));
 
@@ -148,7 +148,7 @@ class Admin_schedule extends CI_Controller
 		} else {
 
 			$data = array(
-				'start_date' => $this->input->post('start_date'),
+				'date' => $this->input->post('date'),
 				'status' => $this->input->post('color')
 			);
 			
