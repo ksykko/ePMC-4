@@ -35,12 +35,7 @@
             },
 
             //Set column definition initialisation properties.
-            "columnDefs": [
-            { 
-                "targets": [ 4 ], //first column / numbering column
-                "orderable": false, //set not orderable
-            }
-            ]
+            
         });
         
     });

@@ -73,7 +73,7 @@ class Admin_appointment_reqs extends CI_Controller
             "data" => $data
         );
 
-        $this->dd($output);
+        
         
         echo json_encode($output);
     }

@@ -28,9 +28,9 @@
                     <table id="sched-list-tbl" class="table table-hover" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th class="align-middle">Patient ID</th>
+                                <th class="col-md-2 align-middle">Patient ID</th>
                                 <th class="col-md-4 align-middle">Name</th>
-                                <th class="col-md-4 align-middle">Doctor's Name</th>
+                                <th class="col-md-3 align-middle">Doctor's Name</th>
                                 <th class="col-md-3 align-middle">Date & Time</th>
                                 <th class="text-center col-md-3 align-middle">Action</th>
                             </tr>
@@ -44,3 +44,22 @@
         </div>
     </div>
 </div>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#sched-list-tbl').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            //"serverSide": true, //Feature control DataTables' server-side processing mode.
+            responsive: true,
+            "order": [], //Initial no order.
+            "ajax": {
+                url: "<?php echo site_url("Admin_appointment_reqs/datatable") ?>",
+                type: 'POST'
+            },
+
+            //Set column definition initialisation properties.
+            
+        });
+        
+    });
+</script> -->
