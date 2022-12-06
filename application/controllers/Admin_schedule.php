@@ -88,8 +88,8 @@ class Admin_schedule extends CI_Controller
 	// }
 
 	function insert(){
-			$this->form_validation->set_rules('doctor_name', 'Doctor', 'required', array(
-			'required' => 'Choose a %s.'
+		$this->form_validation->set_rules('doctor_name', 'Doctor', 'required', array(
+		'required' => 'Choose a %s.'
 		));
 		$this->form_validation->set_rules('luisp', 'Date');
 		$this->form_validation->set_rules('patient_name', 'Patient Name', 'required', array(
@@ -144,8 +144,6 @@ class Admin_schedule extends CI_Controller
 		$this->form_validation->set_rules('date', 'Date', 'required', array(
 			'required' => 'Choose the %s.'
 		));
-
-		
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('message', 'add_failed');

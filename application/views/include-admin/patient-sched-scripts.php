@@ -3,7 +3,7 @@
 <script src="<?= base_url('/assets/js/dashboard-header.js') ?>"></script>
 <script src="<?= base_url('/assets/bootstrap/js/bootstrap.min.js') ?>"></script>
 
-<!-- <script>
+<script>
     const toastTrigger = document.getElementById('liveToastTrigger')
     const toastLiveExample = document.getElementById('liveToast')
 
@@ -20,8 +20,7 @@
             toast.show()
         })
     }
-</script> -->
-
+</script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#sched-list-tbl').DataTable({
@@ -35,11 +34,28 @@
             },
 
             //Set column definition initialisation properties.
-            
+            "columnDefs": [
+                {
+                    "targets": [4],
+                    render: function(data, type, row) {
+                        if (data == 'Confirmed') {
+                            return '<span class="badge bg-success">Confirmed</span>';
+                        } else if (data == 'Cancelled') {
+                            return '<span class="badge bg-danger">Cancelled</span>';
+                        }
+                        else {
+                            return '<span class="badge bg-warning">Pending</span>';
+                        }
+                    },
+                    "targets": [4],
+                    "className": "text-center"
+                }
+            ]
         });
         
     });
 </script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>

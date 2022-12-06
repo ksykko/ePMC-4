@@ -144,7 +144,7 @@
 
                         <!-- START TIME -->
                         <div class="row mt-4 mb-2">
-                            <div class="col"><label class="col-form-label">Date:</label></div>
+                            <div class="col"><label class="col-form-label">Date and Time:</label></div>
                             <div class="col">
                                 <div class="input-error">
                                     <div class="input-group">
@@ -375,12 +375,7 @@
                             <div class="col">
                                 <div class="input-error">
                                     <div class="input-group">
-                                        <?php if ($user_role == 'Admin') : ?>
-                                            <input type="datetime-local" class="form-control" name="end_date_edit" id="end_date_edit">
-                                        <?php else : ?>
-                                            <input type="text" class="form-control" name="doctor_name" id="doctor_name" disabled>
-                                        <?php endif; ?>
-
+                                        <input type="text" class="form-control" name="doctor_name" id="doctor_name" disabled>
                                     </div>
 
                                 </div>
@@ -413,7 +408,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger btn-sm " type="submit" id="deleteBtn" name="Delete" style="width:200px; outline:none; box-shadow: none; border:0; float:right;"> Delete Schedule</button>
+                        <button class="btn btn-danger btn-sm" type="submit" id="deleteBtn" name="Delete" style="width:200px; outline:none; box-shadow: none; border:0; float:right;"> Delete Schedule</button>
                     </div>
                 </div>
 
@@ -431,7 +426,7 @@
             <div class="card shadow mb-4 p-5 pt-4 pb-5">
                 <div class="d-flex flex-row-reverse">
                     <div class="p-2">
-                        <h6 style="color:red;"><i class="fas fa-circle" style="color: red;"></i> Declined</h6>
+                        <h6 style="color:red;"><i class="fas fa-circle" style="color: red;"></i> Cancelled</h6>
                     </div>
                     <div class="p-2">
                         <h6 style="color:#b8a70f;"><i class="fas fa-circle" style="color: #b8a70f;"></i> Pending</h6>
@@ -513,16 +508,20 @@
                     $('#patient-schedule-modal').find('#start_date_edit').val(start_edit_date);
                     $('#patient-schedule-modal').find('#doctor_name').val(doctor_name);
                     $('#patient-schedule-modal').find('#patient_name').val(patient_name);
+                    
 
                     $('#patient-schedule-modal').find('#status').text(status);
 
 
                     if (status == 'Cancelled') {
                         $('#patient-schedule-modal').find('#status').css('color', 'red');
+                        $('#patient-schedule-modal').find('#deleteBtn').show();
                     } else if (status == 'Confirmed') {
                         $('#patient-schedule-modal').find('#status').css('color', 'green');
+                        $('#patient-schedule-modal').find('#deleteBtn').hide();
                     } else {
                         $('#patient-schedule-modal').find('#status').css('color', '#b8a70f');
+                        $('#patient-schedule-modal').find('#deleteBtn').show();
                     } 
 
 
