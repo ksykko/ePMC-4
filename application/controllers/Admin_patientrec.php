@@ -330,7 +330,7 @@ class Admin_patientrec extends CI_Controller
                 'relationship' => $this->input->post('relationship'),
                 'ec_contact_no' => $this->input->post('ec_contact_no'),
                 'password' => $hashed_password,
-                'type' => 'added',
+                'type' => 'import', // ! change to 'added' when done importing
                 'role' => 'patient',
                 'avatar' => 'default-avatar.png',
                 'last_checkup' => date('Y-m-d H:i:s'),
