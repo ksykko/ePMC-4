@@ -539,7 +539,7 @@
                         $('#patient-schedule-modal').find('#deleteBtn').show();
                     } 
 
-                    //$('#delete-dialog').modal({backdrop: 'static', keyboard: false});
+                    $('#delete-dialog').modal({backdrop: 'static', keyboard: false});
 
                     $('#deleteBtn').on("click", function() {
                         $('#delete-dialog').modal('show');
