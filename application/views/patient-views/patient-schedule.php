@@ -561,7 +561,6 @@
                                 location.reload();
                                 event.fullCalendar('refetchEvents');
                             }
-
                         })    
                     });
                 }
