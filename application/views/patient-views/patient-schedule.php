@@ -408,6 +408,19 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <div id="delete-dialog" class="modal fade" role="dialog" tabindex="-1">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title modal-title ms-3 fw-bolder">Delete an Appointment</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this appointment?</p>
+                                    </div>
+                                    <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" id="confirmDelete" type="button">Confirm</a></div>
+                                </div>
+                            </div>
+                        </div>
                         <button class="btn btn-danger btn-sm" type="submit" id="deleteBtn" name="Delete" style="width:200px; outline:none; box-shadow: none; border:0; float:right;"> Delete Schedule</button>
                     </div>
                 </div>
@@ -527,7 +540,11 @@
 
 
                     $('#deleteBtn').on("click", function() {
+                        // $('#patient-schedule-modal').modal('hide');
+                        $('#delete-dialog').modal('show');
+                    });
 
+                    $('#confirmDelete').on("click", function() {
                         $.ajax({
                             url: "<?= base_url('Patient_schedule/delete/'); ?>",
                             type: "POST",
@@ -539,8 +556,7 @@
                                 event.fullCalendar('refetchEvents');
                             }
 
-                        })
-
+                        })    
                     });
                 }
             });
