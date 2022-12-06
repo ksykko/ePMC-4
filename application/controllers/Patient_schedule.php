@@ -31,9 +31,10 @@ class Patient_schedule extends CI_Controller
 			
             foreach ($data['result'] as $key => $value) {
                 $data['data'][$key]['id'] = $value->schedule_id;
-                $data['data'][$key]['title'] = $value->un_patient_id;
+                $data['data'][$key]['title'] = $value->doctor_name;
                 $data['data'][$key]['start'] = $value->date;
                 $data['data'][$key]['doctor_name'] = $value->doctor_name;
+				$data['data'][$key]['un_id'] = $value->un_patient_id;
                 $data['data'][$key]['patient_name'] = $value->patient_name;
                 $data['data'][$key]['backgroundColor'] = '#'.$value->color;
                 $data['data'][$key]['status'] = $value->status;

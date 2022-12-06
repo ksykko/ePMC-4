@@ -61,11 +61,13 @@
             </div>
         <?php endif; ?>
     </div>
+    
+    <div style="float: right;">
+            <a id="btn-view-schedule" href="<?= base_url('Admin_appointment_reqs/index') ?>" class="btn btn-sm btn-dark" type="button"><i class="fas fa-file-archive"></i><span class="d-none d-lg-inline-block ms-1">Appointments</span></a>
+    </div>
 
     <?php if ($user_role == 'Admin') : ?>
-        <div style="float: right;">
-            <a id="btn-view-schedule" href="<?= base_url('Admin_appointment_reqs/index') ?>" class="btn btn-sm btn-dark" type="button"><i class="fas fa-file-archive"></i><span class="d-none d-lg-inline-block ms-1">Appointments</span></a></div>
-
+       
         <button id="btn-add-product" style="float: right; margin-right:10px;" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#schedule-modal" type="button">
             <i class="icon ion-android-add-circle ms-xl-1"></i>
             <span class="d-none d-xl-inline-block">Add Schedule</span>
@@ -409,10 +411,12 @@
 
         
     </div>
+    <div class="w-100 card shadow mt-4 mb-4 p-5 pt-4 pb-5">
+        <div class="container-fluid" id="calendar">
 
-    <div class="container" id="calendar">
-
+        </div>    
     </div>
+    
 
 </div>
 

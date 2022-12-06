@@ -435,9 +435,9 @@
                         <h6 style="color:green;"><i class="fas fa-circle" style="color: Green;"></i> Confirmed</h6>
                     </div>
                 </div>
-                <div class="container" id="calendar">
+                    <div class="container-fluid" id="calendar">
 
-                </div>
+                    </div>   
             </div>
         </div>
     </div>
@@ -470,6 +470,7 @@
                     var doctor_name = event.event._def.extendedProps.doctor_name;
                     var patient_name = event.event._def.extendedProps.patient_name;
                     var status = event.event._def.extendedProps.status;
+                    var un_id = event.event._def.extendedProps.un_id;
 
                     var id = event.event.id;
                     var start_date = event.event.start;
@@ -504,7 +505,7 @@
 
                     $('#patient-schedule-modal').modal('show');
                     $('#patient-schedule-modal').find('.modal-title').text('Schedule');
-                    $('#patient-schedule-modal').find('#un_patient_id').val(event.event.title);
+                    $('#patient-schedule-modal').find('#un_patient_id').val(un_id);
                     $('#patient-schedule-modal').find('#start_date_edit').val(start_edit_date);
                     $('#patient-schedule-modal').find('#doctor_name').val(doctor_name);
                     $('#patient-schedule-modal').find('#patient_name').val(patient_name);
