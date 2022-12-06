@@ -215,9 +215,8 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Role</th>
-                                <th>Birthdate</th>
+                                <th>Date Created</th>
                                 <th>Contact #</th>
-                                <th>Email</th>
                                 <th class="text-center col-md-2">Action</th>
                             </tr>
                         </thead>
@@ -227,10 +226,10 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title ms-3 fw-bolder">Delete User</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h4 class="modal-title ms-3 fw-bolder">Delete Employee</h4><button class="btn-close shadow-none" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this user?</p>
+                                                <p class="d-md-flex justify-content-md-center align-items-md-center"><i class="fa fa-warning me-1 text-warning"></i>Are you sure you want to delete this employee?</p>
                                             </div>
                                             <div class="modal-footer"><button class="btn btn-sm btn-light" type="button" data-bs-dismiss="modal">Close</button><a class="btn btn-sm btn-danger" href="<?= base_url('Admin_useracc/delete_useracc/') . $user->user_id ?>" type="button">Confirm</a></div>
                                         </div>

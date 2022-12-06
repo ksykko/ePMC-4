@@ -207,7 +207,7 @@ class Register extends CI_Controller
         $this->load->view('include-website/head', $data);
         $this->load->view('include-website/navbar');
         $this->load->view('website-views/verify-view');
-
+        $this->load->view('include-website/footer');
         $this->load->view('include-website/scripts');
     }
 

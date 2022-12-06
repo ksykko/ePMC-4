@@ -20,6 +20,13 @@
                 url: "<?php echo site_url("Admin/datatable") ?>",
                 type: 'POST'
             },
+ 
+            // column font size: 8px  
+
+
+
+
+
 
 
         });
